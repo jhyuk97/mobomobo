@@ -1,7 +1,7 @@
 # mobomobo
 mobomobo 프로젝트 초기입니다
 
-maven설정
+maven설정<br>
 ojdbc repository추가
 mybatis-spring
 mybatis
