@@ -2,13 +2,13 @@
 mobomobo 프로젝트 초기입니다
 
 maven설정<br>
-ojdbc repository추가
-mybatis-spring
-mybatis
-spring-jdbc
-ojdbc6
-commons-fileupload
-(commons-io는 자동 추가)
+ojdbc repository추가<br>
+mybatis-spring<br>
+mybatis<br>
+spring-jdbc<br>
+ojdbc6<br>
+commons-fileupload<br>
+(commons-io는 자동 추가)<br>
 
 텍스트에디터설정
 스마트에디터 resources내부 저장
