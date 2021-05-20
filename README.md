@@ -12,7 +12,8 @@ commons-fileupload<br>
 
 텍스트에디터설정<br>
 스마트에디터 resources내부 저장<br>
-(이미지 저장되는곳 프로젝트/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/mobomobo/resource/emp 폴더 내부)<br>
+(이미지 저장되는곳 프로젝트
+/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/mobomobo/resource/emp 폴더 내부)<br>
 <br>
 프로젝트파일만 드렸기때문에 지금사용하시는 워크스페이스에 추가하셔서 사용하셔도되고<br>
 새로 워크스페이스 생성해서 작업하셔도됩니다<br>
