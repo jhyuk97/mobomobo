@@ -36,4 +36,8 @@ public class HomeController {
 		return "test";
 	}
 	
+	
+	//수연 테스트-------
+	
+	
 }
