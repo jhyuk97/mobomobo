@@ -1,5 +1,5 @@
 # mobomobo
-mobomobo 프로젝트 초기입니다
+mobomobo 프로젝트 초기설정입니다
 
 maven설정<br>
 ojdbc repository추가<br>
