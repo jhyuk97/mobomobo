@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping(value="/admin")
 public class AdminController {
 	
 	//로깅 객체
@@ -16,14 +15,14 @@ public class AdminController {
 		= LoggerFactory.getLogger(AdminController.class);
 
 
-		@RequestMapping(value="/main")
+		@RequestMapping(value="/admin/main")
 		public void main() {
 	
 			logger.info("관리자페이지");
 	
 			}
 
-		@RequestMapping(value="/login")
+		@RequestMapping(value="/admin/login")
 		public void login() {
 			
 			logger.info("관리자 로그인 페이지");
@@ -31,7 +30,7 @@ public class AdminController {
 		}
 		
 		
-		@RequestMapping(value="/tables")
+		@RequestMapping(value="/admin/tables")
 		public void tables() {
 			
 			logger.info("게시판 테이블 예시");
