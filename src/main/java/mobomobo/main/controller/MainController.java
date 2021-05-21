@@ -21,6 +21,7 @@ public class MainController {
 		
 		logger.info("mobo 메인 페이지 [get]");
 		
+		
 	}
 	
 	

@@ -43,7 +43,6 @@
                 <div class="row pt-2">
                     <div class="col-12">
                         <p class="text-left text-light">
-                       
                             Copyright &copy; 2021 MOBOMOBO
                             | 조수연 김용환 이진채 지수민 최수빈 최재혁
                             
