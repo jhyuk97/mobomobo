@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
    
 <head>
     <title>MOBOMOBO</title>
@@ -125,12 +126,17 @@ p {
                 <li class="nav-item dropdown">
                 <div class="navbar align-self-center d-flex">
                  
-                    <a class="nav-link " href="about.html" id="navbarDropdown"
+                    <a class="nav-link " href="#" id="navbarDropdown"
                              role="button" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false"><i class="fa fa-fw fa-user text-dark mr-3"></i></a>
-                           <div id="menufont" class="dropdown-menu" aria-labelledby="navbarDropdown">                  
-                <a class="dropdown-item" href="single-blog.html"><div class="menufont">로그인</div></a>
-                             <a class="dropdown-item" href="single-blog.html"><div class="menufont">회원가입</div></a>
+                           <div id="menufont" class="dropdown-menu" aria-labelledby="navbarDropdown">  
+                           		<c:choose><c:when test="${empty login }">               
+                <a class="dropdown-item" href="/mobo/signin/login"><div class="menufont">로그인</div></a>
+                             <a class="dropdown-item" href="/mobo/signup/form"><div class="menufont">회원가입</div></a>
+                					</c:when></c:choose>
+                				<c:choose><c:when test="${login }">      
+                <a class="dropdown-item" href="/mobo/signin/logout"><div class="menufont">로그아웃</div></a>
+                					</c:when></c:choose>
                 </div>
                 </div>
                 </li>
