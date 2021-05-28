@@ -1,3 +1,5 @@
-pom.properties
+#pom.properties 이그노어
+*.properties
 
-MANIFEST.MF
+#MANIFEST 이그노어
+*.MF
