@@ -2,7 +2,22 @@
     pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/mobo/layout/header.jsp" %>
 <script type="text/javascript" >
-	
+	$(function(){
+		$.ajax({
+			method:"GET",
+			url:"https://dapi.kakao.com/v3/search/book?target=title",
+			data:{query = "미움받을 용기"},
+			headers:{ Authoriztion: "KakaoAK 7ab4fb38af1de0cf515ccc51bc417dd5"},
+		})
+			.done(function(msg) {
+				
+				console.log(msg)
+				$("#text1").append("<strong>"+msg.documents[0].title+"</strong>");
+			})
+	})
+
+
+
 </script>
 
 
@@ -41,7 +56,7 @@
                              <!--   <li class="text-muted text-right">$240.00</li> -->  
                             </ul>
                             <a href="shop-single.html" class="h2 text-decoration-none text-dark">빈센조</a>
-                            <p class="card-text">
+                            <p class="card-text" id="text1">
                                	송중기송중기송중기송중기송중기송중기송중기송중기송중기송중기송중기송중기송중기송중기송중기
                             </p>
                             <p class="text-muted">Reviews (24)</p>
@@ -100,7 +115,7 @@
         </div>
     </section>
     <!-- End Featured Product -->
-
+<!-- ---------------------------------------------------------------------- -->
 
 
 
