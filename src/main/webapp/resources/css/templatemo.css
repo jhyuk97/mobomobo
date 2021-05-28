@@ -27,6 +27,7 @@ Table of contents
 
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Pen+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
 
 @font-face {
     font-family: 'Jal_Onuel';
@@ -35,6 +36,17 @@ Table of contents
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Noto Sans KR', sans-serif;;
+    src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+a { text-decoration:none; }
+
 
 /* Typography */
 body, ul, li, p, a, label, input, div {	
@@ -42,6 +54,8 @@ body, ul, li, p, a, label, input, div {
   font-size: 18px !important;
   font-weight: 300 !important;
 }
+
+
 .h1 {
   font-family: 'Jal_Onuel';
   font-size: 48px !important;

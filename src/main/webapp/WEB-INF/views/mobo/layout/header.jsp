@@ -24,13 +24,22 @@
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="/resources/css/fontawesome.min.css">
+    
+<!-- 폰트를 넣으려는 부분에 a 태그가 있으면 먹히지 않습니다...a태그가 필수라면 그 안쪽으로 폰트 아이디나 클래스를 설정해 여기다 넣어주세요. 
+전체적으로 제가 '잘풀리는오늘' 폰트를 적용해 놔서 이게 공통적으로 적용되는데요. 어떤 부분만 바꾸고 싶을 때는 a 태그 안쪽에 넣어주셔야 합니다.
+div 태그 느낌표 뜨는 거...해결 방법 아시면 알려주세염 그냥 있어도 적용은 다 되네염 
+각자 게시판에 다른 폰트를 적용하고 싶으시면 꼭 임포트 여기서 해서 그 부분에 아이디나 클래스 정해서 사용하심 적용되실 거예여  -->
 
+
+
+<!-- 헤더 푸터 기본 css는 templatemo.css 입니다  -->
 
 <style>
 
 
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Pen+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
 
 @font-face {
     font-family: 'Jal_Onuel';
@@ -39,9 +48,27 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Noto Sans KR', sans-serif;;
+    src: url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 p {
 	font-size: 20px;
 	font-family: 'Jal_Onuel';
+}
+
+#p {
+		font-size: 20px;
+	font-family: 'Noto Sans KR';
+
+}
+
+#title {
+	font-size: 40px;
+	font-family: 'Jal_Onuel'
 }
 
 .h2 {
@@ -99,12 +126,12 @@ p {
                        <a class="nav-link" href="index.html"><div class="menufont">공지사항</div></a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link " href="about.html" id="navbarDropdown"
+                            <a class="nav-link " id="navbarDropdown"
                              role="button" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false"><div class="menufont">영화</div></a>
                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="blog.html"><div class="menufont">영화추천</div></a>
-                             <a class="dropdown-item" href="single-blog.html"><div class="menufont">영화명장면</div></a>
+                              <a class="dropdown-item" href="/mobo/movie/movierecom"><div class="menufont">영화추천</div></a>
+                             <a class="dropdown-item" href="/mobo/movie/moviebestboard"><div class="menufont">영화명장면</div></a>
                              <a class="dropdown-item" href="single-blog.html"><div class="menufont">영화토론</div></a>
                              </div>
                         </li>
