@@ -4,6 +4,7 @@
 <%@include file="/WEB-INF/views/mobo/layout/header.jsp" %>
 
 
+
     <!-- Modal ?? 추후 삭제 -->
     <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
