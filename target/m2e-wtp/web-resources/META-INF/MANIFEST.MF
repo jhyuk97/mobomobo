@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Built-By: HP
 Build-Jdk: 1.8.0_282
 Created-By: Maven Integration for Eclipse
 
+=======
+Manifest-Version: 1.0
+Built-By: choi1
+Build-Jdk: 1.8.0_275
+Created-By: Maven Integration for Eclipse
+
+>>>>>>> 9972eafd189000cef10e848350952ddea980d355
