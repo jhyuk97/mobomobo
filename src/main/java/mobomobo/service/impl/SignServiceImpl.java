@@ -1,0 +1,142 @@
+package mobomobo.service.impl;
+
+
+import java.util.Random;
+import javax.mail.internet.MimeMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import mobomobo.dao.face.SignDao;
+import mobomobo.dto.UserInfo;
+import mobomobo.service.face.SignService;
+
+@Service
+public class SignServiceImpl implements SignService{
+
+	@Autowired
+	private SignDao signDao;
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	//로깅 객체
+	private static final Logger logger = LoggerFactory.getLogger(SignServiceImpl.class);
+	
+
+	
+	@Override
+	public int signIdCheck(String id) {
+		
+		int res = -1;
+		
+//		logger.info("SignService - signIdCheck ");
+		
+		res = signDao.selectId(id);
+		
+//		logger.info("SignService - signIdCheck의 id조회하면 나오는 값 {} ",res);
+		
+		return res;
+
+	}
+
+
+	@Override
+	public int signNickCheck(String nick) {
+		
+		int res = -1;
+		
+//		logger.info("SignService - signNickCheck");
+		
+		res = signDao.selectNick(nick);
+		
+//		logger.info("signNickCheck 의 nick 결과 값 {}", res);
+		
+		return res;
+	}
+
+	
+
+	
+	@Override
+	public String signEmailSend(String email) {
+		
+		/* 인증번호(난수) 생성 */
+		Random random = new Random();
+		int checkNum = random.nextInt(888888) + 111111;
+//		logger.info("인증번호 " + checkNum);
+		
+//		logger.info("여기서 사용자의 email을 받아올 수 있나 : {}", email);
+		
+		/* 이메일 보내기 */
+		String setFrom = "choi13698@naver.com";
+		String toMail = email;
+		String title = "회원가입 인증 이메일 입니다.";
+		String content = 
+				"mobomobo 홈페이지를 방문해주셔서 감사합니다." +
+				"<br><br>" + 
+				"인증 번호는 " + checkNum + "입니다." + 
+				"<br>" + 
+				"해당 인증번호를 인증번호 확인란에 기입하여 주세요.";		
+		
+		try {
+			
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom(setFrom);
+			helper.setTo(toMail);
+			helper.setSubject(title);
+			helper.setText(content,true);
+			mailSender.send(message);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}		
+		
+		String num = Integer.toString(checkNum);
+		
+//		logger.info("완성된 인증번호 : {}", num);
+		
+		return num;
+
+	}
+
+
+	@Override
+	@Transactional
+	public boolean join(UserInfo userInfo) {
+		
+//		logger.info("SignService - join 요청 완료");
+		
+		
+		signDao.join(userInfo);
+		
+		signDao.joinUserImg();
+		
+//		logger.info("SignService - signDao.join 성공 후 ");
+		
+
+		return true;
+		
+		
+	}
+
+
+	@Override
+	public boolean login(UserInfo userInfo) {
+		
+		int loginChk = signDao.login(userInfo);
+		
+		if(loginChk > 0)	return true;
+		else return false;
+		
+	}
+
+
+
+
+}
