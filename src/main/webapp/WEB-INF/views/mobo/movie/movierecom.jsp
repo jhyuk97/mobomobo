@@ -36,6 +36,10 @@
 
 a { text-decoration:none; }
 
+.pagingNumber {
+	cursor: pointer;
+}
+
 
 </style>
 
@@ -78,7 +82,7 @@ a { text-decoration:none; }
                   </div>
                 <div class="group-btn">
                   <button class="btn-delete" id="delete">RESET</button>
-                  <button class="btn-search" id="searchBtn" type="button" onclick="movieList()">SEARCH</button>
+                  <button class="btn-search" id="searchBtn" type="button" onclick="movieList(1); movieListPaging();">SEARCH</button>
                 </div>
               </div>
             </div>
@@ -178,26 +182,28 @@ a { text-decoration:none; }
                 <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
               </div>
             </div>
-          </div>
+          </div> 
           
         </div>
-        
-        <div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>  <!-- 여긴 알아서 바꿔주세염~ -->
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
+      
+      <div id="paging">  
+<!--         <div class="row mt-5"> -->
+<!--           <div class="col text-center"> -->
+<!--             <div class="block-27"> -->
+<!--               <ul> -->
+<!--                 <li><a href="#">&lt;</a></li> -->
+<!--                 <li class="active"><span>1</span></li> -->
+<!--                 <li><a href="#">2</a></li> -->
+<!--                 <li><a href="#">3</a></li> -->
+<!--                 <li><a href="#">4</a></li> -->
+<!--                 <li><a href="#">5</a></li> -->
+<!--                 <li><a href="#">&gt;</a></li>  여긴 알아서 바꿔주세염~ -->
+<!--               </ul> -->
+<!--             </div> -->
+<!--           </div> -->
+<!--         </div> -->
+       </div>
      </div> 
     </section>
     
@@ -258,14 +264,15 @@ a { text-decoration:none; }
   
   <script type="text/javascript">
   
-  function movieList() {
+  function movieList(curpage) {
 	  
 	  var search = $('#search').val();
 	  
 	  $.ajax({
 		  type: 'get'
 		  , url: '/mobo/movie/movierecomList'
-		  , data: {'search' : search}
+		  , data: {'search' : search
+			  	, 'curpage' : curpage}
 		  , dataType: 'json'
 		  , success: function(data) {
 			  
@@ -299,33 +306,49 @@ a { text-decoration:none; }
 			  }
 			  searchList += '</div>'
 			  searchList += '</div>'
-			  searchList += '</div>'
+			  searchList += '</div>' 
 			  
 			  }
 			  
-		      searchList += 	'<div class="row mt-5">'
-		      searchList +=    '<div class="col text-center">'
-		      searchList +=      '<div class="block-27">'
-		      searchList +=        '<ul>'
-		      searchList +=          '<li><a href="#">&lt;</a></li>'
-		      searchList +=          '<li class="active"><span>1</span></li>' 
-		      searchList +=          '<li><a href="#">2</a></li>'
-		      searchList +=          '<li><a href="#">3</a></li>'
-		      searchList +=          '<li><a href="#">4</a></li>'
-		      searchList +=          '<li><a href="#">5</a></li>'
-		      searchList +=          '<li><a href="#">&gt;</a></li>'  <!-- 여긴 알아서 바꿔주세염~ -->
-		      searchList +=        '</ul>'
-		      searchList +=      '</div>'
-		      searchList +=    '</div>'
-		      searchList +=  '</div>'
-			  
 			  searchList += '</div>'
-			  
-			  
 			  
 			  $('#movieBox').html(searchList);
 		  }
 	  })
+  }
+  
+  function movieListPaging() {
+	  
+	  var search = $('#search').val();
+	  
+	  $.ajax({
+		  type: 'get'
+		  , url: '/mobo/movie/movierecomListPaging'
+		  , data: {'search' : search}
+		  , dataType: 'json'
+		  , success: function(data) {
+  		
+			if(data > 1) {
+		  		var pagingList = "";
+		  		
+			    pagingList +=   '<div class="row mt-5">'
+				pagingList +=    '<div class="col text-center">'
+				pagingList +=      '<div class="block-27">'
+				pagingList +=        '<ul>'
+				pagingList +=          '<li><a href="#">&lt;</a></li>'
+				for(var i=1; i<=data; i++) {
+				pagingList +=          '<li><a onclick="movieList(' + i + ')" class="pagingNumber">'+ i +'</a></li>' 
+				}
+				pagingList +=          '<li><a href="#">&gt;</a></li>'
+				pagingList +=        '</ul>'
+				pagingList +=      '</div>'
+				pagingList +=    '</div>'
+				pagingList +=  '</div>'
+			
+				$('#paging').html(pagingList);
+			}
+		  }
+	  })			
   }
   
   

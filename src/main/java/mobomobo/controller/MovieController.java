@@ -41,13 +41,35 @@ public class MovieController {
 	}
 	
 	@RequestMapping(value="/movierecomList", method=RequestMethod.GET)
-	public @ResponseBody List<Movie> movieProc(String search) throws IOException, ParseException  {
+	public @ResponseBody List<Movie> movieProc(String search, int curpage) throws IOException, ParseException  {
 		
 		logger.info("검색어 : {}", search);
 		
-		List<Movie> list = movieService.getList(search);
+		System.out.println("curpage " + curpage);
+		
+		List<Movie> list = movieService.getList(search, curpage);
 		
 		return list;
+	}
+	
+	@RequestMapping(value="/movierecomListPaging")
+	public @ResponseBody int movierecomPaging(String search) throws IOException, ParseException  {
+		
+		int listCnt = movieService.getListCnt(search);
+		
+		int totalPaging = 0;
+		
+		if((listCnt%6) == 0 ) {
+			totalPaging = listCnt/6;
+		} else {
+			totalPaging = (listCnt/6) + 1;
+		}
+
+		System.out.println("listCnt " + listCnt);
+		System.out.println("result " + totalPaging);
+		
+		return totalPaging;
+				
 	}
 	
 	@RequestMapping(value="/moviedetail", method=RequestMethod.GET)

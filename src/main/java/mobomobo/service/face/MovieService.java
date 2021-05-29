@@ -9,6 +9,8 @@ import mobomobo.dto.Movie;
 
 public interface MovieService {
 
-	List<Movie> getList(String search) throws IOException, ParseException;
+	public List<Movie> getList(String search, int curpage) throws IOException, ParseException;
+
+	public int getListCnt(String search) throws IOException, ParseException;
 
 }
