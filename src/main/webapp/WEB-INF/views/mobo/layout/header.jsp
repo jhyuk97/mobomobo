@@ -140,7 +140,7 @@ p {
                              role="button" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false"><div class="menufont">책</div></a>
                                <div id="menufont" class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="blog.html"><div class="menufont">책추천</div></a>
+                              <a class="dropdown-item" href="/mobo/book/bookrecom"><div class="menufont">책추천</div></a>
                              <a class="dropdown-item" href="single-blog.html"><div class="menufont">책명대사</div></a>
                              <a class="dropdown-item" href="single-blog.html"><div class="menufont">책토론</div></a>
                              </div>
