@@ -65,9 +65,6 @@ public class MovieController {
 			totalPaging = (listCnt/6) + 1;
 		}
 
-		System.out.println("listCnt " + listCnt);
-		System.out.println("result " + totalPaging);
-		
 		return totalPaging;
 				
 	}

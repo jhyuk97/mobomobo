@@ -290,27 +290,27 @@ a { text-decoration:none; }
 			  searchList += '<div class="col-md-4">'
 			  searchList += '<div class="blog-entry">'
 			  if(data[i].image != null) {
-			  searchList += '<a href="blog-single.html" class="block-20" style="background-image: url(' + data[i].image + '); background-size:contain; height:300px">'
+			  searchList += '<a href="blog-single.html" class="block-20" style="background-image: url(' + data[i].image + '); background-size:contain; height:300px"></a>'
 			  } else { 
-			  searchList += '<a href="blog-single.html" class="block-20" style="background-image: url(/resources/img/noImage.png); background-size:contain; height:300px">'
+			  searchList += '<a href="blog-single.html" class="block-20" style="background-image: url(/resources/img/noImage.png); background-size:contain; height:300px"></a>'
 			  }
-			  searchList += '</a>'
 			  searchList += '<div class="text p-4 d-block">'
 			  searchList += '<div class="meta mb-3">'
 			  searchList += '<div><a href="#">' + data[i].title + '</a></div>'
 			  searchList += '</div>'
-			  if(data[i].directors != null) {
+			  
+			  if(data[i].directors != null ) {
 			  searchList += '<h3 class="heading"><a href="#">' + data[i].directors + ' | ' + data[i].genres + '</a></h3>'
 			  } else {
 			  searchList += '<h3 class="heading"><a href="#"> 정보 없음 | ' + data[i].genres + '</a></h3>'
-			  }
-			  searchList += '</div>'
-			  searchList += '</div>'
-			  searchList += '</div>' 
+			  
+			  searchList += '</div>' /* div.meta mb-3 end */
+			  searchList += '</div>' /* div.mb-4 end */
+			  searchList += '</div>' /* div.col-md-4 end */
 			  
 			  }
 			  
-			  searchList += '</div>'
+			  searchList += '</div>' /* div.row end */
 			  
 			  $('#movieBox').html(searchList);
 		  }
@@ -320,6 +320,8 @@ a { text-decoration:none; }
   function movieListPaging() {
 	  
 	  var search = $('#search').val();
+	  
+	  $('#paging').html("");
 	  
 	  $.ajax({
 		  type: 'get'
@@ -337,7 +339,11 @@ a { text-decoration:none; }
 				pagingList +=        '<ul>'
 				pagingList +=          '<li><a href="#">&lt;</a></li>'
 				for(var i=1; i<=data; i++) {
-				pagingList +=          '<li><a onclick="movieList(' + i + ')" class="pagingNumber">'+ i +'</a></li>' 
+					if(i == 1) {
+				pagingList +=          '<li id="selectNum' + i + '" class="active"><a onclick="movieList(' + i + '); pagingNumberColor(' + i + ',' + data + ')" class="pagingNumber">'+ i +'</a></li>' 
+					} else {
+				pagingList +=          '<li id="selectNum' + i + '"><a onclick="movieList(' + i + '); pagingNumberColor(' + i + ',' + data + ')" class="pagingNumber">'+ i +'</a></li>' 
+					}
 				}
 				pagingList +=          '<li><a href="#">&gt;</a></li>'
 				pagingList +=        '</ul>'
@@ -349,6 +355,19 @@ a { text-decoration:none; }
 			}
 		  }
 	  })			
+  }
+  
+  function pagingNumberColor(curpage, totalpage) {
+	  
+	  console.log(curpage,totalpage);
+	  
+	  $('#selectNum' + curpage).addClass('active');
+	  
+	  for(var i=1; i<=totalpage; i++) {
+		  if(i != curpage) {
+			  $('#selectNum' + i).removeClass('active');
+		  }
+	  }
   }
   
   

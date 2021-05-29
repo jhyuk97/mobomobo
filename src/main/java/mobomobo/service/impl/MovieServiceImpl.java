@@ -46,7 +46,7 @@ public class MovieServiceImpl implements MovieService{
         
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) { //정상 호출
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } else {
+        } else { //에러 발생
             rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
         }
         
@@ -97,9 +97,9 @@ public class MovieServiceImpl implements MovieService{
         
         BufferedReader rd;
         
-        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) { //정상 호출
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } else {
+        } else { //에러 발생
             rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
         }
         
