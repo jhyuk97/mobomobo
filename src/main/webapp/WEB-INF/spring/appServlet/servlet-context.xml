@@ -29,7 +29,7 @@
 	</beans:bean>
 	
 	<!--  컨트롤러, 서비스  스프링빈으로 등록하는위치 -->
-	<context:component-scan base-package="mobomobo.editor, mobomobo.admin, mobomobo.main, mobomobo.controller, mobomobo.service" />
+	<context:component-scan base-package="mobomobo.editor, mobomobo.main, mobomobo.controller, mobomobo.service" />
 	
 	
 		<!-- JSON응답용 jsonView를 스프링 bean으로 등록 -->

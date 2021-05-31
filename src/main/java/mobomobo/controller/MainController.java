@@ -1,4 +1,4 @@
-package mobomobo.main.controller;
+package mobomobo.controller;
 
 import org.slf4j.Logger;
 

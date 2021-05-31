@@ -1,6 +1,6 @@
-package mobomobo.admin.service.face;
+package mobomobo.service.face;
 
-import mobomobo.admin.util.Paging;
+import mobomobo.util.Paging;
 
 public interface AdminService {
 

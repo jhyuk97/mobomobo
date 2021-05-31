@@ -1,4 +1,4 @@
-package mobomobo.admin.controller;
+package mobomobo.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import mobomobo.admin.service.face.AdminService;
-import mobomobo.admin.util.Paging;
+import mobomobo.service.face.AdminService;
+import mobomobo.util.Paging;
 
 
 
