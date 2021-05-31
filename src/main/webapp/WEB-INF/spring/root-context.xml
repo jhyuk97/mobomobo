@@ -46,7 +46,7 @@
 
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="mobomobo.*.dao"/>
+		<property name="basePackage" value="mobomobo.dao"/>
 	</bean>
 	
 		<!-- 트랜잭션 매니저를 스프링bean으로 등록함 -->

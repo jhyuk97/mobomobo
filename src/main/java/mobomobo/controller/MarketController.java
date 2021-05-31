@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MarketController {
 	private static final Logger logger = LoggerFactory.getLogger(MarketController.class);
 	
-	@RequestMapping(value="/list", method=RequestMethod.GET)
+	@RequestMapping(value="/market", method=RequestMethod.GET)
 	public void MarketList() {
 		
 	}
