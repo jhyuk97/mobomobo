@@ -39,6 +39,10 @@ public class AdminController {
 		
 		@RequestMapping(value="/admin/movierecom")
 		public void movierecom() {
+		@RequestMapping(value = "/admin/usermanagement")
+		public void usermanager() {
+			
+			logger.info("/usermanagement 요청 완료 ");
 			
 		}
 
