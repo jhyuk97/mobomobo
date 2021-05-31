@@ -60,9 +60,9 @@ public class AdminController {
 			
 			
 			//페이징 계산
-			Paging paging = adminService.getPaging( userPaging );
-			paging.setSearch( userPaging.getSearch() );
-			logger.debug("페이징 : {}", paging);
+//			Paging paging = adminService.getPaging( userPaging );
+//			paging.setSearch( userPaging.getSearch() );
+//			logger.debug("페이징 : {}", paging);
 			
 			
 			
