@@ -287,33 +287,35 @@ a { text-decoration:none; }
 				  
 				  console.log(data[i].title);
 			        
-			  searchList += '<div class="col-md-4">'
-			  searchList += '<div class="blog-entry">'
-			  if(data[i].image != null) {
-			  searchList += '<a href="blog-single.html" class="block-20" style="background-image: url(' + data[i].image + '); background-size:contain; height:300px"></a>'
-			  } else { 
-			  searchList += '<a href="blog-single.html" class="block-20" style="background-image: url(/resources/img/noImage.png); background-size:contain; height:300px"></a>'
-			  }
-			  searchList += '<div class="text p-4 d-block">'
-			  searchList += '<div class="meta mb-3">'
-			  searchList += '<div><a href="#">' + data[i].title + '</a></div>'
-			  searchList += '</div>'
-			  
-			  if(data[i].directors != null ) {
-			  searchList += '<h3 class="heading"><a href="#">' + data[i].directors + ' | ' + data[i].genres + '</a></h3>'
-			  } else {
-			  searchList += '<h3 class="heading"><a href="#"> 정보 없음 | ' + data[i].genres + '</a></h3>'
-			  
-			  searchList += '</div>' /* div.meta mb-3 end */
-			  searchList += '</div>' /* div.mb-4 end */
-			  searchList += '</div>' /* div.col-md-4 end */
-			  
-			  }
-			  
-			  searchList += '</div>' /* div.row end */
-			  
-			  $('#movieBox').html(searchList);
-		  }
+				  searchList += '<div class="col-md-4">'
+				  searchList += '<div class="blog-entry">'
+				  if(data[i].image != null) {
+				  searchList += '<a href="blog-single.html" class="block-20" style="background-image: url(' + data[i].image + '); background-size:contain; height:300px">'
+				  } else { 
+				  searchList += '<a href="blog-single.html" class="block-20" style="background-image: url(/resources/img/noImage.png); background-size:contain; height:300px">'
+				  }
+				  searchList += '</a>'
+				  searchList += '<div class="text p-4 d-block">'
+				  searchList += '<div class="meta mb-3">'
+				  searchList += '<div><a href="#">' + data[i].title + '</a></div>'
+				  searchList += '</div>'
+				  
+				  if(data[i].directors != null ) {
+				  searchList += '<h3 class="heading"><a href="#">' + data[i].directors + ' | ' + data[i].genres + '</a></h3>'
+				  } else {
+				  searchList += '<h3 class="heading"><a href="#"> 정보 없음 | ' + data[i].genres + '</a></h3>'
+				  }
+				  
+				  searchList += '</div>' 
+				  searchList += '</div>' 
+				  searchList += '</div>' 
+				  
+				  }
+				  
+				  searchList += '</div>' 
+				  
+				  $('#movieBox').html(searchList);
+		 	 }
 	  })
   }
   

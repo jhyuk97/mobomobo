@@ -43,10 +43,6 @@ public class MovieController {
 	@RequestMapping(value="/movierecomList", method=RequestMethod.GET)
 	public @ResponseBody List<Movie> movieProc(String search, int curpage) throws IOException, ParseException  {
 		
-		logger.info("검색어 : {}", search);
-		
-		System.out.println("curpage " + curpage);
-		
 		List<Movie> list = movieService.getList(search, curpage);
 		
 		return list;
