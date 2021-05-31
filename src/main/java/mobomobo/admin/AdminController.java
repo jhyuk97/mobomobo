@@ -36,5 +36,10 @@ public class AdminController {
 			logger.info("게시판 테이블 예시");
 			
 		}
+		
+		@RequestMapping(value="/admin/movierecom")
+		public void movierecom() {
+			
+		}
 
 }
