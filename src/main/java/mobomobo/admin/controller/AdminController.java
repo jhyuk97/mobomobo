@@ -46,6 +46,7 @@ public class AdminController {
 		}
 		
 		@RequestMapping(value="/admin/movierecom")
+
 		public void movierecom() {
 		
 		}
