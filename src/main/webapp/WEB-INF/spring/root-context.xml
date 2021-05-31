@@ -37,6 +37,7 @@
 		<property name="mapperLocations">
 			<array>
 				<value>classpath:/mobomobo/dao/**/*Mapper.xml</value>
+				<value>classpath:/mobomobo/admin/dao/**/*Mapper.xml</value>
 			</array>
 		</property>
 	</bean>
@@ -45,7 +46,7 @@
 
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="mobomobo.dao"/>
+		<property name="basePackage" value="mobomobo.*.dao"/>
 	</bean>
 	
 		<!-- 트랜잭션 매니저를 스프링bean으로 등록함 -->
@@ -59,7 +60,7 @@
 <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
 	 <property name="host" value="smtp.naver.com"/> <!-- 메인서버 호스트 -->
 	 <property name="port" value="587"/> <!-- 메인서버 포트번호 -->
-	 <property name="username" value=""/> <!-- 자신의 이메일 아이디 적어주셔야해요!  -->
+	 <property name="username" value=""/> <!-- 자신의 이메일 아이디 적어주셔야해요!  serviceImpl 쪽에서도 확인해주세요!--> 
 	 <property name="password" value=""/> <!-- 자신의 비밀번호 적어주셔야 해요! -->
 	   <!-- 보안연결 SSL과 관련된 설정 -->
 	 <property name="javaMailProperties">
