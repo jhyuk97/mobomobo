@@ -40,7 +40,7 @@ public class AdminController {
 		@RequestMapping(value = "/admin/usermanagement")
 		public void usermanager() {
 			
-			logger.info("/usermanagement 요청 완료");
+			logger.info("/usermanagement 요청 완료 ");
 			
 		}
 
