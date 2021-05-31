@@ -59,10 +59,10 @@ public class AdminController {
 			logger.info("페이징 : {}", userPaging);
 			
 			
-			//페이징 계산
-//			Paging paging = adminService.getPaging( userPaging );
-//			paging.setSearch( userPaging.getSearch() );
-//			logger.debug("페이징 : {}", paging);
+//			페이징 계산
+			Paging paging = adminService.getPaging( userPaging );
+			paging.setSearch( userPaging.getSearch() );
+			logger.debug("페이징 : {}", paging);
 			
 			
 			
