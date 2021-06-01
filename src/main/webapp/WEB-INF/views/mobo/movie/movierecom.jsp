@@ -40,6 +40,10 @@ a { text-decoration:none; }
 	cursor: pointer;
 }
 
+.col-md-4 {
+	width : 25%;
+}
+
 
 </style>
 
@@ -184,26 +188,58 @@ a { text-decoration:none; }
             </div>
           </div> 
           
+           <div class="col-md-4 ftco-animate">
+            <div class="blog-entry" data-aos-delay="200">
+              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/therap.jpg');">
+              </a>
+              <div class="text p-4">
+                <div class="meta mb-3">
+                 <div><a href="#">영화</a></div>
+                </div>
+                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
+              </div>
+            </div>
+          </div> 
+          
+           <h2 class="mb-4">잭 스나이더</h2>
+           <c:forEach items="${map.list1 }" var="list1" begin="0" end="4">
+           <div class="col-md-4 ftco-animate">
+            <div class="blog-entry" data-aos-delay="200">
+              <a href="/mobo/movie/movierecomDetail?key=${list1.key }&image=${list1.image}" class="block-20" style="background-image: url('${list1.image}'); background-size:contain; height:250px;">
+              </a>
+              <div class="text p-4">
+                <div class="meta mb-3">
+                 <div><a href="/mobo/movie/movierecomDetail?key=${list1.key }&image=${list1.image}">${list1.title }</a></div>
+                </div>
+                <h3 class="heading"><a href="/mobo/movie/movierecomDetail?key=${list1.key }&=image${list1.image}">감독 | 개봉연도 | 장르 | 출연</a></h3>
+              </div>
+            </div>
+          </div> 
+           </c:forEach>
+           
+           <h2 class="mb-4">클린트 이스트우드</h2>
+           <c:forEach items="${map.list2 }" var="list2" begin="0" end="4">
+           <div class="col-md-4 ftco-animate">
+            <div class="blog-entry" data-aos-delay="200">
+              <a href="/mobo/movie/movierecomDetail?key=${list2.key }&image=${list2.image}" class="block-20" style="background-image: url('${list2.image}'); background-size:contain; height:250px;)">
+              </a>
+              <div class="text p-4">
+                <div class="meta mb-3">
+                 <div><a href="/mobo/movie/movierecomDetail?key=${list2.key }&image=${list2.image}">${list2.title }</a></div>
+                </div>
+                <h3 class="heading"><a href="/mobo/movie/movierecomDetail?key=${list2.key }&image=${list2.image}">감독 | 개봉연도 | 장르 | 출연</a></h3>
+              </div>
+            </div>
+          </div> 
+           </c:forEach>
+          
+          
+          
+          
         </div>
       </div>
       
-      <div id="paging">  
-<!--         <div class="row mt-5"> -->
-<!--           <div class="col text-center"> -->
-<!--             <div class="block-27"> -->
-<!--               <ul> -->
-<!--                 <li><a href="#">&lt;</a></li> -->
-<!--                 <li class="active"><span>1</span></li> -->
-<!--                 <li><a href="#">2</a></li> -->
-<!--                 <li><a href="#">3</a></li> -->
-<!--                 <li><a href="#">4</a></li> -->
-<!--                 <li><a href="#">5</a></li> -->
-<!--                 <li><a href="#">&gt;</a></li>  여긴 알아서 바꿔주세염~ -->
-<!--               </ul> -->
-<!--             </div> -->
-<!--           </div> -->
-<!--         </div> -->
-       </div>
+      <div id="paging"></div>
      </div> 
     </section>
     
@@ -290,20 +326,20 @@ a { text-decoration:none; }
 				  searchList += '<div class="col-md-4">'
 				  searchList += '<div class="blog-entry">'
 				  if(data[i].image != null) {
-				  searchList += '<a href="blog-single.html" class="block-20" style="background-image: url(' + data[i].image + '); background-size:contain; height:300px">'
+				  searchList += '<a href="/mobo/movie/movierecomDetail?key=' + data[i].key + '&image=' + data[i].image + '" class="block-20" style="background-image: url(' + data[i].image + '); background-size:contain; height:250px">'
 				  } else { 
-				  searchList += '<a href="blog-single.html" class="block-20" style="background-image: url(/resources/img/noImage.png); background-size:contain; height:300px">'
+				  searchList += '<a href="/mobo/movie/movierecomDetail?key=' + data[i].key + '&image=' + data[i].image + '" class="block-20" style="background-image: url(/resources/img/noImage.png); background-size:contain; height:250px">'
 				  }
 				  searchList += '</a>'
 				  searchList += '<div class="text p-4 d-block">'
 				  searchList += '<div class="meta mb-3">'
-				  searchList += '<div><a href="#">' + data[i].title + '</a></div>'
+				  searchList += '<div><a href="/mobo/movie/movierecomDetail?key=' + data[i].key + '&image=' + data[i].image + '">' + data[i].title + '</a></div>'
 				  searchList += '</div>'
 				  
 				  if(data[i].directors != null ) {
-				  searchList += '<h3 class="heading"><a href="#">' + data[i].directors + ' | ' + data[i].genres + '</a></h3>'
+				  searchList += '<h3 class="heading"><a href="/mobo/movie/movierecomDetail?key=' + data[i].key + '&image=' + data[i].image + '">' + data[i].directors + ' | ' + data[i].genres + '</a></h3>'
 				  } else {
-				  searchList += '<h3 class="heading"><a href="#"> 정보 없음 | ' + data[i].genres + '</a></h3>'
+				  searchList += '<h3 class="heading"><a href="/mobo/movie/movierecomDetail?key=' + data[i].key + '&image=' + data[i].image + '"> 정보 없음 | ' + data[i].genres + '</a></h3>'
 				  }
 				  
 				  searchList += '</div>' 
@@ -360,8 +396,6 @@ a { text-decoration:none; }
   }
   
   function pagingNumberColor(curpage, totalpage) {
-	  
-	  console.log(curpage,totalpage);
 	  
 	  $('#selectNum' + curpage).addClass('active');
 	  
