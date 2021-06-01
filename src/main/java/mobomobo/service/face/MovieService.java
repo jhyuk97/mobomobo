@@ -20,4 +20,7 @@ public interface MovieService {
 
 	public void setStarRating(MovieStarRating movieStarRating);
 
+	public double checkStarRating(MovieStarRating movieStarRating);
+
+
 }
