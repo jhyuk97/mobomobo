@@ -32,7 +32,8 @@ public class MarketController {
 		Paging paging = marketService.getPaging(inData);
 		//검색어 저장
 		paging.setSearch(inData.getSearch());
-		
+		//카테고리 저장
+		paging.setCategory(inData.getCategory());
 		
 		//중고마켓 게시글 조회
 		List<Market> mList = marketService.SelectAll(paging);

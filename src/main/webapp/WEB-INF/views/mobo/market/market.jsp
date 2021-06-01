@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:if test="${not empty param.category }">
+	<c:set var="category" value="category=${param.category }"/>
+</c:if>
 <!-- jQuery 2.2.4 -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <!-- 게시판 필수 css -->
@@ -39,9 +42,11 @@
     <script type="text/javascript">
 $(document).ready(function() {
 	
+	var category = '<c:out value="${category}"/>';
 	//검색 버튼 클릭
 	$("#btnSearch").click(function() {
-		location.href="/mobo/market?search="+$("#search").val();
+		location.href="/mobo/market?<c:out value="${category}"/>&search="+$("#search").val();
+		
 	});
 })
 </script>
@@ -115,10 +120,10 @@ a { text-decoration:none; }
                                 <a class="h3 text-dark text-decoration-none mr-3" href="#">All</a>
                             </li>
                             <li class="list-inline-item">
-                                <a class="h3 text-dark text-decoration-none mr-3" href="#">Movie</a>
+                                <a class="h3 text-dark text-decoration-none mr-3" href="/mobo/market?category=영화">Movie</a>
                             </li>
                             <li class="list-inline-item">
-                                <a class="h3 text-dark text-decoration-none" href="#">Book</a>
+                                <a class="h3 text-dark text-decoration-none" href="/mobo/market?category=책">Book</a>
                             </li>
                         </ul>
                     </div>

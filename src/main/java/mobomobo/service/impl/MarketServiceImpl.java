@@ -23,7 +23,10 @@ public class MarketServiceImpl implements MarketService {
 	@Override
 	public List<Market> SelectAll(Paging inData) {
 		
-		return marketDao.SelectAll(inData);
+		List<Market> mList = marketDao.SelectAll(inData);
+		
+		
+		return mList;
 	}
 
 	@Override

@@ -22,16 +22,23 @@
 		    SELECT rownum rnum, B.* FROM (
 		        <include refid="selectMarket"/>
 		        <include refid="titleSearch"/>
+		        <if test='category != null and !category.equals("")'>
+		        	AND mCate=#{category}
+		        </if>
 		        ORDER BY mNo DESC
 		    ) B
 		) R
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+		
 	</select>
 
 	<select id="SelectCntAll" resultType="int">
 		Select count(*) from (
 			<include refid="selectMarket"/>
 		    <include refid="titleSearch"/>
+		    <if test='category != null and !category.equals("")'>
+		        	AND mCate=#{category}
+		    </if>
 		)
 	</select>
 
