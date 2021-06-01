@@ -142,9 +142,9 @@
 	            	 $("#info").append(`<p>${'${result.documents[0].authors}'}</p>`)
 	            	 $("#info").append(`<p>${'${result.documents[0].contents}'}...</p>`)
 	            }
-		});
+		}); 
 		
-	})
+	}) 
 
 	</script>
 	
