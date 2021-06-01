@@ -5,6 +5,9 @@
 
 <%@include file="/WEB-INF/views/admin/include/sidemenu.jsp" %>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
        
        <!-- Table -->
       <div class="row">
@@ -26,13 +29,14 @@
                   </tr>
                 </thead>
                 <tbody>
+                <c:forEach items="${list }" var="userInfo">
                 <tr>
-                	<td>1</td>
-                	<td>master</td>
-                	<td>123</td>
-                	<td>10</td>
+                	<td>${userInfo.userno }</td>
+                	<td>${userInfo.name }</td>
+                	<td><fmt:formatDate value="${userInfo.joindate }" pattern="yy-MM-dd" /></td>
+                	<td>${userInfo.age }</td>
                 	<td>
-                		<select name="grade" id="grade" class="grade">
+                		<select name="grade" id="grade" class="grade"> <!-- 선택 시 form으로 묶어서 전송 or josn으로 바로바로  -->
 							<option value="admin">admin</option>
 							<option value="user">user</option>
 						</select>
@@ -41,13 +45,14 @@
                 		<button class="btn btn-default btn-xs" onclick="#">삭제</button>
                 	</td>
                 </tr>
-                 
+                 </c:forEach>
                 </tbody>
               </table>
             </div>
             <div class="card-footer py-4">
               <nav aria-label="...">
                 <ul class="pagination justify-content-end mb-0">
+                <span class="pull-left">totalUser : ${paging.totalCount }  </span>
                   <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1">
                       <i class="fas fa-angle-left"></i>
