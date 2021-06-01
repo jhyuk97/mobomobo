@@ -37,6 +37,18 @@
 .on {
 	background-image: url(/resources/img/star.png);
 }
+
+.starResult {
+	display: inline-block;
+
+	width: 15px;
+    height: 30px;
+
+	background-image: url(/resources/img/star.png);
+	background-repeat: no-repeat;
+	background-size: 200%;
+}
+
 </style>
 
 <div id="movieInfoWrap">
@@ -55,24 +67,32 @@
 <input type="hidden" value="${movie.key }" id="hiddenKey"/>
 <input type="hidden" value="${movie.title }" id="hiddenTitle"/>
 <input type="hidden" value="${movie.image }" id="hiddenImage"/>
+<input type="hidden" value="${sessionScope.userno }" id="hiddenUserno" />
 
-<div class="starBox">
-<span class="star star_left"></span>
-<span class="star star_right"></span>
-<span class="star star_left"></span>
-<span class="star star_right"></span>
-<span class="star star_left"></span>
-<span class="star star_right"></span>
-<span class="star star_left"></span>
-<span class="star star_right"></span>
-<span class="star star_left"></span>
-<span class="star star_right"></span>
+<div id="starInsertWrap">
+
+	<div class="starBox">
+		<span class="star star_left"></span>
+		<span class="star star_right"></span>
+		<span class="star star_left"></span>
+		<span class="star star_right"></span>
+		<span class="star star_left"></span>
+		<span class="star star_right"></span>
+		<span class="star star_left"></span>
+		<span class="star star_right"></span>
+		<span class="star star_left"></span>
+		<span class="star star_right"></span>
+	</div>
+	
+	<div class="star-value" id="starValue">0</div>
+	
+	<button type="button" onclick="insertStarRating()">별점 입력</button>
+
 </div>
 
-<div class="star-value" id="starValue">0</div>
 
-<button type="button" onclick="insertStarRating()">별점 입력</button>
-
+<div id="starResultWrap" >
+</div>
 
 
 </div>
@@ -81,6 +101,8 @@
 
 var idx = -1;
 $(document).ready(function() {
+	
+	checkStarRating();
 	
 	//별 클릭 이벤트
 	$(".star").click(function() {
@@ -136,6 +158,7 @@ function showStarValue(val) {
 	$(".star-value").html(val);
 }
 
+//별점 입력
 function insertStarRating() {
 	
 	var starRating = $("#starValue").html();
@@ -152,8 +175,71 @@ function insertStarRating() {
 				, 'image' : hiddenImage }
 		, success : function() {
 			
+			$("#starInsertWrap").hide();
+			$("#starResultWrap").show();
+			checkStarRating();
 		}
 	})
+}
+
+//입력한 별점 조회
+function checkStarRating() {
+	
+	var userno = $("#hiddenUserno").val();
+	var hiddenKey = $("#hiddenKey").val();
+
+	$.ajax({
+		type : 'get'
+		, url : '/mobo/movie/starRatingCheck'
+		, data : {'key' : hiddenKey}
+		, dataType : 'json'
+		, success : function(data) {
+			
+			console.log(data);
+			console.log(Number.isInteger(data));
+			
+			$("#starResultWrap").html("");
+			
+			if(data != 404) {
+				
+				$("#starInsertWrap").hide();
+				
+				var starResultWrapText = "";
+				
+				starResultWrapText += "내 별점";
+				
+				if(Number.isInteger(data)) {
+
+					for(var i=0; i<data; i++) {
+						
+						starResultWrapText += "<img src='/resources/img/star.png' style='width:30px; height:30px;' />"
+					}
+				
+				} else {
+					
+					for(var i=0; i<data-0.5; i++) {
+						
+						starResultWrapText += "<img src='/resources/img/star.png' style='width:30px; height:30px;' />"
+					}
+					
+					starResultWrapText += "<img src='/resources/img/halfStar.png' style='width:15px; height:30px;' />"
+				}
+				
+				starResultWrapText += "<br> <input type='button' value='수정' onclick='updateStarRating();'/>"
+				
+				$("#starResultWrap").html(starResultWrapText);
+			}
+		}
+	})
+}
+
+//별점 수정
+function updateStarRating() {
+	
+	console.log('수정');
+	
+	$("#starInsertWrap").show();
+	$("#starResultWrap").hide();
 }
 </script>
 

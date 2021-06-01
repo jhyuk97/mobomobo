@@ -413,9 +413,27 @@ public class MovieServiceImpl implements MovieService{
 
 	@Override
 	public void setStarRating(MovieStarRating movieStarRating) {
+		
+		movieDao.deleteStarRating(movieStarRating);
 
 		movieDao.insertStarRating(movieStarRating);
 		
+	}
+	
+	@Override
+	public double checkStarRating(MovieStarRating movieStarRating) {
+		
+		int check = movieDao.existMovieStarRatingByUserNo(movieStarRating);
+		
+		double starRating;
+		
+		if(check > 0) {
+			starRating = movieDao.selectMovieStarRatingByUserno(movieStarRating);
+		} else {
+			starRating = 404;
+		}
+		
+		return starRating;
 	}
 	
 }

@@ -89,9 +89,17 @@ public class MovieController {
 		movieStarRating.setUserno((int)session.getAttribute("userno"));
 		movieStarRating.setAge((String)session.getAttribute("age")); 
 		
-		System.out.println(movieStarRating);
-		
 		movieService.setStarRating(movieStarRating);
+	}
+	
+	@RequestMapping(value="/starRatingCheck")
+	public @ResponseBody double starRatingCheck(MovieStarRating movieStarRating, HttpSession session) {
+		
+		movieStarRating.setUserno((int)session.getAttribute("userno"));
+		
+		double starRating = movieService.checkStarRating(movieStarRating);
+		
+		return starRating;
 	}
 	
 	@RequestMapping(value="/moviedetail", method=RequestMethod.GET)

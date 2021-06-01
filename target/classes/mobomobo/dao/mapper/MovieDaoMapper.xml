@@ -7,9 +7,31 @@
   
 <mapper namespace="mobomobo.dao.face.MovieDao">
 
+	<delete id="deleteStarRating" parameterType="mobomobo.dto.MovieStarRating">
+		DELETE FROM moviestarrating
+		WHERE 1=1
+		AND userno = #{userno}
+		AND key = #{key}
+	</delete>
+
 	<insert id="insertStarRating" parameterType="mobomobo.dto.MovieStarRating">
-		INSERT INTO moviestarrating (moviecd, title, image, userno, age, starrating )
+		INSERT INTO moviestarrating (key, title, image, userno, age, starrating )
 		VALUES (#{key}, #{title}, #{image}, #{userno}, #{age}, #{starRating} )
 	</insert>
+
+	<select id="existMovieStarRatingByUserNo" resultType="int" parameterType="mobomobo.dto.MovieStarRating">
+		SELECT count(*) FROM moviestarrating
+		WHERE 1=1
+		AND userno = #{userno}
+		AND key = #{key}
+	</select>
+	
+	<select id="selectMovieStarRatingByUserno" resultType="double" parameterType="mobomobo.dto.MovieStarRating">
+		SELECT starrating FROM moviestarrating
+		WHERE 1=1
+		AND userno = #{userno}
+		AND key = #{key}
+	</select>
+	
 
 </mapper>

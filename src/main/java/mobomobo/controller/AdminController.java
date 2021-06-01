@@ -68,7 +68,7 @@ public class AdminController {
 			
 			
 			//페이징계산후 회원관리 게시판 list 만들기(?)
-			List<UserInfo> list = adminService.list( paging );
+			List<UserInfo> list = adminService.list( paging ); 
 			
 			for ( int i=0; i< list.size(); i++ ) {
 				//테스트
