@@ -40,6 +40,8 @@
 			</array>
 		</property>
 		
+
+		<!-- config파일 설정 -->
 		<property name="configLocation">
 			<value>classpath:/mybatis-config.xml</value>
 		</property>
