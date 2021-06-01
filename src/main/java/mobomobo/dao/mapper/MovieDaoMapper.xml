@@ -11,11 +11,11 @@
 		DELETE FROM moviestarrating
 		WHERE 1=1
 		AND userno = #{userno}
-		AND moviecd = #{key}
+		AND key = #{key}
 	</delete>
 
 	<insert id="insertStarRating" parameterType="mobomobo.dto.MovieStarRating">
-		INSERT INTO moviestarrating (moviecd, title, image, userno, age, starrating )
+		INSERT INTO moviestarrating (key, title, image, userno, age, starrating )
 		VALUES (#{key}, #{title}, #{image}, #{userno}, #{age}, #{starRating} )
 	</insert>
 
@@ -23,14 +23,14 @@
 		SELECT count(*) FROM moviestarrating
 		WHERE 1=1
 		AND userno = #{userno}
-		AND moviecd = #{key}
+		AND key = #{key}
 	</select>
 	
 	<select id="selectMovieStarRatingByUserno" resultType="double" parameterType="mobomobo.dto.MovieStarRating">
 		SELECT starrating FROM moviestarrating
 		WHERE 1=1
 		AND userno = #{userno}
-		AND moviecd = #{key}
+		AND key = #{key}
 	</select>
 	
 

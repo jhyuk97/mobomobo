@@ -1,9 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <%@include file="/WEB-INF/views/mobo/layout/header.jsp" %>
 
+<style type="text/css">
 
+.card-img-top {
+	width : 293px;
+	height : 400px;
+}
+
+</style>
    
 
 
@@ -96,78 +105,27 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-md-4 mb-4">
+            
+            <c:forEach items="${movieList }" var="movie" varStatus="status"> 
+            
+                <div class="col-12 col-md-4 mb-4" style="text-align:center">
                     <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="/resources/img/DRAMA.jpg" class="card-img-top" alt="...">
+                        <a href="/mobo/movie/movierecomDetail?key=${movie.key }&image=${movie.image}">
+                            <img src="${movie.image }" class="card-img-top">
                         </a>
                         <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
+                            <ul class="list-unstyled justify-content-between">
+                                <li id="movieStarRating${status.index }">
                                 </li>
-                             <!--   <li class="text-muted text-right">$240.00</li> -->  
                             </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">빈센조</a>
-                            <p class="card-text">
-                               	송중기송중기송중기송중기송중기송중기송중기송중기송중기송중기송중기송중기송중기송중기송중기
-                            </p>
-                            <p class="text-muted">Reviews (24)</p>
+                            <input type="hidden" value="${movie.starRating }" id="starrating${status.index }"/>
+                            <a href="/mobo/movie/movierecomDetail?key=${movie.key }&image=${movie.image}" class="h2 text-decoration-none text-dark">${movie.title }</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="/resources/img/1917.jpg" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                              <!--  <li class="text-muted text-right">$480.00</li>-->
-                            </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">1917</a>
-                            <p class="card-text">
-                                Aenean gravida dignissim finibus. Nullam ipsum diam, posuere vitae pharetra sed, commodo ullamcorper.
-                            </p>
-                            <p class="text-muted">Reviews (48)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="/resources/img/therap.jpg" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                </li>
-                            <!--     <li class="text-muted text-right">$360.00</li>--> 
-                            </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">더 랍스터</a>
-                            <p class="card-text">
-                                Curabitur ac mi sit amet diam luctus porta. Phasellus pulvinar sagittis diam, et scelerisque ipsum lobortis nec.
-                            </p>
-                            <p class="text-muted">Reviews (74)</p>
-                        </div>
-                    </div>
-                </div>
+                
+            </c:forEach>             
+                
             </div>
         </div>
     </section>
@@ -299,5 +257,53 @@
 
    
 <%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>
+
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	movieStarRating();
+	
+})
+
+function movieStarRating() {
+	
+	console.log('ddd')
+	
+	for(var i=0; i<3; i++) {
+		
+		var star = $("#starrating" + i).val();
+		
+		console.log(star);
+		console.log(Number.isInteger(star));
+		
+		var html = "";
+		
+		if(star % 1 == 0) {
+
+			for(var j=0; j<star; j++) {
+				
+				html += "<img src='/resources/img/star.png' style='width:30px; height:30px;' />"
+			}
+		
+		} else {
+			
+			for(var j=0; j<star-0.5; j++) {
+				
+				html += "<img src='/resources/img/star.png' style='width:30px; height:30px;' />"
+			}
+			
+			html += "<img src='/resources/img/halfStar.png' style='width:15px; height:30px;' />"
+		}
+		
+		html += "<p class='text-muted' style='display:inline; padding-left:15px;'>" + star + "</p>"
+		
+		$("#movieStarRating" + i).html(html);
+		
+	}
+}
+
+</script>
 
   
