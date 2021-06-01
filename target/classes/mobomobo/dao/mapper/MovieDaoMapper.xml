@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  
+<mapper namespace="mobomobo.dao.face.MovieDao">
+
+	<delete id="deleteStarRating" parameterType="mobomobo.dto.MovieStarRating">
+		DELETE FROM moviestarrating
+		WHERE 1=1
+		AND userno = #{userno}
+		AND key = #{key}
+	</delete>
+
+	<insert id="insertStarRating" parameterType="mobomobo.dto.MovieStarRating">
+		INSERT INTO moviestarrating (key, title, image, userno, age, starrating )
+		VALUES (#{key}, #{title}, #{image}, #{userno}, #{age}, #{starRating} )
+	</insert>
+
+	<select id="existMovieStarRatingByUserNo" resultType="int" parameterType="mobomobo.dto.MovieStarRating">
+		SELECT count(*) FROM moviestarrating
+		WHERE 1=1
+		AND userno = #{userno}
+		AND key = #{key}
+	</select>
+	
+	<select id="selectMovieStarRatingByUserno" resultType="double" parameterType="mobomobo.dto.MovieStarRating">
+		SELECT starrating FROM moviestarrating
+		WHERE 1=1
+		AND userno = #{userno}
+		AND key = #{key}
+	</select>
+	
+
+</mapper>

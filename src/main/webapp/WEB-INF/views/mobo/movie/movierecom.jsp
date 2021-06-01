@@ -36,6 +36,14 @@
 
 a { text-decoration:none; }
 
+.pagingNumber {
+	cursor: pointer;
+}
+
+.col-md-4 {
+	width : 25%;
+}
+
 
 </style>
 
@@ -56,13 +64,14 @@ a { text-decoration:none; }
         
         
         <!-- 검색창 -->
+     
       <div class="s010">
-      <form>
+       <form>
         <div class="inner-form">
           <div class="basic-search">
-          
             <div class="input-field">
-              <input id="search" type="text" placeholder="영화를 무부하세요" />
+            
+              <input id="search" type="text" name="search" placeholder="영화를 무부하세요" />
               <div class="icon-wrap">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
@@ -77,14 +86,14 @@ a { text-decoration:none; }
                   </div>
                 <div class="group-btn">
                   <button class="btn-delete" id="delete">RESET</button>
-                  <button class="btn-search">SEARCH</button>
+                  <button class="btn-search" id="searchBtn" type="button" onclick="movieList(1); movieListPaging();">SEARCH</button>
                 </div>
               </div>
             </div>
           </div>
    	 </div>
-   			 
-    </form> <!-- 검색 폼 태그 -->
+   	
+   	</form>
     </div> <!-- 검색창 div 태그 -->
     </div> <!-- 제목부터 검색까지 묶어주는 div 태그 -->
         
@@ -95,10 +104,11 @@ a { text-decoration:none; }
         
         
         <div class="container">
+        <div id="movieBox">
         <div class="row">
         <h2 class="mb-4">최신 영화</h2> <!-- 꼭 div row 다음에 넣어주기 -->
+        
           <div class="col-md-4 ftco-animate">
-          
             <div class="blog-entry">
               <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/1917.jpg');">
               </a>
@@ -110,6 +120,7 @@ a { text-decoration:none; }
               </div>
             </div>
           </div>
+          
           <div class="col-md-4 ftco-animate">
             <div class="blog-entry" data-aos-delay="100">
               <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/BLUE1.jpg');">
@@ -117,12 +128,12 @@ a { text-decoration:none; }
               <div class="text p-4">
                 <div class="meta mb-3">
                   <div><a href="#">영화</a></div>
-                  
                 </div>
                 <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
               </div>
             </div>
           </div>
+          
           <div class="col-md-4 ftco-animate">
             <div class="blog-entry" data-aos-delay="200">
               <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/DRAMA.jpg');">
@@ -135,21 +146,22 @@ a { text-decoration:none; }
               </div>
             </div>
           </div>
+          
           <h2 class="mb-4">스릴러</h2>
+          
           <div class="col-md-4 ftco-animate">
-           
             <div class="blog-entry">
               <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/PO2.jpg');">
               </a>
               <div class="text p-4 d-block">
                 <div class="meta mb-3">
                   <div><a href="#">영화</a></div>
-                  
                 </div>
                 <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
               </div>
             </div>
           </div>
+          
           <div class="col-md-4 ftco-animate">
             <div class="blog-entry" data-aos-delay="100">
               <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/PO3.jpg');">
@@ -157,12 +169,12 @@ a { text-decoration:none; }
               <div class="text p-4">
                 <div class="meta mb-3">
                  <div><a href="#">영화</a></div>
-                  
                 </div>
                 <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
               </div>
             </div>
           </div>
+          
           <div class="col-md-4 ftco-animate">
             <div class="blog-entry" data-aos-delay="200">
               <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/therap.jpg');">
@@ -174,24 +186,61 @@ a { text-decoration:none; }
                 <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>  <!-- 여긴 알아서 바꿔주세염~ -->
-              </ul>
+          </div> 
+          
+           <div class="col-md-4 ftco-animate">
+            <div class="blog-entry" data-aos-delay="200">
+              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/therap.jpg');">
+              </a>
+              <div class="text p-4">
+                <div class="meta mb-3">
+                 <div><a href="#">영화</a></div>
+                </div>
+                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
+              </div>
             </div>
-          </div>
+          </div> 
+          
+           <h2 class="mb-4">잭 스나이더</h2>
+           <c:forEach items="${map.list1 }" var="list1" begin="0" end="4">
+           <div class="col-md-4 ftco-animate">
+            <div class="blog-entry" data-aos-delay="200">
+              <a href="/mobo/movie/movierecomDetail?key=${list1.key }&image=${list1.image}" class="block-20" style="background-image: url('${list1.image}'); background-size:contain; height:250px;">
+              </a>
+              <div class="text p-4">
+                <div class="meta mb-3">
+                 <div><a href="/mobo/movie/movierecomDetail?key=${list1.key }&image=${list1.image}">${list1.title }</a></div>
+                </div>
+                <h3 class="heading"><a href="/mobo/movie/movierecomDetail?key=${list1.key }&=image${list1.image}">감독 | 개봉연도 | 장르 | 출연</a></h3>
+              </div>
+            </div>
+          </div> 
+           </c:forEach>
+           
+           <h2 class="mb-4">클린트 이스트우드</h2>
+           <c:forEach items="${map.list2 }" var="list2" begin="0" end="4">
+           <div class="col-md-4 ftco-animate">
+            <div class="blog-entry" data-aos-delay="200">
+              <a href="/mobo/movie/movierecomDetail?key=${list2.key }&image=${list2.image}" class="block-20" style="background-image: url('${list2.image}'); background-size:contain; height:250px;)">
+              </a>
+              <div class="text p-4">
+                <div class="meta mb-3">
+                 <div><a href="/mobo/movie/movierecomDetail?key=${list2.key }&image=${list2.image}">${list2.title }</a></div>
+                </div>
+                <h3 class="heading"><a href="/mobo/movie/movierecomDetail?key=${list2.key }&image=${list2.image}">감독 | 개봉연도 | 장르 | 출연</a></h3>
+              </div>
+            </div>
+          </div> 
+           </c:forEach>
+          
+          
+          
+          
         </div>
       </div>
+      
+      <div id="paging"></div>
+     </div> 
     </section>
     
 
@@ -245,11 +294,117 @@ a { text-decoration:none; }
   <script src="/resources/board/js/aos.js"></script>
   <script src="/resources/board/js/jquery.animateNumber.min.js"></script>
   <script src="/resources/board/js/bootstrap-datepicker.js"></script>
-  <script src="/resources/board/js/jquery.timepicker.min.js"></script>
-  <script src="/resources/board/js/particles.min.js"></script>
-  <script src="/resources/board/js/particle.js"></script>
   <script src="/resources/board/js/scrollax.min.js"></script>
   <script src="/resources/board/js/main.js"></script>
     
-  </body>
-</html>
+  
+  <script type="text/javascript">
+  
+  function movieList(curpage) {
+	  
+	  var search = $('#search').val();
+	  
+	  $.ajax({
+		  type: 'get'
+		  , url: '/mobo/movie/movierecomList'
+		  , data: {'search' : search
+			  	, 'curpage' : curpage}
+		  , dataType: 'json'
+		  , success: function(data) {
+			  
+			  $("#movieBox").html("");
+			  
+			  var searchList = "";
+			  
+			  searchList += '<div class="row">';
+			  searchList += '<h2 class="mb-4">검색결과</h2>';
+
+			  for(var i=0; i<data.length; i++) {
+				  
+				  console.log(data[i].title);
+			        
+				  searchList += '<div class="col-md-4">'
+				  searchList += '<div class="blog-entry">'
+				  if(data[i].image != null) {
+				  searchList += '<a href="/mobo/movie/movierecomDetail?key=' + data[i].key + '&image=' + data[i].image + '" class="block-20" style="background-image: url(' + data[i].image + '); background-size:contain; height:250px">'
+				  } else { 
+				  searchList += '<a href="/mobo/movie/movierecomDetail?key=' + data[i].key + '&image=' + data[i].image + '" class="block-20" style="background-image: url(/resources/img/noImage.png); background-size:contain; height:250px">'
+				  }
+				  searchList += '</a>'
+				  searchList += '<div class="text p-4 d-block">'
+				  searchList += '<div class="meta mb-3">'
+				  searchList += '<div><a href="/mobo/movie/movierecomDetail?key=' + data[i].key + '&image=' + data[i].image + '">' + data[i].title + '</a></div>'
+				  searchList += '</div>'
+				  
+				  if(data[i].directors != null ) {
+				  searchList += '<h3 class="heading"><a href="/mobo/movie/movierecomDetail?key=' + data[i].key + '&image=' + data[i].image + '">' + data[i].directors + ' | ' + data[i].genres + '</a></h3>'
+				  } else {
+				  searchList += '<h3 class="heading"><a href="/mobo/movie/movierecomDetail?key=' + data[i].key + '&image=' + data[i].image + '"> 정보 없음 | ' + data[i].genres + '</a></h3>'
+				  }
+				  
+				  searchList += '</div>' 
+				  searchList += '</div>' 
+				  searchList += '</div>' 
+				  
+				  }
+				  
+				  searchList += '</div>' 
+				  
+				  $('#movieBox').html(searchList);
+		 	 }
+	  })
+  }
+  
+  function movieListPaging() {
+	  
+	  var search = $('#search').val();
+	  
+	  $('#paging').html("");
+	  
+	  $.ajax({
+		  type: 'get'
+		  , url: '/mobo/movie/movierecomListPaging'
+		  , data: {'search' : search}
+		  , dataType: 'json'
+		  , success: function(data) {
+  		
+			if(data > 1) {
+		  		var pagingList = "";
+		  		
+			    pagingList +=   '<div class="row mt-5">'
+				pagingList +=    '<div class="col text-center">'
+				pagingList +=      '<div class="block-27">'
+				pagingList +=        '<ul>'
+				pagingList +=          '<li><a href="#">&lt;</a></li>'
+				for(var i=1; i<=data; i++) {
+					if(i == 1) {
+				pagingList +=          '<li id="selectNum' + i + '" class="active"><a onclick="movieList(' + i + '); pagingNumberColor(' + i + ',' + data + ')" class="pagingNumber">'+ i +'</a></li>' 
+					} else {
+				pagingList +=          '<li id="selectNum' + i + '"><a onclick="movieList(' + i + '); pagingNumberColor(' + i + ',' + data + ')" class="pagingNumber">'+ i +'</a></li>' 
+					}
+				}
+				pagingList +=          '<li><a href="#">&gt;</a></li>'
+				pagingList +=        '</ul>'
+				pagingList +=      '</div>'
+				pagingList +=    '</div>'
+				pagingList +=  '</div>'
+			
+				$('#paging').html(pagingList);
+			}
+		  }
+	  })			
+  }
+  
+  function pagingNumberColor(curpage, totalpage) {
+	  
+	  $('#selectNum' + curpage).addClass('active');
+	  
+	  for(var i=1; i<=totalpage; i++) {
+		  if(i != curpage) {
+			  $('#selectNum' + i).removeClass('active');
+		  }
+	  }
+  }
+  
+  
+  </script>

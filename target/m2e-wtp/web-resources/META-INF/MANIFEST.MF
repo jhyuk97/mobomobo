@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: HP
 Build-Jdk: 1.8.0_282
+=======
+Built-By: zimmy
+Build-Jdk: 1.8.0_275
+>>>>>>> 22229d10c1bd719f803a491753be53325b47dbc6
 Created-By: Maven Integration for Eclipse
 

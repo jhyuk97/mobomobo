@@ -8,7 +8,7 @@
             </a>
           </li>
 		<li class="nav-item  ">
-            <a class="nav-link  " href="/admin/tables">
+            <a class="nav-link  " href="/admin/usermanagement">
               <i class="ni ni-tv-2 text-info"></i> 회원관리
             </a>
           </li>
@@ -18,7 +18,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/admin/tables">
+            <a class="nav-link " href="/admin/movierecom">
               <i class="ni ni-tv-2 text-orange"></i> 영화추천
             </a>
           </li>

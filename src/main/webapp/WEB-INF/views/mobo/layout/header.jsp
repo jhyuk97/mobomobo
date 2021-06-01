@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="/resources/css/templatemo.css">
     <link rel="stylesheet" href="/resources/css/custom.css">
 	<link rel="stylesheet" href="/resources/css/style.css">
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
@@ -102,7 +104,7 @@ p {
 
 </head>
 
-<body onload="showImage()">
+<body>
     
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light shadow">

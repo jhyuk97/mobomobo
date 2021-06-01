@@ -100,6 +100,13 @@
  		   <version>1.4</version>
 		</dependency>
 		
+		<!-- json-simple 1.1.1 -->
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+		
 		
 			<!-- Jackson Databind 2.12.3 버전 -->
 	<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
