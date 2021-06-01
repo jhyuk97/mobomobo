@@ -13,7 +13,7 @@ CREATE TABLE userinfo(
     , addrdetail VARCHAR2(500) NOT NULL
     , joindate DATE DEFAULT sysdate
     , age NUMBER
-    , grade VARCHAR2(50) DEFFAULT 'user'
+    , grade VARCHAR2(50) DEFAULT 'user'
 );
 
 CREATE SEQUENCE userinfo_seq;

@@ -142,9 +142,14 @@ public class SignController {
 		
 		if(loginResult) {
 //			logger.info("로그인 성공");
+			
+			UserInfo res = signService.getUserInfo(userInfo.getId());
 
 			session.setAttribute("login", true);
-			session.setAttribute("id", userInfo.getId());
+			session.setAttribute("id", res.getId());
+			
+			session.setAttribute("age", res.getAge());
+			session.setAttribute("userno", res.getUserno());
 
 //			logger.info("세션상태 : " + session.getAttribute("login"));
 //			logger.info("세션 아이디 : " + session.getAttribute("id"));

@@ -33,6 +33,7 @@
     <%@include file="/WEB-INF/views/mobo/layout/header.jsp" %> <!-- 이걸 꼭 맨 아래에 둬야 먹히더라구여 다른 방법 아시면 의견 부탁드림니다 -->
   
 <style>
+<<<<<<< HEAD
 
 a { text-decoration:none; }
 
@@ -274,11 +275,7 @@ a { text-decoration:none; }
           
           
           
-          
-          
-          
-          
-          
+
         <div class="row mt-5">
           <div class="col text-center">
             <div class="block-27">
