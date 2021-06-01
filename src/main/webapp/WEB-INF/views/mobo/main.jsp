@@ -7,6 +7,7 @@
 
 <style type="text/css">
 
+
 .card-img-top {
 	width : 293px;
 	height : 400px;

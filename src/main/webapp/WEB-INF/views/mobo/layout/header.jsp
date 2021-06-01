@@ -3,6 +3,10 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!-- jquery -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+
    
 <head>
     <title>MOBOMOBO</title>
@@ -138,7 +142,7 @@ p {
                              role="button" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false"><div class="menufont">책</div></a>
                                <div id="menufont" class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="blog.html"><div class="menufont">책추천</div></a>
+                              <a class="dropdown-item" href="/mobo/book/bookrecom"><div class="menufont">책추천</div></a>
                              <a class="dropdown-item" href="single-blog.html"><div class="menufont">책명대사</div></a>
                              <a class="dropdown-item" href="single-blog.html"><div class="menufont">책토론</div></a>
                              </div>
