@@ -1,4 +1,4 @@
-package mobomobo.admin.util;
+package mobomobo.util;
 
 public class Paging {
 	private int curPage;

@@ -19,4 +19,11 @@
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
 	
+
+	<typeAliases>
+		<typeAlias type="mobomobo.util.Paging" alias="Paging"/>
+		<package name="mobomobo.dto"/>
+	</typeAliases>
+	
+
 </configuration>

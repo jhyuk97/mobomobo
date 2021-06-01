@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import mobomobo.admin.util.Paging;
+import mobomobo.util.Paging;
 import mobomobo.dto.Market;
 import mobomobo.service.face.MarketService;
 

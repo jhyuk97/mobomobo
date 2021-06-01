@@ -17,7 +17,7 @@
 		WHERE mTitle LIKE '%' || #{search} || '%'
 	</sql>
 
-	<select id="SelectAll" parameterType="mobomobo.admin.util.Paging" resultType="mobomobo.dto.Market">
+	<select id="SelectAll" parameterType="Paging" resultType="mobomobo.dto.Market">
 		SELECT * FROM (
 		    SELECT rownum rnum, B.* FROM (
 		        <include refid="selectMarket"/>

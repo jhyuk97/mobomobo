@@ -18,6 +18,8 @@
   <link href="/resources/admin/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/resources/admin/css/argon-dashboard.css?v=1.1.2" rel="stylesheet" />
+  
+  <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 </head>
 
 <body class="">

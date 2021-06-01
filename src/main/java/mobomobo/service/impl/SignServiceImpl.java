@@ -135,6 +135,11 @@ public class SignServiceImpl implements SignService{
 		else return false;
 		
 	}
+	
+	@Override
+	public UserInfo getUserInfo(String id) {
+		return signDao.selectUserInfo(id);
+	}
 
 
 

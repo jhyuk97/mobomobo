@@ -13,23 +13,28 @@
             <div class="card-header border-0">
               <h3 class="mb-0">영화추천</h3>
             </div>
+            
+            
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
                     <th scope="col">no</th>
                     <th scope="col">제목</th>
-                    <th scope="col">날짜</th>
-                    <th scope="col">유저</th>
+                    <th scope="col">분류</th>
+                    <th scope="col">Key</th>
                     <th scope="col">삭제</th>
                     <th scope="col"></th>
                   </tr>
-                </thead>
+                </thead>               
                 <tbody>
+                
                  
                 </tbody>
               </table>
             </div>
+            
+            
             <div class="card-footer py-4">
               <nav aria-label="...">
                 <ul class="pagination justify-content-end mb-0">
@@ -57,9 +62,12 @@
                 </ul>
               </nav>
             </div>
+            
+            
           </div>
         </div>
       </div>
 
+            <a href="/admin/movierecomwrite"><input type="button" value="작성" /></a>
       
     <%@include file="/WEB-INF/views/admin/include/footer.jsp" %>

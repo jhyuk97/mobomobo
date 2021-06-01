@@ -7,10 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mobomobo.admin.util.Paging;
 import mobomobo.dao.face.MarketDao;
 import mobomobo.dto.Market;
 import mobomobo.service.face.MarketService;
+import mobomobo.util.Paging;
 
 @Service
 public class MarketServiceImpl implements MarketService {

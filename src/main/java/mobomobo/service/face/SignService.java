@@ -46,5 +46,14 @@ public interface SignService {
 	public boolean login(UserInfo userInfo);
 
 	
+	/**
+	 * 로그인 성공한 유저 아이디로 유저정보 조회
+	 * 
+	 * @param id - userid
+	 * @return - 유저 정보
+	 */
+	public UserInfo getUserInfo(String id);
+
+	
 
 }

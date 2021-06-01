@@ -2,8 +2,8 @@ package mobomobo.dao.face;
 
 import java.util.List;
 
-import mobomobo.admin.util.Paging;
 import mobomobo.dto.Market;
+import mobomobo.util.Paging;
 
 public interface MarketDao {
 	
