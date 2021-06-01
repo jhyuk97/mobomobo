@@ -12,6 +12,8 @@ public class Paging {
 	private int endNo;
 
 	private String search; //검색어
+	
+	private String category;//카테고리
 
 	public Paging() { }
 	
@@ -80,7 +82,7 @@ public class Paging {
 	public String toString() {
 		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
 				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", startNo=" + startNo + ", endNo=" + endNo + ", search=" + search + "]";
+				+ ", startNo=" + startNo + ", endNo=" + endNo + ", search=" + search + ", category=" + category + "]";
 	}
 	public int getCurPage() {
 		return curPage;
@@ -142,6 +144,14 @@ public class Paging {
 	}
 	public void setSearch(String search) {
 		this.search = search;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 }
