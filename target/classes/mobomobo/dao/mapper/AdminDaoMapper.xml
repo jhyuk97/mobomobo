@@ -7,9 +7,36 @@
 
   
   
-<mapper namespace="mobomobo.admin.dao.face.AdminDao">
+<mapper namespace="mobomobo.dao.face.AdminDao">
 
+	<sql id="whereTitleSearch">
+        WHERE name LIKE '%' || #{search} || '%'
+	</sql>
 
-
+	<sql id="selectUserInfo">
+        SELECT
+			userno, name, joindate, age, grade
+        FROM userinfo
+	</sql>
+	
+	<select id="selectCntAll" resultType="int" parameterType="Paging">
+		SELECT COUNT(*) FROM (
+	    	<include refid="selectUserInfo" />
+	    	<include refid="whereTitleSearch" />
+    	)
+	</select>
+	
+	<select id="selectPageList" resultType="UserInfo" parameterType="Paging">
+		SELECT * FROM (
+		    SELECT rownum rnum, B.* FROM (
+		    	<include refid="selectUserInfo" />
+		    	<include refid="whereTitleSearch" />
+		        ORDER BY userno DESC
+		    ) B
+		) R
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	
 
 </mapper>
