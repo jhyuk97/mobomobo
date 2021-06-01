@@ -37,4 +37,11 @@ public interface SignDao {
 	 */
 	public int login(UserInfo userInfo);
 
+	/**
+	 * 유저정보 조회
+	 * @param id
+	 * @return
+	 */
+	public UserInfo selectUserInfo(String id);
+
 }

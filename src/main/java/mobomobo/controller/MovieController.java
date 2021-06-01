@@ -1,7 +1,10 @@
 package mobomobo.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import mobomobo.dto.Movie;
+import mobomobo.dto.MovieStarRating;
 import mobomobo.service.face.MovieService;
 
 @Controller
@@ -34,10 +38,16 @@ public class MovieController {
 	}
 	
 	@RequestMapping(value="/movierecom", method=RequestMethod.GET)
-	public void movie() {
-		
-		logger.info("영화 추천 게시판 ");
+	public void movie(Model model) throws IOException, ParseException {
 	
+		List<Movie> list1 = movieService.getMainList("잭 스나이더");
+		List<Movie> list2 = movieService.getMainList("클린트 이스트우드");
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("list1", list1);
+		map.put("list2", list2);
+		
+		model.addAttribute("map", map);
 	}
 	
 	@RequestMapping(value="/movierecomList", method=RequestMethod.GET)
@@ -55,14 +65,33 @@ public class MovieController {
 		
 		int totalPaging = 0;
 		
-		if((listCnt%6) == 0 ) {
-			totalPaging = listCnt/6;
+		if((listCnt%8) == 0 ) {
+			totalPaging = listCnt/8;
 		} else {
-			totalPaging = (listCnt/6) + 1;
+			totalPaging = (listCnt/8) + 1;
 		}
 
 		return totalPaging;
 				
+	}
+	
+	@RequestMapping(value="/movierecomDetail")
+	public void movierecomDetail(Movie movie, Model model) throws IOException, ParseException {
+		
+		Movie result = movieService.getMovieInfo(movie);
+		
+		model.addAttribute("movie", result);
+	}
+	
+	@RequestMapping(value="/starRatingInsert")
+	public @ResponseBody void starRatingInsert(MovieStarRating movieStarRating, HttpSession session) {
+		
+		movieStarRating.setUserno((int)session.getAttribute("userno"));
+		movieStarRating.setAge((String)session.getAttribute("age")); 
+		
+		System.out.println(movieStarRating);
+		
+		movieService.setStarRating(movieStarRating);
 	}
 	
 	@RequestMapping(value="/moviedetail", method=RequestMethod.GET)
