@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="mobomobo.dao.face.BookRecomDao">
+  	
+  	<select id="selectBookStarRating" resultType="HashMap" parameterType="String">
+  	
+	  	SELECT avg(starrating) AS AVG FROM bookstarrating 
+	  	WHERE isbn = #{isbn }
+	  	
+  	
+  	</select>
+  	
+<!--   	<select id="selectAll" resultType="mobomobo.dto.BookBest" parameterType="mobomobo.util.BookRecomPaging"> -->
+<!--   		SELECT * FROM( -->
+<!-- 		 	SELECT rownum rnum,B.* FROM( -->
+<!-- 		 		SELECT * -->
+<!-- 		 		FROM bookbest -->
+<!-- 		 		ORDER BY bookbestno DESC -->
+<!-- 		 		)B -->
+<!-- 		 	) BOARD -->
+<!-- 	 	WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
+  	
+<!--   	</select> -->
+  	
+  	<select id="selectTotalCntByAwards" resultType="int">
+  		SELECT COUNT(*) FROM bookbest
+  	</select>
+  	
+  	<select id="selectAll" resultType="HashMap">
+  		SELECT
+		    S.*, ( SELECT avg(R.starrating) FROM bookstarrating R WHERE S.isbn = R.isbn) avg
+		FROM bookkey S
+		WHERE award ='맨부커'
+  	</select>
+  	
+  
+  
+  </mapper>

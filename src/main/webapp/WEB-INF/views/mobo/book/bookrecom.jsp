@@ -45,57 +45,80 @@ a { text-decoration:none; }
         	
         	
         	//민음사 모음
-        	getPublisherBookInfo("민음사","7ab4fb38af1de0cf515ccc51bc417dd5");
+        	getBookInfo("7ab4fb38af1de0cf515ccc51bc417dd5",{
+                query:"민음사",
+                target:'publisher'
+             },"#minuemsa");
+        	getBookInfo("7ab4fb38af1de0cf515ccc51bc417dd5",{
+                query:["김영하"],
+                target:'authors'
+             },"#kimyongha");
+        	getBookInfo("7ab4fb38af1de0cf515ccc51bc417dd5",{
+                query:"2021-05",
+                target:'datetime'
+             },"#newBook");
+        	getBookInfo("7ab4fb38af1de0cf515ccc51bc417dd5",{
+        		query:["정유정"],
+                target:'authors'
+             },"#hankang");
+        	
         	
         	
         	
 
         })
+     
         
         
         
-        function getRating(isbn){
-        	console.log(isbn)
+        // 별점 가져오기
+        function getStarRating(isbn,arrayRating){
         	$.ajax({
-                url: "mobo/book/bookrecom",
-                type : "get",
-                dataType:"html",
-                data:{
-                   isbn: isbn
-                },
+                url: "/mobo/book/bookrecom",
+                type : "post",
+                dataType:"json",
+                data: {isbn:isbn},
                 success : function(result){
+                	console.log("성공!!!")
+                	console.log(result);
+                	
+                	
+                	for(var i = 0; i < arrayRating.length; i++){
+                		
+                		console.log(result[i].AVG)
+                		arrayRating.get(i).append(result[i].AVG)
+                		
+                	}
+                	
                 	
                 }
             })
         }
-                
-       
         
         
         
         // 민음사 카테고리
-		function getPublisherBookInfo(publisher,key){
+		function getBookInfo(key,data,gategory){
         	// 이미지 타이틀 태그
-        	var arrayTitle =  $("#minuemsa .meta > div > a");
-        	var arrayImg =  $("#minuemsa .blog-entry");
+        	var arrayTitle =  $(gategory+" .meta > div > a");
+        	var arrayImg =  $( gategory+" .blog-entry");
+        	var arrayRating = $(gategory+" .heading > a");
         	//ajax로 데이터 불러오기
         	$.ajax({
                 url: "https://dapi.kakao.com/v3/search/book",
                 headers: {'Authorization': 'KakaoAK '+ key},
                 type : "get",
-                data:{
-                   query:publisher,
-                   target:'publisher'
-                },
+                data:data,
                 success : function(result){
                	 
                 	// isbn 배열에 넣기 
-                	var rating = new Array();
+                	var isbn = new Array();
                 	for(var i = 0; i < arrayTitle.length; i++){
-                		rating.push(result.documents[i].isbn); 
+                		isbn.push(result.documents[i].isbn); 
                 	}
-                	getRating(rating);
-                	
+                	console.log(isbn)
+                	// 별점 가져오기
+                	getStarRating(isbn,arrayRating)
                 	
                    	for(var i = 0; i < arrayTitle.length; i++){
                    	
@@ -107,10 +130,13 @@ a { text-decoration:none; }
                     	}).addClass('block-20')
                     	.css('background-image','url("'+ result.documents[i].thumbnail+'")')
                     	
-	                   	console.log($(img).eq(i))
-	                   	console.log(arrayImg.get(i))
+// 	                   	console.log($(img).eq(i))
+// 	                   	console.log(arrayImg.get(i))
                    	
 	                    arrayTitle.get(i).append(result.documents[i].title)
+
+
+	                    
 	                    $(img).prependTo(arrayImg.get(i));
                    }
                     
@@ -121,13 +147,11 @@ a { text-decoration:none; }
         }
 </script>		
            
- 
+ <h1><a href="/mobo/book/awardsList">시상식</a></h1>
 
 
 
 
-
-    
 
 
     <!-- 제목 --><!-- 여기를 복붙해서 모든 게시판에 각각 사용하기! 위에 css 추가 필수.... -->
@@ -190,7 +214,7 @@ a { text-decoration:none; }
                 <div class="meta mb-3">
                   <div><a href="#"></a></div>
                 </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
+                <h3 class="heading"><a href="#">평점:</a></h3>
               </div>
             </div>
           </div>
@@ -201,7 +225,7 @@ a { text-decoration:none; }
                 <div class="meta mb-3">
                   <div><a href="#"></a></div>
                 </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
+                <h3 class="heading"><a href="#">평점:</a></h3>
               </div>
             </div>
           </div>
@@ -212,7 +236,7 @@ a { text-decoration:none; }
                 <div class="meta mb-3">
                   <div><a href="#"></a></div>
                 </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
+                <h3 class="heading"><a href="#">평점:</a></h3>
               </div>
             </div>
           </div>
@@ -223,77 +247,166 @@ a { text-decoration:none; }
                 <div class="meta mb-3">
                   <div><a href="#"></a></div>
                 </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
+                <h3 class="heading"><a href="#">평점:</a></h3>
               </div>
             </div>
           </div>
          </div>
          
          
-         
-          
          <!-- 2번 카테고리 -->
-        <div class="row" >
+        <div class="row" id="kimyongha">
         <h2 class="mb-4">김영하 컬렉션</h2> <!-- 꼭 div row 다음에 넣어주기 -->
-          <div class="col-md-4 ftco-animate">
+          <div class="col-md-3 ftco-animate">
             <div class="blog-entry">
-              <a href="blog-single.html" class="block-20" style="background-image: url('https://search1.kakaocdn.net/thumb/R120x174.q85/?fname=http%3A%2F%2Ft1.daumcdn.net%2Flbook%2Fimage%2F539834%3Ftimestamp%3D20210527163100');">
-              </a>
+					<!-- 이미지 들어가는 곳 -->
               <div class="text p-4 d-block">
                 <div class="meta mb-3">
                   <div><a href="#"></a></div>
                 </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
+                <h3 class="heading"><a href="#">평점:</a></h3>
               </div>
             </div>
           </div>
-          <div class="col-md-4 ftco-animate">
+          <div class="col-md-3 ftco-animate">
             <div class="blog-entry" data-aos-delay="100">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/BLUE1.jpg');">
-              </a>
+				<!-- 이미지 들어가는 곳 -->
               <div class="text p-4">
                 <div class="meta mb-3">
                   <div><a href="#"></a></div>
                 </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
+                <h3 class="heading"><a href="#">평점:</a></h3>
               </div>
             </div>
           </div>
-          <div class="col-md-4 ftco-animate">
+          <div class="col-md-3 ftco-animate">
             <div class="blog-entry" data-aos-delay="200">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/DRAMA.jpg');">
-              </a>
+              	<!-- 이미지 들어가는 곳 -->
               <div class="text p-4">
                 <div class="meta mb-3">
                   <div><a href="#"></a></div>
                 </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
+                <h3 class="heading"><a href="#">평점:</a></h3>
               </div>
             </div>
           </div>
-          
-          
-          
-          
-          
-          
-          
-          
-        <div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>  <!-- 여긴 알아서 바꿔주세염~ -->
-              </ul>
+          <div class="col-md-3 ftco-animate">
+            <div class="blog-entry" data-aos-delay="200">
+              	<!-- 이미지 들어가는 곳 -->
+              <div class="text p-4">
+                <div class="meta mb-3">
+                  <div><a href="#"></a></div>
+                </div>
+                <h3 class="heading"><a href="#">평점:</a></h3>
+              </div>
             </div>
           </div>
-        </div>
+         </div>
+          
+        <!-- 3번 카테고리 -->
+        <div class="row" id="newBook">
+        <h2 class="mb-4">5월 신작 도서</h2> <!-- 꼭 div row 다음에 넣어주기 -->
+          <div class="col-md-3 ftco-animate">
+            <div class="blog-entry">
+					<!-- 이미지 들어가는 곳 -->
+              <div class="text p-4 d-block">
+                <div class="meta mb-3">
+                  <div><a href="#"></a></div>
+                </div>
+                <h3 class="heading"><a href="#">평점:</a></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 ftco-animate">
+            <div class="blog-entry" data-aos-delay="100">
+				<!-- 이미지 들어가는 곳 -->
+              <div class="text p-4">
+                <div class="meta mb-3">
+                  <div><a href="#"></a></div>
+                </div>
+                <h3 class="heading"><a href="#">평점:</a></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 ftco-animate">
+            <div class="blog-entry" data-aos-delay="200">
+              	<!-- 이미지 들어가는 곳 -->
+              <div class="text p-4">
+                <div class="meta mb-3">
+                  <div><a href="#"></a></div>
+                </div>
+                <h3 class="heading"><a href="#">평점:</a></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 ftco-animate">
+            <div class="blog-entry" data-aos-delay="200">
+              	<!-- 이미지 들어가는 곳 -->
+              <div class="text p-4">
+                <div class="meta mb-3">
+                  <div><a href="#"></a></div>
+                </div>
+                <h3 class="heading"><a href="#">평점:</a></h3>
+              </div>
+            </div>
+          </div>
+         </div>
+          
+          <!-- 3번 카테고리 -->
+        <div class="row" id="hankang">
+        <h2 class="mb-4">정유정 컬렉션</h2> <!-- 꼭 div row 다음에 넣어주기 -->
+          <div class="col-md-3 ftco-animate">
+            <div class="blog-entry">
+					<!-- 이미지 들어가는 곳 -->
+              <div class="text p-4 d-block">
+                <div class="meta mb-3">
+                  <div><a href="#"></a></div>
+                </div>
+                <h3 class="heading"><a href="#">평점:</a></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 ftco-animate">
+            <div class="blog-entry" data-aos-delay="100">
+				<!-- 이미지 들어가는 곳 -->
+              <div class="text p-4">
+                <div class="meta mb-3">
+                  <div><a href="#"></a></div>
+                </div>
+                <h3 class="heading"><a href="#">평점:</a></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 ftco-animate">
+            <div class="blog-entry" data-aos-delay="200">
+              	<!-- 이미지 들어가는 곳 -->
+              <div class="text p-4">
+                <div class="meta mb-3">
+                  <div><a href="#"></a></div>
+                </div>
+                <h3 class="heading"><a href="#">평점:</a></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 ftco-animate">
+            <div class="blog-entry" data-aos-delay="200">
+              	<!-- 이미지 들어가는 곳 -->
+              <div class="text p-4">
+                <div class="meta mb-3">
+                  <div><a href="#"></a></div>
+                </div>
+                <h3 class="heading"><a href="#">평점:</a></h3>
+              </div>
+            </div>
+          </div>
+         </div>
+          
+          
+          
+          
+          
+          
+       
       </div>
     </section>
     
