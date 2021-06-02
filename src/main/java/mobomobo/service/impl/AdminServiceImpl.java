@@ -1,5 +1,6 @@
 package mobomobo.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -7,8 +8,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import mobomobo.dao.face.AdminDao;
+import mobomobo.dto.MovieAward;
 import mobomobo.dto.UserInfo;
 import mobomobo.service.face.AdminService;
+import mobomobo.util.AdminMovieRecomPaging;
 import mobomobo.util.Paging;
 
 @Service
@@ -62,8 +65,29 @@ public class AdminServiceImpl implements AdminService{
 			logger.info("adminservice 의 countUser의 결과 - false");
 			return false;
 		}
-	
-	
+		
 	}
 
+	@Override
+	public void writeMovierecom(HashMap<String, String> map) {
+
+		adminDao.insertMovierecom(map);
+	}
+	
+	@Override
+	public AdminMovieRecomPaging getAdminMovieListPaging(int curPage) {
+
+		int totalCount = adminDao.selectMoiveCnt();
+		
+		AdminMovieRecomPaging moviePaging = new AdminMovieRecomPaging(totalCount, curPage);
+		
+		return moviePaging;
+	}
+	
+	@Override
+	public List<MovieAward> getAwardMovieList(AdminMovieRecomPaging moviepaging) {
+		
+		return adminDao.selectMovieAwardList(moviepaging);
+	}
+	
 }

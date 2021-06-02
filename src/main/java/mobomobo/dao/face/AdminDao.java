@@ -1,8 +1,11 @@
 package mobomobo.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
+import mobomobo.dto.MovieAward;
 import mobomobo.dto.UserInfo;
+import mobomobo.util.AdminMovieRecomPaging;
 import mobomobo.util.Paging;
 
 public interface AdminDao {
@@ -35,6 +38,12 @@ public interface AdminDao {
 	 * @return
 	 */
 	public int countUser(UserInfo userno);
+
+	public void insertMovierecom(HashMap<String, String> map);
+
+	public int selectMoiveCnt();
+
+	public List<MovieAward> selectMovieAwardList(AdminMovieRecomPaging moviepaging);
 
 
 

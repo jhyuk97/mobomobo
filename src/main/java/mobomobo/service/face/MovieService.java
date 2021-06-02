@@ -22,5 +22,7 @@ public interface MovieService {
 
 	public double checkStarRating(MovieStarRating movieStarRating);
 
+	public List<Movie> adminMovieSearchList(String search) throws IOException, ParseException;
+
 
 }

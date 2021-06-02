@@ -242,40 +242,9 @@ a { text-decoration:none; }
       <div id="paging"></div>
      </div> 
     </section>
-    
-
-
-
-
 
 
 <%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   <!-- loader -->

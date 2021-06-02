@@ -46,6 +46,26 @@
 		SELECT COUNT(*) FROM userinfo WHERE userno=#{userno}
 	</select>
 	
+	<insert id="insertMovierecom" parameterType="hashmap">
+		INSERT INTO movie (movieno, key, title, image, division)
+		VALUES (movieno_seq.nextval, #{key}, #{title}, #{image}, #{division})
+	</insert>
+	
+	<select id="selectMoiveCnt" resultType="int">
+		SELECT count(*) from movie
+	</select>
+	
+	<select id="selectMovieAwardList" parameterType="mobomobo.util.AdminMovieRecomPaging" resultType="mobomobo.dto.MovieAward">
+		SELECT * FROM (
+   			 SELECT rownum rnum, M.* FROM(
+       			 SELECT movieno, title, key, image, division
+       			 FROM movie
+      			 ORDER BY movieno DESC
+      		 ) M
+    	) Movie
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
 	
 
 </mapper>

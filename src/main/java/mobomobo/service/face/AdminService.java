@@ -1,8 +1,11 @@
 package mobomobo.service.face;
 
+import java.util.HashMap;
 import java.util.List;
 
+import mobomobo.dto.MovieAward;
 import mobomobo.dto.UserInfo;
+import mobomobo.util.AdminMovieRecomPaging;
 import mobomobo.util.Paging;
 
 public interface AdminService {
@@ -31,5 +34,11 @@ public interface AdminService {
 	 * @return 
 	 */
 	public boolean userDelete(UserInfo userno);
+
+	public void writeMovierecom(HashMap<String, String> map);
+
+	public AdminMovieRecomPaging getAdminMovieListPaging(int curPage);
+
+	public List<MovieAward> getAwardMovieList(AdminMovieRecomPaging moviepaging);
 
 }
