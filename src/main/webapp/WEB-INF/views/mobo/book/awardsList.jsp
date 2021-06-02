@@ -61,9 +61,9 @@ a { text-decoration:none; }
 					              </a>
 					              <div class="text p-4 d-block">
 					                <div class="meta mb-3">
-					                  <div><a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn }'}">${'${result.documents[0].title }'}</a></div>
+					                  <div><a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn }'}&&avg=${'${avg }'}">${'${result.documents[0].title }'}</a></div>
 					                </div>
-					                <h3 class="heading"><a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn }'}">평점:${'${avg }'}</a></h3>
+					                <h3 class="heading"><a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn }'}&&avg=${'${avg }'}">평점:${'${avg }'}</a></h3>
 					              </div>
 					            </div>
 					          </div>

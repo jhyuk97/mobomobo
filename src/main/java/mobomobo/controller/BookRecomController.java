@@ -3,6 +3,8 @@ package mobomobo.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import mobomobo.dto.BookKey;
+import mobomobo.dto.BookMark;
 import mobomobo.service.face.BookRecomService;
 
 @Controller
@@ -67,13 +69,22 @@ public class BookRecomController {
 		return list;
 	}
 	@RequestMapping(value="/detail",method = RequestMethod.GET)
-	public void detail(String isbn,String avg, Model model) {
+	public void detail(String isbn,String avg, HttpSession session, Model model) {
 		logger.info("/mobo/book/detail [GET]");
 		
 		logger.debug(isbn.substring(0,isbn.indexOf(" ")));
 		logger.debug(avg);
+		
+//		BookMark bookMark = bookRecomService.getBookMarkInfo(session);
+		
+		
+		
 		model.addAttribute("avg",avg);
 		model.addAttribute("isbn",isbn.substring(0,isbn.indexOf(" ")));
+	}
+	@RequestMapping(value="/bookMark", method = RequestMethod.POST)
+	public void bookMark() {
+		logger.info("/mobo/book/bookMark [POST]");
 	}
 	
 	
