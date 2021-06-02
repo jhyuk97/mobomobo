@@ -182,7 +182,7 @@ function insertStarRating() {
 	})
 }
 
-//입력한 별점 조회
+//입력한 별점 조회/출력
 function checkStarRating() {
 	
 	var userno = $("#hiddenUserno").val();
