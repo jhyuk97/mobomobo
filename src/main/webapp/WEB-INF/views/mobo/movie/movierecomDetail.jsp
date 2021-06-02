@@ -49,6 +49,11 @@
 	background-size: 200%;
 }
 
+#chart {
+	width : 500px;
+	height : 500px;
+}
+
 </style>
 
 <div id="movieInfoWrap">
@@ -94,9 +99,14 @@
 <div id="starResultWrap" >
 </div>
 
+<div id="chart">
+<canvas id="myChart1"></canvas>
+</div>
+
 
 </div>
 
+<script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"></script>
 <script type="text/javascript">
 
 var idx = -1;
@@ -144,9 +154,9 @@ $(document).ready(function() {
 			$(".star").eq(i).addClass("on");
 		}
 		
-	})
-})
-
+	}) 
+}) 
+ 
 //별 선택 값을 숫자로 보여주는 함수
 function showStarValue(val) {
 	if( val < 0) {
@@ -156,7 +166,7 @@ function showStarValue(val) {
 	}
 	
 	$(".star-value").html(val);
-}
+};
 
 //별점 입력
 function insertStarRating() {
@@ -178,6 +188,7 @@ function insertStarRating() {
 			$("#starInsertWrap").hide();
 			$("#starResultWrap").show();
 			checkStarRating();
+			starRatingCount();
 		}
 	})
 }
@@ -194,9 +205,6 @@ function checkStarRating() {
 		, data : {'key' : hiddenKey}
 		, dataType : 'json'
 		, success : function(data) {
-			
-			console.log(data);
-			console.log(Number.isInteger(data));
 			
 			$("#starResultWrap").html("");
 			
@@ -241,6 +249,48 @@ function updateStarRating() {
 	$("#starInsertWrap").show();
 	$("#starResultWrap").hide();
 }
+
+//차트
+var ctx = document.getElementById('myChart1').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['10', '20', '30', '40', '50', '기타'],
+        datasets: [{
+            data: [3, 5, 3, 1, 5, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+            ], 
+            borderWidth: 1
+        }]
+    },
+    options: {
+        plugins: {
+            legend: {
+              display : false
+            }
+    	},
+	    scales: {
+            y: {
+                beginAtZero: true
+            }
+	    }
+    }
+});
+
 </script>
 
 
