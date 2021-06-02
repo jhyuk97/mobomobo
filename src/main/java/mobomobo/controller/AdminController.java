@@ -82,5 +82,18 @@ public class AdminController {
 			
 			
 		}
+		
+		@RequestMapping(value = "/admin/userDelete", method = RequestMethod.POST)
+		public void userDelete(UserInfo userno) {
+			
+			logger.info("/admin/userDelete - [POST] 요청 완료");
+			
+			logger.info("삭제 되어야 하는 userno : {}", userno);
+			
+			adminService.userDelete(userno);
+			
+			
+			
+		}
 
 }

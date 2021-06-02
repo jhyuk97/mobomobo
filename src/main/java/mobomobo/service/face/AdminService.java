@@ -23,5 +23,12 @@ public interface AdminService {
 	 * @return - list
 	 */
 	public List<UserInfo> list(Paging paging);
+	
+	/**
+	 * 회원관리 페이지에서 user삭제 하기
+	 * 
+	 * @param userno - 삭제할 userno
+	 */
+	public void userDelete(UserInfo userno);
 
 }

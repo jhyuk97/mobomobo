@@ -44,4 +44,15 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.selectPageList(paging);
 	}
 
+	@Override
+	public void userDelete(UserInfo userno) {
+		
+		logger.info("adminservice - userDelte 요청 완료 ");
+		
+		adminDao.userDelete(userno);
+		
+		
+		
+	}
+
 }

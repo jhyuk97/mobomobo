@@ -8,7 +8,48 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-       
+<style type="text/css">
+
+/* .ni-fat-remove{ */
+/* 	color: #FFF; */
+/* 	background-color: #8ebebc; */
+/* 	border: 0; */
+/* 	outline: 0; */
+/* } */
+
+/* .ni-fat-remove :hover{ */
+/* 	background-color: #9ececc; */
+/* } */
+
+</style>
+
+<script type="text/javascript">
+
+function deleteUser(userno) {
+	$.ajax({
+		type: "post"
+		, url: "/admin/userDelete"
+		, dataType: "json"
+		, data: {
+			userno: userno
+		}
+		, success: function(data){
+			if(data.success) {
+				
+				$("[data-userno='"+userno+"']").remove();
+				
+			} else {
+				alert("유저 삭제 실패");
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+}
+
+</script>
+     
        <!-- Table -->
       <div class="row">
         <div class="col">
@@ -36,13 +77,30 @@
                 	<td><fmt:formatDate value="${userInfo.joindate }" pattern="yy-MM-dd" /></td>
                 	<td>${userInfo.age }</td>
                 	<td>
+                	<!-- 유저 등급 변경하기 -->
+                	<form>
                 		<select name="grade" id="grade" class="grade"> <!-- 선택 시 form으로 묶어서 전송 or josn으로 바로바로  -->
-							<option value="admin">admin</option>
-							<option value="user">user</option>
+							<option value="${userInfo.grade}">${userInfo.grade }</option>
+							
+							<!-- 유저의 상태에 따라 선택지 다르게 보여줌 -->
+							<c:choose>
+							
+							<c:when test="${userInfo.grade == 'user'}">
+								<option value="admin">admin</option>							
+							</c:when>
+							
+							<c:otherwise>
+								<option value="user">user</option>						
+							</c:otherwise>
+							
+							</c:choose>
+
 						</select>
+						<button onclick="deleteComment(${comment.commentNo });">변경</button>
+					</form>
 					</td>
                 	<td>
-                		<button class="btn btn-default btn-xs" onclick="#">삭제</button>
+                		<button class="btn btn-warning btn-sm" onclick="deleteUser(${userInfo.userno });" >삭제</button>
                 	</td>
                 </tr>
                  </c:forEach>
