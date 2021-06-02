@@ -38,6 +38,12 @@ public interface AdminDao {
 	 * @return
 	 */
 	public int countUser(UserInfo userno);
+	
+	/**
+	 * 회원 정보 변경 
+	 * @param userno
+	 */
+	public void userUpdate(UserInfo userInfo);
 
 	public void insertMovierecom(HashMap<String, String> map);
 

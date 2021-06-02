@@ -46,6 +46,7 @@
 		SELECT COUNT(*) FROM userinfo WHERE userno=#{userno}
 	</select>
 	
+<<<<<<< HEAD
 	<insert id="insertMovierecom" parameterType="hashmap">
 		INSERT INTO movie (movieno, key, title, image, division)
 		VALUES (movieno_seq.nextval, #{key}, #{title}, #{image}, #{division})
@@ -65,6 +66,12 @@
     	) Movie
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
+=======
+	<update id="userUpdate" parameterType="UserInfo">
+		UPDATE userinfo SET grade = #{grade}
+		WHERE userno = #{userno}
+	</update>
+>>>>>>> 45debea8f1037c7963356779fe1b01291534cad0
 	
 	
 
