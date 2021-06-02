@@ -91,9 +91,6 @@ public class AdminServiceImpl implements AdminService{
 		
 		return adminDao.selectMovieAwardList(moviepaging);
 	}
-<<<<<<< HEAD
-	
-=======
 
 	@Override
 	public boolean userUpdate(UserInfo userInfo) {
@@ -116,9 +113,12 @@ public class AdminServiceImpl implements AdminService{
 			return false;
 		}
 		
-		
-		
+	}
+	
+	@Override
+	public void removeMovierecom(MovieAward movieAward) {
+
+		adminDao.deleteMovierecom(movieAward);
 	}
 
->>>>>>> 45debea8f1037c7963356779fe1b01291534cad0
 }

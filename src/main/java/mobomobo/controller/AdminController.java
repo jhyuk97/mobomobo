@@ -154,5 +154,11 @@ public class AdminController {
 			
 			return "redirect:/admin/movierecom";
 		}
+		
+		@RequestMapping(value="/admin/movierecomDelete")
+		public @ResponseBody void movierecomDelete(MovieAward movieAward) {
+			
+			adminService.removeMovierecom(movieAward);
+		}
 
 }

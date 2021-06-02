@@ -48,4 +48,6 @@ public interface AdminService {
 
 	public List<MovieAward> getAwardMovieList(AdminMovieRecomPaging moviepaging);
 
+	public void removeMovierecom(MovieAward movieAward);
+
 }

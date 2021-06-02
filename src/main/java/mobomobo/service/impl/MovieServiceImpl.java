@@ -524,4 +524,9 @@ public class MovieServiceImpl implements MovieService{
 		return starRating;
 	}
 	
+	@Override
+	public List<Double> getStarAvg(String key) {
+		return movieDao.selectStarAvg(key);
+	}
+	
 }

@@ -79,8 +79,10 @@ public class MovieController {
 	public void movierecomDetail(Movie movie, Model model) throws IOException, ParseException {
 		
 		Movie result = movieService.getMovieInfo(movie);
+		List<Double> list = movieService.getStarAvg(movie.getKey()); 
 		
 		model.addAttribute("movie", result);
+		model.addAttribute("list", list);
 	}
 	
 	@RequestMapping(value="/starRatingInsert")

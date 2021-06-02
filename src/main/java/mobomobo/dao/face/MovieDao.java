@@ -1,5 +1,8 @@
 package mobomobo.dao.face;
 
+import java.util.HashMap;
+import java.util.List;
+
 import mobomobo.dto.MovieStarRating;
 
 public interface MovieDao {
@@ -11,6 +14,8 @@ public interface MovieDao {
 	public double selectMovieStarRatingByUserno(MovieStarRating movieStarRating);
 
 	public int existMovieStarRatingByUserNo(MovieStarRating movieStarRating);
+
+	public List<Double> selectStarAvg(String key);
 
 
 }

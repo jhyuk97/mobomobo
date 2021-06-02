@@ -112,6 +112,8 @@
 var idx = -1;
 $(document).ready(function() {
 	
+	console.log(${list});
+	
 	checkStarRating();
 	
 	//별 클릭 이벤트

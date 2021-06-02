@@ -51,6 +51,8 @@ public interface AdminDao {
 
 	public List<MovieAward> selectMovieAwardList(AdminMovieRecomPaging moviepaging);
 
+	public void deleteMovierecom(MovieAward movieAward);
+
 
 
 }

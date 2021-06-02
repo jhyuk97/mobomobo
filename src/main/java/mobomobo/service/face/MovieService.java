@@ -1,6 +1,7 @@
 package mobomobo.service.face;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
@@ -23,6 +24,8 @@ public interface MovieService {
 	public double checkStarRating(MovieStarRating movieStarRating);
 
 	public List<Movie> adminMovieSearchList(String search) throws IOException, ParseException;
+
+	public List<Double> getStarAvg(String key);
 
 
 }

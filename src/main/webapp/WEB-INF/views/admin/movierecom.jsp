@@ -80,7 +80,7 @@
                 </thead>               
                 <tbody>
                 <c:forEach items="${list }" var="movie">
-                	<tr>
+                	<tr data-movieNo="${movie.movieNo }">
                 		<td>${movie.movieNo }</td>
                 		<td>${movie.title }</td>
                 		<c:if test="${movie.division == 'recom' }">
@@ -90,7 +90,8 @@
                 		<td>아카데미 상</td>
                 		</c:if>
                 		<td>${movie.key }</td>
-                		<td><button type="button">삭제</button></td>
+                		<td><button type="button" onclick="deleteMovie(${movie.movieNo})">삭제</button></td>
+                	</tr>
                 </c:forEach>
                 </tbody>
               </table>
@@ -100,12 +101,15 @@
             <div class="card-footer py-4" style="text-align:center;">
               <nav aria-label="...">
                 <ul class="pagination mb-0" style="justify-content:center;">
+                
+                <c:if test="${paging.getCurPage() != 1 }">
                   <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">
+                    <a class="page-link" href="/admin/movierecom?curPage=${paging.getCurPage() - 1 }">
                       <i class="fas fa-angle-left"></i>
                       <span class="sr-only">Previous</span>
                     </a>
                   </li>
+                 </c:if>
                   
                   <c:forEach var="i" begin="${paging.getStartPage() }" end="${paging.getEndPage()}" step="1" >
                   	<c:choose>
@@ -118,12 +122,15 @@
                   	</c:choose>
                   </c:forEach>
                     
+                 <c:if test="${paging.getCurPage() != paging.getTotalPage() }">   
                   <li class="page-item">
-                    <a class="page-link" href="#">
+                    <a class="page-link" href="/admin/movierecom?curPage=${paging.getCurPage() + 1 }">
                       <i class="fas fa-angle-right"></i>
                       <span class="sr-only">Next</span>
                     </a>
                   </li>
+                 </c:if>
+                  
                 </ul>
               </nav>
             </div>
@@ -201,7 +208,7 @@ function popupMovieSearch() {
 				}
 				html += "<span>" + movie[i].key + " | </span>"
 				html += "<span>" + movie[i].title + "</span>"
-				html += "</div> <br> "
+				html += "</div> <br> " 
 			}
 			
 			$("#movieList").html(html);
@@ -240,6 +247,20 @@ function choiceMovie(title, key, image) {
 	
 	$("#movieList").html(html);
 }
+
+function deleteMovie(movieNo) {
+
+	$.ajax({
+		type : 'get'
+		, url : '/admin/movierecomDelete'
+		, data : {'movieNo' : movieNo}
+		, success : function() {
+			$("[data-movieNo='"+movieNo+"']").remove();
+		}
+	})
+
+}
+
 </script>
     
     
