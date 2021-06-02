@@ -33,8 +33,6 @@
     <%@include file="/WEB-INF/views/mobo/layout/header.jsp" %> <!-- 이걸 꼭 맨 아래에 둬야 먹히더라구여 다른 방법 아시면 의견 부탁드림니다 -->
   
 <style>
-<<<<<<< HEAD
-
 a { text-decoration:none; }
 
 
@@ -87,7 +85,8 @@ a { text-decoration:none; }
                 	for(var i = 0; i < arrayRating.length; i++){
                 		
                 		console.log(result[i].AVG)
-                		arrayRating.get(i).append(result[i].AVG)
+                		
+                		arrayRating.get(i).append(result[i].AVG.toFixed(1))
                 		
                 	}
                 	
@@ -126,10 +125,14 @@ a { text-decoration:none; }
                    		
                    		
                    		
-                    	var img = $('<a>',{
-                    		'href':'#',
-                    	}).addClass('block-20')
-                    	.css('background-image','url("'+ result.documents[i].thumbnail+'")')
+//                     	var img = $('<a>',{
+//                     		'href':'/mobo/book/detail?isbn="'+result.documents[i].isbn'"'
+//                     	}).addClass('block-20')
+//                     	.css('background-image','url("'+ result.documents[i].thumbnail+'")')
+
+						var img = `
+							<a href="/mobo/book/detail?isbn=${'${result.documents[i].isbn }'}" class="block-20" style="background-image: url('${'${result.documents[i].thumbnail}'}');">
+						`
                     	
 // 	                   	console.log($(img).eq(i))
 // 	                   	console.log(arrayImg.get(i))
@@ -139,6 +142,10 @@ a { text-decoration:none; }
 
 	                    
 	                    $(img).prependTo(arrayImg.get(i));
+//                     	arrayImg.get(i).prepend(` 
+//                     			<a href="/mobo/book/detail?isbn=${'${result.documents[i].isbn }'}" class="block-20" style="background-image: url('${'${result.documents[i].thumbnail}'}');">
+//                     			`)
+                    	
                    }
                     
                    
