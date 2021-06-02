@@ -46,6 +46,11 @@
 		SELECT COUNT(*) FROM userinfo WHERE userno=#{userno}
 	</select>
 	
+	<update id="userUpdate" parameterType="UserInfo">
+		UPDATE userinfo SET grade = #{grade}
+		WHERE userno = #{userno}
+	</update>
+	
 	
 
 </mapper>

@@ -26,6 +26,7 @@
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="order" value="1" />
 	</beans:bean>
 	
 	<!--  컨트롤러, 서비스  스프링빈으로 등록하는위치 -->
@@ -34,11 +35,13 @@
 	
 		<!-- JSON응답용 jsonView를 스프링 bean으로 등록 -->
 	<beans:bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
-	
 		<beans:property name="contentType" value="application/json;charset=utf-8" />
-		
 	</beans:bean>
 	
+	<!-- 사용자가 추가함 (ViewResolver) 설정 -->
+	<beans:bean class ="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0" />
+	</beans:bean>
 	
 	
 		<!--  MultipartResolver 설정 -->

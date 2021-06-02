@@ -31,5 +31,12 @@ public interface AdminService {
 	 * @return 
 	 */
 	public boolean userDelete(UserInfo userno);
+	
+	/**
+	 * 회원관리 페이지에서 user의 grade 변경
+	 * @param userno
+	 * @return 결과
+	 */
+	public boolean userUpdate(UserInfo userInfo);
 
 }
