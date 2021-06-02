@@ -70,15 +70,29 @@ public class AdminController {
 			//페이징계산후 회원관리 게시판 list 만들기(?)
 			List<UserInfo> list = adminService.list( paging ); 
 			
-			for ( int i=0; i< list.size(); i++ ) {
-				//테스트
-				logger.info( list.get(i).toString() );
-			}
+//			for ( int i=0; i< list.size(); i++ ) {
+//				//테스트
+//				logger.info( list.get(i).toString() );
+//			}
 
 
 			//모델값전달
 			model.addAttribute("list", list);
 			model.addAttribute("paging", paging);			
+			
+			
+		}
+		
+		@RequestMapping(value = "/admin/userDelete", method = RequestMethod.POST)
+		public void userDelete(UserInfo userno, Model model) {
+			
+			logger.info("/admin/userDelete - [POST] 요청 완료");
+			
+			logger.info("삭제 되어야 하는 userno : {}", userno);
+			
+			boolean result = adminService.userDelete(userno);
+			
+			model.addAttribute("result",result);
 			
 			
 		}

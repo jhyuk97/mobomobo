@@ -151,8 +151,8 @@ public class SignController {
 			session.setAttribute("age", res.getAge());
 			session.setAttribute("userno", res.getUserno());
 
-//			logger.info("세션상태 : " + session.getAttribute("login"));
-//			logger.info("세션 아이디 : " + session.getAttribute("id"));
+			logger.info("세션상태 : " + session.getAttribute("login"));
+			logger.info("세션 아이디 : " + session.getAttribute("id"));
 
 			return "mobo/main";
 
