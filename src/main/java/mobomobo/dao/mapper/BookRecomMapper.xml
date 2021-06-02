@@ -36,7 +36,27 @@
 		FROM bookkey S
 		WHERE award ='맨부커'
   	</select>
+  	<select id="selectBookMarkByKeyUserno" resultType="int" parameterType="mobomobo.dto.BookMark">
   	
-  
+  		SELECT COUNT(*) FROM bookmark
+  		WHERE userno = #{userno } AND key = #{key }
+  	</select>
+  	<delete id="deleteBookMarkByKeyUserno" parameterType="mobomobo.dto.BookMark">
+  		DELETE FROM bookmark
+  		WHERE userno = #{userno } AND key =#{key }
+  	</delete>
+  	<insert id="insertBookMarkByKeyUserno" parameterType="mobomobo.dto.BookMark">
+  		INSERT INTO bookmark
+  		VALUES(#{userno },#{category },#{key })
+  	</insert>
+  	<insert id="insertBookStarRaingByRatingKeyUsernoAge" parameterType="mobomobo.dto.BookStarRating">
+  		INSERT INTO bookstarrating(isbn,userno,age,starrating)
+		VALUES(#{isbn },#{userno },#{age },#{starRating })
+  	
+  	</insert>
+  	<select id="selectBookStarRatingByIsbn" parameterType="String" resultType="HashMap">
+  		SELECT AVG(starrating) avg FROM bookstarrating 
+  		WHERE isbn = #{isbn }
+  	</select>
   
   </mapper>

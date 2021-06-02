@@ -213,7 +213,7 @@
 	            headers: {'Authorization': 'KakaoAK 7ab4fb38af1de0cf515ccc51bc417dd5'},
 	            type : "get",
 	            data:{
-	            	query:${isbn },
+	            	query:"${isbn }",
 	                target:'isbn'
 	            },
 	            success : function(result){
@@ -254,8 +254,27 @@
 	            url: "/mobo/book/bookMark",
 	            type : "post",
 	            dataType:"json",
-	            data:{ "isbn":${isbn } },
+	            data:{ "key":"${isbn }" },
 	            success : function(result){
+	            	console.log("인서트성공!!")
+	            	console.log(result)
+	            	if(result){
+	 	           		console.log("북마크 삭제")
+	 	           		$("#bookMarkView").children().remove();
+	 	           		$("#bookMarkView").append(`
+	 	           				<img class="pull-right"src="/resources/img/gray_hart.png" style="width: 15%; position: relative; bottom: 120px;" class="pull-left">
+	 	           				`)
+	            		
+	            	}else{
+	 	           		console.log("북마크 삽입")
+	 	           		$("#bookMarkView").children().remove();
+	 	           		$("#bookMarkView").append(`
+	 	           				<img class="pull-right"src="/resources/img/pink_hart.png" style="width: 15%; position: relative; bottom: 120px;" class="pull-left">
+	 	           				`)
+	            		
+	            	}
+	            	
+	            	
 	            	
 	            }
 				
@@ -264,6 +283,45 @@
 			
 			
 		})
+		})
+	</script>
+	
+	
+	<script type="text/javascript">
+	//별점 입력
+	$(document).ready(function () {
+		$("#starBtn").click(function() {
+			var starRating = $("#starValue").html();
+			console.log(starRating)
+			
+			
+			$.ajax({
+				type : 'get'
+				, url : '/mobo/book/starRatingInsert'
+				, data : {'starRating' : starRating
+							, 'isbn' : ${isbn }
+							, 'age' : ${age }
+							, 'userno':${userno }
+						 }
+				, success : function(result) {
+					
+
+					
+
+
+				}
+			})
+		})
+	})
+	
+	
+	
+	
+	
+	function insertStarRating() {
+		
+		
+	}
 	</script>
 	
 	
@@ -280,18 +338,29 @@
           <div class="col-md-7 text-center heading-section ftco-animate">
             <span class="subheading">맨부커 상</span>
             <p id="p">당신의 인생 영화, 무부무부에서 만나보세요</p>
-             	<img class="pull-right"src="/resources/img/gray_hart.png" style="width: 15%; position: relative; bottom: 120px;" class="pull-left">
+            <div id="bookMarkView">
+            <c:if test="${not empty login }">
+            	<c:if test="${!bookMark }">
+             		<img class="pull-right"src="/resources/img/gray_hart.png" style="width: 15%; position: relative; bottom: 120px;" class="pull-left">
+            	</c:if>
+            	<c:if test="${bookMark }">
+             		<img class="pull-right"src="/resources/img/pink_hart.png" style="width: 15%; position: relative; bottom: 120px;" class="pull-left">
+            	</c:if>
+            </c:if>
+            </div>
           </div>
         </div>
         <div class="row" style="max-width: 110%;">
           <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
             <div class="text">
+            <c:if test="${not empty login }">
               <div class="pull-right button1">
               <input class="bubbly-button" type="button" value="북마크" id="bookMark"/></div>
+            </c:if>
               <h4 class="subheading"></h4>
               <p id="p"></p>
              	<img src="/resources/img/pinkStar.png" style="width: 6.3%; " class="pull-left">
-              <h4>평점:<fmt:formatNumber value="${avg }" pattern=".0"/></h3>
+              <h4>평점:<fmt:formatNumber value="${avg.AVG }" pattern=".0"/></h3>
               <br>
               <div class="star-box" >
 				<span class="star star_left"></span><!-- 
@@ -304,7 +373,14 @@
 				 --><span class="star star_right"></span><!-- 
 				 --><span class="star star_left"></span><!-- 
 				 --><span class="star star_right"></span>
+				 
 			</div>
+            <div class="star-value" id="starValue">0</div>
+	
+				<button type="button" id="starBtn">별점 입력</button>
+            
+            
+            
             </div>
           </div>
         </div>
@@ -331,29 +407,7 @@
         </div>
         <br>
         
-        
-        
-        
-        
-        
 
-	<div class="card-header bg-light">
-	        <i class="fa fa-comment fa"></i> REPLY
-	</div>
-	<div class="card-body">
-		<ul class="list-group list-group-flush">
-		    <li class="list-group-item">
-			<div class="form-inline mb-2">
-				<label for="replyId"><i class="fa fa-user-circle-o fa-2x"></i></label>
-				<input type="text" class="form-control ml-2" placeholder="Enter yourId" id="replyId">
-				<label for="replyPassword" class="ml-4"><i class="fa fa-unlock-alt fa-2x"></i></label>
-				<input type="password" class="form-control ml-2" placeholder="Enter password" id="replyPassword">
-			</div>
-			<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-			<button type="button" class="btn btn-dark mt-3" onClick="javascript:addReply();">post reply</button>
-		    </li>
-		</ul>
-	</div>
 </div>
 	</section>
 	

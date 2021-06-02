@@ -5,11 +5,11 @@ public class BookMark {
 	private int userno;
 	private String category;
 	private String key;
-	private String bookMarkState;
+
+
 	@Override
 	public String toString() {
-		return "BookMark [userno=" + userno + ", category=" + category + ", key=" + key + ", bookMarkState="
-				+ bookMarkState + "]";
+		return "BookMark [userno=" + userno + ", category=" + category + ", key=" + key + "]";
 	}
 	public int getUserno() {
 		return userno;
@@ -29,12 +29,7 @@ public class BookMark {
 	public void setKey(String key) {
 		this.key = key;
 	}
-	public String getBookMarkState() {
-		return bookMarkState;
-	}
-	public void setBookMarkState(String bookMarkState) {
-		this.bookMarkState = bookMarkState;
-	}
+	
 	
 	
 }
