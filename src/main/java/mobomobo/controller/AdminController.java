@@ -64,7 +64,7 @@ public class AdminController {
 //			페이징 계산
 			Paging paging = adminService.getPaging( userPaging );
 			paging.setSearch( userPaging.getSearch() );
-			logger.debug("페이징 : {}", paging);
+			logger.info("페이징 : {}", paging);
 			
 			
 			//페이징계산후 회원관리 게시판 list 만들기(?)
@@ -84,17 +84,36 @@ public class AdminController {
 		}
 		
 		@RequestMapping(value = "/admin/userDelete", method = RequestMethod.POST)
-		public void userDelete(UserInfo userno, Model model) {
+		public String userDelete(UserInfo userno, Model model) {
 			
 			logger.info("/admin/userDelete - [POST] 요청 완료");
 			
 			logger.info("삭제 되어야 하는 userno : {}", userno);
 			
-			boolean result = adminService.userDelete(userno);
+			boolean success = adminService.userDelete(userno);
 			
-			model.addAttribute("result",result);
+			logger.info("반환되어 돌아오는값 : {}", success);
 			
+			//jsp로 보냄
+			model.addAttribute("success",success);
 			
+			return "jsonView";
+		}
+		
+		@RequestMapping(value = "/admin/userUpdate", method = RequestMethod.POST)
+		public String userUpdate(UserInfo userInfo, Model model) {
+			
+			logger.info("/admin/userUpdate - [POST] 요청 완료");
+			
+			logger.info("변경 되어야 하는 userInfo : {}", userInfo);
+			
+			boolean success = adminService.userUpdate(userInfo);
+			
+			logger.info("반환되어 돌아오는값 : {}", success);
+			
+			model.addAttribute("success",success);
+
+			return "redirect:/admin/usermanagement";
 		}
 
 }

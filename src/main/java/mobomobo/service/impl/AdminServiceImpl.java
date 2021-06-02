@@ -51,8 +51,10 @@ public class AdminServiceImpl implements AdminService{
 		
 		adminDao.userDelete(userno);
 		
+		logger.info("검사 완료한 값 = {}" ,(adminDao.countUser(userno)));
+		
 		//삭제 진행후 그 userno 의 값이 있는 지 없는지 검사 후 return값 설정
-		if (adminDao.countUser(userno) > 0) {
+		if (adminDao.countUser(userno) <= 0) {
 			
 			logger.info("adminservice 의 countUser의 결과 - true");
 			
@@ -64,6 +66,31 @@ public class AdminServiceImpl implements AdminService{
 		}
 	
 	
+	}
+
+	@Override
+	public boolean userUpdate(UserInfo userInfo) {
+		
+		logger.info("adminservice - userUpdate 요청 완료 ");
+		
+		adminDao.userUpdate(userInfo);
+		
+
+		
+		//변경 진행 후 변경 검사
+		if (adminDao.countUser(userInfo) <= 0) {
+			
+			logger.info("adminservice 의 countUser의 결과 - true");
+			
+			return true;
+			
+		} else 	{	
+			logger.info("adminservice 의 countUser의 결과 - false");
+			return false;
+		}
+		
+		
+		
 	}
 
 }
