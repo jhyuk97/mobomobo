@@ -28,5 +28,14 @@ public interface AdminDao {
 	 * @param userno - 삭제할 유저 정보
 	 */
 	public void userDelete(UserInfo userno);
+	
+	/**
+	 *  회원 번호 조회 후 true, false 검사
+	 * @param userno
+	 * @return
+	 */
+	public int countUser(UserInfo userno);
+
+
 
 }

@@ -28,7 +28,8 @@ public interface AdminService {
 	 * 회원관리 페이지에서 user삭제 하기
 	 * 
 	 * @param userno - 삭제할 userno
+	 * @return 
 	 */
-	public void userDelete(UserInfo userno);
+	public boolean userDelete(UserInfo userno);
 
 }

@@ -24,8 +24,9 @@
 </style>
 
 <script type="text/javascript">
-
 function deleteUser(userno) {
+
+if( confirm("게시글을 삭제하시겠습니까?") ) {
 	$.ajax({
 		type: "post"
 		, url: "/admin/userDelete"
@@ -34,18 +35,28 @@ function deleteUser(userno) {
 			userno: userno
 		}
 		, success: function(data){
-			if(data.success) {
+			if(data.result) {
+				
+				console.log(result);
 				
 				$("[data-userno='"+userno+"']").remove();
 				
+				alert("유저를 삭제 하였습니다 ");
+				
 			} else {
-				alert("유저 삭제 실패");
+				alert("유저 삭제가 실패하였습니다");
 			}
 		}
 		, error: function() {
 			console.log("error");
 		}
 	});
+	
+	} 
+	
+	else{
+		return false;
+	}
 }
 
 </script>
@@ -71,7 +82,7 @@ function deleteUser(userno) {
                 </thead>
                 <tbody>
                 <c:forEach items="${list }" var="userInfo">
-                <tr>
+                <tr data-userno="${userInfo.userno}">
                 	<td>${userInfo.userno }</td>
                 	<td>${userInfo.name }</td>
                 	<td><fmt:formatDate value="${userInfo.joindate }" pattern="yy-MM-dd" /></td>

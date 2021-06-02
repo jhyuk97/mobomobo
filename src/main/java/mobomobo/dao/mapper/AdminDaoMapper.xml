@@ -42,6 +42,10 @@
 		WHERE userno = #{userno}
 	</delete>
 	
+	<select id="countUser" parameterType="UserInfo" resultType="int">
+		SELECT COUNT(*) FROM userinfo WHERE userno=#{userno}
+	</select>
+	
 	
 
 </mapper>
