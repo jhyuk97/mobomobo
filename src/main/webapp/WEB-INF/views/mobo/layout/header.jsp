@@ -149,7 +149,7 @@ p {
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html"><div class="menufont">중고마켓</div></a>
+                            <a class="nav-link" href="/mobo/market"><div class="menufont">중고마켓</div></a>
                         </li>
                         
                     </ul>

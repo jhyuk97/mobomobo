@@ -57,7 +57,7 @@ public class FileUploadController {
 		//파일 기본경로
 		String dftFilePath = request.getSession().getServletContext().getRealPath("/");
 		//임시 파일 경로
-		String filePath = dftFilePath + "resource" + File.separator + "emp" + File.separator;
+		String filePath = dftFilePath + "emp" + File.separator + "editor" + File.separator;
 		File file = new File(filePath);
 		if(!file.exists()) {
 			file.mkdirs();
@@ -91,7 +91,7 @@ public class FileUploadController {
 		
 		//img태그의 title속성에 원본파일명 적용
 		sFileInfo += "&sFileName="+ filename;
-		sFileInfo += "&sFileURL="+"/resource/emp/"+realFileNm;
+		sFileInfo += "&sFileURL="+"/emp/editor/"+realFileNm;
 		PrintWriter print = response.getWriter();
 		logger.info(sFileInfo);
 		print.print(sFileInfo);
