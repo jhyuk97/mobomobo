@@ -4,6 +4,9 @@
 <html>
 <head>
 
+
+
+
 <title>Login V2</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,19 +38,7 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
-<script type="text/javascript">
 
-// window.onload = function() {
-	
-// 	var msg = "${msg}";
-	
-// 	if (msg != null) {
-// 		loginspan.innerHTML = msg;
-// 	}
-	
-// }
-
-</script>
 
 <style type="text/css">
 
@@ -166,12 +157,16 @@ body {
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn">
+							<button class="login100-form-btn" type="submit">
 								Login
 							</button>
 						</div>
+<!-- 						<span class="stick">│</span>  -->
+						<a href="/mobo/signin/findid" class="link">아이디	찾기</a> 
+						<span class="stick">│</span> 
+						<a href="/mobo/signin/findpw"class="link">비밀번호 찾기</a>
 					</div>
-
+					
 					<div class="text-center p-t-115">
 						<span class="txt1">
 							Don’t have an account?
