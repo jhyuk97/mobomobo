@@ -12,14 +12,15 @@ public class Market {
 	private Date mDate;
 	private int userno;
 	private int mViews;
+	private String nick;
 	private List<String> OriginImg;
 	private List<String> StoredImg;
 	
 	@Override
 	public String toString() {
 		return "Market [mNo=" + mNo + ", mCate=" + mCate + ", mContent=" + mContent + ", mTitle=" + mTitle + ", mPrice="
-				+ mPrice + ", mDate=" + mDate + ", userno=" + userno + ", mViews=" + mViews + ", OriginImg=" + OriginImg
-				+ ", StoredImg=" + StoredImg + "]";
+				+ mPrice + ", mDate=" + mDate + ", userno=" + userno + ", mViews=" + mViews + ", nick=" + nick
+				+ ", OriginImg=" + OriginImg + ", StoredImg=" + StoredImg + "]";
 	}
 	public String getmTitle() {
 		return mTitle;
@@ -80,6 +81,12 @@ public class Market {
 	}
 	public void setStoredImg(List<String> storedImg) {
 		StoredImg = storedImg;
+	}
+	public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
 	
 	

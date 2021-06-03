@@ -41,5 +41,19 @@
 		    </if>
 		)
 	</select>
+	
+	<select id="selectImg" resultType="mobomobo.dto.MarketImg">
+		Select imgNo, mNo, originImg, storedImg, contentType from marketImg
+	</select>
+	
+	<select id="Select" parameterType="int" resultType="mobomobo.dto.Market">
+		SELECT * FROM market, userinfo
+		WHERE market.userno=userinfo.userno and mNo=${mNo}
+	</select>
+	
+	<select id="SelectFile" parameterType="int" resultType="mobomobo.dto.MarketImg">
+		SELECT * FROM marketImg
+		WHERE mNo=${mNo}
+	</select>
 
 </mapper>

@@ -139,11 +139,16 @@ a { text-decoration:none; }
                     <div class="col-md-4"><!-- 품목 단위 -->
                         <div class="card mb-4 product-wap rounded-0">
                             <div class="card rounded-0"><!-- 섬네일 -->
+                            	<c:if test="${not empty mList.storedImg }">
+                                <img class="card-img rounded-0 img-fluid" src="${mList.storedImg.get(0)} }">
+                                </c:if>
+                                <c:if test="${empty mList.storedImg }">
                                 <img class="card-img rounded-0 img-fluid" src="/resources/board/images/BLUE1.jpg">
+                                </c:if>
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
                                         <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li><!-- 북마크 -->
-                                        <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li><!-- 상세보기 -->
+                                        <li><a class="btn btn-success text-white mt-2" href="/mobo/market/${mList.mNo }"><i class="far fa-eye"></i></a></li><!-- 상세보기 -->
                                     </ul>
                                 </div>
                             </div>
