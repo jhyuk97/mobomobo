@@ -64,16 +64,16 @@ public class AdminController {
 //			페이징 계산
 			Paging paging = adminService.getPaging( userPaging );
 			paging.setSearch( userPaging.getSearch() );
-			logger.debug("페이징 : {}", paging);
+			logger.info("페이징 : {}", paging);
 			
 			
 			//페이징계산후 회원관리 게시판 list 만들기(?)
 			List<UserInfo> list = adminService.list( paging ); 
 			
-			for ( int i=0; i< list.size(); i++ ) {
-				//테스트
-				logger.info( list.get(i).toString() );
-			}
+//			for ( int i=0; i< list.size(); i++ ) {
+//				//테스트
+//				logger.info( list.get(i).toString() );
+//			}
 
 
 			//모델값전달
@@ -81,6 +81,39 @@ public class AdminController {
 			model.addAttribute("paging", paging);			
 			
 			
+		}
+		
+		@RequestMapping(value = "/admin/userDelete", method = RequestMethod.POST)
+		public String userDelete(UserInfo userno, Model model) {
+			
+			logger.info("/admin/userDelete - [POST] 요청 완료");
+			
+			logger.info("삭제 되어야 하는 userno : {}", userno);
+			
+			boolean success = adminService.userDelete(userno);
+			
+			logger.info("반환되어 돌아오는값 : {}", success);
+			
+			//jsp로 보냄
+			model.addAttribute("success",success);
+			
+			return "jsonView";
+		}
+		
+		@RequestMapping(value = "/admin/userUpdate", method = RequestMethod.POST)
+		public String userUpdate(UserInfo userInfo, Model model) {
+			
+			logger.info("/admin/userUpdate - [POST] 요청 완료");
+			
+			logger.info("변경 되어야 하는 userInfo : {}", userInfo);
+			
+			boolean success = adminService.userUpdate(userInfo);
+			
+			logger.info("반환되어 돌아오는값 : {}", success);
+			
+			model.addAttribute("success",success);
+
+			return "redirect:/admin/usermanagement";
 		}
 
 }

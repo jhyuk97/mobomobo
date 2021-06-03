@@ -37,6 +37,20 @@
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
 	
+	<delete id="userDelete" parameterType="UserInfo">
+		DELETE userinfo
+		WHERE userno = #{userno}
+	</delete>
+	
+	<select id="countUser" parameterType="UserInfo" resultType="int">
+		SELECT COUNT(*) FROM userinfo WHERE userno=#{userno}
+	</select>
+	
+	<update id="userUpdate" parameterType="UserInfo">
+		UPDATE userinfo SET grade = #{grade}
+		WHERE userno = #{userno}
+	</update>
+	
 	
 
 </mapper>

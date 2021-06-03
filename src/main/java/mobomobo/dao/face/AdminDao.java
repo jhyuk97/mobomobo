@@ -22,5 +22,26 @@ public interface AdminDao {
 	 * @return
 	 */
 	public List<UserInfo> selectPageList(Paging paging);
+	
+	/**
+	 * 회원관리 페이지에서 유저정보 삭제하기
+	 * @param userno - 삭제할 유저 정보
+	 */
+	public void userDelete(UserInfo userno);
+	
+	/**
+	 *  회원 번호 조회 후 true, false 검사
+	 * @param userno
+	 * @return
+	 */
+	public int countUser(UserInfo userno);
+	
+	/**
+	 * 회원 정보 변경 
+	 * @param userno
+	 */
+	public void userUpdate(UserInfo userInfo);
+
+
 
 }
