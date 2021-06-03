@@ -7,11 +7,12 @@ public class MarketImg {
 	private String OriginImg;
 	private String StoredImg;
 	private String contentType;
+	private int filesize;
 	
 	@Override
 	public String toString() {
 		return "MarketImg [imgNo=" + imgNo + ", mNo=" + mNo + ", OriginImg=" + OriginImg + ", StoredImg=" + StoredImg
-				+ ", contentType=" + contentType + "]";
+				+ ", contentType=" + contentType + ", filesize=" + filesize + "]";
 	}
 	public int getImgNo() {
 		return imgNo;
@@ -42,6 +43,12 @@ public class MarketImg {
 	}
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
+	}
+	public int getFilesize() {
+		return filesize;
+	}
+	public void setFilesize(int filesize) {
+		this.filesize = filesize;
 	}
 	
 }

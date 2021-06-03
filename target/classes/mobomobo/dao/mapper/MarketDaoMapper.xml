@@ -56,4 +56,24 @@
 		WHERE mNo=${mNo}
 	</select>
 
+
+	<delete id="DeleteMarket" parameterType="int">
+		Delete Market where mno= ${mNo}
+	</delete>
+	
+	
+	<insert id="InsertMarket" parameterType="mobomobo.dto.Market">
+		INSERT INTO Market(mNo, mcate, mcontent, userno, mtitle, mprice)
+		values(market_seq.nextval, #{mCate}, #{mContent}, (select userno from userinfo where id=#{id}), #{mTitle}, #{mPrice})
+	</insert>
+	
+	
+	<insert id="InsertMarketImg" parameterType="mobomobo.dto.MarketImg">
+		INSERT INTO marketimg(imgNo, mNo, originimg, storedimg, filesize, contentType)
+		values(marketimg_seq.nextval, market_seq.currval, #{OriginImg}, #{StoredImg}, #{filesize}, #{contentType})
+	</insert>
+	
+	
+	
+
 </mapper>

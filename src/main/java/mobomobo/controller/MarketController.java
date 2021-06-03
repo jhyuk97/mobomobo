@@ -3,6 +3,7 @@ package mobomobo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import mobomobo.util.Paging;
 import mobomobo.dto.Market;
@@ -61,6 +63,28 @@ public class MarketController {
 		return "/mobo/market/product";
 	}
 	
+	@RequestMapping(value="/delete")
+	public String DeleteMarket(int mNo) {
+		
+		marketService.DeleteMarket(mNo);
+		
+		return "redirect:/mobo/market";
+	}
 	
+	@RequestMapping(value="/write", method=RequestMethod.GET)
+	public void WriteMarket() {	}
+	
+	@RequestMapping(value="/write", method=RequestMethod.POST)
+	public String WriteMarketProc(Market data, List<MultipartFile> file, HttpSession session) {
+		
+		logger.info("{}",file);
+		
+		
+		data.setId(session.getAttribute("id").toString());
+		logger.info("{}",data);
+		marketService.WriteMarket(data, file);
+		
+		return "redirect:/mobo/market";
+	}
 	
 }

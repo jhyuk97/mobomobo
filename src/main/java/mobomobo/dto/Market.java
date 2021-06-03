@@ -10,17 +10,18 @@ public class Market {
 	private String mTitle;
 	private int mPrice;
 	private Date mDate;
-	private int userno;
 	private int mViews;
 	private String nick;
+	private String id;
 	private List<String> OriginImg;
 	private List<String> StoredImg;
+
 	
 	@Override
 	public String toString() {
 		return "Market [mNo=" + mNo + ", mCate=" + mCate + ", mContent=" + mContent + ", mTitle=" + mTitle + ", mPrice="
-				+ mPrice + ", mDate=" + mDate + ", userno=" + userno + ", mViews=" + mViews + ", nick=" + nick
-				+ ", OriginImg=" + OriginImg + ", StoredImg=" + StoredImg + "]";
+				+ mPrice + ", mDate=" + mDate + ", mViews=" + mViews + ", nick=" + nick + ", id=" + id + ", OriginImg="
+				+ OriginImg + ", StoredImg=" + StoredImg + "]";
 	}
 	public String getmTitle() {
 		return mTitle;
@@ -58,12 +59,6 @@ public class Market {
 	public void setmDate(Date mDate) {
 		this.mDate = mDate;
 	}
-	public int getUserno() {
-		return userno;
-	}
-	public void setUserno(int userno) {
-		this.userno = userno;
-	}
 	public int getmViews() {
 		return mViews;
 	}
@@ -87,6 +82,12 @@ public class Market {
 	}
 	public void setNick(String nick) {
 		this.nick = nick;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	

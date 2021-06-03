@@ -140,7 +140,7 @@ a { text-decoration:none; }
                         <div class="card mb-4 product-wap rounded-0">
                             <div class="card rounded-0"><!-- 섬네일 -->
                             	<c:if test="${not empty mList.storedImg }">
-                                <img class="card-img rounded-0 img-fluid" src="${mList.storedImg.get(0)} }">
+                                <img class="card-img rounded-0 img-fluid" src="/emp/${mList.storedImg.get(0)}">
                                 </c:if>
                                 <c:if test="${empty mList.storedImg }">
                                 <img class="card-img rounded-0 img-fluid" src="/resources/board/images/BLUE1.jpg">
@@ -183,7 +183,7 @@ a { text-decoration:none; }
 <!--                         </li> -->
 <!--                     </ul> -->
 <!--                 </div> -->
-
+					<a href="/mobo/market/write"><button>글쓰기</button></a>
 					<%@include file="/WEB-INF/views/mobo/market/paging.jsp" %>
 
             </div>
@@ -194,7 +194,6 @@ a { text-decoration:none; }
       
     </section>
     
-
 
 
 
