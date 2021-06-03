@@ -33,10 +33,59 @@
 
     <link rel="stylesheet" href="/resources/board/css/style.css"> <!-- 이 css가 메인임 -->
     <link rel="stylesheet" href="/resources/css/starRating.css"> 
+    <link rel="stylesheet" href="/resources/css/button.css"> 
+
     
     
     
 	<c:import url="/WEB-INF/views/mobo/layout/header.jsp" />
+	
+	
+	<!-- 구글 차트 -->
+	<!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+    google.charts.load('current', {packages: ['corechart', 'bar']});
+    google.charts.setOnLoadCallback(drawTitleSubtitle);
+
+    function drawTitleSubtitle() {
+          var data = google.visualization.arrayToDataTable([
+            ['City', '2010 Population', '2000 Population'],
+            ['New York City, NY', 8175000, 8008000],
+            ['Los Angeles, CA', 3792000, 3694000],
+            ['Chicago, IL', 2695000, 2896000],
+            ['Houston, TX', 2099000, 1953000],
+            ['Philadelphia, PA', 1526000, 1517000]
+          ]);
+
+          var materialOptions = {
+            chart: {
+              title: 'Population of Largest U.S. Cities',
+              subtitle: 'Based on most recent and previous census data'
+            },
+            hAxis: {
+              title: 'Total Population',
+              minValue: 0,
+            },
+            vAxis: {
+              title: 'City'
+            },
+            bars: 'horizontal'
+          };
+          var materialChart = new google.charts.Bar(document.getElementById('chart_div'));
+          materialChart.draw(data, materialOptions);
+        }
+    </script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	<script type="text/javascript">
@@ -119,6 +168,44 @@
 	
 	
 	<script type="text/javascript">
+	
+	function getBookInfo(authors, index){
+		$.ajax({
+            url: "https://dapi.kakao.com/v3/search/book",
+            headers: {'Authorization': 'KakaoAK 7ab4fb38af1de0cf515ccc51bc417dd5'},
+            type : "get",
+            data:{
+            	query:authors,
+                target:'authors'
+            },
+            success : function(result){
+            	console.log("성공!!")
+            	console.log(result)
+            	
+            	$("#authors").append(
+							`
+							<div class="col-md-3">
+					            <div class="blog-entry">
+					            <a href="/mobo/book/detail?isbn=${'${result.documents[index].isbn }'}" class="block-20" style="background-image: url('${'${result.documents[index].thumbnail}'}');">
+					              </a>
+					              <div class="text p-4 d-block">
+					                <div class="meta mb-3">
+					                  <div><a href="/mobo/book/detail?isbn=${'${result.documents[index].isbn }'}">${'${result.documents[index].title }'}</a></div>
+					                </div>
+					                
+					              </div>
+					            </div>
+					          </div>
+							`
+            				)
+            	
+            	
+            	
+            	
+            }
+		});
+	}
+	
 	$(document).ready(function(){
 		
 		$.ajax({
@@ -126,7 +213,7 @@
 	            headers: {'Authorization': 'KakaoAK 7ab4fb38af1de0cf515ccc51bc417dd5'},
 	            type : "get",
 	            data:{
-	            	query:${isbn },
+	            	query:"${isbn }",
 	                target:'isbn'
 	            },
 	            success : function(result){
@@ -139,14 +226,105 @@
 	            	           `)
 	            	           
 	            	           
-	            	 $("#info").append(`<p>${'${result.documents[0].authors}'}</p>`)
-	            	 $("#info").append(`<p>${'${result.documents[0].contents}'}...</p>`)
+	            	$("#info").append(`<p>${'${result.documents[0].authors}'}</p>`)
+	            	$("#info").append(`<p>${'${result.documents[0].contents}'}...</p>`)
+	            	
+	            	for(var i = 0; i< 4; i++){
+		            	getBookInfo(result.documents[0].authors,i)
+	            	}
+	            	 
+	            	 
+	            	 
+	            	 
 	            }
 		}); 
 		
 	}) 
 
 	</script>
+	
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			$("#bookMark").click(function() {
+				console.log("click!!")
+				
+				$.ajax({
+	            url: "/mobo/book/bookMark",
+	            type : "post",
+	            dataType:"json",
+	            data:{ "key":"${isbn }" },
+	            success : function(result){
+	            	console.log("인서트성공!!")
+	            	console.log(result)
+	            	if(result){
+	 	           		console.log("북마크 삭제")
+	 	           		$("#bookMarkView").children().remove();
+	 	           		$("#bookMarkView").append(`
+	 	           				<img class="pull-right"src="/resources/img/gray_hart.png" style="width: 15%; position: relative; bottom: 120px;" class="pull-left">
+	 	           				`)
+	            		
+	            	}else{
+	 	           		console.log("북마크 삽입")
+	 	           		$("#bookMarkView").children().remove();
+	 	           		$("#bookMarkView").append(`
+	 	           				<img class="pull-right"src="/resources/img/pink_hart.png" style="width: 15%; position: relative; bottom: 120px;" class="pull-left">
+	 	           				`)
+	            		
+	            	}
+	            	
+	            	
+	            	
+	            }
+				
+			})
+			
+			
+			
+		})
+		})
+	</script>
+	
+	
+	<script type="text/javascript">
+	//별점 입력
+	$(document).ready(function () {
+		$("#starBtn").click(function() {
+			var starRating = $("#starValue").html();
+			console.log(starRating)
+			
+			
+			$.ajax({
+				type : 'get'
+				, url : '/mobo/book/starRatingInsert'
+				, data : {'starRating' : starRating
+							, 'isbn' : ${isbn }
+							, 'age' : ${age }
+							, 'userno':${userno }
+						 }
+				, success : function(result) {
+					
+
+					
+
+
+				}
+			})
+		})
+	})
+	
+	
+	
+	
+	
+	function insertStarRating() {
+		
+		
+	}
+	</script>
+	
+	
 	
 	
 	   
@@ -160,14 +338,30 @@
           <div class="col-md-7 text-center heading-section ftco-animate">
             <span class="subheading">맨부커 상</span>
             <p id="p">당신의 인생 영화, 무부무부에서 만나보세요</p>
+            <div id="bookMarkView">
+            <c:if test="${not empty login }">
+            	<c:if test="${!bookMark }">
+             		<img class="pull-right"src="/resources/img/gray_hart.png" style="width: 15%; position: relative; bottom: 120px;" class="pull-left">
+            	</c:if>
+            	<c:if test="${bookMark }">
+             		<img class="pull-right"src="/resources/img/pink_hart.png" style="width: 15%; position: relative; bottom: 120px;" class="pull-left">
+            	</c:if>
+            </c:if>
+            </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" style="max-width: 110%;">
           <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
             <div class="text">
+            <c:if test="${not empty login }">
+              <div class="pull-right button1">
+              <input class="bubbly-button" type="button" value="북마크" id="bookMark"/></div>
+            </c:if>
               <h4 class="subheading"></h4>
               <p id="p"></p>
-              <h4>평점:${avg }</h3>
+             	<img src="/resources/img/pinkStar.png" style="width: 6.3%; " class="pull-left">
+              <h4>평점:<fmt:formatNumber value="${avg.AVG }" pattern=".0"/></h3>
+              <br>
               <div class="star-box" >
 				<span class="star star_left"></span><!-- 
 				 --><span class="star star_right"></span><!-- 
@@ -179,45 +373,41 @@
 				 --><span class="star star_right"></span><!-- 
 				 --><span class="star star_left"></span><!-- 
 				 --><span class="star star_right"></span>
+				 
 			</div>
+            <div class="star-value" id="starValue">0</div>
+	
+				<button type="button" id="starBtn">별점 입력</button>
+            
+            
+            
             </div>
           </div>
         </div>
         
         <hr>
+        <br>
         <div class="text" id="info">
         	<h4 class="subheading"></h4>
         </div>
-        
+        <br>
         <hr>
+        <br>
         <div>
         <h2>별점 그래프</h2>
+        <div id="chart_div"></div>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <div class="row"id="authors">
+        <h2>이 작가의 다른 작품</h2>
+        
         
         </div>
-        
-        
-        
-        
-        
+        <br>
         
 
-	<div class="card-header bg-light">
-	        <i class="fa fa-comment fa"></i> REPLY
-	</div>
-	<div class="card-body">
-		<ul class="list-group list-group-flush">
-		    <li class="list-group-item">
-			<div class="form-inline mb-2">
-				<label for="replyId"><i class="fa fa-user-circle-o fa-2x"></i></label>
-				<input type="text" class="form-control ml-2" placeholder="Enter yourId" id="replyId">
-				<label for="replyPassword" class="ml-4"><i class="fa fa-unlock-alt fa-2x"></i></label>
-				<input type="password" class="form-control ml-2" placeholder="Enter password" id="replyPassword">
-			</div>
-			<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-			<button type="button" class="btn btn-dark mt-3" onClick="javascript:addReply();">post reply</button>
-		    </li>
-		</ul>
-	</div>
 </div>
 	</section>
 	
