@@ -6,7 +6,12 @@ import java.util.List;
 import org.json.simple.parser.ParseException;
 
 import mobomobo.dto.Movie;
+import mobomobo.dto.MovieBest;
+import mobomobo.dto.MovieBestComment;
+import mobomobo.dto.MovieBestImg;
+import mobomobo.dto.MovieBestLike;
 import mobomobo.dto.MovieStarRating;
+import mobomobo.util.MovieBestPaging;
 
 public interface MovieService {
 
@@ -21,6 +26,83 @@ public interface MovieService {
 	public void setStarRating(MovieStarRating movieStarRating);
 
 	public double checkStarRating(MovieStarRating movieStarRating);
+	
+	/**
+	 * 게시글 목록 위한 페이징 객체 생성 
+	 * @param inData
+	 * @return
+	 */
+	public MovieBestPaging getPaging(MovieBestPaging inData);
+	
+	/**
+	 * 페이징 적용한 명장면 게시판 게시글 목록 조회 
+	 * @param paging
+	 * @return
+	 */
+	public List<MovieBest> list(MovieBestPaging paging);
+	
+	/**
+	 * 명장면 게시판 리스트 목록 조회 
+	 * @return
+	 */
+	public List<MovieBest> movielist();
+	
+	/**
+	 * 명장면 게시판 상세페이지 조회
+	 * @param viewMovieBest
+	 * @return
+	 */
+	public MovieBest view(MovieBest viewMovieBest);
+	
+	/**
+	 * 추천 상태 확인 
+	 * @param movieBestLike
+	 * @return
+	 */
+	public boolean isMovieBestLike(MovieBestLike movieBestLike);
+	
+	/**
+	 * 확인 및 취소 
+	 * @param movieBestLike
+	 * @return
+	 */
+	public boolean movielike(MovieBestLike movieBestLike);
+	
+	/**
+	 * 총 추천 수 
+	 * @param movieBestLike
+	 * @return
+	 */
+	public int getTotalCntMovieBestLike(MovieBestLike movieBestLike);
+	
+	/**
+	 * 명장면 게시판 코멘트 작성 
+	 * @param movieBestComment
+	 */
+	public void insertMovieBestComment(MovieBestComment movieBestComment);
+	
+	/**
+	 * 명장면 게시판 댓글 리스트 보여주기 
+	 * @param movieBest
+	 * @return
+	 */
+	public List<MovieBestComment> getMovieBestCommentList(int movieBestNo);
+	
+	/**
+	 * 명장면 게시판 댓글 삭제
+	 * @param comment
+	 * @return
+	 */
+	public boolean deleteComment(MovieBestComment movieBestComment);
+	
+	/**
+	 * 명장면 게시판 썸네일 포스터 
+	 * @return
+	 */
+	public List<MovieBestImg> imglist();
+
+	public List<MovieBestImg> viewImage(MovieBest viewMovieBest);
+
 
 
 }

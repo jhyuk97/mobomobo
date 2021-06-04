@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!-- 게시판 필수 css -->
     <meta charset="utf-8">
@@ -39,6 +42,8 @@
 a { text-decoration:none; } 
 
 
+
+
 </style>
 
 
@@ -54,104 +59,59 @@ a { text-decoration:none; }
           </div>
         </div>
         
+        
+        
         <div class="container">
         <div class="row">
+        
+         <c:forEach items="${list }" var="imglist">
+        
           <div class="col-md-4 ftco-animate">
             <div class="blog-entry">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/1917.jpg');">
+            
+             <c:choose>
+              <c:when test="${imglist.title == '타오르는 여인의 초상' }">
+              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/moviebest1.jpg');">
               </a>
+              </c:when>
+              <c:otherwise>
+               <a href="/mobo/movie/moviedetail?movieBestNo=${imglist.movieBestNo }" class="block-20" style="background-image: url('/getimg/${imglist.storedName}');">
+              </a>
+              </c:otherwise>
+             </c:choose>
+              
               <div class="text p-4 d-block">
                 <div class="meta mb-3">
-                  <div><a href="#">영화</a></div>
+                  <div><a href="/mobo/movie/moviedetail?movieBestNo=${imglist.movieBestNo }">${imglist.title }</a></div>
                 </div>
-                <h3 class="heading"><a href="/mobo/movie/moviedetail">감독 | 개봉연도 | 장르 | 출연</a></h3>
+                <h3 class="heading"><a href="/mobo/movie/moviedetail?movieBestNo=${imglist.movieBestNo }">${imglist.maincontent }</a></h3>
               </div>
             </div>
           </div>
-          <div class="col-md-4 ftco-animate">
-            <div class="blog-entry" data-aos-delay="100">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/BLUE1.jpg');">
-              </a>
-              <div class="text p-4">
-                <div class="meta mb-3">
-                  <div><a href="#">영화</a></div>
-                  
-                </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div class="blog-entry" data-aos-delay="200">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/DRAMA.jpg');">
-              </a>
-              <div class="text p-4">
-                <div class="meta mb-3">
-                  <div><a href="#">영화</a></div>
-                </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div class="blog-entry">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/PO2.jpg');">
-              </a>
-              <div class="text p-4 d-block">
-                <div class="meta mb-3">
-                  <div><a href="#">영화</a></div>
-                  
-                </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div class="blog-entry" data-aos-delay="100">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/PO3.jpg');">
-              </a>
-              <div class="text p-4">
-                <div class="meta mb-3">
-                 <div><a href="#">영화</a></div>
-                  
-                </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 ftco-animate">
-            <div class="blog-entry" data-aos-delay="200">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/therap.jpg');">
-              </a>
-              <div class="text p-4">
-                <div class="meta mb-3">
-                 
-                 <div><a href="#">영화</a></div>
-                  
-                </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
-              </div>
-            </div>
-          </div>
+         
+          </c:forEach>
+          
+          
         </div>
+        
+        
+        
+        
         <div class="row mt-5">
           <div class="col text-center">
             <div class="block-27">
               <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
+                <li><jsp:include page="/WEB-INF/views/mobo/layout/MovieBestPaging.jsp" /></li>
+               
               </ul>
             </div>
           </div>
         </div>
       </div>
+    
     </section>
     
+
 
 
 
