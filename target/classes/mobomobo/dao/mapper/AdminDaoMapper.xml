@@ -10,7 +10,7 @@
 <mapper namespace="mobomobo.dao.face.AdminDao">
 
 	<sql id="whereTitleSearch">
-        WHERE name LIKE '%' || #{search} || '%'
+        WHERE name LIKE '%' || #{search} || '%' AND NOT id = 'master123'
 	</sql>
 
 	<sql id="selectUserInfo">

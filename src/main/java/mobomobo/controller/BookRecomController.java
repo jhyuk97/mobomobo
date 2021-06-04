@@ -2,6 +2,7 @@ package mobomobo.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import mobomobo.dto.BookMark;
-import mobomobo.dto.BookStarRating;
+import mobomobo.dto.BookStarRatingInsert;
 import mobomobo.service.face.BookRecomService;
 
 @Controller
@@ -117,15 +118,36 @@ public class BookRecomController {
 	}
 	
 	@RequestMapping(value="/starRatingInsert")
-	public void insertStarRating(BookStarRating bookStarRating) {
+	public void insertStarRating(BookStarRatingInsert bookStarRating) {
 		logger.info("/mobo/book/starRatingInsert");
 		logger.debug(bookStarRating.toString());
 		
-		bookRecomService.insertBookStarRating(bookStarRating);
+		// bookkey테이블에 존재의 유무
+		if(bookRecomService.isBookKeyExist(bookStarRating)) {
+			logger.info("존재한다.");
+			// 별점 업데이트
+			bookRecomService.updateBookStarRating(bookStarRating);
+		} else {
+			logger.info("존재하지않는다.");
+			bookRecomService.insertBookStarRating(bookStarRating);
+		}
 		
 		
+	}
+	
+	@RequestMapping(value="/ageDistribtion", method = RequestMethod.GET)
+	public @ResponseBody List<HashMap<String, Object>> ageDistribtion(String isbn) {
+		logger.info("/mobo/book/ageDistribtion [GET]");
+		logger.debug(isbn);
 		
 		
+		List<HashMap<String, Object>>list = bookRecomService.getAgeAvg(isbn);
+		
+		for(Map d: list) {
+			logger.debug("{}",d);
+		}
+		
+		return list;
 		
 	}
 	

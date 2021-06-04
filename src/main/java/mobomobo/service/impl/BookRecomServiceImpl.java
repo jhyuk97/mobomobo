@@ -10,12 +10,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import mobomobo.dao.face.BookRecomDao;
 import mobomobo.dto.BookBest;
-import mobomobo.dto.BookKey;
 import mobomobo.dto.BookMark;
 import mobomobo.dto.BookStarRating;
+import mobomobo.dto.BookStarRatingInsert;
 import mobomobo.service.face.BookRecomService;
 import mobomobo.util.BookRecomPaging;
 @Service
@@ -119,14 +120,44 @@ public class BookRecomServiceImpl implements BookRecomService{
 	}
 
 	@Override
-	public void insertBookStarRating(BookStarRating bookStarRating) {
-		bookRecomDao.insertBookStarRaingByRatingKeyUsernoAge(bookStarRating);
+	@Transactional
+	public void insertBookStarRating(BookStarRatingInsert bookStarRating) {
+		if(bookRecomDao.selectBookey(bookStarRating)>0) {
+			logger.info("bookkey테이블에 존재");
+			bookRecomDao.insertBookStarRaingByRatingKeyUsernoAge(bookStarRating);
+		} else {
+			logger.info("bookkey테이블에 존재하지 않음");
+			bookRecomDao.insertBookKey(bookStarRating);
+			bookRecomDao.insertBookStarRaingByRatingKeyUsernoAge(bookStarRating);
+		}
 	}
 
 	@Override
 	public HashMap<String, Object> getDetailAvg(String isbn) {
 		
 		return bookRecomDao.selectBookStarRatingByIsbn(isbn);
+	}
+
+	@Override
+	public boolean isBookKeyExist(BookStarRatingInsert bookStarRating) {
+		
+		
+		if(bookRecomDao.selectBookKeyByIsbn(bookStarRating)>0) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+
+	@Override
+	public void updateBookStarRating(BookStarRatingInsert bookStarRating) {
+		bookRecomDao.updateBookStarRating(bookStarRating);
+	}
+
+	@Override
+	public List<HashMap<String, Object>> getAgeAvg(String isbn) {
+		return bookRecomDao.selectAgeAvgByisbn(isbn);
 	}
 
 	

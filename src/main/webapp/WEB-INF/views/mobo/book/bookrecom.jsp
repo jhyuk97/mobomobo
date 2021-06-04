@@ -18,11 +18,11 @@
 
     <link rel="stylesheet" href="/resources/board/css/ionicons.min.css">
 
-    <link rel="stylesheet" href="/resources/board/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="/resources/board/css/jquery.timepicker.css">
+<!--     <link rel="stylesheet" href="/resources/board/css/bootstrap-datepicker.css"> -->
+<!--     <link rel="stylesheet" href="/resources/board/css/jquery.timepicker.css"> -->
 
-    <link rel="stylesheet" href="/resources/board/css/flaticon.css">
-    <link rel="stylesheet" href="/resources/board/css/icomoon.css">
+<!--     <link rel="stylesheet" href="/resources/board/css/flaticon.css"> -->
+<!--     <link rel="stylesheet" href="/resources/board/css/icomoon.css"> -->
    
     
     <link rel="stylesheet" href="/resources/board/css/style.css"> <!-- 게시판 css들 여기까지 -->
@@ -53,7 +53,7 @@ a { text-decoration:none; }
                 target:'authors'
              },"#kimyongha");
         	getBookInfo("7ab4fb38af1de0cf515ccc51bc417dd5",{
-                query:"2021-05",
+                query:"2021",
                 target:'datetime'
              },"#newBook");
         	getBookInfo("7ab4fb38af1de0cf515ccc51bc417dd5",{
@@ -64,10 +64,29 @@ a { text-decoration:none; }
         	
         	
         	
+        	
 
         })
      
-        
+        function searchBook(page){
+        	console.log("search")
+        	
+        	
+        	
+        	var title = $("#search").val()
+        	console.log(title)
+        	
+        	searchBookInfo("7ab4fb38af1de0cf515ccc51bc417dd5",{
+        		query:title,
+                target:'title',
+                page : page,
+                size : 12
+             }
+        	
+        	);
+        	
+        	
+        }
         
         
         // 별점 가져오기
@@ -84,7 +103,6 @@ a { text-decoration:none; }
                 	
                 	for(var i = 0; i < arrayRating.length; i++){
                 		
-                		console.log(result[i].AVG)
                 		
                 		arrayRating.get(i).append(result[i].AVG.toFixed(1))
                 		
@@ -96,6 +114,147 @@ a { text-decoration:none; }
         }
         
         
+        
+        
+        function searchBookInfo(key,data){
+        	
+        	 $(".category").remove()
+        	 $("#searchCategory").children().remove()
+             $("#searchCategory").append(`
+             						<h2>${'${data.query}'}에 대한 검색목록</h2>			
+            						 `)
+        	//ajax로 데이터 불러오기
+        	$.ajax({
+                url: "https://dapi.kakao.com/v3/search/book",
+                headers: {'Authorization': 'KakaoAK '+ key},
+                type : "get",
+                data:data,
+                success : function(result){
+                   	for(var i = 0; i< result.documents.length; i++){
+                   	$("#searchCategory").append(`
+                   			<div class="col-md-3">
+				            <div class="blog-entry">
+				            <a href="/mobo/book/detail?isbn=${'${result.documents[i].isbn }'}" class="block-20" style="background-image: url('${'${result.documents[i].thumbnail}'}');">
+				              </a>
+				              <div class="text p-4 d-block">
+				                <div class="meta mb-3">
+				                  <div><a href="/mobo/book/detail?isbn=${'${result.documents[i].isbn }'}">${'${result.documents[i].title }'}</a></div>
+				                </div>
+				                <h6 class="heading"><a href="/mobo/book/detail?isbn=${'${result.documents[i].isbn }'}">작가:${'${result.documents[i].authors }'} </a></h6>
+				              </div>
+				            </div>
+				          </div>
+                   			`)
+                   	}
+                    
+                    console.log(result.meta.total_count)
+                    console.log(data.page)
+                    
+                    var totalData = result.meta.total_count;	// 총 데이터수
+                    var dataPerPage = data.size;				// 한 화면에 나타낼 데이터 수
+                    var pageCount = 5;							// 한 화면에 나타낼 페이지 수
+                    
+                    var currentPage = data.page;				// 현재 페이지
+                    
+                    var totalPage = Math.ceil(totalData/dataPerPage);    // 총 페이지 수
+                    var pageGroup = Math.ceil(currentPage/pageCount);    // 페이지 그룹
+                    
+                    console.log("전체 개수:"+totalData)
+                    console.log("total페이지:"+totalPage)
+                    console.log("curpage페이지:"+currentPage)
+                    console.log("페이지그룹:"+pageGroup)
+                    console.log("한화면에 나타낼 데이터수:"+dataPerPage)
+                    
+                    
+                    
+                    
+                    
+                    
+                    var last = pageGroup * pageCount; // 화면에 보여질 마지막 페이지 번호
+                    console.log("last : " + last);
+                    if(last > totalPage)
+                        last = totalPage;
+                    var first = last - (pageCount-1);    // 화면에 보여질 첫번째 페이지 번호
+                    var next = last+1;
+                    var prev = first-1;
+                    
+                    console.log("last : " + last);
+                    console.log("first : " + first);
+                    console.log("next : " + next);
+                    console.log("prev : " + prev);
+                    
+                    if (totalPage <= 1){
+                    	first = last;
+                    }
+                    console.log("first : " + first);
+                    
+                    
+                    
+                   
+                    		var pagingList = "";
+                    	 	pagingList +=   '<div class="row mt-5">'
+             				pagingList +=    '<div class="col text-center">'
+             				pagingList +=      '<div class="block-27">'
+             				pagingList +=        '<ul>'
+             				
+             				
+             				
+             				
+             				
+             				if(prev > 0){
+             				pagingList +=          '<li><a onclick="clickPaging('+prev+')">&lt;</a></li>'
+             				}
+             				for(var i=first; i<=last; i++) {
+             				pagingList +=          '<li id="selectNum' + i + '"><a onclick="searchBook('+ i +'); pagingNumberColor(' + i + ',' + totalPage + ');" class="pagingNumber">'+ i +'</a></li>' 
+             				}
+             				if(last < totalPage){
+	             				pagingList +=          '<li><a onclick="clickPaging('+next+')">&gt;</a></li>'
+             				}
+             				
+             				
+             				
+             				
+             				
+             				pagingList +=        '</ul>'
+             				pagingList +=      '</div>'
+             				pagingList +=    '</div>'
+             				pagingList +=  '</div>'
+             				
+             				$('#paging').html(pagingList);
+             				$('#paging li#selectNum'+currentPage).addClass('active')
+                    
+                    
+                    
+                    
+                    
+                    
+                }
+            });
+        	
+        	
+        	 
+        	 $("#search").focus();
+        }
+        function clickPaging(page){
+        	console.log("클릭클릭")
+    		
+        	
+    		
+//     		 if($id == "next")    selectedPage = next;
+//              if($id == "prev")    selectedPage = prev;
+    		
+             searchBook(page)
+        }
+        function pagingNumberColor(curpage, totalpage) {
+        	  console.log("click!!!!!!!!!!!!!")
+        	  $('#selectNum' + curpage).addClass('active');
+        	  
+        	  for(var i=1; i<=totalpage; i++) {
+        		  if(i != curpage) {
+        			  $('#selectNum' + i).removeClass('active');
+        		  }
+        	  }
+          }
         
         // 민음사 카테고리
 		function getBookInfo(key,data,gategory){
@@ -121,30 +280,15 @@ a { text-decoration:none; }
                 	getStarRating(isbn,arrayRating)
                 	
                    	for(var i = 0; i < arrayTitle.length; i++){
-                   	
-                   		
-                   		
-                   		
-//                     	var img = $('<a>',{
-//                     		'href':'/mobo/book/detail?isbn="'+result.documents[i].isbn'"'
-//                     	}).addClass('block-20')
-//                     	.css('background-image','url("'+ result.documents[i].thumbnail+'")')
 
 						var img = `
 							<a href="/mobo/book/detail?isbn=${'${result.documents[i].isbn }'}" class="block-20" style="background-image: url('${'${result.documents[i].thumbnail}'}');">
+
 						`
-                    	
-// 	                   	console.log($(img).eq(i))
-// 	                   	console.log(arrayImg.get(i))
                    	
 	                    arrayTitle.get(i).append(result.documents[i].title)
 
-
-	                    
 	                    $(img).prependTo(arrayImg.get(i));
-//                     	arrayImg.get(i).prepend(` 
-//                     			<a href="/mobo/book/detail?isbn=${'${result.documents[i].isbn }'}" class="block-20" style="background-image: url('${'${result.documents[i].thumbnail}'}');">
-//                     			`)
                     	
                    }
                     
@@ -194,8 +338,8 @@ a { text-decoration:none; }
                 <div class="result-count">
                   </div>
                 <div class="group-btn">
-                  <button class="btn-delete" id="delete">RESET</button>
-                  <button class="btn-search">SEARCH</button>
+                  <button type="button" class="btn-delete" id="delete">RESET</button>
+                  <button type="button" class="btn-search" onclick='searchBook(1);'>SEARCH</button>
                 </div>
               </div>
             </div>
@@ -213,7 +357,7 @@ a { text-decoration:none; }
         
         <div class="container">
         <!-- 1번 카테고리 -->
-        <div class="row" id="minuemsa">
+        <div class="row category" id="minuemsa">
         <h2 class="mb-4">민음사 모음</h2> <!-- 꼭 div row 다음에 넣어주기 -->
           <div class="col-md-3 ftco-animate">
             <div class="blog-entry">
@@ -263,7 +407,7 @@ a { text-decoration:none; }
          
          
          <!-- 2번 카테고리 -->
-        <div class="row" id="kimyongha">
+        <div class="row category" id="kimyongha">
         <h2 class="mb-4">김영하 컬렉션</h2> <!-- 꼭 div row 다음에 넣어주기 -->
           <div class="col-md-3 ftco-animate">
             <div class="blog-entry">
@@ -312,8 +456,8 @@ a { text-decoration:none; }
          </div>
           
         <!-- 3번 카테고리 -->
-        <div class="row" id="newBook">
-        <h2 class="mb-4">5월 신작 도서</h2> <!-- 꼭 div row 다음에 넣어주기 -->
+        <div class="row category" id="newBook">
+        <h2 class="mb-4">2021 신작 도서</h2> <!-- 꼭 div row 다음에 넣어주기 -->
           <div class="col-md-3 ftco-animate">
             <div class="blog-entry">
 					<!-- 이미지 들어가는 곳 -->
@@ -361,7 +505,7 @@ a { text-decoration:none; }
          </div>
           
           <!-- 3번 카테고리 -->
-        <div class="row" id="hankang">
+        <div class="row category" id="hankang">
         <h2 class="mb-4">정유정 컬렉션</h2> <!-- 꼭 div row 다음에 넣어주기 -->
           <div class="col-md-3 ftco-animate">
             <div class="blog-entry">
@@ -408,10 +552,26 @@ a { text-decoration:none; }
             </div>
           </div>
          </div>
+         
+         
+          <div class="row" id="searchCategory">
+         
+          </div>
           
 
-       
-      </div>
+      
+      
+      <div id="paging"></div>
+      
+      <div class="row mt-5">
+                           
+        
+      
+      
+      
+      
+      
+      
     </section>
     
 
@@ -455,8 +615,8 @@ a { text-decoration:none; }
 
   <script src="/resources/board/js/jquery.min.js"></script>
   <script src="/resources/board/js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="/resources/board/js/popper.min.js"></script>
-  <script src="/resources/board/js/bootstrap.min.js"></script>
+<!--   <script src="/resources/board/js/popper.min.js"></script> -->
+<!--   <script src="/resources/board/js/bootstrap.min.js"></script> -->
   <script src="/resources/board/js/jquery.easing.1.3.js"></script>
   <script src="/resources/board/js/jquery.waypoints.min.js"></script>
   <script src="/resources/board/js/jquery.stellar.min.js"></script>
@@ -465,9 +625,9 @@ a { text-decoration:none; }
   <script src="/resources/board/js/aos.js"></script>
   <script src="/resources/board/js/jquery.animateNumber.min.js"></script>
   <script src="/resources/board/js/bootstrap-datepicker.js"></script>
-  <script src="/resources/board/js/jquery.timepicker.min.js"></script>
-  <script src="/resources/board/js/particles.min.js"></script>
-  <script src="/resources/board/js/particle.js"></script>
+<!--   <script src="/resources/board/js/jquery.timepicker.min.js"></script> -->
+<!--   <script src="/resources/board/js/particles.min.js"></script> -->
+<!--   <script src="/resources/board/js/particle.js"></script> -->
   <script src="/resources/board/js/scrollax.min.js"></script>
   <script src="/resources/board/js/main.js"></script>
     

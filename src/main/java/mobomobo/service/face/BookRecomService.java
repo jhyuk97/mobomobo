@@ -9,6 +9,7 @@ import mobomobo.dto.BookBest;
 import mobomobo.dto.BookKey;
 import mobomobo.dto.BookMark;
 import mobomobo.dto.BookStarRating;
+import mobomobo.dto.BookStarRatingInsert;
 import mobomobo.util.BookRecomPaging;
 
 public interface BookRecomService {
@@ -75,7 +76,7 @@ public interface BookRecomService {
 	 * 책 평점 삽입
 	 * @param bookStarRating
 	 */
-	public void insertBookStarRating(BookStarRating bookStarRating);
+	public void insertBookStarRating(BookStarRatingInsert bookStarRating);
 
 	/**
 	 * 상세보기 평점 조회
@@ -83,6 +84,26 @@ public interface BookRecomService {
 	 * @return
 	 */
 	public HashMap<String, Object> getDetailAvg(String isbn);
+
+	/**
+	 * bookkey에 isbn이 존재하는지 검색
+	 * @param bookStarRating
+	 * @return
+	 */
+	public boolean isBookKeyExist(BookStarRatingInsert bookStarRating);
+
+	/**
+	 * bookStarRating테이블 업데이트
+	 * @param bookStarRating
+	 */
+	public void updateBookStarRating(BookStarRatingInsert bookStarRating);
+
+	/**
+	 * 책 연령대별 평균 별점 가져오기
+	 * @param substring
+	 * @return 
+	 */
+	public List<HashMap<String, Object>> getAgeAvg(String isbn);
 
 	
 
