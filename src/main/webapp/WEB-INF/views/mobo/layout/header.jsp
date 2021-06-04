@@ -149,7 +149,7 @@ p {
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html"><div class="menufont">중고마켓</div></a>
+                            <a class="nav-link" href="/mobo/market"><div class="menufont">중고마켓</div></a>
                         </li>
                         
                     </ul>
@@ -169,6 +169,7 @@ p {
                 					</c:when></c:choose>
                 				<c:choose><c:when test="${login }">      
                 <a class="dropdown-item" href="/mobo/signin/logout"><div class="menufont">로그아웃</div></a>
+                <a class="dropdown-item" href="/admin/main"><div class="menufont">관리자페이지</div></a>
                 					</c:when></c:choose>
                 </div>
                 </div>
