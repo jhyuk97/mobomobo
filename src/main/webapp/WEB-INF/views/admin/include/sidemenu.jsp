@@ -23,7 +23,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/admin/tables">
+            <a class="nav-link " href="/admin/movie/adminmoviebestlist">
               <i class="ni ni-tv-2 text-orange"></i> 영화명장면
             </a>
           </li>
