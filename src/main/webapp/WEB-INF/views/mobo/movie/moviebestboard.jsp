@@ -71,7 +71,7 @@ a { text-decoration:none; }
             
              <c:choose>
               <c:when test="${imglist.title == '타오르는 여인의 초상' }">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/moviebest1.jpg');">
+              <a href="/mobo/movie/moviedetail?movieBestNo=${imglist.movieBestNo }" class="block-20" style="background-image: url('/resources/board/images/moviebest1.jpg');">
               </a>
               </c:when>
               <c:otherwise>

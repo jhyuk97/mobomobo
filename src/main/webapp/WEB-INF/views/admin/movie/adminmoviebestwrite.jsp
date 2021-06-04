@@ -100,7 +100,7 @@ $(document).ready(function() {
     <div class="col-4">
      <div class="form-group">
     <label for="content1">내용1</label>
-    <textarea class="form-control" id="content1" rows="3" name="content2"></textarea>
+    <textarea class="form-control" id="content1" rows="3" name="content1"></textarea>
   </div>
     </div>
     <br>
