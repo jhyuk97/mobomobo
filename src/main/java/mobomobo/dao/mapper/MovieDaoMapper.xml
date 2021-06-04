@@ -33,12 +33,44 @@
 		AND key = #{key}
 	</select>
 	
-	<select id="selectStarAvg" resultType="double" parameterType="String">
+	<select id="selectStarAvg" resultType="mobomobo.dto.MovieStarRating" parameterType="String">
 		SELECT age, avg(starrating) as avg FROM moviestarrating
 		WHERE key = #{key}
 		GROUP BY age
 		ORDER BY age
 	</select>
 	
+	<select id="selectBookMarkByUserNo" resultType="int" parameterType="mobomobo.dto.BookMark">
+		SELECT count(*) from bookmark
+		WHERE userno = #{userno}
+		AND key = #{key}
+	</select>
+	
+	<delete id="deleteBookMark" parameterType="mobomobo.dto.BookMark">
+		DELETE FROM bookmark
+		WHERE userno = #{userno}
+		AND key = #{key}
+	</delete>
+	
+	<insert id="insertBookMark" parameterType="mobomobo.dto.BookMark">
+		INSERT INTO bookmark (bookmarkno, userno, category, key)
+		VALUES (bookmarkno_seq.nextval, #{userno}, #{category}, #{key})
+	</insert>
+	
+	<select id="selectRecomList" resultType="mobomobo.dto.MovieAward">
+		SELECT * FROM (
+			SELECT ROWNUM rnum, M.* FROM (
+				SELECT * FROM movie
+				WHERE division = 'recom'
+				ORDER BY movieno DESC
+			) M
+		)
+		WHERE rnum BETWEEN 1 AND 4
+	</select>
+	
+	<select id="selectStarAvgOfSingle" parameterType="string" resultType="string">
+		SELECT ROUND(AVG(starrating),1) avg FROM moviestarrating
+		WHERE key = #{key}
+	</select>
 
 </mapper>

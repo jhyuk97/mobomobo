@@ -2,11 +2,11 @@ package mobomobo.dto;
 
 public class MovieAward {
 	
-	public int movieNo;
-	public String key;
-	public String title;
-	public String image;
-	public String division;
+	private int movieNo;
+	private String key;
+	private String title;
+	private String image;
+	private String division;
 	@Override
 	public String toString() {
 		return "MovieAward [movieNo=" + movieNo + ", key=" + key + ", title=" + title + ", image=" + image

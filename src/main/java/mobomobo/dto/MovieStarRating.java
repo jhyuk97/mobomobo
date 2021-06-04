@@ -2,12 +2,12 @@ package mobomobo.dto;
 
 public class MovieStarRating {
 	
-	public String key;
-	public int userno;
-	public String age;
-	public double starRating;
-	public String title;
-	public String image;
+	private String key;
+	private int userno;
+	private String age;
+	private double starRating;
+	private String title;
+	private String image;
 	
 	public double avg;
 

@@ -25,7 +25,7 @@
 }
 .popup{
   width:100%;
-  max-width:400px;
+  max-width:650px;
   background-color:#ffffff;
   border-radius:10px;
   overflow:hidden;
@@ -273,7 +273,6 @@ function starRatingCount() {
 		, url : '/mobo/footer/starRatingCount'
 		, dataType : 'json'
 		, success : function(data) {
-			console.log(data);
 			
 			$("#starCnt").html("");
 			$("#starCnt").html(data);

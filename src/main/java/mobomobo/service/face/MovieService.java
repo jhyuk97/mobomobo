@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.json.simple.parser.ParseException;
 
+import mobomobo.dto.BookMark;
 import mobomobo.dto.Movie;
+import mobomobo.dto.MovieAward;
 import mobomobo.dto.MovieStarRating;
 
 public interface MovieService {
@@ -25,7 +27,17 @@ public interface MovieService {
 
 	public List<Movie> adminMovieSearchList(String search) throws IOException, ParseException;
 
-	public List<Double> getStarAvg(String key);
+	public List<MovieStarRating> getStarAvg(String key);
+
+	public boolean checkBookMark(BookMark bookmark);
+
+	public boolean manageBookMark(BookMark bookmark);
+
+	public List<MovieAward> getRecomList();
+
+	public Movie getMovieSearchOne(String string) throws IOException, ParseException;
+
+	public String getStarAvgOfSingle(String key);
 
 
 }
