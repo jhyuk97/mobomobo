@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -118,13 +119,19 @@ public class BookRecomController {
 	}
 	
 	@RequestMapping(value="/starRatingInsert")
-	public void insertStarRating(BookStarRatingInsert bookStarRating) {
+	public void insertStarRating(BookStarRatingInsert bookStarRating,HttpSession session) {
 		logger.info("/mobo/book/starRatingInsert");
-		logger.debug(bookStarRating.toString());
+		
+		
+		int usernum = (int) session.getAttribute("userno");
+		bookStarRating.setUserno(usernum);
+		bookStarRating.setAge( Integer.parseInt((String) session.getAttribute("age")) );
+		logger.debug("{}",bookStarRating.toString());
 		
 		// bookkey테이블에 존재의 유무
 		if(bookRecomService.isBookKeyExist(bookStarRating)) {
 			logger.info("존재한다.");
+			
 			// 별점 업데이트
 			bookRecomService.updateBookStarRating(bookStarRating);
 		} else {

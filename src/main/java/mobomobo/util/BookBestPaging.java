@@ -1,6 +1,6 @@
 package mobomobo.util;
 
-public class BookRecomPaging {
+public class BookBestPaging {
 	private int curPage; //현재 페이지의 번호
 
 	private int totalCount; //총 게시글 수
@@ -15,16 +15,16 @@ public class BookRecomPaging {
 	private int endNo; //화면에 보이는 게시글의 끝 번호
 
 	// 디폴트 생성자
-	public BookRecomPaging() { }
+	public BookBestPaging() { }
 	//총 게시글 수를 입력하는 생성자
-	public BookRecomPaging(int totalCount) {
+	public BookBestPaging(int totalCount) {
 		setTotalCount(totalCount);
 		
 		makePaging();
 	}
 	
 	//총 게시글 수, 현재 페이지번호를 입력하는 생성자
-	public BookRecomPaging(int totalCount, int curPage) {
+	public BookBestPaging(int totalCount, int curPage) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
 		
@@ -32,7 +32,7 @@ public class BookRecomPaging {
 	}
 	
 	//총 게시글 수, 현재 페이지번호, 보여질 게시글 수를 입력하는 생성자
-	public BookRecomPaging(int totalCount, int curPage, int listCount) {
+	public BookBestPaging(int totalCount, int curPage, int listCount) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
 		setListCount(listCount);
@@ -41,7 +41,7 @@ public class BookRecomPaging {
 	}
 	
 	//총 게시글 수, 현재 페이지번호, 보여질 게시글 수, 보여질 페이지 수를 입력하는 생성자
-	public BookRecomPaging(int totalCount, int curPage, int listCount, int pageCount) {
+	public BookBestPaging(int totalCount, int curPage, int listCount, int pageCount) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
 		setListCount(listCount);
@@ -58,7 +58,7 @@ public class BookRecomPaging {
 		
 		//기본값 설정
 		if(curPage == 0)	setCurPage(1);//첫 페이지를 기본 페이지로 설정
-		if(pageCount == 0)	setPageCount(10);//화면에 보여질 페이지 수 기본설정
+		if(pageCount == 0)	setPageCount(5);//화면에 보여질 페이지 수 기본설정
 		if(listCount == 0)	setListCount(12);//화면에 보여질 게시글 수 기본설정
 
 		//총 페이지 수 계산
