@@ -17,7 +17,7 @@ public class BookFamousLineServiceImpl implements BookFamousLineService {
 
 	private static final Logger logger = LoggerFactory.getLogger(BookFamousLineServiceImpl.class);
 
-	@Autowired BookFamousLineDao bookFamousLineDao;
+	@Autowired private BookFamousLineDao bookFamousLineDao;
 	@Override
 	public BookBestPaging getPaging(BookBestPaging inData) {
 		// 총 게시글 수 조회

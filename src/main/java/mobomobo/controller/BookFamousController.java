@@ -19,7 +19,7 @@ public class BookFamousController {
 	// 로깅 객체
 	private static final Logger logger = LoggerFactory.getLogger(BookFamousController.class);
 		
-	@Autowired BookFamousLineService bookFamousLineService;
+	@Autowired private BookFamousLineService bookFamousLineService;
 	
 	@RequestMapping(value="/bookFamous",method = RequestMethod.GET)
 	public void bookFamousLine(Model model, BookBestPaging inData) {
@@ -36,6 +36,7 @@ public class BookFamousController {
 		logger.debug(list.toString());
 		
 		model.addAttribute("list",list);
+		model.addAttribute("paging",paging);
 		
 	}
 	

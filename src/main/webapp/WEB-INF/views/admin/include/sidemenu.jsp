@@ -43,7 +43,7 @@
             </a>
           </li>
            <li class="nav-item">
-            <a class="nav-link " href="/admin/tables">
+            <a class="nav-link " href="/admin/book/bookFamous">
               <i class="ni ni-tv-2 text-yellow"></i>책명대사
             </a>
           </li>
