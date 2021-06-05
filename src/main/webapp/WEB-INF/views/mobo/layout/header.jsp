@@ -4,11 +4,15 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+<!DOCTYPE html>
+<html>   
+<head>
+
 <!-- jquery -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
-   
-<head>
+
     <title>MOBOMOBO</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

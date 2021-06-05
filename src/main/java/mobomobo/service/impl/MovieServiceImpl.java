@@ -398,13 +398,25 @@ public class MovieServiceImpl implements MovieService{
         movie.setGenres(genrename);
         
         String actors = "";
-        for(int i=0; i<5; i++) {
-        	movieInfo = (JSONObject) actor.get(i);
-        	
-        	if(i == 4) {
-        		actors += movieInfo.get("peopleNm");
-        	} else {
-        		actors += movieInfo.get("peopleNm") + ", ";
+        if(actor.size() > 5) {
+        	for(int i=0; i<5; i++) {
+        		movieInfo = (JSONObject) actor.get(i);
+        		
+        		if(i == 4) {
+        			actors += movieInfo.get("peopleNm");
+        		} else {
+        			actors += movieInfo.get("peopleNm") + ", ";
+        		}
+        	}
+        } else {
+        	for(int i=0; i<actor.size(); i++) {
+        		movieInfo = (JSONObject) actor.get(i);
+        		
+        		if(i == actor.size() -1) {
+        			actors += movieInfo.get("peopleNm");
+        		} else {
+        			actors += movieInfo.get("peopleNm") + ", ";
+        		}
         	}
         }
         movie.setActors(actors);

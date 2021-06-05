@@ -9,10 +9,12 @@
 
 #movieInfoWrap {
 	min-height: 1000px;
+	max-width : 1920px;
 }
 
 .starBox {
     font-size: 0 !important;
+    height : 30px;
 }
 
 .star {
@@ -52,6 +54,7 @@
 #chart {
 	width : 500px;
 	height : 250px;
+	margin : 0 auto;
 }
 
 .bubbly-button {
@@ -137,81 +140,173 @@
   }
 }
 
+#movieInfoContainer {
+	width : 900px;
+	margin : 0 auto;
+}
+
+.titleFlexBox {
+	display : flex;
+	justify-content: center;
+	align-items: center;
+	padding : 8em 0 0;
+	flex-direction: column;
+}
+
+.contentFlexBox {
+	display : flex;
+	align-items: center;
+	padding : 8em 0 ;
+}
+
+.movieImage {
+	padding-right : 100px;
+}
+
+.movieImage img {
+	width:200px;
+}
+
+.movieTitleInfo {
+	padding-right: 100px;
+	line-height: 50px;
+}
+
+.infoBox {
+	line-height: 40px;
+}
+
+.divSpacing {
+	padding : 50px 0;
+}
+
+.otherDirMovie {
+	display: flex;
+}
+
+.otherDirImgSize {
+	width:150px;
+	height:200px;
+}
+
+
+
 </style>
+
+
 
 <div id="movieInfoWrap">
 
-<c:choose>
-	<c:when test="${movie.image ne 'null' && movie.image ne '' }">
-		<img src="${movie.image }">
-	</c:when>
+	<div id="movieInfoContainer">
 	
-	<c:otherwise>
-		<img src="/resources/img/noImage.png"/>
-	</c:otherwise>
-</c:choose>
-
-<button type="button" id="bookmarkBtn" onclick="manageBookMark()" class="bubbly-button">북마크</button> <br>
-
-제목 : ${movie.title } <br>
-감독 : ${movie.directors } <br>
-배우 : ${movie.actors } <br>
-상영시간 : ${movie.showTm } <br>
-개봉일 : ${movie.openDt } <br>
-장르 : ${movie.genres } <br>
-개봉국가 : ${movie.nationNm } <br>
-관람등급 : ${movie.grades } <br><br>
-
-평균 별점 : <span id="thisStarAvg"></span> <br>
-
-
-
-<div id="starInsertWrap">
-
-	<div class="starBox">
-		<span class="star star_left"></span>
-		<span class="star star_right"></span>
-		<span class="star star_left"></span>
-		<span class="star star_right"></span>
-		<span class="star star_left"></span>
-		<span class="star star_right"></span>
-		<span class="star star_left"></span>
-		<span class="star star_right"></span>
-		<span class="star star_left"></span>
-		<span class="star star_right"></span>
-	</div>
-	
-	<div class="star-value" id="starValue">0</div>
-	
-	<button type="button" onclick="insertStarRating()">별점 입력</button>
-
-</div>
-
-
-<div id="starResultWrap" >
-</div>
-
-<div id="chart">
-<canvas id="myChart1"></canvas>
-</div>
-
-<h4>${movie.directors } 감독의 다른작품</h4>
-<c:forEach items="${list }" var="another">
-
-	<c:choose>
-		<c:when test="${another.image ne null }">
-			<a href="/mobo/movie/movierecomDetail?key=${another.key }&image=${another.image}"><img src="${another.image }" /></a>
-		</c:when>
+		<div class="titleFlexBox">
 		
-		<c:otherwise>
-			<a href="/mobo/movie/movierecomDetail?key=${another.key }&image=${another.image}"><img src="/resources/img/noImage.png"/></a>
-		</c:otherwise>
-	</c:choose>
-</c:forEach>
+			<h2 class="mb-4">${movie.title }</h2>
+			<p id="p" style="display:block;">당신의 인생 영화, 무부무부에서 만나보세요</p>
+		
+		</div>
+		
+		
+		
+		<div class="contentFlexBox">
+			<div class="movieImage">
+				<c:choose>
+					<c:when test="${movie.image ne 'null' && movie.image ne '' }">
+						<img src="${movie.image }">
+					</c:when>
+					
+					<c:otherwise>
+						<img src="/resources/img/noImage.png"/>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			
+			<div class="movieTitleInfo">
+			<h3>${movie.title }</h3>
+			감독 : ${movie.directors } <br>
+			
+			평균 별점 : <span id="thisStarAvg"></span>
+			
+				<div id="starInsertWrap">
+				
+					<div class="starBox">
+						<span class="star star_left"></span>
+						<span class="star star_right"></span>
+						<span class="star star_left"></span>
+						<span class="star star_right"></span>
+						<span class="star star_left"></span>
+						<span class="star star_right"></span>
+						<span class="star star_left"></span>
+						<span class="star star_right"></span>
+						<span class="star star_left"></span>
+						<span class="star star_right"></span>
+					</div>
+					
+					<div>
+						<span class="star-value" id="starValue" style="width : 100px; display : inline-block;">0</span>
+					
+						<button type="button" onclick="insertStarRating()">별점 입력</button>
+					</div>
+				
+				</div>
+				
+				<div id="starResultWrap" >
+				</div>
+			
+			</div>
+			
+			<button type="button" id="bookmarkBtn" onclick="manageBookMark()" class="bubbly-button">북마크</button> <br>
+		</div>
+		
+		<hr>
+		
+		<div class="infoBox divSpacing">
+			<h3 style="padding-bottom : 30px;">영화 정보</h3>
 
+			<span>배우 : ${movie.actors }</span> <br>
+			<span>상영시간 : ${movie.showTm } 분</span>  <br>
+			<span>개봉일 : ${movie.openDt }</span>  <br>
+			<span>장르 : ${movie.genres }</span>  <br>
+			<span>개봉국가 : ${movie.nationNm }</span>  <br>
+			<span>관람등급 : ${movie.grades }</span>
+			
+			
+		</div>
+		
+		<hr>
+		<div class="divSpacing">
+			<h3 style="padding-bottom : 50px">연령별 별점 평균</h3>
+			
+			<div id="chart">
+				<canvas id="myChart1"></canvas>
+			</div>
+		</div>
+		
+		<hr>
+		
+		<div class="divSpacing">
+			<h4 style="padding-bottom : 50px" >${movie.directors } 감독의 다른작품</h4>
+			<div class="otherDirMovie">
+				<c:forEach items="${list }" var="another">
+					<div style="padding-right : 50px; text-align:center;">
+						<c:choose>
+							<c:when test="${another.image ne null }">
+								<a href="/mobo/movie/movierecomDetail?key=${another.key }&image=${another.image}"><img src="${another.image }" class='otherDirImgSize'/></a>
+							</c:when>
+							
+							<c:otherwise>
+								<a href="/mobo/movie/movierecomDetail?key=${another.key }&image=${another.image}"><img src="/resources/img/noImage.png" class='otherDirImgSize'/></a>
+							</c:otherwise>
+						</c:choose>
+						<div>${another.title }</div>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+	
+	</div>
 
 </div> <!-- movieInfoWrap end -->
-
 
 <input type="hidden" value="${movie.key }" id="hiddenKey"/>
 <input type="hidden" value="${movie.title }" id="hiddenTitle"/>
@@ -396,7 +491,7 @@ function checkStarRating() {
 					starResultWrapText += "<img src='/resources/img/halfStar.png' style='width:15px; height:30px;' />"
 				}
 				
-				starResultWrapText += "<br> <input type='button' value='수정' onclick='updateStarRating();'/>"
+				starResultWrapText += "<input type='button' value='수정' onclick='updateStarRating();'/>"
 				
 				$("#starResultWrap").html(starResultWrapText);
 			}
