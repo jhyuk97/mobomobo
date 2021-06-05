@@ -1,11 +1,8 @@
 package mobomobo.service.impl;
 
-<<<<<<< HEAD
 import java.util.HashMap;
-=======
 import java.io.File;
 import java.io.IOException;
->>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 import java.util.List;
 import java.util.UUID;
 
@@ -19,18 +16,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import mobomobo.dao.face.AdminDao;
-<<<<<<< HEAD
 import mobomobo.dto.MovieAward;
 import mobomobo.dto.UserInfo;
 import mobomobo.service.face.AdminService;
 import mobomobo.util.AdminMovieRecomPaging;
-=======
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.UserInfo;
 import mobomobo.service.face.AdminService;
 import mobomobo.util.MovieBestPaging;
->>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 import mobomobo.util.Paging;
 
 @Service

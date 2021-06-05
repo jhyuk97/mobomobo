@@ -33,7 +33,6 @@
 		AND key = #{key}
 	</select>
 	
-<<<<<<< HEAD
 	<select id="selectStarAvg" resultType="mobomobo.dto.MovieStarRating" parameterType="String">
 		SELECT age, avg(starrating) as avg FROM moviestarrating
 		WHERE key = #{key}
@@ -73,7 +72,6 @@
 		SELECT ROUND(AVG(starrating),1) avg FROM moviestarrating
 		WHERE key = #{key}
 	</select>
-=======
 	<select id="selectCntAll" resultType="int">
   
   select COUNT(*) FROM MovieBest
@@ -195,6 +193,5 @@
 	
 	
 	
->>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 
 </mapper>

@@ -49,15 +49,12 @@ public class AdminController {
 		@Autowired
 		private AdminService adminService;
 		
-<<<<<<< HEAD
 		@Autowired
 		private MovieService movieService;
-=======
 		@Autowired ServletContext context;
 		
 		@Autowired
 		private AdminDao adminDao;
->>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 
 
 		@RequestMapping(value="/admin/main")
@@ -154,7 +151,6 @@ public class AdminController {
 			return "redirect:/admin/usermanagement";
 		}
 		
-<<<<<<< HEAD
 		@RequestMapping(value="/admin/movierecomSearch")
 		public @ResponseBody List<Movie> movierecomSearch(String search) throws IOException, ParseException {
 			
@@ -182,7 +178,6 @@ public class AdminController {
 			
 			adminService.removeMovierecom(movieAward);
 		}
-=======
 		
 		@RequestMapping(value="/admin/movie/adminmoviebestlist")
 		public void moviebest(MovieBestPaging inData, Model model) {
@@ -270,7 +265,6 @@ public class AdminController {
 			
 			
 			adminService.moiveBestDelete(movieBest);
->>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 
 			return "redirect:/admin/movie/adminmoviebestlist";
 		}

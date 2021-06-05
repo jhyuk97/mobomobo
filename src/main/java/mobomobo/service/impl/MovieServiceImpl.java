@@ -22,14 +22,11 @@ import org.springframework.stereotype.Service;
 import mobomobo.dao.face.MovieDao;
 import mobomobo.dto.BookMark;
 import mobomobo.dto.Movie;
-<<<<<<< HEAD
 import mobomobo.dto.MovieAward;
-=======
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
->>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 import mobomobo.dto.MovieStarRating;
 import mobomobo.service.face.MovieService;
 import mobomobo.util.MovieBestPaging;
@@ -629,7 +626,6 @@ public class MovieServiceImpl implements MovieService{
 		return starRating;
 	}
 	
-<<<<<<< HEAD
 	//연령별 별점 평균 구하기
 	@Override
 	public List<MovieStarRating> getStarAvg(String key) {
@@ -644,7 +640,11 @@ public class MovieServiceImpl implements MovieService{
 		int res = movieDao.selectBookMarkByUserNo(bookmark);
 		
 		if(res > 0) {
-=======
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	@Override
 	public MovieBestPaging getPaging(MovieBestPaging inData) {
@@ -677,18 +677,15 @@ public class MovieServiceImpl implements MovieService{
 		return movieDao.selectMovieByMovieBestNo(viewMovieBest);
 	}
 
-	@Override
 	public boolean isMovieBestLike(MovieBestLike movieBestLike) {
 		
 		int cnt = movieDao.selectCntMovieBestLike(movieBestLike);
 		
 		if(cnt > 0) {
->>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 			return true;
 		} else {
 			return false;
 		}
-<<<<<<< HEAD
 		
 	}
 	
@@ -702,9 +699,10 @@ public class MovieServiceImpl implements MovieService{
 		} else {
 			bookmark.setCategory("movie");
 			movieDao.insertBookMark(bookmark);
-=======
-
+			return true;
+		}
 	}
+	
 
 	@Override
 	public int getTotalCntMovieBestLike(MovieBestLike movieBestLike) {
@@ -726,13 +724,10 @@ public class MovieServiceImpl implements MovieService{
 			
 			movieDao.insertMovieBestLike(movieBestLike);
 			
-			
->>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 			return true;
 		}
 		
 	}
-<<<<<<< HEAD
 	
 	//무부 추천영화 리스트 가져오기
 	@Override
@@ -746,7 +741,6 @@ public class MovieServiceImpl implements MovieService{
 		return movieDao.selectStarAvgOfSingle(key);
 	}
 	
-=======
 
 	@Override
 	public void insertMovieBestComment(MovieBestComment movieBestComment) {
@@ -790,5 +784,4 @@ public class MovieServiceImpl implements MovieService{
 	
 	
 	
->>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 }

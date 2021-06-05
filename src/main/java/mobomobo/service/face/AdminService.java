@@ -3,18 +3,15 @@ package mobomobo.service.face;
 import java.util.HashMap;
 import java.util.List;
 
-<<<<<<< HEAD
 import mobomobo.dto.MovieAward;
 import mobomobo.dto.UserInfo;
 import mobomobo.util.AdminMovieRecomPaging;
-=======
 import org.springframework.web.multipart.MultipartFile;
 
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.UserInfo;
 import mobomobo.util.MovieBestPaging;
->>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 import mobomobo.util.Paging;
 
 public interface AdminService {

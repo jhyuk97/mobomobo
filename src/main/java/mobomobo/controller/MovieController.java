@@ -1,11 +1,8 @@
 package mobomobo.controller;
 
 import java.io.IOException;
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
 import java.io.Writer;
->>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,14 +22,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import mobomobo.dto.BookMark;
 import mobomobo.dto.Movie;
-<<<<<<< HEAD
 import mobomobo.dto.MovieAward;
-=======
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
->>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 import mobomobo.dto.MovieStarRating;
 import mobomobo.service.face.MovieService;
 import mobomobo.util.MovieBestPaging;

@@ -3,16 +3,13 @@ package mobomobo.dao.face;
 import java.util.HashMap;
 import java.util.List;
 
-<<<<<<< HEAD
 import mobomobo.dto.MovieAward;
 import mobomobo.dto.UserInfo;
 import mobomobo.util.AdminMovieRecomPaging;
-=======
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.UserInfo;
 import mobomobo.util.MovieBestPaging;
->>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 import mobomobo.util.Paging;
 
 public interface AdminDao {
@@ -52,7 +49,6 @@ public interface AdminDao {
 	 */
 	public void userUpdate(UserInfo userInfo);
 
-<<<<<<< HEAD
 	public void insertMovierecom(HashMap<String, String> map);
 
 	public int selectMoiveCnt();
@@ -62,7 +58,6 @@ public interface AdminDao {
 	public void deleteMovierecom(MovieAward movieAward);
 
 
-=======
 	/**
 	 * 명장면 게시판 전체 게시글 수 조회 
 	 * @return
@@ -116,6 +111,5 @@ public interface AdminDao {
 	
 	
 	
->>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 
 }

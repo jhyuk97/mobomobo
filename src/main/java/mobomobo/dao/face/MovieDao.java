@@ -1,20 +1,17 @@
 package mobomobo.dao.face;
 
-<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
 
 import mobomobo.dto.BookMark;
 import mobomobo.dto.Movie;
 import mobomobo.dto.MovieAward;
-=======
 import java.util.List;
 
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
->>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 import mobomobo.dto.MovieStarRating;
 import mobomobo.util.MovieBestPaging;
 
