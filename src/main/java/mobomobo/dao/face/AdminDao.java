@@ -3,9 +3,16 @@ package mobomobo.dao.face;
 import java.util.HashMap;
 import java.util.List;
 
+<<<<<<< HEAD
 import mobomobo.dto.MovieAward;
 import mobomobo.dto.UserInfo;
 import mobomobo.util.AdminMovieRecomPaging;
+=======
+import mobomobo.dto.MovieBest;
+import mobomobo.dto.MovieBestImg;
+import mobomobo.dto.UserInfo;
+import mobomobo.util.MovieBestPaging;
+>>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 import mobomobo.util.Paging;
 
 public interface AdminDao {
@@ -45,6 +52,7 @@ public interface AdminDao {
 	 */
 	public void userUpdate(UserInfo userInfo);
 
+<<<<<<< HEAD
 	public void insertMovierecom(HashMap<String, String> map);
 
 	public int selectMoiveCnt();
@@ -54,5 +62,60 @@ public interface AdminDao {
 	public void deleteMovierecom(MovieAward movieAward);
 
 
+=======
+	/**
+	 * 명장면 게시판 전체 게시글 수 조회 
+	 * @return
+	 */
+	public int movieBestSelectCntAll();
+	
+	/**
+	 * 명장면 게시판 페이징 전체 조회
+	 * @param paging
+	 * @return
+	 */
+	public List<MovieBest> selectPageMovieBest(MovieBestPaging paging);
+	
+	/**
+	 * 명장면 게시판 글 삽입
+	 * @param movieBest
+	 */
+	public void movieBestInsert(MovieBest movieBest);
+	
+	/**
+	 * 명장면 게시판 첨부파일 삽입
+	 * @param movieBestImg
+	 */
+	public void movieBestInsertFile(MovieBestImg movieBestImg);
+	
+	/**
+	 * 명장면 게시판 첨부파일 이용해 파일 조회 
+	 * @param imgNo
+	 * @return
+	 */
+	public MovieBestImg selectByMovieBestFileNo(int imgNo);
+	
+	/**
+	 * 명장면 게시판 글 번호 이용한 첨부파일 조회 
+	 * @param viewMovieBest
+	 * @return
+	 */
+	public MovieBestImg selectByMovieBestNo(MovieBest viewMovieBest);
+	
+	/**
+	 * 명장면 게시판 이미지 삭제 
+	 * @param movieBest
+	 */
+	public void deleteMovieBestImg(MovieBest movieBest);
+	
+	/**
+	 * 명장면 게시판 정보 삭제
+	 * @param movieBest
+	 */
+	public void deleteMovieBest(MovieBest movieBest);
+	
+	
+	
+>>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 
 }

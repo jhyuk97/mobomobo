@@ -149,6 +149,7 @@ public class SignController {
 
 			session.setAttribute("login", true);
 			session.setAttribute("id", res.getId());
+			session.setAttribute("nick", res.getNick());
 			
 			session.setAttribute("age", res.getAge());
 			session.setAttribute("userno", res.getUserno());

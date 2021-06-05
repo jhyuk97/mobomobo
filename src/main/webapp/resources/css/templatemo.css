@@ -80,6 +80,7 @@ body, ul, li, p, a, label, input, div {
 .bg-light { background-color: #f8f9fa !important;}
 .bg-black { background-color: #1d242d !important;}
 .bg-success { background-color: #ddccf5 !important;}
+.bg-replay {background-color:#dddff8 !important;}
 .btn-success {
   background-color: #DCCBED !important;
   border-color: #DCCBED !important;

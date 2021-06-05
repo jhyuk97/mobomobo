@@ -14,18 +14,30 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mobomobo.dao.face.MovieDao;
 import mobomobo.dto.BookMark;
 import mobomobo.dto.Movie;
+<<<<<<< HEAD
 import mobomobo.dto.MovieAward;
+=======
+import mobomobo.dto.MovieBest;
+import mobomobo.dto.MovieBestComment;
+import mobomobo.dto.MovieBestImg;
+import mobomobo.dto.MovieBestLike;
+>>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 import mobomobo.dto.MovieStarRating;
 import mobomobo.service.face.MovieService;
+import mobomobo.util.MovieBestPaging;
 
 @Service
 public class MovieServiceImpl implements MovieService{
+	
+	private static final Logger logger = LoggerFactory.getLogger(MovieServiceImpl.class);
 	
 	@Autowired
 	MovieDao movieDao;
@@ -617,6 +629,7 @@ public class MovieServiceImpl implements MovieService{
 		return starRating;
 	}
 	
+<<<<<<< HEAD
 	//연령별 별점 평균 구하기
 	@Override
 	public List<MovieStarRating> getStarAvg(String key) {
@@ -631,10 +644,51 @@ public class MovieServiceImpl implements MovieService{
 		int res = movieDao.selectBookMarkByUserNo(bookmark);
 		
 		if(res > 0) {
+=======
+	
+	@Override
+	public MovieBestPaging getPaging(MovieBestPaging inData) {
+		
+		int totalCount = movieDao.selectCntAll();
+		
+		logger.info(totalCount + "");
+		
+		MovieBestPaging paging = new MovieBestPaging(totalCount, inData.getCurPage());
+	
+		
+		return paging;
+	}
+
+	@Override
+	public List<MovieBest> list(MovieBestPaging paging) {
+		
+		return movieDao.selectPageList(paging);
+	}
+
+	@Override
+	public List<MovieBest> movielist() {
+		
+		return movieDao.movielist();
+	}
+
+	@Override
+	public MovieBest view(MovieBest viewMovieBest) {
+		
+		return movieDao.selectMovieByMovieBestNo(viewMovieBest);
+	}
+
+	@Override
+	public boolean isMovieBestLike(MovieBestLike movieBestLike) {
+		
+		int cnt = movieDao.selectCntMovieBestLike(movieBestLike);
+		
+		if(cnt > 0) {
+>>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 			return true;
 		} else {
 			return false;
 		}
+<<<<<<< HEAD
 		
 	}
 	
@@ -648,10 +702,37 @@ public class MovieServiceImpl implements MovieService{
 		} else {
 			bookmark.setCategory("movie");
 			movieDao.insertBookMark(bookmark);
+=======
+
+	}
+
+	@Override
+	public int getTotalCntMovieBestLike(MovieBestLike movieBestLike) {
+		
+		return movieDao.selectTotalCntMovieBestLike(movieBestLike);
+		
+
+	}
+
+	@Override
+	public boolean movielike(MovieBestLike movieBestLike) {
+		
+		if(isMovieBestLike(movieBestLike)) {
+			movieDao.deleteMovieBestLike(movieBestLike);
+			
+			return false;
+			
+		} else {
+			
+			movieDao.insertMovieBestLike(movieBestLike);
+			
+			
+>>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 			return true;
 		}
 		
 	}
+<<<<<<< HEAD
 	
 	//무부 추천영화 리스트 가져오기
 	@Override
@@ -665,4 +746,49 @@ public class MovieServiceImpl implements MovieService{
 		return movieDao.selectStarAvgOfSingle(key);
 	}
 	
+=======
+
+	@Override
+	public void insertMovieBestComment(MovieBestComment movieBestComment) {
+		
+		movieDao.insertMovieBestComment(movieBestComment);
+		
+	}
+
+	@Override
+	public List<MovieBestComment> getMovieBestCommentList(int movieBestNo) {
+		// TODO Auto-generated method stub
+		return movieDao.selectMovieBestComment(movieBestNo);
+	}
+
+	@Override
+	public boolean deleteComment(MovieBestComment movieBestComment) {
+		
+		movieDao.deleteMovieBestComment(movieBestComment);
+		
+		if( movieDao.movieBestCountComment(movieBestComment) > 0 ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	//없어도 댐
+	@Override
+	public List<MovieBestImg> imglist() {
+		
+		return movieDao.imglist();
+	}
+	
+	@Override
+	public List<MovieBestImg> viewImage(MovieBest viewMovieBest) {
+		return movieDao.selectViewImageList(viewMovieBest);
+	}
+	
+	
+	
+	
+	
+	
+>>>>>>> 54400a93ce67bf5d683262cc404979a6200b543c
 }

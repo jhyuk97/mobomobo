@@ -255,8 +255,6 @@
 						, url : '/mobo/book/starRatingInsert'
 						, data : {'starRating' : starRating
 									, 'isbn' : "${isbn }"
-									, 'age' : ${age }
-									, 'userno':${userno }
 									, 'title' : $("#title").val()
 								 }
 						
