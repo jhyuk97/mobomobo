@@ -17,5 +17,11 @@
 		 	) BOARD
 	 	WHERE rnum BETWEEN #{startNo } AND #{endNo }
   	</select>
+  	<insert id="insertBookBest" parameterType="mobomobo.dto.BookBest">
+  		INSERT INTO bookbest(bookbestno, userno,besttitle,bestcontext,booktitle,bookauthor,publicationdate)
+  		VALUES(BOOKBEST_SEQ.nextval, #{userno },#{bestTitle },#{bestContext },#{bookTitle },#{bookAuthor },#{publicationDate })
+  	</insert>
+  
+  
   
   </mapper>

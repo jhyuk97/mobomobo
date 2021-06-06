@@ -18,7 +18,7 @@ public class BookBest {
 	public String toString() {
 		return "BookBest [bookBestno=" + bookBestno + ", userno=" + userno + ", bestTitle=" + bestTitle
 				+ ", bestContext=" + bestContext + ", bookTitle=" + bookTitle + ", bookAuthor=" + bookAuthor
-				+ ", pulicationDate=" + publicationDate + ", writeDate=" + writeDate + ", views=" + views + ", boardDiv="
+				+ ", publicationDate=" + publicationDate + ", writeDate=" + writeDate + ", views=" + views + ", boardDiv="
 				+ boardDiv + "]";
 	}
 	public int getBookBestno() {
@@ -57,10 +57,11 @@ public class BookBest {
 	public void setBookAuthor(String bookAuthor) {
 		this.bookAuthor = bookAuthor;
 	}
-	public String getPulicationDate() {
+
+	public String getPublicationDate() {
 		return publicationDate;
 	}
-	public void setPulicationDate(String publicationDate) {
+	public void setPublicationDate(String publicationDate) {
 		this.publicationDate = publicationDate;
 	}
 	public Date getWriteDate() {

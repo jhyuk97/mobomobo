@@ -2,6 +2,8 @@ package mobomobo.service.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,17 @@ public class BookFamousLineServiceImpl implements BookFamousLineService {
 	@Override
 	public List<BookBest> getList(BookBestPaging paging) {
 		return bookFamousLineDao.selectList(paging);
+	}
+	@Override
+	public BookBest saveBookBest(BookBest bookbest, String bestContext1, String bestContext2, String bestContext3,HttpSession session) {
+		
+		bookbest.setBestContext(bestContext1+"/"+bestContext2+"/"+bestContext3);
+		bookbest.setUserno((int) session.getAttribute("userno"));
+		return bookbest;
+	}
+	@Override
+	public void insertBookInfo(BookBest info) {
+		bookFamousLineDao.insertBookBest(info);
 	}
 
 }

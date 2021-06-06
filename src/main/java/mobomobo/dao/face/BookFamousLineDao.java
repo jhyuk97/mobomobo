@@ -20,4 +20,10 @@ public interface BookFamousLineDao {
 	 */
 	public List<BookBest> selectList(BookBestPaging paging);
 
+	/**
+	 * bookbest 테이블에 삽입
+	 * @param info
+	 */
+	public void insertBookBest(BookBest info);
+
 }
