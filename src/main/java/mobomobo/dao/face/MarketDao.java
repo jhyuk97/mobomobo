@@ -2,6 +2,7 @@ package mobomobo.dao.face;
 
 import java.util.List;
 
+import mobomobo.dto.BookMark;
 import mobomobo.dto.Market;
 import mobomobo.dto.MarketImg;
 import mobomobo.util.Paging;
@@ -55,4 +56,26 @@ public interface MarketDao {
 	 * 중고마켓 게시글 이미지 등록
 	 */
 	public void InsertMarketImg(MarketImg img);
+	
+	/*
+	 * 중고마켓 게시글 수정
+	 */
+	public void UpdateMarket(Market market);
+	
+	/*
+	 * 기존 게시글 이미지 삭제
+	 */
+	public void DeleteMarketImg(Market market);
+	
+	
+	/*
+	 * 게시글 수정 이미지 등록
+	 */
+	public void UpdateMarketImg(MarketImg img);
+	
+	
+	/*
+	 * 중고마켓 북마크 추가
+	 */
+	public void InsertBookmark(BookMark bookmark);
 }

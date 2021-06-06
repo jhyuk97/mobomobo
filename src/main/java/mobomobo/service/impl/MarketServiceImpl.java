@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import mobomobo.dao.face.MarketDao;
+import mobomobo.dto.BookMark;
 import mobomobo.dto.Market;
 import mobomobo.dto.MarketImg;
 import mobomobo.service.face.MarketService;
@@ -148,5 +149,74 @@ public class MarketServiceImpl implements MarketService {
 		}
 		
 	}
+	
+	
+	@Override
+	@Transactional
+	public void UpdateMarket(Market data, List<MultipartFile> file) {
+		
+		marketDao.UpdateMarket(data);
+		marketDao.DeleteMarketImg(data);
+		
+		
+		for(MultipartFile f : file) {
+			if( f.getSize() <= 0 ) {
+				return;
+			}
+		}
+	
+		//파일이 저장될 경로(real path)
+		String storedPath = context.getRealPath("emp");
+		
+		//폴더가 존재하지 않으면 생성하기
+		File stored = new File(storedPath);
+		if( !stored.exists() ) {
+			stored.mkdir();
+		}
+		
+		for(MultipartFile f : file) {
+			//저장될 파일의 이름 생성하기
+			String originName = f.getOriginalFilename(); //원본파일명
+			
+			//원본파일이름에 UUID추가하기 (파일명이 중복되지않도록 설정)
+			String storedName = originName + UUID.randomUUID().toString().split("-")[4];
+			
+			//저장될 파일 정보 객체
+			File dest = new File( stored, storedName );
+			
+			try {
+				//업로드된 파일을 저장하기
+				f.transferTo(dest);
+				
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			//이미지 정보 객체에 저장
+			MarketImg img = new MarketImg();
+			img.setOriginImg(originName);
+			img.setStoredImg(storedName);
+			img.setFilesize((int)f.getSize());
+			img.setContentType(originName.substring(originName.lastIndexOf(".")+1));
+			img.setmNo(data.getmNo());
+
+			
+			marketDao.UpdateMarketImg(img);
+			
+		}
+	}
+	
+	
+	@Override
+	public void AddBookmark(BookMark bookmark) {
+		// TODO Auto-generated method stub
+		
+		marketDao.InsertBookmark(bookmark);
+		
+	}
+
+	
 	
 }
