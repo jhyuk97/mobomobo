@@ -2,14 +2,20 @@ package mobomobo.dto;
 
 public class BookMark {
 
+	private int bookmarkno;
 	private int userno;
 	private String category;
 	private String key;
-
-
 	@Override
 	public String toString() {
-		return "BookMark [userno=" + userno + ", category=" + category + ", key=" + key + "]";
+		return "BookMark [bookmarkno=" + bookmarkno + ", userno=" + userno + ", category=" + category + ", key=" + key
+				+ "]";
+	}
+	public int getBookmarkno() {
+		return bookmarkno;
+	}
+	public void setBookmarkno(int bookmarkno) {
+		this.bookmarkno = bookmarkno;
 	}
 	public int getUserno() {
 		return userno;
@@ -29,6 +35,8 @@ public class BookMark {
 	public void setKey(String key) {
 		this.key = key;
 	}
+
+
 	
 	
 	

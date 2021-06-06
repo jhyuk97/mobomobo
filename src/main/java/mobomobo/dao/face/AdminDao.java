@@ -1,7 +1,11 @@
 package mobomobo.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
+import mobomobo.dto.MovieAward;
+import mobomobo.dto.UserInfo;
+import mobomobo.util.AdminMovieRecomPaging;
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.UserInfo;
@@ -44,6 +48,15 @@ public interface AdminDao {
 	 * @param userno
 	 */
 	public void userUpdate(UserInfo userInfo);
+
+	public void insertMovierecom(HashMap<String, String> map);
+
+	public int selectMoiveCnt();
+
+	public List<MovieAward> selectMovieAwardList(AdminMovieRecomPaging moviepaging);
+
+	public void deleteMovierecom(MovieAward movieAward);
+
 
 	/**
 	 * 명장면 게시판 전체 게시글 수 조회 

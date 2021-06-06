@@ -1,5 +1,7 @@
 package mobomobo.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.io.File;
 import java.util.List;
 import java.util.UUID;
@@ -7,6 +9,7 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import mobomobo.dto.Movie;
+import mobomobo.dto.MovieAward;
+import mobomobo.dto.UserInfo;
+import mobomobo.service.face.AdminService;
+import mobomobo.service.face.MovieService;
+import mobomobo.util.AdminMovieRecomPaging;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -37,6 +49,8 @@ public class AdminController {
 		@Autowired
 		private AdminService adminService;
 		
+		@Autowired
+		private MovieService movieService;
 		@Autowired ServletContext context;
 		
 		@Autowired
@@ -66,9 +80,14 @@ public class AdminController {
 		}
 		
 		@RequestMapping(value="/admin/movierecom")
-
-		public void movierecom() {
+		public void movierecom(Model model, @RequestParam(defaultValue="1") int curPage) {
 		
+			AdminMovieRecomPaging moviepaging = adminService.getAdminMovieListPaging(curPage);
+			
+			List<MovieAward> list = adminService.getAwardMovieList(moviepaging);
+			
+			model.addAttribute("list", list);
+			model.addAttribute("paging", moviepaging);
 		}
 		
 		@RequestMapping(value = "/admin/usermanagement", method = RequestMethod.GET)
@@ -132,6 +151,33 @@ public class AdminController {
 			return "redirect:/admin/usermanagement";
 		}
 		
+		@RequestMapping(value="/admin/movierecomSearch")
+		public @ResponseBody List<Movie> movierecomSearch(String search) throws IOException, ParseException {
+			
+			List<Movie> list = movieService.adminMovieSearchList(search);
+			
+			return list;
+		}
+		
+		@RequestMapping(value="/admin/movierecomWrite", method=RequestMethod.POST)
+		public String movierecomWrite(String division, String title, String key, String image) {
+			
+			HashMap<String, String> map = new HashMap<>();
+			map.put("division", division);
+			map.put("title", title);
+			map.put("key", key);
+			map.put("image", image);
+			
+			adminService.writeMovierecom(map);
+			
+			return "redirect:/admin/movierecom";
+		}
+		
+		@RequestMapping(value="/admin/movierecomDelete")
+		public @ResponseBody void movierecomDelete(MovieAward movieAward) {
+			
+			adminService.removeMovierecom(movieAward);
+		}
 		
 		@RequestMapping(value="/admin/movie/adminmoviebestlist")
 		public void moviebest(MovieBestPaging inData, Model model) {
