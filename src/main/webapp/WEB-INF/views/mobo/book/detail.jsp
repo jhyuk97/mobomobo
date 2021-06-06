@@ -131,7 +131,7 @@
             	console.log("성공!!")
             	console.log(result)
             	
-            	$("#authors").append(
+            	$("#authors").append( 
 							`
 							<div class="col-md-3">
 					            <div class="blog-entry">
@@ -255,8 +255,6 @@
 						, url : '/mobo/book/starRatingInsert'
 						, data : {'starRating' : starRating
 									, 'isbn' : "${isbn }"
-									, 'age' : ${age }
-									, 'userno':${userno }
 									, 'title' : $("#title").val()
 								 }
 						

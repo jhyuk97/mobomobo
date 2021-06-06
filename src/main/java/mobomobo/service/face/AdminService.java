@@ -1,7 +1,11 @@
 package mobomobo.service.face;
 
+import java.util.HashMap;
 import java.util.List;
 
+import mobomobo.dto.MovieAward;
+import mobomobo.dto.UserInfo;
+import mobomobo.util.AdminMovieRecomPaging;
 import org.springframework.web.multipart.MultipartFile;
 
 import mobomobo.dto.MovieBest;
@@ -89,5 +93,13 @@ public interface AdminService {
 	
 	
 	
+
+	public void writeMovierecom(HashMap<String, String> map);
+
+	public AdminMovieRecomPaging getAdminMovieListPaging(int curPage);
+
+	public List<MovieAward> getAwardMovieList(AdminMovieRecomPaging moviepaging);
+
+	public void removeMovierecom(MovieAward movieAward);
 
 }

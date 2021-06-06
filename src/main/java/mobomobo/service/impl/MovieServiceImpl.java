@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -19,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mobomobo.dao.face.MovieDao;
+import mobomobo.dto.BookMark;
 import mobomobo.dto.Movie;
+import mobomobo.dto.MovieAward;
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
 import mobomobo.dto.MovieBestImg;
@@ -39,6 +42,7 @@ public class MovieServiceImpl implements MovieService{
 	//영화진흥위원회 서비스키
 	private String serviceKey = "e4d9b0090b2fe76c700e81e3ffd96704";
 	
+	//감독명에 맞는 영화 조회 (4개)
 	@Override
 	public List<Movie> getMainList(String directorName) throws IOException, ParseException {
 		
@@ -119,6 +123,7 @@ public class MovieServiceImpl implements MovieService{
 	
 	}
 	
+	//검색한 영화의 수 조회
 	@Override
 	public int getListCnt(String search) throws IOException, ParseException {
 		
@@ -170,6 +175,7 @@ public class MovieServiceImpl implements MovieService{
 		return parseMovieList.size();
 	}
 	
+	//검색한 영화 리스트 조회 + 페이징
 	@Override
 	public List<Movie> getList(String search, int curpage) throws IOException, ParseException {
 
@@ -253,7 +259,7 @@ public class MovieServiceImpl implements MovieService{
 		return list;
 	}
 	
-	
+	//영화의 이미지 조회
 	public Movie getMovieImage(Movie movie) throws IOException, ParseException {
 		
         String clientId = "wla82tmYgxtmxGQuvyrO";
@@ -316,6 +322,7 @@ public class MovieServiceImpl implements MovieService{
 		return movie;
 	}
 	
+	//영화의 상세정보 조회
 	@Override
 	public Movie getMovieInfo(Movie movie) throws IOException, ParseException {
 
@@ -400,13 +407,25 @@ public class MovieServiceImpl implements MovieService{
         movie.setGenres(genrename);
         
         String actors = "";
-        for(int i=0; i<actor.size(); i++) {
-        	movieInfo = (JSONObject) actor.get(i);
-        	
-        	if(i == actor.size()-1) {
-        		actors += movieInfo.get("peopleNm");
-        	} else {
-        		actors += movieInfo.get("peopleNm") + ", ";
+        if(actor.size() > 5) {
+        	for(int i=0; i<5; i++) {
+        		movieInfo = (JSONObject) actor.get(i);
+        		
+        		if(i == 4) {
+        			actors += movieInfo.get("peopleNm");
+        		} else {
+        			actors += movieInfo.get("peopleNm") + ", ";
+        		}
+        	}
+        } else {
+        	for(int i=0; i<actor.size(); i++) {
+        		movieInfo = (JSONObject) actor.get(i);
+        		
+        		if(i == actor.size() -1) {
+        			actors += movieInfo.get("peopleNm");
+        		} else {
+        			actors += movieInfo.get("peopleNm") + ", ";
+        		}
         	}
         }
         movie.setActors(actors);
@@ -419,7 +438,168 @@ public class MovieServiceImpl implements MovieService{
 		
 		return movie;
 	}
+	
+	//관리자 페이지 영화 리스트 조회
+	@Override
+	public List<Movie> adminMovieSearchList(String search) throws IOException, ParseException {
 
+		
+		StringBuilder urlBuilder = new StringBuilder("http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json");
+		
+        urlBuilder.append("?" + URLEncoder.encode("key","UTF-8") + "="+serviceKey);
+        urlBuilder.append("&" + URLEncoder.encode("movieNm","UTF-8") + "=" + URLEncoder.encode(search, "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("itemPerPage","UTF-8") + "=" + 30);
+		
+        
+        URL url = new URL(urlBuilder.toString());
+        
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        
+        conn.setRequestMethod("GET");
+        
+        conn.setRequestProperty("Content-type", "application/json");
+        
+        BufferedReader rd;
+        
+        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) { // API 정상 호출
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else { //에러 발생
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        
+        String line;
+        
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+        
+        rd.close();
+        
+        conn.disconnect();
+        
+        String result = sb.toString();
+        
+        JSONParser parser = new JSONParser();
+        
+        JSONObject obj = (JSONObject) parser.parse(result);
+        
+        JSONObject parseMovieListResult = (JSONObject) obj.get("movieListResult");
+
+        JSONArray parseMovieList = (JSONArray) parseMovieListResult.get("movieList");
+        
+        JSONObject movieList;    
+        JSONObject director;
+        
+        List<Movie> list = new ArrayList<>();
+        
+        for(int i=0; i<parseMovieList.size(); i++) {
+        	movieList = (JSONObject) parseMovieList.get(i);
+        	
+        	Movie movie = new Movie();
+
+        	movie.setKey((String) movieList.get("movieCd"));
+        	movie.setTitle((String) movieList.get("movieNm"));
+        	
+        	JSONArray dir = (JSONArray) movieList.get("directors");
+        	
+        	for(int j=0; j<dir.size(); j++) {
+        		director = (JSONObject) dir.get(j);
+        		
+        		movie.setDirectors((String) director.get("peopleNm"));
+        	}
+
+        	if(movie.getTitle() != null) {
+        	movie = getMovieImage(movie);
+        	}
+        	
+        	list.add(movie);
+        	
+        }
+		
+		return list;
+	}
+	
+	//영화 1개 검색 메소드
+	@Override
+	public Movie getMovieSearchOne(String string) throws IOException, ParseException {
+
+		StringBuilder urlBuilder = new StringBuilder("http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json");
+		
+        urlBuilder.append("?" + URLEncoder.encode("key","UTF-8") + "="+serviceKey);
+        urlBuilder.append("&" + URLEncoder.encode("movieNm","UTF-8") + "=" + URLEncoder.encode(string, "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("itemPerPage","UTF-8") + "=" + 30);
+		
+        
+        URL url = new URL(urlBuilder.toString());
+        
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        
+        conn.setRequestMethod("GET");
+        
+        conn.setRequestProperty("Content-type", "application/json");
+        
+        BufferedReader rd;
+        
+        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) { // API 정상 호출
+            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else { //에러 발생
+            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        
+        String line;
+        
+        while ((line = rd.readLine()) != null) {
+            sb.append(line);
+        }
+        
+        rd.close();
+        
+        conn.disconnect();
+        
+        String result = sb.toString();
+        
+        JSONParser parser = new JSONParser();
+        
+        JSONObject obj = (JSONObject) parser.parse(result);
+        
+        JSONObject parseMovieListResult = (JSONObject) obj.get("movieListResult");
+
+        JSONArray parseMovieList = (JSONArray) parseMovieListResult.get("movieList");
+        
+        JSONObject movieList;    
+        JSONObject director;
+        
+        Movie movie = new Movie();
+        
+        for(int i=0; i<parseMovieList.size(); i++) {
+        	movieList = (JSONObject) parseMovieList.get(i);
+
+        	movie.setKey((String) movieList.get("movieCd"));
+        	movie.setTitle((String) movieList.get("movieNm"));
+        	
+        	JSONArray dir = (JSONArray) movieList.get("directors");
+        	
+        	for(int j=0; j<dir.size(); j++) {
+        		director = (JSONObject) dir.get(j);
+        		
+        		movie.setDirectors((String) director.get("peopleNm"));
+        	}
+
+        	if(movie.getTitle() != null) {
+        	movie = getMovieImage(movie);
+        	}
+        	
+        }
+		
+		return movie;
+		
+	}
+	
+	//별점 저장하기
 	@Override
 	public void setStarRating(MovieStarRating movieStarRating) {
 		
@@ -429,6 +609,7 @@ public class MovieServiceImpl implements MovieService{
 		
 	}
 	
+	//상세보기 페이지 조회시 별점 등록했는지 검사
 	@Override
 	public double checkStarRating(MovieStarRating movieStarRating) {
 		
@@ -445,6 +626,25 @@ public class MovieServiceImpl implements MovieService{
 		return starRating;
 	}
 	
+	//연령별 별점 평균 구하기
+	@Override
+	public List<MovieStarRating> getStarAvg(String key) {
+
+		return movieDao.selectStarAvg(key);
+	}
+	
+	//영화 추천 게시판 북마크 상태 조회
+	@Override
+	public boolean checkBookMark(BookMark bookmark) {
+
+		int res = movieDao.selectBookMarkByUserNo(bookmark);
+		
+		if(res > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
 	@Override
 	public MovieBestPaging getPaging(MovieBestPaging inData) {
@@ -477,7 +677,6 @@ public class MovieServiceImpl implements MovieService{
 		return movieDao.selectMovieByMovieBestNo(viewMovieBest);
 	}
 
-	@Override
 	public boolean isMovieBestLike(MovieBestLike movieBestLike) {
 		
 		int cnt = movieDao.selectCntMovieBestLike(movieBestLike);
@@ -487,8 +686,23 @@ public class MovieServiceImpl implements MovieService{
 		} else {
 			return false;
 		}
-
+		
 	}
+	
+	//영화 추천 게시판 북마크 등록/해제
+	@Override
+	public boolean manageBookMark(BookMark bookmark) {
+
+		if(checkBookMark(bookmark)) {
+			movieDao.deleteBookMark(bookmark);
+			return false;
+		} else {
+			bookmark.setCategory("movie");
+			movieDao.insertBookMark(bookmark);
+			return true;
+		}
+	}
+	
 
 	@Override
 	public int getTotalCntMovieBestLike(MovieBestLike movieBestLike) {
@@ -510,11 +724,23 @@ public class MovieServiceImpl implements MovieService{
 			
 			movieDao.insertMovieBestLike(movieBestLike);
 			
-			
 			return true;
 		}
 		
 	}
+	
+	//무부 추천영화 리스트 가져오기
+	@Override
+	public List<MovieAward> getRecomList() {
+		return movieDao.selectRecomList();
+	}
+	
+	//영화 추천 상세보기페이지 해당영화 평균 별점
+	@Override
+	public String getStarAvgOfSingle(String key) {
+		return movieDao.selectStarAvgOfSingle(key);
+	}
+	
 
 	@Override
 	public void insertMovieBestComment(MovieBestComment movieBestComment) {
