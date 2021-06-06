@@ -5,10 +5,12 @@
 <%@include file="/WEB-INF/views/mobo/layout/header.jsp" %>
 
 <div>
-<form id="writeForm" style="margin:0px auto; width:1320px;" action="/mobo/market/write" method="POST" enctype="multipart/form-data">
+<form id="writeForm" style="margin:0px auto; width:1320px;" action="/mobo/market/update" method="POST" enctype="multipart/form-data">
+<p>${market.mNo }</p>
+<input type="hidden" name="mNo" value="${market.mNo }"/>
 	<div>
 		<div>
-			<p>제목 <input type="text" name="mTitle" id="mTitle"/></p>
+			<p>제목 <input type="text" name="mTitle" id="mTitle" value="${market.mTitle }"/></p>
 		</div>
 		
 		<div>
@@ -16,8 +18,8 @@
 		</div>
 		
 		<div>
-			<p>가격<input type="text" name="mPrice" id="mPrice"/></p>
-			<p>본문 <textarea style="width:100%" id="content" name="mContent"></textarea></p>
+			<p>가격<input type="text" name="mPrice" id="mPrice" value="${market.mPrice }"/></p>
+			<p>본문 <textarea style="width:100%" id="content" name="mContent">${market.mContent }</textarea></p>
 		</div>
 		
 		<div>
@@ -59,6 +61,10 @@ function submitContents(elClickedObj) {
 
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	$("#mCate").val('${market.mCate}').prop("selected",true);
+
+
 	$("#submit").click(function(){
 		submitContents($("#submit"));
 		$("form").submit();
