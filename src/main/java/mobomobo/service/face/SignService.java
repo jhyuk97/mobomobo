@@ -71,6 +71,23 @@ public interface SignService {
 	 */
 	public UserInfo getKakaoUserInfo(Object object);
 
+	/**
+	 * 아이디 찾기 - 사용자의 이름과 이메일로 아이디 조회
+	 * @param userInfo - 사용자가 작성한 값
+	 * @return id 조회
+	 */
+	public String findUserId(UserInfo userInfo);
+
+	/**
+	 * 비밀번호 찾기 
+	 * 
+	 * 사용자의 id로 비밀번호 조회
+	 * 
+	 * @param userInfo - 작성한 정보
+	 * @return pw값
+	 */
+	public UserInfo findUserPw(UserInfo userInfo);
+
 	
 
 }

@@ -47,6 +47,16 @@
 		SELECT * FROM userinfo
 		WHERE id = #{id}
 	</select>
+	
+	<select id="selectFindUserId" parameterType="mobomobo.dto.UserInfo" resultType="mobomobo.dto.UserInfo">
+		SELECT * FROM userinfo
+		WHERE name = #{name} AND email = #{email}
+	</select>
+	
+	<select id="selectFindUserPw" parameterType="mobomobo.dto.UserInfo" resultType="mobomobo.dto.UserInfo">
+		SELECT * FROM userinfo
+		WHERE id = #{id}
+	</select>
 
 
 
