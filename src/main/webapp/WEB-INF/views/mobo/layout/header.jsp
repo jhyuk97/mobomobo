@@ -164,11 +164,11 @@ p {
                                             aria-expanded="false"><i class="fa fa-fw fa-user text-dark mr-3"></i></a>
                            <div id="menufont" class="dropdown-menu" aria-labelledby="navbarDropdown">  
                            		<c:choose><c:when test="${empty login }">               
-                <a class="dropdown-item" href="/mobo/signin/login"><div class="menufont">로그인</div></a>
-                             <a class="dropdown-item" href="/mobo/signup/form"><div class="menufont">회원가입</div></a>
+                <a class="dropdown-item" href="/mobo/sign/login"><div class="menufont">로그인</div></a>
+                             <a class="dropdown-item" href="/mobo/sign/signUp"><div class="menufont">회원가입</div></a>
                 					</c:when></c:choose>
                 				<c:choose><c:when test="${login }">      
-                <a class="dropdown-item" href="/mobo/signin/logout"><div class="menufont">로그아웃</div></a>
+                <a class="dropdown-item" href="/mobo/sign/logout"><div class="menufont">로그아웃</div></a>
                 <a class="dropdown-item" href="/admin/main"><div class="menufont">관리자페이지</div></a>
                 					</c:when></c:choose>
                 </div>
