@@ -1,5 +1,6 @@
 package mobomobo.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import mobomobo.dto.BookBest;
+import mobomobo.dto.BookBestImg;
 import mobomobo.service.face.BookFamousLineService;
 import mobomobo.util.BookBestPaging;
 
@@ -36,8 +39,8 @@ public class AdminBookFamousController {
 		
 		logger.debug(paging.toString());
 		
-		List<BookBest> list = bookFamousLineService.getList(paging);
-		logger.debug(list.toString());
+		List<HashMap<String,Object>> list = bookFamousLineService.getList(paging);
+//		logger.debug(list.toString());
 		
 		model.addAttribute("list",list);
 		model.addAttribute("paging",paging);
@@ -45,9 +48,25 @@ public class AdminBookFamousController {
 	}
 	
 	@RequestMapping(value="/famousDetail")
-	public void detail(BookBest bookBest, Model model) {
+	public void detail(String bookBestno, Model model) {
 		logger.info("/admin/book/famousDetail");
+		logger.debug(bookBestno);
 		
+		BookBest bookBest = bookFamousLineService.getBookBestInfo(bookBestno);
+		logger.debug(bookBest.toString());
+		BookBestImg img = bookFamousLineService.getBookBestImgInfo(bookBestno);
+//		logger.debug(img.toString());
+		
+		String [] str = bookBest.getBestContext().split("/");
+		
+		for(int i=0;i<str.length;i++) {
+			logger.debug(str[i]);
+		}
+		
+		
+		model.addAttribute("context",str);
+		model.addAttribute("detail",bookBest);
+		model.addAttribute("img",img);
 
 	}
 	@RequestMapping(value="/famousWrite")
@@ -55,8 +74,8 @@ public class AdminBookFamousController {
 		logger.info("/admin/book/famousWrite [GET]");
 	}
 	@RequestMapping(value="/famousWrite",method = RequestMethod.POST)
-	public void writeProc(BookBest bookbest,String bestContext1,String bestContext2,String bestContext3
-			, MultipartFile file
+	public String writeProc(BookBest bookbest,String bestContext1,String bestContext2,String bestContext3
+			, @RequestParam(required = false)MultipartFile file
 			, HttpSession session) {
 		logger.info("/admin/book/famousWrite [POST]");
 		logger.debug(bestContext1);
@@ -68,10 +87,29 @@ public class AdminBookFamousController {
 		BookBest info = bookFamousLineService.saveBookBest(bookbest,bestContext1,bestContext2,bestContext3,session);
 		logger.debug(info.toString());
 		
-		bookFamousLineService.insertBookInfo(info);
+		
+		BookBestImg img = bookFamousLineService.saveImg(file,bookbest);
+//		logger.debug(img.toString());
+		
+		
+		bookFamousLineService.insertBookInfo(info, img);
+		
+		return "redirect:/admin/book/bookFamous";
 		
 		
 	}
+	@RequestMapping(value="/delete")
+	public String delete(String bookBestno) {
+		
+		bookFamousLineService.delete(bookBestno);
+		
+		
+		
+		
+		return "redirect:/admin/book/bookFamous";
+	}
+	
+	
 	
 	
 }

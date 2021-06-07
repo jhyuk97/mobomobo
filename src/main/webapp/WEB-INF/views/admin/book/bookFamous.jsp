@@ -7,8 +7,19 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
        
-     
+     <script type="text/javascript">
+	function deleteBookBest(bookBestno){
+		
+		
+		console.log(bookBestno);
+		location.href="/admin/book/delete?bookBestno="+bookBestno;
+		
+	}
+ 
+ 
+</script>
        
        
        <!-- Table -->
@@ -42,11 +53,11 @@
                 <tbody>
                 <c:forEach items="${list }" var="list">
                 <tr>
-                    <td scope="col">${list.bookBestno }</td>
-                    <td scope="col"><a href="/admin/book/famousDetail">${list.bestTitle }</a></td>
-                    <td scope="col"><fmt:formatDate value="${list.writeDate }" pattern="yyyy-MM-dd"/></td>
-                    <td scope="col">${list.userno }</td>
-                    <td scope="col"><button class="btn btn-warning btn-sm" onclick="deleteUser(${userInfo.userno });" >삭제</button></td>
+                    <td scope="col">${list.BOOKBESTNO }</td>
+                    <td scope="col"><a href="/admin/book/famousDetail?bookBestno=${list.BOOKBESTNO }">${list.BESTTITLE }</a></td>
+                    <td scope="col"><fmt:formatDate value="${list.WRITEDATE }" pattern="yyyy-MM-dd"/></td>
+                    <td scope="col">${list.USERNO }</td>
+                    <td scope="col"><button class="btn btn-warning btn-sm" onclick="deleteBookBest(${list.BOOKBESTNO})" >삭제</button></td>
                 </tr>
                 
                 </c:forEach>
