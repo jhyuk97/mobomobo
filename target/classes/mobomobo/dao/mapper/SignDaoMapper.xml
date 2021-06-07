@@ -9,7 +9,7 @@
 
 	<select id="selectId" parameterType="String" resultType="int">
 		SELECT count(*) FROM userinfo
-		WHERE userid = #{id}
+		WHERE id = #{id}
 	</select>
 	
 	<select id="selectNick" parameterType="String" resultType="int">
@@ -18,7 +18,7 @@
 	</select>
 	
 	<insert id="join" parameterType="mobomobo.dto.UserInfo">
-		INSERT INTO userinfo ( userno, userid, userpw, nick, name, email, postnum, addr, addrdetail, age)
+		INSERT INTO userinfo ( userno, id, userpw, nick, name, email, postnum, addr, addrdetail, age)
 		VALUES ( userinfo_seq.nextval, #{id}, #{pw}, #{nick}, #{name}, #{email}, #{postnum}, #{addr}, #{addrdetail}, #{age} )
 	</insert>
 	
@@ -29,13 +29,25 @@
 	
 	<select id="login" parameterType="mobomobo.dto.UserInfo" resultType="int">
 		SELECT count(*) FROM userinfo
-		WHERE userid = #{id} AND userpw = #{pw}
+		WHERE id = #{id} AND userpw = #{pw}
 	</select>
 	
 	<select id="selectUserInfo" parameterType="String" resultType="mobomobo.dto.UserInfo">
 		SELECT * FROM userinfo
-		WHERE userid = #{id}
+		WHERE id = #{id}
 	</select>
+	
+	<select id="kakaologin" parameterType="hashMap" resultType="int">
+		SELECT count(*) FROM userinfo
+		WHERE id = #{id}
+	</select>
+	
+	
+	<select id="selectKakaoUserInfo" parameterType="Object" resultType="mobomobo.dto.UserInfo">
+		SELECT * FROM userinfo
+		WHERE id = #{id}
+	</select>
+
 
 
 </mapper>  

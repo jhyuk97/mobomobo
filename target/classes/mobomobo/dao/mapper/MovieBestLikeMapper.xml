@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+   <mapper namespace="mobomobo.dao.face.MovieDao">
+   
+   <select id="selectCntMovieBestLike" parameterType="mobomobo.dto.MovieBestLike" resultType="int">
+   
+   SELECT count(*) FROM MovieBestLike
+		WHERE id = #{id, jdbcType=VARCHAR}
+			AND movieBestNo = #{movieBestNo}
+   
+   
+   </select>
+   
+   <insert id="insertMovieBestLike" parameterType="mobomobo.dto.MovieBestLike">
+   
+   insert into MovieBestLike
+   values (#{movieBestNo}, #{id, jdbcType=VARCHAR})
+   
+   
+   </insert>
+   
+   <delete id="deleteMovieBestLike" parameterType="mobomobo.dto.MovieBestLike">
+   
+   delete MovieBestLike
+   where id = #{id, jdbcType=VARCHAR} 
+   	and movieBestNo = #{movieBestNo}
+   
+   </delete>
+   
+   <select id="selectTotalCntMovieBestLike" parameterType="mobomobo.dto.MovieBestLike" resultType="int">
+   
+   select count(*) from MovieBestLike
+   where movieBestNo = #{movieBestNo}
+   
+   
+   </select>
+   
+ 
+   
+   
+   
+     </mapper>

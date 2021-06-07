@@ -1,5 +1,7 @@
 package mobomobo.service.face;
 
+import java.util.HashMap;
+
 import mobomobo.dto.UserInfo;
 
 public interface SignService {
@@ -53,6 +55,21 @@ public interface SignService {
 	 * @return - 유저 정보
 	 */
 	public UserInfo getUserInfo(String id);
+
+	/**
+	 * 카카오 아이디로 로그인 검사
+	 * @param map
+	 * @return
+	 */
+	public boolean kakaologin(HashMap<String, Object> map);
+
+	/**
+	 * 카카오 로그인 성공한 유저 아이디로 유저정보 조회
+	 * 
+	 * @param object - kakaoid
+	 * @return - 유저 정보
+	 */
+	public UserInfo getKakaoUserInfo(Object object);
 
 	
 

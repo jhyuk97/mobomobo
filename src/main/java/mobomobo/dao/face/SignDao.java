@@ -1,5 +1,7 @@
 package mobomobo.dao.face;
 
+import java.util.HashMap;
+
 import mobomobo.dto.UserInfo;
 
 public interface SignDao {
@@ -43,5 +45,19 @@ public interface SignDao {
 	 * @return
 	 */
 	public UserInfo selectUserInfo(String id);
+	
+	/**
+	 * kakao로 로그인 한 사람의 id 검사
+	 * @param map
+	 * @return
+	 */
+	public int kakaologin(HashMap<String, Object> map);
+	
+	/**
+	 * kakao 유저정보 조회
+	 * @param object
+	 * @return
+	 */
+	public UserInfo selectKakaoUserInfo(Object object);
 
 }

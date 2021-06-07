@@ -20,7 +20,7 @@ public class UserInfo {
 	
 	@Override
 	public String toString() {
-		return "UserInfo [userno=" + userno + ", userid=" + id + ", userpw=" + pw + ", nick=" + nick + ", name="
+		return "UserInfo [userno=" + userno + ", id=" + id + ", userpw=" + pw + ", nick=" + nick + ", name="
 				+ name + ", email=" + email + ", postnum=" + postnum + ", addr=" + addr + ", addrdetail=" + addrdetail
 				+ ", joindate=" + joindate + ", age=" + age + ", grade=" + grade + "]";
 	}

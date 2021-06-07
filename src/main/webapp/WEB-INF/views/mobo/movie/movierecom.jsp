@@ -106,128 +106,70 @@ a { text-decoration:none; }
         <div class="container">
         <div id="movieBox">
         <div class="row">
-        <h2 class="mb-4">최신 영화</h2> <!-- 꼭 div row 다음에 넣어주기 -->
         
-          <div class="col-md-4 ftco-animate">
-            <div class="blog-entry">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/1917.jpg');">
-              </a>
-              <div class="text p-4 d-block">
-                <div class="meta mb-3">
-                  <div><a href="#">영화</a></div>
-                </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-4 ftco-animate">
-            <div class="blog-entry" data-aos-delay="100">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/BLUE1.jpg');">
-              </a>
-              <div class="text p-4">
-                <div class="meta mb-3">
-                  <div><a href="#">영화</a></div>
-                </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-4 ftco-animate">
-            <div class="blog-entry" data-aos-delay="200">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/DRAMA.jpg');">
-              </a>
-              <div class="text p-4">
-                <div class="meta mb-3">
-                  <div><a href="#">영화</a></div>
-                </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
-              </div>
-            </div>
-          </div>
-          
-          <h2 class="mb-4">스릴러</h2>
-          
-          <div class="col-md-4 ftco-animate">
-            <div class="blog-entry">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/PO2.jpg');">
-              </a>
-              <div class="text p-4 d-block">
-                <div class="meta mb-3">
-                  <div><a href="#">영화</a></div>
-                </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-4 ftco-animate">
-            <div class="blog-entry" data-aos-delay="100">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/PO3.jpg');">
-              </a>
-              <div class="text p-4">
-                <div class="meta mb-3">
-                 <div><a href="#">영화</a></div>
-                </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-md-4 ftco-animate">
-            <div class="blog-entry" data-aos-delay="200">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/therap.jpg');">
-              </a>
-              <div class="text p-4">
-                <div class="meta mb-3">
-                 <div><a href="#">영화</a></div>
-                </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
-              </div>
-            </div>
-          </div> 
-          
+        <h2 class="mb-4">무부 추천영화</h2> <!-- 꼭 div row 다음에 넣어주기 -->
+         <c:forEach items="${map.list3 }" var="list3" begin="0" end="4">
            <div class="col-md-4 ftco-animate">
             <div class="blog-entry" data-aos-delay="200">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/resources/board/images/therap.jpg');">
+              <a href="/mobo/movie/movierecomDetail?key=${list3.key }&image=${list3.image}" class="block-20" style="background-image: url('${list3.image}'); background-size:contain; height:250px;">
               </a>
               <div class="text p-4">
-                <div class="meta mb-3">
-                 <div><a href="#">영화</a></div>
+                <div class="meta mb-3" style="text-align: center;">
+                 <div><a href="/mobo/movie/movierecomDetail?key=${list3.key }&image=${list3.image}">${list3.title }</a></div>
                 </div>
-                <h3 class="heading"><a href="#">감독 | 개봉연도 | 장르 | 출연</a></h3>
+<%--                 <h3 class="heading"><a href="/mobo/movie/movierecomDetail?key=${list3.key }&=image${list3.image}">감독 | 개봉연도 | 장르 | 출연</a></h3> --%>
+              </div>
+            </div>
+           </div> 
+          </c:forEach>
+        
+
+          
+          <h2 class="mb-4">지브리 추천영화</h2>
+           <c:forEach items="${map.list4 }" var="list4" begin="0" end="4">
+           <div class="col-md-4 ftco-animate">
+            <div class="blog-entry" data-aos-delay="200">
+              <a href="/mobo/movie/movierecomDetail?key=${list4.key }&image=${list4.image}" class="block-20" style="background-image: url('${list4.image}'); background-size:contain; height:250px;">
+              </a>
+              <div class="text p-4">
+                <div class="meta mb-3" style="text-align: center;">
+                 <div><a href="/mobo/movie/movierecomDetail?key=${list4.key }&image=${list4.image}">${list4.title }</a></div>
+                </div>
+<%--                 <h3 class="heading"><a href="/mobo/movie/movierecomDetail?key=${list1.key }&=image${list1.image}">감독 | 개봉연도 | 장르 | 출연</a></h3> --%>
               </div>
             </div>
           </div> 
+           </c:forEach>
           
-           <h2 class="mb-4">잭 스나이더</h2>
+
+          
+           <h2 class="mb-4">잭 스나이더 감독 작품</h2>
            <c:forEach items="${map.list1 }" var="list1" begin="0" end="4">
            <div class="col-md-4 ftco-animate">
             <div class="blog-entry" data-aos-delay="200">
               <a href="/mobo/movie/movierecomDetail?key=${list1.key }&image=${list1.image}" class="block-20" style="background-image: url('${list1.image}'); background-size:contain; height:250px;">
               </a>
               <div class="text p-4">
-                <div class="meta mb-3">
+                <div class="meta mb-3" style="text-align: center;">
                  <div><a href="/mobo/movie/movierecomDetail?key=${list1.key }&image=${list1.image}">${list1.title }</a></div>
                 </div>
-                <h3 class="heading"><a href="/mobo/movie/movierecomDetail?key=${list1.key }&=image${list1.image}">감독 | 개봉연도 | 장르 | 출연</a></h3>
+<%--                 <h3 class="heading"><a href="/mobo/movie/movierecomDetail?key=${list1.key }&=image${list1.image}">감독 | 개봉연도 | 장르 | 출연</a></h3> --%>
               </div>
             </div>
           </div> 
            </c:forEach>
            
-           <h2 class="mb-4">클린트 이스트우드</h2>
+           <h2 class="mb-4">클린트 이스트우드 감독 작품</h2>
            <c:forEach items="${map.list2 }" var="list2" begin="0" end="4">
            <div class="col-md-4 ftco-animate">
             <div class="blog-entry" data-aos-delay="200">
               <a href="/mobo/movie/movierecomDetail?key=${list2.key }&image=${list2.image}" class="block-20" style="background-image: url('${list2.image}'); background-size:contain; height:250px;)">
               </a>
               <div class="text p-4">
-                <div class="meta mb-3">
+                <div class="meta mb-3" style="text-align: center;">
                  <div><a href="/mobo/movie/movierecomDetail?key=${list2.key }&image=${list2.image}">${list2.title }</a></div>
                 </div>
-                <h3 class="heading"><a href="/mobo/movie/movierecomDetail?key=${list2.key }&image=${list2.image}">감독 | 개봉연도 | 장르 | 출연</a></h3>
+<%--                 <h3 class="heading"><a href="/mobo/movie/movierecomDetail?key=${list2.key }&image=${list2.image}">감독 | 개봉연도 | 장르 | 출연</a></h3> --%>
               </div>
             </div>
           </div> 
@@ -242,40 +184,9 @@ a { text-decoration:none; }
       <div id="paging"></div>
      </div> 
     </section>
-    
-
-
-
-
 
 
 <%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   <!-- loader -->

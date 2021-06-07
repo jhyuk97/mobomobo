@@ -1,6 +1,7 @@
 package mobomobo.service.impl;
 
 
+import java.util.HashMap;
 import java.util.Random;
 import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
@@ -73,7 +74,7 @@ public class SignServiceImpl implements SignService{
 //		logger.info("여기서 사용자의 email을 받아올 수 있나 : {}", email);
 		
 		/* 이메일 보내기 */
-		String setFrom = "choi13698@naver.com"; //본인 이메일로 변경해주세요!
+		String setFrom = "dyd7199@naver.com"; //본인 이메일로 변경해주세요!
 		String toMail = email;
 		String title = "회원가입 인증 이메일 입니다.";
 		String content = 
@@ -131,6 +132,9 @@ public class SignServiceImpl implements SignService{
 		
 		int loginChk = signDao.login(userInfo);
 		
+		
+		logger.info("loginChk의 값은 : {}", loginChk);
+		
 		if(loginChk > 0)	return true;
 		else return false;
 		
@@ -139,6 +143,32 @@ public class SignServiceImpl implements SignService{
 	@Override
 	public UserInfo getUserInfo(String id) {
 		return signDao.selectUserInfo(id);
+	}
+
+
+	@Override
+	public boolean kakaologin(HashMap<String, Object> map) {
+		
+		logger.info("서비스의 kakaologin 으로 접속");
+		
+		logger.info("kakaologin service 에서 받아온 map의 정보 : {}",map);
+		
+		int kakaologinChk = signDao.kakaologin(map);
+		
+		logger.info("kakaologinChk의 결과 값 : {}", kakaologinChk);
+		
+		if(kakaologinChk > 0)	return true;
+		else return false;
+	}
+
+
+
+	@Override
+	public UserInfo getKakaoUserInfo(Object object) {
+		logger.info("service의 getKakaoUserInfo 의 kakaoid 값 : {}", object);
+		
+		return signDao.selectKakaoUserInfo(object);
+
 	}
 
 

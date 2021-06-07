@@ -12,6 +12,8 @@ public class Paging {
 	private int endNo;
 
 	private String search; //검색어
+	
+	private String category;//카테고리
 
 	public Paging() { }
 	
@@ -55,7 +57,7 @@ public class Paging {
 		//기본값 설정
 		if(curPage == 0)	setCurPage(1);//첫 페이지를 기본 페이지로 설정
 		if(pageCount == 0)	setPageCount(10);//화면에 보여질 페이지 수 기본설정
-		if(listCount == 0)	setListCount(30);//화면에 보여질 게시글 수 기본설정
+		if(listCount == 0)	setListCount(15);//화면에 보여질 게시글 수 기본설정
 
 		//총 페이지 수 
 		totalPage = totalCount / listCount;
@@ -80,7 +82,7 @@ public class Paging {
 	public String toString() {
 		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
 				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", startNo=" + startNo + ", endNo=" + endNo + ", search=" + search + "]";
+				+ ", startNo=" + startNo + ", endNo=" + endNo + ", search=" + search + ", category=" + category + "]";
 	}
 	public int getCurPage() {
 		return curPage;
@@ -142,6 +144,14 @@ public class Paging {
 	}
 	public void setSearch(String search) {
 		this.search = search;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 }
