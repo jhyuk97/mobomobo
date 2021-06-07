@@ -9,6 +9,9 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script> -->
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
  
+ 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+ 
 
        <script type="text/javascript">
        
@@ -16,8 +19,22 @@
 			
 			 $(document).on("click","#layoutRes h3 a",function(event){
 				 console.log($(this).text());
+				 // 출간일
+				 var publicationDate = $(this).next().next().val()
 				 
-				 $("bookTitle").val($(this).text());
+				 
+				 
+				 $("#bookTitle").val($(this).text());
+				 $("#bookAuthor").val($(this).next().val());
+				 $("#publicationDate").val(moment(publicationDate).format('YYYY-MM-DD'))
+				 $("#bookSearch").val("");
+				 $("#layoutRes").children().remove();
+				 
+				 $()
+				 
+				 
+				 
+				 
 				 
 				 
 				 
@@ -31,6 +48,9 @@
 			
     	
     	})
+    	
+    	
+    	
        
 			
 		function searchBtn(){
@@ -40,7 +60,7 @@
 			
 			var key = '7ab4fb38af1de0cf515ccc51bc417dd5'
 			var data = {
-	        		query:$("#bookTitle").val(),
+	        		query:$("#bookSearch").val(),
 	                target:'title',
 	                size : 5
 	             }
@@ -66,7 +86,10 @@
                 		
                 		var str = "";
                 		str += '<div class="form-group form-group-lg">';
-                		str += '<h3 class="col-sm-2"><a href="#">'+title+'</a></h3>';
+                		str += '<h3 class="col-sm-2"><a href="#">'+title+'</a>'
+                		str += '<input id ="authors" type="hidden" value="'+ result.documents[i].authors +'"/>'
+                		str += '<input id ="authors" type="hidden" value="'+ result.documents[i].datetime +'"/>'
+                		str += '</h3>'
                 		str += '</div>'
                 	$("#layoutRes").append(str);
                 	
@@ -79,15 +102,6 @@
                 }
 			});
 		}
-		
-		function clickBookTitle(){
-			console.log("!!!!!!!!!!");
-			console.log($("#selector0"))
-			
-		}
-      	
-		
-		
        
 		</script>
 		
@@ -99,11 +113,11 @@
             <div class="card-header border-0">
               <h1 class="mb-0">작성</h1>
             </div>
-            <form class="form-horizontal" role="form" action="" method="post" >
+            <form class="form-horizontal" role="form" action="/admin/book/famousWrite" method="post" enctype="multipart/form-data" >
 			  <div class="form-group form-group-lg">
-			    <label class="col-sm-2 control-label" for="title">제목</label>
+			    <label class="col-sm-2 control-label" for="bestTitle">명대사 제목</label>
 			    <div class="col-sm-10">
-			      <input class="form-control" type="text" id="title" name="title" placeholder="제목">
+			      <input class="form-control" type="text" id="bestTitle" name="bestTitle" placeholder="명대사 제목">
 			    </div>
 			  </div>
 			  
@@ -117,9 +131,9 @@
               <h1 class="mb-0">작성</h1>
             </div>
 			 <div class="form-group form-group-lg">
-			    <label class="col-sm-2 control-label" for="bookTitle">책 제목</label>
+			    <label class="col-sm-2 control-label" for="bookSearch">책 검색</label>
 			    <div class="col-sm-10">
-			      <input class="form-control" type="text" id="bookTitle" placeholder="제목">
+			      <input class="form-control" type="text" id="bookSearch" placeholder="검색">
 			    </div>
 			  </div>
 			  <div class="card-header border-0" id="searchBtn">
@@ -141,17 +155,33 @@
 			  
 			  
 			  <div class="form-group form-group-lg">
-			    <label class="col-sm-2 control-label" for="formGroupInputLarge">제목</label>
+			    <label class="col-sm-2 control-label" for="bookTitle">제목</label>
 			    <div class="col-sm-10">
-			      <input class="form-control" type="text" id="formGroupInputLarge" placeholder="제목">
+			      <input class="form-control" type="text" id="bookTitle" name="bookTitle" placeholder="제목">
 			    </div>
 			  </div>
+			  <div class="form-group form-group-lg">
+			    <label class="col-sm-2 control-label" for="bookAuthor">작가</label>
+			    <div class="col-sm-10">
+			      <input class="form-control" type="text" id="bookAuthor" name="bookAuthor" placeholder="작가">
+			    </div>
+			  </div>
+			  
+			   <div class="form-group form-group-lg">
+			    <label class="col-sm-2 control-label" for="publicationDate">출간일</label>
+			    <div class="col-sm-10">
+			      <input class="form-control" type="text" id="publicationDate" name="publicationDate" placeholder="출간일">
+			    </div>
+			  </div>
+			  
+			  
+			  
 			   <div class="card-header border-0">
               <h1 class="mb-0">명대사 구절1</h1>
             </div>
             <div class="form-group form-group-lg">
 			    <div class="col-sm-10">
-			    <textarea class="form-control" rows="20" cols="" placeholder="제목"></textarea>
+			    <textarea id="bestContext1" name="bestContext1" class="form-control" rows="20" cols="" placeholder="내용 / 문자를 사용하지 마세요!"></textarea>
 			    </div>
 			</div>
 			<div class="card-header border-0">
@@ -159,7 +189,7 @@
             </div>
             <div class="form-group form-group-lg">
 			    <div class="col-sm-10">
-			    <textarea class="form-control" rows="20" cols="" placeholder="제목"></textarea>
+			    <textarea id="bestContext2" name="bestContext2" class="form-control" rows="20" cols="" placeholder="내용 / 문자를 사용하지 마세요!"></textarea>
 			    </div>
 			</div>	
 			<div class="card-header border-0">
@@ -167,13 +197,16 @@
             </div>
             <div class="form-group form-group-lg">
 			    <div class="col-sm-10">
-			    <textarea class="form-control" rows="20" cols="" placeholder="제목"></textarea>
+			    <textarea id="bestContext3" name="bestContext3" class="form-control" rows="20" cols="" placeholder="내용 / 문자를 사용하지 마세요!"></textarea>
 			    </div>
-			</div>				  
+			</div>
+			
+			<div class="card-header border-0">
+			  	<input type="submit" class="btn btn-default" value="작성">
+			 </div>
+			
+							  
 			</form>
-            		
-
-            
             
          
             

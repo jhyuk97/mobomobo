@@ -16,8 +16,6 @@ import mobomobo.util.Paging;
 
 public interface AdminService {
 
-	
-	
 	/**
 	 * 회원관리 list - 페이징 계산
 	 * @param userPaging - 페이징 객체
@@ -33,6 +31,8 @@ public interface AdminService {
 	 */
 	public List<UserInfo> list(Paging paging);
 	
+<<<<<<< HEAD
+=======
 	/**
 	 * 회원관리 페이지에서 user삭제 하기
 	 * 
@@ -102,4 +102,5 @@ public interface AdminService {
 
 	public void removeMovierecom(MovieAward movieAward);
 
+>>>>>>> 508786dfe6870e8d49c4983a37bf0d29544f6330
 }

@@ -1,8 +1,12 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<<<<<<< HEAD
+   
+<!DOCTYPE html>
+<html>
+=======
 <!DOCTYPE html>
 <html>
 
@@ -11,6 +15,7 @@
 
 <!DOCTYPE html>
 <html>   
+>>>>>>> 508786dfe6870e8d49c4983a37bf0d29544f6330
 <head>
 
 <!-- jquery -->
@@ -133,7 +138,7 @@ p {
                 <div class="flex-fill" id="market" >
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                       <a class="nav-link" href="index.html"><div class="menufont">공지사항</div></a>
+                       <a class="nav-link" href="/mobo/notice/list"><div class="menufont">공지사항</div></a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link " id="navbarDropdown"
@@ -172,11 +177,11 @@ p {
                                             aria-expanded="false"><i class="fa fa-fw fa-user text-dark mr-3"></i></a>
                            <div id="menufont" class="dropdown-menu" aria-labelledby="navbarDropdown">  
                            		<c:choose><c:when test="${empty login }">               
-                <a class="dropdown-item" href="/mobo/signin/login"><div class="menufont">로그인</div></a>
-                             <a class="dropdown-item" href="/mobo/signup/form"><div class="menufont">회원가입</div></a>
+                <a class="dropdown-item" href="/mobo/sign/login"><div class="menufont">로그인</div></a>
+                             <a class="dropdown-item" href="/mobo/sign/signUp"><div class="menufont">회원가입</div></a>
                 					</c:when></c:choose>
                 				<c:choose><c:when test="${login }">      
-                <a class="dropdown-item" href="/mobo/signin/logout"><div class="menufont">로그아웃</div></a>
+                <a class="dropdown-item" href="/mobo/sign/logout"><div class="menufont">로그아웃</div></a>
                 <a class="dropdown-item" href="/admin/main"><div class="menufont">관리자페이지</div></a>
                 					</c:when></c:choose>
                 </div>
