@@ -20,6 +20,11 @@ public class MainServiceImpl implements MainService {
 		return mainDao.selectGroupByStarRatingAvg();
 	}
 	
+	@Override
+	public int getMovieStarRatingCount() {
+		return mainDao.selectMovieStarRatingCount();
+	}
+	
 	
 
 }

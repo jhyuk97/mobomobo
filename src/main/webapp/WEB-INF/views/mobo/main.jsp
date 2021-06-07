@@ -276,9 +276,6 @@ function movieStarRating() {
 		
 		var star = $("#starrating" + i).val();
 		
-		console.log(star);
-		console.log(Number.isInteger(star));
-		
 		var html = "";
 		
 		if(star % 1 == 0) {

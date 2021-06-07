@@ -8,7 +8,7 @@
 <mapper namespace="mobomobo.dao.face.MainDao">
 
 	<select id="selectGroupByStarRatingAvg" resultType="mobomobo.dto.MovieStarRating">
-		select * from (
+		SELECT * FROM (
  		   	SELECT rownum rnum, M.* FROM(
 	        select key, title, image, avg(starrating) as starrating
 	        FROM moviestarrating
@@ -17,6 +17,10 @@
     		) M
 		)
 		WHERE rnum BETWEEN 1 AND 3
+	</select>
+	
+	<select id="selectMovieStarRatingCount" resultType="int">
+		SELECT count(*) FROM moviestarrating
 	</select>
 
 </mapper>

@@ -12,7 +12,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="mobomobo">
-		<level value="debug" />
+		<level value="info" />
 	</logger>
 	
 	
@@ -32,6 +32,8 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
+	
+
 
 	<!-- Root Logger -->
 	<root>
