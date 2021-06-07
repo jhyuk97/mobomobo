@@ -51,6 +51,15 @@
 	background-size: 200%;
 }
 
+.starResultWrap {
+	height : 100px;
+}
+
+.myStarRating {
+	margin-right : 30px;
+	display : inline-block;
+}
+
 #chart {
 	width : 500px;
 	height : 250px;
@@ -58,12 +67,8 @@
 }
 
 .bubbly-button {
-  font-family: "Helvetica", "Arial", sans-serif;
   display: inline-block;
   font-size: 1em;
-  padding: 1em 2em;
-  margin-top: 50px; 
-  margin-bottom: 50px;
   -webkit-appearance: none;
   appearance: none;
   background-color: #c2b0f2;
@@ -176,6 +181,16 @@
 	line-height: 40px;
 }
 
+.infoBoxInner {
+	display : flex;
+	justify-content : space-between;
+}
+
+.crawlBox {
+	padding-left : 20px;
+	border-left: 1px solid #ccc;
+}
+
 .divSpacing {
 	padding : 50px 0;
 }
@@ -189,10 +204,25 @@
 	height:200px;
 }
 
+.crawlImg {
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+}
 
+.insertStarBtn {
+	font-size : small !important;
+	width:100px;
+	height : 30px;
+	text-align : center;
+	line-height: normal;
+}
+
+.insertBookMarkBtn {
+	padding : 1em 2em;
+}
 
 </style>
-
 
 
 <div id="movieInfoWrap">
@@ -223,7 +253,15 @@
 			
 			<div class="movieTitleInfo">
 			<h3>${movie.title }</h3>
-			감독 : ${movie.directors } <br>
+			<c:choose>
+				<c:when test="${movie.directors != null }">
+				감독 : ${movie.directors } <br>
+				</c:when>
+			
+				<c:otherwise>
+				감독 : 정보 없음 <br>
+				</c:otherwise>
+			</c:choose>
 			
 			평균 별점 : <span id="thisStarAvg"></span>
 			
@@ -243,9 +281,9 @@
 					</div>
 					
 					<div>
-						<span class="star-value" id="starValue" style="width : 100px; display : inline-block;">0</span>
+						<span class="star-value" id="starValue" style="width : 50px; display : inline-block;">0</span>
 					
-						<button type="button" onclick="insertStarRating()">별점 입력</button>
+						<button type="button" onclick="insertStarRating()" class="bubbly-button insertStarBtn">별점 입력</button>
 					</div>
 				
 				</div>
@@ -255,22 +293,36 @@
 			
 			</div>
 			
-			<button type="button" id="bookmarkBtn" onclick="manageBookMark()" class="bubbly-button">북마크</button> <br>
+			<button type="button" id="bookmarkBtn" onclick="manageBookMark()" class="bubbly-button insertBookMarkBtn">북마크</button> <br>
 		</div>
 		
 		<hr>
 		
 		<div class="infoBox divSpacing">
 			<h3 style="padding-bottom : 30px;">영화 정보</h3>
-
-			<span>배우 : ${movie.actors }</span> <br>
-			<span>상영시간 : ${movie.showTm } 분</span>  <br>
-			<span>개봉일 : ${movie.openDt }</span>  <br>
-			<span>장르 : ${movie.genres }</span>  <br>
-			<span>개봉국가 : ${movie.nationNm }</span>  <br>
-			<span>관람등급 : ${movie.grades }</span>
+			<div class="infoBoxInner">
+				<div class="movieInfoBox">
+					<span>배우 : ${movie.actors }</span> <br>
+					<span>상영시간 : ${movie.showTm } 분</span>  <br>
+					<span>개봉일 : ${movie.openDt }</span>  <br>
+					<span>장르 : ${movie.genres }</span>  <br>
+					<span>개봉국가 : ${movie.nationNm }</span>  <br>
+					<span>관람등급 : ${movie.grades }</span> <br>
+				</div>
+				
+				<c:if test="${not empty crawler }">
+				<div class="crawlBox">
+					<c:forEach items="${crawler }" var="crawl">
+						<div>
+							<img src="/resources/img/seriesOn.png" class="crawlImg">
+							<a href="${crawl.buyUrl }" target="_blank"><span style="font-size: small">${crawl.title }</span></a>
+							<span style="font-size: small">${crawl.price }</span>
+						</div>
+					</c:forEach>
+				</div>
+				</c:if>
 			
-			
+			</div>
 		</div>
 		
 		<hr>
@@ -282,6 +334,9 @@
 			</div>
 		</div>
 		
+		
+		<c:if test="${not empty list}">
+
 		<hr>
 		
 		<div class="divSpacing">
@@ -303,6 +358,7 @@
 				</c:forEach>
 			</div>
 		</div>
+		</c:if>
 	
 	</div>
 
@@ -379,9 +435,9 @@ $(document).ready(function() {
 		$(".star").removeClass("on")
 		
 		for(var i=0; i<=hover_idx; i++) {
-			$(".star").eq(i).addClass("on");
+			$(".star").eq(i).addClass("on"); 
 		}
-		
+		 
 		showStarValue(hover_idx);
 		
 	})
@@ -474,8 +530,10 @@ function checkStarRating() {
 				
 				starResultWrapText += "내 별점";
 				
+				starResultWrapText += "<div class='myStarRating'>"
+				
 				if(Number.isInteger(data)) {
-
+					
 					for(var i=0; i<data; i++) {
 						
 						starResultWrapText += "<img src='/resources/img/star.png' style='width:30px; height:30px;' />"
@@ -490,8 +548,9 @@ function checkStarRating() {
 					
 					starResultWrapText += "<img src='/resources/img/halfStar.png' style='width:15px; height:30px;' />"
 				}
+				starResultWrapText += "</div>"
 				
-				starResultWrapText += "<input type='button' value='수정' onclick='updateStarRating();'/>"
+				starResultWrapText += "<input type='button' value='수정' onclick='updateStarRating();' class='bubbly-button insertStarBtn'/>"
 				
 				$("#starResultWrap").html(starResultWrapText);
 			}
