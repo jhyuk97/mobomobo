@@ -3,12 +3,20 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+
+
+
+
+<!DOCTYPE html>
+<html>   
+<head>
 
 <!-- jquery -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 
-   
-<head>
+
     <title>MOBOMOBO</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -143,13 +151,13 @@ p {
                                             aria-expanded="false"><div class="menufont">책</div></a>
                                <div id="menufont" class="dropdown-menu" aria-labelledby="navbarDropdown">
                               <a class="dropdown-item" href="/mobo/book/bookrecom"><div class="menufont">책추천</div></a>
-                             <a class="dropdown-item" href="single-blog.html"><div class="menufont">책명대사</div></a>
+                             <a class="dropdown-item" href="/mobo/book/bookFamous"><div class="menufont">책명대사</div></a>
                              <a class="dropdown-item" href="single-blog.html"><div class="menufont">책토론</div></a>
                              </div>
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html"><div class="menufont">중고마켓</div></a>
+                            <a class="nav-link" href="/mobo/market"><div class="menufont">중고마켓</div></a>
                         </li>
                         
                     </ul>
@@ -169,6 +177,7 @@ p {
                 					</c:when></c:choose>
                 				<c:choose><c:when test="${login }">      
                 <a class="dropdown-item" href="/mobo/signin/logout"><div class="menufont">로그아웃</div></a>
+                <a class="dropdown-item" href="/admin/main"><div class="menufont">관리자페이지</div></a>
                 					</c:when></c:choose>
                 </div>
                 </div>

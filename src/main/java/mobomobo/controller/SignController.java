@@ -132,13 +132,15 @@ public class SignController {
 	}
 	
 	@RequestMapping(value = "/mobo/signin/login", method = RequestMethod.POST)
-	public String signInProc(UserInfo userInfo, HttpSession session) {
+	public String signInProc(UserInfo userInfo, HttpSession session,Model model) {
 		
 //		logger.info("/mobo/signin/login - [POST] 요청 ");
 		
-//		logger.info("로그인 정보 : {}", userInfo);
+		logger.info("로그인 정보 : {}", userInfo);
 		
 		boolean loginResult = signService.login(userInfo);
+		
+		logger.info("loginResult의 값 : {}", loginResult);
 		
 		if(loginResult) {
 //			logger.info("로그인 성공");
@@ -147,18 +149,25 @@ public class SignController {
 
 			session.setAttribute("login", true);
 			session.setAttribute("id", res.getId());
+			session.setAttribute("nick", res.getNick());
 			
 			session.setAttribute("age", res.getAge());
 			session.setAttribute("userno", res.getUserno());
+			session.setAttribute("grade", res.getGrade());
 
 			logger.info("세션상태 : " + session.getAttribute("login"));
 			logger.info("세션 아이디 : " + session.getAttribute("id"));
+			logger.info("세션 등급 : " + session.getAttribute("grade"));
 
 			return "mobo/main";
 
 		} else {
-//			logger.info("로그인실패");
-			return "redirect:/mobo/signin/login";
+			logger.info("로그인실패");
+			
+			
+			model.addAttribute("msg", "로그인에 실패하셨습니다"); 
+			model.addAttribute("url", "/mobo/signin/login"); 
+			return "sign/alert";
 		}
 
 	}
@@ -169,6 +178,21 @@ public class SignController {
 		session.invalidate();
 
 		return "redirect: /mobo/main";
+	}
+	
+	@RequestMapping(value = "/mobo/signin/findid", method = RequestMethod.GET)
+	public void findid() {
+		
+		logger.info("findid - GET 요청");
+		
+	}
+	
+	@RequestMapping(value = "/mobo/signin/findpw", method = RequestMethod.GET)
+	public void findpw() {
+		
+		logger.info("findpw - GET 요청");
+		
+		
 	}
 	
 	

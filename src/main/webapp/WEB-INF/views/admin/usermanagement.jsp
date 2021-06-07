@@ -26,7 +26,7 @@
 <script type="text/javascript">
 function deleteUser(userno) {
 
-if( confirm("게시글을 삭제하시겠습니까?") ) {
+if( confirm("유저를	 삭제하시겠습니까?") ) {
 	$.ajax({
 		type: "post"
 		, url: "/admin/userDelete"
@@ -115,7 +115,7 @@ function updateUser() {
                     <th scope="col">가입일</th>
                     <th scope="col">연령대</th>
                     <th scope="col">등급</th>
-                    <th scope="col">삭제</th>
+                    <th scope="col">삭제${id}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -127,6 +127,8 @@ function updateUser() {
                 	<td>${userInfo.age }</td>
                 	<td>
                 	<!-- 유저 등급 변경하기 -->
+<%-- 					<c:choose><c:when test="${empty login }">   --%>
+<%--                 	<c:choose><c:when test=" ${id} == equals("master123") ">  --%>
                 	<form action="/admin/userUpdate" method="post" name="from">
                 		<select class="form-control form-control-sm" name="grade" id="grade" class="grade"> <!-- 선택 시 form으로 묶어서 전송 or josn으로 바로바로  -->
 							<option  value="${userInfo.grade}">${userInfo.grade }</option>
@@ -148,6 +150,14 @@ function updateUser() {
 						<input type="hidden" id="userno" name="userno" value="${userInfo.userno}">
 						<button class="btn btn-success btn-sm" onclick="updateUser();">변경</button>
 					</form>
+					
+<%-- 					</c:when> --%>
+					
+<%--                 	<c:otherwise>  --%>
+<%-- 						${userInfo.grade } --%>
+<%--  					</c:otherwise> --%>
+ 					
+<%-- 						</c:choose>  --%>
 					</td>
                 	<td>
                 		<button class="btn btn-warning btn-sm" onclick="deleteUser(${userInfo.userno });" >삭제</button>
@@ -159,7 +169,8 @@ function updateUser() {
             </div>
             <div class="card-footer py-4">
               <nav aria-label="...">
-                <span class="pull-left">totalUser : ${paging.totalCount }  </span>
+                <span class="pull-left">totalUser : ${session.getAttribute("id")} </span>
+<%--                 <span class="pull-left">totalUser : ${paging.totalCount }</span> --%>
                 <ul class="pagination justify-content-end mb-0">
 				<jsp:include page="/WEB-INF/views/util/usermanagementpaging.jsp" />
 <!--                   <li class="page-item disabled"> -->

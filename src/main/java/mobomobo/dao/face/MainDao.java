@@ -8,4 +8,6 @@ public interface MainDao {
 
 	public List<MovieStarRating> selectGroupByStarRatingAvg();
 
+	public int selectMovieStarRatingCount();
+
 }

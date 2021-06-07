@@ -131,6 +131,9 @@ public class SignServiceImpl implements SignService{
 		
 		int loginChk = signDao.login(userInfo);
 		
+		
+		logger.info("loginChk의 값은 : {}", loginChk);
+		
 		if(loginChk > 0)	return true;
 		else return false;
 		

@@ -8,4 +8,6 @@ public interface MainService {
 
 	public List<MovieStarRating> getMovieStarRatingList();
 
+	public int getMovieStarRatingCount();
+
 }

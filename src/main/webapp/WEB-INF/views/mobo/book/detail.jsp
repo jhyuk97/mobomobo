@@ -39,55 +39,9 @@
     
     
 	<c:import url="/WEB-INF/views/mobo/layout/header.jsp" />
-	
-	
-	<!-- 구글 차트 -->
-	<!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-
-    google.charts.load('current', {packages: ['corechart', 'bar']});
-    google.charts.setOnLoadCallback(drawTitleSubtitle);
-
-    function drawTitleSubtitle() {
-          var data = google.visualization.arrayToDataTable([
-            ['City', '2010 Population', '2000 Population'],
-            ['New York City, NY', 8175000, 8008000],
-            ['Los Angeles, CA', 3792000, 3694000],
-            ['Chicago, IL', 2695000, 2896000],
-            ['Houston, TX', 2099000, 1953000],
-            ['Philadelphia, PA', 1526000, 1517000]
-          ]);
-
-          var materialOptions = {
-            chart: {
-              title: 'Population of Largest U.S. Cities',
-              subtitle: 'Based on most recent and previous census data'
-            },
-            hAxis: {
-              title: 'Total Population',
-              minValue: 0,
-            },
-            vAxis: {
-              title: 'City'
-            },
-            bars: 'horizontal'
-          };
-          var materialChart = new google.charts.Bar(document.getElementById('chart_div'));
-          materialChart.draw(data, materialOptions);
-        }
-    </script>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<!-- 	chart.js CDN 설정 -->
+	<script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"></script>
+	<!-- 별점 마우스 호버 -->
 	<script type="text/javascript">
 	//별 선택 위치 변수
 	var idx = -1;
@@ -159,17 +113,12 @@
 		}
 		
 		$(".star-value").html(val);
-		
-	
 	}
 	</script>
-	
-	
-	
-	
+	<!-- 작가별 책 데이터 가져오기 -->
 	<script type="text/javascript">
 	
-	function getBookInfo(authors, index){
+	function getBookInfoByAuthors(authors, index){
 		$.ajax({
             url: "https://dapi.kakao.com/v3/search/book",
             headers: {'Authorization': 'KakaoAK 7ab4fb38af1de0cf515ccc51bc417dd5'},
@@ -182,7 +131,7 @@
             	console.log("성공!!")
             	console.log(result)
             	
-            	$("#authors").append(
+            	$("#authors").append( 
 							`
 							<div class="col-md-3">
 					            <div class="blog-entry">
@@ -205,124 +154,125 @@
             }
 		});
 	}
+	function getBookDetailInfo(){
+		$.ajax({
+            url: "https://dapi.kakao.com/v3/search/book",
+            headers: {'Authorization': 'KakaoAK 7ab4fb38af1de0cf515ccc51bc417dd5'},
+            type : "get",
+            data:{
+            	query:"${isbn }",
+                target:'isbn'
+            },
+            success : function(result){
+            	$(".block-3").prepend(`
+									<a href="portfolio.html" class="image" style="background-image: url('${'${result.documents[0].thumbnail}'}'); width: 23%;" data-scrollax=" properties: { translateY: '-20%'}">
+									 </a>
+            						`)
+            	$(".subheading").append(`<h2 class="mb-4">${'${result.documents[0].title}'}</h2>`)
+            	$(".subheading").append(`<input type="hidden" value="${'${result.documents[0].title}'}" id="title"/>`)
+            	$("h4[class='subheading']").next().append(`<p>${'${result.documents[0].authors}'}</p>
+            	           `)
+            	           
+            	           
+            	$("#info").append(`<p>${'${result.documents[0].authors}'}</p>`)
+            	$("#info").append(`<p>${'${result.documents[0].contents}'}...</p>`)
+            	
+            	for(var i = 0; i< 4; i++){
+            		//
+	            	getBookInfoByAuthors(result.documents[0].authors,i)
+            	}
+            	 
+            }
+	}); 
+	}
+	function getAgeDistribution(){
+		$.ajax({
+			type : 'get'
+			, url : '/mobo/book/ageDistribtion'
+			, dataType : 'json'
+			, data : {
+						'isbn' : "${isbn }"
+					 }
+			, success : function(result){
+				
+				console.log(result.AGE)
+
+				
+				for(var i = 0; i < result.length; i++){
+					console.log(result[i])
+				}
+				
+					getChart(result)
+			}
+			
+		})
+	}
 	
 	$(document).ready(function(){
+		// 책 디테일 정보 가져오기
+		getBookDetailInfo()
+		// 책 연령대별 평균별점 가져오기
+		getAgeDistribution()
 		
-		$.ajax({
-	            url: "https://dapi.kakao.com/v3/search/book",
-	            headers: {'Authorization': 'KakaoAK 7ab4fb38af1de0cf515ccc51bc417dd5'},
-	            type : "get",
-	            data:{
-	            	query:"${isbn }",
-	                target:'isbn'
-	            },
-	            success : function(result){
-	            	$(".block-3").prepend(`
-										<a href="portfolio.html" class="image" style="background-image: url('${'${result.documents[0].thumbnail}'}'); width: 23%;" data-scrollax=" properties: { translateY: '-20%'}">
-										 </a>
-	            						`)
-	            	$(".subheading").append(`<h2 class="mb-4">${'${result.documents[0].title}'}</h2>`)
-	            	$("h4[class='subheading']").next().append(`<p>${'${result.documents[0].authors}'}</p>
-	            	           `)
-	            	           
-	            	           
-	            	$("#info").append(`<p>${'${result.documents[0].authors}'}</p>`)
-	            	$("#info").append(`<p>${'${result.documents[0].contents}'}...</p>`)
-	            	
-	            	for(var i = 0; i< 4; i++){
-		            	getBookInfo(result.documents[0].authors,i)
-	            	}
-	            	 
-	            	 
-	            	 
-	            	 
-	            }
-		}); 
+		// 북마크 추가 삭제
+		$("#bookMark").click(function() {
+			console.log("click!!")
+			
+			$.ajax({
+            url: "/mobo/book/bookMark",
+            type : "post",
+            dataType:"json",
+            data:{ "key":"${isbn }" },
+            success : function(result){
+            	console.log("인서트성공!!")
+            	console.log(result)
+            	if(result){
+ 	           		console.log("북마크 삭제")
+ 	           		$("#bookMarkView").children().remove();
+ 	           		$("#bookMarkView").append(`
+ 	           				<img class="pull-right"src="/resources/img/gray_hart.png" style="width: 15%; position: relative; bottom: 120px;" class="pull-left">
+ 	           				`)
+            		
+            	}else{
+ 	           		console.log("북마크 삽입")
+ 	           		$("#bookMarkView").children().remove();
+ 	           		$("#bookMarkView").append(`
+ 	           				<img class="pull-right"src="/resources/img/pink_hart.png" style="width: 15%; position: relative; bottom: 120px;" class="pull-left">
+ 	           				`)
+			            	}
+			            	
+			            }
+						
+					})
+					
+				})//$("#bookMark").click(function() end
+	
+			// 별점 입력 수정
+			$("#starBtn").click(function() {
+					var starRating = $("#starValue").html();
+					$.ajax({
+						type : 'get'
+						, url : '/mobo/book/starRatingInsert'
+						, data : {'starRating' : starRating
+									, 'isbn' : "${isbn }"
+									, 'title' : $("#title").val()
+								 }
+						
+					})
+			}) //$("#starBtn").click(function() end
+		
+						
+			
+		
+		
+		
 		
 	}) 
 
 	</script>
 	
 	
-	<script type="text/javascript">
-		$(document).ready(function() {
-			
-			$("#bookMark").click(function() {
-				console.log("click!!")
-				
-				$.ajax({
-	            url: "/mobo/book/bookMark",
-	            type : "post",
-	            dataType:"json",
-	            data:{ "key":"${isbn }" },
-	            success : function(result){
-	            	console.log("인서트성공!!")
-	            	console.log(result)
-	            	if(result){
-	 	           		console.log("북마크 삭제")
-	 	           		$("#bookMarkView").children().remove();
-	 	           		$("#bookMarkView").append(`
-	 	           				<img class="pull-right"src="/resources/img/gray_hart.png" style="width: 15%; position: relative; bottom: 120px;" class="pull-left">
-	 	           				`)
-	            		
-	            	}else{
-	 	           		console.log("북마크 삽입")
-	 	           		$("#bookMarkView").children().remove();
-	 	           		$("#bookMarkView").append(`
-	 	           				<img class="pull-right"src="/resources/img/pink_hart.png" style="width: 15%; position: relative; bottom: 120px;" class="pull-left">
-	 	           				`)
-	            		
-	            	}
-	            	
-	            	
-	            	
-	            }
-				
-			})
-			
-			
-			
-		})
-		})
-	</script>
 	
-	
-	<script type="text/javascript">
-	//별점 입력
-	$(document).ready(function () {
-		$("#starBtn").click(function() {
-			var starRating = $("#starValue").html();
-			console.log(starRating)
-			
-			
-			$.ajax({
-				type : 'get'
-				, url : '/mobo/book/starRatingInsert'
-				, data : {'starRating' : starRating
-							, 'isbn' : ${isbn }
-							, 'age' : ${age }
-							, 'userno':${userno }
-						 }
-				, success : function(result) {
-					
-
-					
-
-
-				}
-			})
-		})
-	})
-	
-	
-	
-	
-	
-	function insertStarRating() {
-		
-		
-	}
-	</script>
 	
 	
 	
@@ -362,6 +312,7 @@
              	<img src="/resources/img/pinkStar.png" style="width: 6.3%; " class="pull-left">
               <h4>평점:<fmt:formatNumber value="${avg.AVG }" pattern=".0"/></h3>
               <br>
+              <c:if test="${not empty userno }">
               <div class="star-box" >
 				<span class="star star_left"></span><!-- 
 				 --><span class="star star_right"></span><!-- 
@@ -379,6 +330,7 @@
 	
 				<button type="button" id="starBtn">별점 입력</button>
             
+              </c:if>
             
             
             </div>
@@ -395,7 +347,91 @@
         <br>
         <div>
         <h2>별점 그래프</h2>
-        <div id="chart_div"></div>
+			
+			<canvas id="myChart" width="400" height="400"></canvas>
+<script>
+function getChart(result){
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var labelsData = {}
+	
+	
+		
+	
+	
+	
+	var config = {
+	    type: 'bar',
+	    data: {
+	        labels: [
+				
+	        	],
+	        datasets: [{
+	            label: '# of Votes',
+	            data: [
+	            	
+	            ],
+	            backgroundColor: [
+	                'rgba(255, 99, 132, 0.2)',
+	                'rgba(54, 162, 235, 0.2)',
+	                'rgba(255, 206, 86, 0.2)',
+	                'rgba(75, 192, 192, 0.2)',
+	                'rgba(153, 102, 255, 0.2)',
+	                'rgba(255, 159, 64, 0.2)'
+	            ],
+	            borderColor: [
+	                'rgba(255, 99, 132, 1)',
+	                'rgba(54, 162, 235, 1)',
+	                'rgba(255, 206, 86, 1)',
+	                'rgba(75, 192, 192, 1)',
+	                'rgba(153, 102, 255, 1)',
+	                'rgba(255, 159, 64, 1)'
+	            ],
+	            borderWidth: 1
+	        }]
+	    },
+	    options: {
+	    	responsive: false,
+	    	plugins: {
+	    	    legend: {
+	    		display : false
+	    		}
+	    	},
+	    	
+	        scales: {
+	            y: {
+	                beginAtZero: true,
+	                max: 5
+	                
+	            }
+	        }
+	    }
+	}
+	
+	
+	// 데이터 넣기
+	for(var i = 0; i < result.length; i++){
+		config.data.labels[i] = result[i].AGE
+		config.data.datasets[0].data[i] = result[i].AVG
+	}
+	console.log(config.data.datasets[0].data)
+	
+	
+	
+	
+	//차트 그리기
+	var myChart = new Chart(ctx, config);
+	
+	
+	
+	
+	
+	
+}
+
+</script>
+			
+			
+			
         </div>
         <br>
         <hr>
@@ -441,8 +477,8 @@
   <script src="/resources/board/js/scrollax.min.js"></script>
   <script src="/resources/board/js/main.js"></script>
     
-  </body>
-</html>
+<!--   </body> -->
+<!-- </html> -->
     
     
 

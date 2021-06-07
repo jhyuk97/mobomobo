@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import mobomobo.dto.MovieStarRating;
 import mobomobo.service.face.MainService;
@@ -31,6 +32,13 @@ public class MainController {
 		model.addAttribute("movieList", movieList);
 	}
 	
+	@RequestMapping(value="/footer/starRatingCount")
+	public @ResponseBody int starRatingCount() {
+		
+		int msc = mainService.getMovieStarRatingCount();
+		
+		return msc;
+	}
 	
 	
 
