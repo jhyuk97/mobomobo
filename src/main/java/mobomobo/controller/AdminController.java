@@ -14,8 +14,6 @@ import mobomobo.dto.UserInfo;
 import mobomobo.service.face.AdminService;
 import mobomobo.util.Paging;
 
-
-
 @Controller
 public class AdminController {
 	
@@ -54,6 +52,7 @@ public class AdminController {
 		public void movierecom() {
 		
 		}
+
 		
 		@RequestMapping(value = "/admin/usermanagement", method = RequestMethod.GET)
 		public void usermanager(Paging userPaging, Model model) {

@@ -14,7 +14,6 @@ import mobomobo.util.Paging;
 @Service
 public class AdminServiceImpl implements AdminService{
 	
-	
 	//로깅 객체
 	private static final Logger logger
 	= LoggerFactory.getLogger(AdminServiceImpl.class);
@@ -44,4 +43,5 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.selectPageList(paging);
 	}
 
+	
 }

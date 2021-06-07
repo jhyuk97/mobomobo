@@ -13,7 +13,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/admin/tables">
+            <a class="nav-link " href="/admin/notice/list">
               <i class="ni ni-planet text-blue"></i> 공지사항
             </a>
           </li>

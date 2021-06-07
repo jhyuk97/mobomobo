@@ -1,9 +1,10 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
    
+<!DOCTYPE html>
+<html>
 <head>
     <title>MOBOMOBO</title>
     <meta charset="utf-8">
@@ -121,7 +122,7 @@ p {
                 <div class="flex-fill" id="market" >
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                       <a class="nav-link" href="index.html"><div class="menufont">공지사항</div></a>
+                       <a class="nav-link" href="/mobo/notice/list"><div class="menufont">공지사항</div></a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link " id="navbarDropdown"
