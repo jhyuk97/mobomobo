@@ -81,10 +81,10 @@
   <select id="selectPageList" resultType="mobomobo.dto.MovieBest" parameterType="mobomobo.util.Paging">
   SELECT * FROM (
     SELECT rownum rnum, M.* FROM (
-        SELECT MB.moviebestno, MB.title, MB.maincontent, MI.imgno, MI.originname, MI.storedname FROM moviebest MB, (
+        SELECT MB.moviebestno, MB.title, MB.maincontent, MI.imgno, MI.originName, MI.storedName FROM moviebest MB, (
         SELECT MO.* FROM (
             SELECT row_number() over (partition by moviebestno order by imgno) rnum
-            , imgno, moviebestno, originname, storedname FROM moviebestimg
+            , imgno, moviebestno, originName, storedName FROM moviebestimg
             ) MO
             WHERE rnum = 1
         )MI

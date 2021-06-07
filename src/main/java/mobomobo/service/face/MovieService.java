@@ -13,6 +13,7 @@ import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
+import mobomobo.dto.MovieCrawler;
 import mobomobo.dto.MovieStarRating;
 import mobomobo.util.MovieBestPaging;
 
@@ -120,6 +121,8 @@ public interface MovieService {
 	public Movie getMovieSearchOne(String string) throws IOException, ParseException;
 
 	public String getStarAvgOfSingle(String key);
+
+	public List<MovieCrawler> getMovieCrawler(String title, String directors);
 
 
 }
