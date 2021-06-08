@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import mobomobo.util.Paging;
 import mobomobo.dto.BookMark;
 import mobomobo.dto.Market;
 import mobomobo.dto.MarketImg;
 import mobomobo.service.face.MarketService;
+import mobomobo.util.Paging;
 
 @Controller
 @RequestMapping(value="/mobo/market")

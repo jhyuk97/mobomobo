@@ -55,6 +55,26 @@
   		DELETE FROM bookbest
   		WHERE bookbestno = #{bookBestno }
   	</delete>
+  	<select id="selectBookBestLikeCnt" parameterType="mobomobo.dto.BookBestLike" resultType="int">
+  		SELECT COUNT(*) FROM bookbestlike
+  		WHERE userno = #{userno } AND bookbestno = #{bookBestno }
+  	</select>
+  	<insert id="insertBookBestLike" parameterType="mobomobo.dto.BookBestLike">
+  		INSERT INTO bookbestlike (bookbestno, userno)
+  		VALUES(#{bookBestno },#{userno })
+  	</insert>
+  	<delete id="deleteBookBestLike" parameterType="mobomobo.dto.BookBestLike">
+  		DELETE FROM bookbestlike
+  		WHERE bookbestno = #{bookBestno } AND userno = #{userno }
+  	</delete>
+  	<select id="selectBookBestLike" parameterType="mobomobo.dto.BookBestLike" resultType="int" >
+  		SELECT COUNT(*) FROM bookbestlike
+  		WHERE bookbestno = #{bookBestno }
+  	</select>
+  	<select id="selectBookBestLikeByFirstView" parameterType="String" resultType="int">
+  		SELECT COUNT(*) FROM bookbestlike
+  		WHERE bookbestno = #{bookBestno }
+  	</select>
   
   
   </mapper>

@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import mobomobo.dao.face.BookRecomDao;
 import mobomobo.dto.BookBest;
 import mobomobo.dto.BookMark;
-import mobomobo.dto.BookStarRating;
 import mobomobo.dto.BookStarRatingInsert;
 import mobomobo.service.face.BookRecomService;
 import mobomobo.util.BookBestPaging;

@@ -1,5 +1,6 @@
 package mobomobo.controller;
 
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import mobomobo.dto.BookBest;
 import mobomobo.dto.BookBestImg;
@@ -65,6 +67,10 @@ public class BookFamousController {
 		}
 		
 		
+		int likeCnt = bookFamousLineService.viewLike(bookBestno);
+		
+		
+		model.addAttribute("likeCnt",likeCnt);
 		model.addAttribute("context",str);
 		model.addAttribute("detail",bookBest);
 		model.addAttribute("img",img);
@@ -72,7 +78,7 @@ public class BookFamousController {
 	}
 	
 	@RequestMapping(value="/like",method = RequestMethod.GET)
-	public void like (int bookBestno, HttpSession session) {
+	public @ResponseBody int like (int bookBestno, HttpSession session) {
 		logger.info("/mobo/book/like [GET]");
 		
 		BookBestLike bookBestLike = new BookBestLike();
@@ -80,22 +86,13 @@ public class BookFamousController {
 		bookBestLike.setBookBestno(bookBestno);
 		bookBestLike.setUserno((int)session.getAttribute("userno"));
 		
-		// 
-//		if(bookFamousLineService.getLike(bookBestLike)) {
-//			
-//		} else {
-//			
-//		}
+		
+		logger.debug(bookBestLike.toString());
 		
 		
+		int likeCnt = bookFamousLineService.viewLike(bookBestLike);
 		
-		
-		
-//		bookFamousLineService.like(bookBestno);
-		
-		
-		
-		
+		return likeCnt;
 		
 	}
 	

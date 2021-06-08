@@ -2,11 +2,8 @@ package mobomobo.service.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -16,12 +13,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import mobomobo.dao.face.BookFamousLineDao;
 import mobomobo.dto.BookBest;
 import mobomobo.dto.BookBestImg;
+import mobomobo.dto.BookBestLike;
 import mobomobo.service.face.BookFamousLineService;
 import mobomobo.util.BookBestPaging;
 @Service
@@ -182,9 +179,29 @@ public class BookFamousLineServiceImpl implements BookFamousLineService {
 //		bookFamousLineDao.deleteBookBestImg(bookBestno);
 		bookFamousLineDao.deleteBookBest(bookBestno);
 	}
+	
+	
 	@Override
-	public void like(String bookBestno) {
-//		bookFamousLineDao.insertBookBestLike(bookBestno);
+	public int viewLike(BookBestLike bookBestLike) {
+		
+		if(bookFamousLineDao.selectBookBestLikeCnt(bookBestLike)>0) {
+			bookFamousLineDao.deleteBookBestLike(bookBestLike);
+		}else {
+			bookFamousLineDao.insertBookBestLike(bookBestLike);
+		}
+		
+		
+		int view = bookFamousLineDao.selectBookBestLike(bookBestLike);
+		
+		
+		return view;
+	}
+	@Override
+	public int viewLike(String bookBestno) {
+		
+		int view = bookFamousLineDao.selectBookBestLikeByFirstView(bookBestno);
+		
+		return view;
 	}
 
 }

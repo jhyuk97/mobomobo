@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import mobomobo.dto.BookBest;
 import mobomobo.dto.BookBestImg;
+import mobomobo.dto.BookBestLike;
 import mobomobo.util.BookBestPaging;
 
 public interface BookFamousLineService {
@@ -81,10 +82,17 @@ public interface BookFamousLineService {
 	public void delete(String bookBestno);
 
 	/**
-	 * 추천 하기
-	 * @param bookBestno
+	 * ajax로 보내줄 추천개수
+	 * @param bookBestLike
+	 * @return
 	 */
-	public void like(String bookBestno);
+	public int viewLike(BookBestLike bookBestLike);
+
+	/**
+	 * 첫화면에 보여질 추천 개수
+	 * @return
+	 */
+	public int viewLike(String bookBestno);
 
 }
 

@@ -242,11 +242,17 @@ function clickBookMark(){
 			, url: "/mobo/book/like"
 			, data: { "bookBestno": '${detail.bookBestno }' }
 			, dataType: "json"
-			, success: function( data ) {
+			, success: function( result ) {
 				console.log("성공");
+				console.log(result);
+				
+				$("#likeCnt").text(result)
+				
+				
+				
 			}
 			, error: function( ){
-				
+				alert("실패");
 			}
 	})
 			
@@ -332,7 +338,7 @@ function clickBookMark(){
     </div>
     
     <div class="button2">   
-  <button id="" onclick="clickBookMark()" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;개수 
+  <button id="" onclick="clickBookMark()" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;<span id="likeCnt">${likeCnt }</span> 
  </button> 
   </div>
 

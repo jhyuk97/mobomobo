@@ -5,6 +5,7 @@ import java.util.List;
 
 import mobomobo.dto.BookBest;
 import mobomobo.dto.BookBestImg;
+import mobomobo.dto.BookBestLike;
 import mobomobo.util.BookBestPaging;
 
 public interface BookFamousLineDao {
@@ -71,5 +72,38 @@ public interface BookFamousLineDao {
 	 * @param bookBestno
 	 */
 	public void deleteBookBest(String bookBestno);
+
+	/**
+	 * 명대사 추천 조회
+	 * @param bookBestLike
+	 * @return
+	 */
+	public int selectBookBestLikeCnt(BookBestLike bookBestLike);
+
+	/**
+	 * 명대사 추천 기능
+	 * @param bookBestLike
+	 */
+	public void insertBookBestLike(BookBestLike bookBestLike);
+
+	/**
+	 * 명대사 추천 해제 기능
+	 * @param bookBestLike
+	 */
+	public void deleteBookBestLike(BookBestLike bookBestLike);
+
+	/**
+	 * 명대사 추천 개수 조회
+	 * @param bookBestLike
+	 * @return
+	 */
+	public int selectBookBestLike(BookBestLike bookBestLike);
+
+	/**
+	 * 첫 화면 명대사 추천 개수 조회
+	 * @param bookBestno
+	 * @return
+	 */
+	public int selectBookBestLikeByFirstView(String bookBestno);
 
 }
