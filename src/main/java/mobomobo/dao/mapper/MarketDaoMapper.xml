@@ -95,5 +95,28 @@
 		values(bookmarkno_seq.nextval, #{userno}, #{category}, #{key})
 	</insert>
 	
+	<delete id="DeleteBookmark" parameterType="mobomobo.dto.BookMark">
+		DELETE bookmark
+		where userno=#{userno} and key=#{key}
+	</delete>
+	
+	<select id="CheckBookmark" parameterType="mobomobo.dto.BookMark" resultType="int">
+		SELECT COUNT(*) from bookmark
+		where userno=#{userno} and key=#{key}
+	</select>
+	
+	<insert id="InsertChat" parameterType="mobomobo.dto.ChatLog">
+		INSERT INTO chatlog(lno, msg, suid, buid, sendid, roomid, mTitle, sunick) 
+		values(chatlog_seq.nextval, #{msg}, #{suid}, #{buid}, #{sendid}, #{roomid}, #{mTitle}, (select nick from userinfo where id=#{sendid}))
+	</insert>
+
+	<select id="ChatRoomList" parameterType="String" resultType="mobomobo.dto.ChatLog">
+		SELECT distinct roomid, mTitle, suNick from chatlog 
+		where (suid=#{userid} or sendid=#{userid}) and suNick != (SELECT nick from userinfo where id=#{suid})
+	</select>
+
+	<select id="selectLog" parameterType="String" resultType="mobomobo.dto.ChatLog">
+		SELECT * from chatlog where roomid=#{roomid} order by lno asc
+	</select>
 
 </mapper>
