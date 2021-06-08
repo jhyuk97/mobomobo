@@ -5,14 +5,14 @@
 <%@include file="/WEB-INF/views/mobo/layout/header.jsp" %>
 
 <div>
-<form style="margin:0px auto; width:1320px;" action="/mobo/market/write" method="POST" enctype="multipart/form-data">
+<form id="writeForm" style="margin:0px auto; width:1320px;" action="/mobo/market/write" method="POST" enctype="multipart/form-data">
 	<div>
 		<div>
 			<p>제목 <input type="text" name="mTitle" id="mTitle"/></p>
 		</div>
 		
 		<div>
-			<p>카테고리 <select name="mCate"><option>영화</option><option>책</option></select></p>
+			<p>카테고리 <select id="mCate" name="mCate"><option value="영화">영화</option><option value="책">책</option></select></p>
 		</div>
 		
 		<div>
@@ -61,8 +61,8 @@ function submitContents(elClickedObj) {
 $(document).ready(function(){
 	$("#submit").click(function(){
 		submitContents($("#submit"));
-		
 		$("form").submit();
 	})
+	
 })
 </script>

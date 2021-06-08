@@ -36,6 +36,28 @@
 		SELECT * FROM userinfo
 		WHERE id = #{id}
 	</select>
+	
+	<select id="kakaologin" parameterType="hashMap" resultType="int">
+		SELECT count(*) FROM userinfo
+		WHERE id = #{id}
+	</select>
+	
+	
+	<select id="selectKakaoUserInfo" parameterType="Object" resultType="mobomobo.dto.UserInfo">
+		SELECT * FROM userinfo
+		WHERE id = #{id}
+	</select>
+	
+	<select id="selectFindUserId" parameterType="mobomobo.dto.UserInfo" resultType="mobomobo.dto.UserInfo">
+		SELECT * FROM userinfo
+		WHERE name = #{name} AND email = #{email}
+	</select>
+	
+	<select id="selectFindUserPw" parameterType="mobomobo.dto.UserInfo" resultType="mobomobo.dto.UserInfo">
+		SELECT * FROM userinfo
+		WHERE id = #{id}
+	</select>
+
 
 
 </mapper>  

@@ -73,7 +73,27 @@
 		values(marketimg_seq.nextval, market_seq.currval, #{OriginImg}, #{StoredImg}, #{filesize}, #{contentType})
 	</insert>
 	
+	<update id="UpdateMarket" parameterType="mobomobo.dto.Market">
+		UPDATE market 
+		set mTitle=#{mTitle}, mContent=#{mContent}, mCate=#{mCate}, mPrice=#{mPrice}
+		where mNo=#{mNo}
+	</update>
 	
+	<delete id="DeleteMarketImg" parameterType="mobomobo.dto.Market">
+		DELETE marketimg
+		where mno=#{mNo}
+	</delete>
+	
+	<insert id="UpdateMarketImg" parameterType="mobomobo.dto.MarketImg">
+		INSERT INTO marketimg(imgNo, mNo, originimg, storedimg, filesize, contentType)
+		values(marketimg_seq.nextval, #{mNo}, #{OriginImg}, #{StoredImg}, #{filesize}, #{contentType})
+	</insert>
+	
+	
+	<insert id="InsertBookmark" parameterType="mobomobo.dto.BookMark">
+		INSERT INTO bookmark(bookmarkno, userno, category, key)
+		values(bookmarkno_seq.nextval, #{userno}, #{category}, #{key})
+	</insert>
 	
 
 </mapper>

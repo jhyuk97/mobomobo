@@ -27,6 +27,7 @@ import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
+import mobomobo.dto.MovieCrawler;
 import mobomobo.dto.MovieStarRating;
 import mobomobo.service.face.MovieService;
 import mobomobo.util.MovieBestPaging;
@@ -139,9 +140,13 @@ MovieBestPaging paging = movieService.getPaging(inData);
 		boolean flag = movieService.checkBookMark(bookmark);
 		List<Movie> list = movieService.getMainList(result.getDirectors());
 		
+		List<MovieCrawler> crawler = movieService.getMovieCrawler(result.getTitle(), result.getDirectors());
+		
+		
 		model.addAttribute("movie", result); //영화 정보
 		model.addAttribute("bookmarkflag", flag); //북마크 정보
 		model.addAttribute("list", list); //이 감독의 다른작품
+		model.addAttribute("crawler", crawler);
 	}
 	
 	//영화 추천게시판 별점 입력
