@@ -1,6 +1,7 @@
 package mobomobo.service.impl;
 
 
+import java.util.HashMap;
 import java.util.Random;
 import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
@@ -142,6 +143,68 @@ public class SignServiceImpl implements SignService{
 	@Override
 	public UserInfo getUserInfo(String id) {
 		return signDao.selectUserInfo(id);
+	}
+
+
+	@Override
+	public boolean kakaologin(HashMap<String, Object> map) {
+		
+		logger.info("서비스의 kakaologin 으로 접속");
+		
+		logger.info("kakaologin service 에서 받아온 map의 정보 : {}",map);
+		
+		int kakaologinChk = signDao.kakaologin(map);
+		
+		logger.info("kakaologinChk의 결과 값 : {}", kakaologinChk);
+		
+		if(kakaologinChk > 0)	return true;
+		else return false;
+	}
+
+
+
+	@Override
+	public UserInfo getKakaoUserInfo(Object object) {
+		logger.info("service의 getKakaoUserInfo 의 kakaoid 값 : {}", object);
+		
+		return signDao.selectKakaoUserInfo(object);
+
+	}
+
+
+	@Override
+	public String findUserId(UserInfo userInfo) {
+		
+		logger.info("service의 findUserId 접속 완료");
+		
+		UserInfo id = signDao.selectFindUserId(userInfo);
+		
+		logger.info("DAO 처리한 id의 값 : {}",id);
+		
+		if(id == null) {
+			
+			logger.info("id값이 공백이면");
+			
+			return null;
+//			return id;
+		} else {
+			logger.info("DAO 처리한 id의 값중 id만 추출 : {}",id.getId());
+			
+			return id.getId();
+			
+		}
+			
+	}
+
+
+	@Override
+	public UserInfo findUserPw(UserInfo userInfo) {
+		
+		logger.info("service의 findUserPw 접속 완료");
+		
+
+		
+		return signDao.selectFindUserPw(userInfo);
 	}
 
 

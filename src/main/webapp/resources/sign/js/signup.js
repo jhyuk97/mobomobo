@@ -66,17 +66,7 @@ $(document).ready(function() {
 				$("#mailbtn").attr('disabled', false);
 			}
 		})
-		
-		//#tel 검증
-		$("#tel").keyup(function() {
-			if(!telReg.test($("#tel").val())) {
-				$("#telMsg").html("양식이 맞지 않습니다")
-				telFlag = "false";
-			} else {
-				$("#telMsg").html("");
-				telFlag = "true";
-			}
-		})		
+			
 	
 		//입력 검증
 		$("#submit").click(function() {
@@ -145,7 +135,7 @@ $(document).ready(function() {
 			
 				$.ajax({
 					type : 'get',
-					url : '/mobo/signup/email',
+					url : '/mobo/sign/email',
 					data : {email:email},
 					success : function(data) {
 						alert("인증메일이 발송되었습니다.");
@@ -183,7 +173,7 @@ $(document).ready(function() {
 			
 				$.ajax({
 					type: 'post',
-					url: '/mobo/signup/idcheck',
+					url: '/mobo/sign/idcheck',
 					data: {id:id},
 					success : function(data) {
 //						console.log( data );
@@ -208,7 +198,7 @@ $(document).ready(function() {
 			
 				$.ajax({
 					type: 'post',
-					url: '/mobo/signup/nickcheck',
+					url: '/mobo/sign/nickcheck',
 					data: {nick:nick},
 					success : function(data) {
 						if(data > 0) {

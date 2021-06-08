@@ -87,3 +87,4 @@ public interface BookFamousLineService {
 	public void like(String bookBestno);
 
 }
+

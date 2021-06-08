@@ -16,8 +16,6 @@ import mobomobo.util.Paging;
 
 public interface AdminService {
 
-	
-	
 	/**
 	 * 회원관리 list - 페이징 계산
 	 * @param userPaging - 페이징 객체
