@@ -234,8 +234,7 @@ color: #bcbcbc;
 
 </style>
 <script type="text/javascript">
-function clickBookMark(){
-	console.log("!!!!!!!!!!!!")
+function clickLikeBtn(){
 	
 	$.ajax({
 			type: "GET"
@@ -247,22 +246,41 @@ function clickBookMark(){
 				console.log(result);
 				
 				$("#likeCnt").text(result)
-				
-				
-				
 			}
 			, error: function( ){
 				alert("실패");
 			}
 	})
+	
+}
+function clickBookMark(){
+	$.ajax({
+		type: "GET"
+		, url: "/mobo/book/bookMark"
+		, data: { "bookBestno": '${detail.bookBestno }' }
+		, dataType: "json"
+		, success: function( result ) {
+			console.log("성공");
+			console.log(result);
+// 			$("#bookMarkBtn").text("북마크<i class="fa fa-heart" aria-hidden="true">")
 			
-	
-	
-	
-	
-	
-	
-	
+			$(".button1").children().remove();
+			
+			
+			if(result == 1){
+			$(".button1").append(`
+					<button id="bookMarkBtn" class="bubbly-button" onclick="clickBookMark()">북마크❤</button> 
+					`)
+			} else {
+			$(".button1").append(`
+					<button id="bookMarkBtn" class="bubbly-button" onclick="clickBookMark()">북마크</button> 
+					`)
+			}
+		}
+		, error: function( ){
+			alert("실패");
+		}
+})
 }
 
 
@@ -334,11 +352,16 @@ function clickBookMark(){
         </div><!-- row 끝 -->
         
      <div class="button1">   
-    <button class="bubbly-button">북마크</button>    
+     <c:if test="${isBookMarkState eq true }">
+	    <button id="bookMarkBtn" class="bubbly-button" onclick="clickBookMark()">북마크❤</button>    
+     </c:if>
+     <c:if test="${isBookMarkState eq false }">
+	    <button id="bookMarkBtn" class="bubbly-button" onclick="clickBookMark()">북마크</button>    
+     </c:if>
     </div>
     
     <div class="button2">   
-  <button id="" onclick="clickBookMark()" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;<span id="likeCnt">${likeCnt }</span> 
+  <button  onclick="clickLikeBtn()" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;<span id="likeCnt">${likeCnt }</span> 
  </button> 
   </div>
 

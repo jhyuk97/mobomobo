@@ -6,6 +6,7 @@ import java.util.List;
 import mobomobo.dto.BookBest;
 import mobomobo.dto.BookBestImg;
 import mobomobo.dto.BookBestLike;
+import mobomobo.dto.BookMark;
 import mobomobo.util.BookBestPaging;
 
 public interface BookFamousLineDao {
@@ -105,5 +106,24 @@ public interface BookFamousLineDao {
 	 * @return
 	 */
 	public int selectBookBestLikeByFirstView(String bookBestno);
+
+	/**
+	 * 북마크 유무 확인
+	 * @param bookMark
+	 * @return
+	 */
+	public int selectBookMarkCnt(BookMark bookMark);
+
+	/**
+	 * 북마크 삭제 기능
+	 * @param bookMark
+	 */
+	public void deleteBookMark(BookMark bookMark);
+
+	/**
+	 * 북마크 등록 기능
+	 * @param bookMark
+	 */
+	public void insertBookMark(BookMark bookMark);
 
 }

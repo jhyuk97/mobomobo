@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import mobomobo.dto.BookBest;
 import mobomobo.dto.BookBestImg;
 import mobomobo.dto.BookBestLike;
+import mobomobo.dto.BookMark;
 import mobomobo.service.face.BookFamousLineService;
 import mobomobo.util.BookBestPaging;
 @Controller
@@ -51,7 +52,7 @@ public class BookFamousController {
 	
 	
 	@RequestMapping(value="/famousDetail")
-	public void detail(String bookBestno, Model model) {
+	public void detail(String bookBestno, Model model, HttpSession session) {
 		logger.info("/mobo/book/famousDetail");
 		logger.debug(bookBestno);
 		
@@ -68,8 +69,10 @@ public class BookFamousController {
 		
 		
 		int likeCnt = bookFamousLineService.viewLike(bookBestno);
+		boolean bookMarkState = bookFamousLineService.viewBookMark(bookBestno,session);
 		
 		
+		model.addAttribute("isBookMarkState",bookMarkState);
 		model.addAttribute("likeCnt",likeCnt);
 		model.addAttribute("context",str);
 		model.addAttribute("detail",bookBest);
@@ -87,12 +90,19 @@ public class BookFamousController {
 		bookBestLike.setUserno((int)session.getAttribute("userno"));
 		
 		
-		logger.debug(bookBestLike.toString());
+		return bookFamousLineService.viewLike(bookBestLike);
 		
+	}
+	
+	@RequestMapping(value="/bookMark")
+	public @ResponseBody int bookMark(String bookBestno, HttpSession session) {
+		logger.info("/bookMark ");
 		
-		int likeCnt = bookFamousLineService.viewLike(bookBestLike);
+		BookMark bookMark = new BookMark();
+		bookMark.setKey(bookBestno);
+		bookMark.setUserno((int)session.getAttribute("userno"));
 		
-		return likeCnt;
+		return bookFamousLineService.viewBookMark(bookMark);
 		
 	}
 	

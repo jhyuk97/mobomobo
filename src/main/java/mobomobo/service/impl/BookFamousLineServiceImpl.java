@@ -19,6 +19,7 @@ import mobomobo.dao.face.BookFamousLineDao;
 import mobomobo.dto.BookBest;
 import mobomobo.dto.BookBestImg;
 import mobomobo.dto.BookBestLike;
+import mobomobo.dto.BookMark;
 import mobomobo.service.face.BookFamousLineService;
 import mobomobo.util.BookBestPaging;
 @Service
@@ -202,6 +203,42 @@ public class BookFamousLineServiceImpl implements BookFamousLineService {
 		int view = bookFamousLineDao.selectBookBestLikeByFirstView(bookBestno);
 		
 		return view;
+	}
+	@Override
+	public int viewBookMark(BookMark bookMark) {
+		
+		
+		if(bookFamousLineDao.selectBookMarkCnt(bookMark)>0) {
+			// 존재함
+			// 북마크 취소
+			bookFamousLineDao.deleteBookMark(bookMark);
+			
+		} else {
+			// 존재하지 않음
+			// 북마크
+			bookFamousLineDao.insertBookMark(bookMark);
+			
+		}
+		
+		
+		
+		return bookFamousLineDao.selectBookMarkCnt(bookMark);
+	}
+	@Override
+	public boolean viewBookMark(String bookBestno, HttpSession session) {
+		
+		BookMark bookMark = new BookMark();
+		bookMark.setUserno((int)session.getAttribute("userno"));
+		bookMark.setKey(bookBestno);
+		
+		
+		if(bookFamousLineDao.selectBookMarkCnt(bookMark)>0) {
+			return true;
+		} else {
+			return false;
+		}
+		
+		
 	}
 
 }

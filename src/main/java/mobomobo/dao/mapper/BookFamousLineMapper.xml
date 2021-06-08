@@ -75,6 +75,18 @@
   		SELECT COUNT(*) FROM bookbestlike
   		WHERE bookbestno = #{bookBestno }
   	</select>
+  	<select id="selectBookMarkCnt" parameterType="mobomobo.dto.BookMark" resultType="int">
+  		SELECT COUNT(*) FROM bookmark
+  		WHERE key =#{key } AND userno = #{userno }
+  	</select>
+  	<delete id="deleteBookMark" parameterType="mobomobo.dto.BookMark">
+  		DELETE FROM bookmark
+  		WHERE key = #{key } AND userno = #{userno }
+  	</delete>
+  	<insert id="insertBookMark" parameterType="mobomobo.dto.BookMark">
+  		INSERT INTO bookmark(bookmarkno,userno,category,key)
+  		VALUES(bookmarkno_seq.nextval,#{userno },'bookbest',#{key })
+  	</insert>
   
   
   </mapper>

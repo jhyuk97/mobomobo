@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import mobomobo.dto.BookBest;
 import mobomobo.dto.BookBestImg;
 import mobomobo.dto.BookBestLike;
+import mobomobo.dto.BookMark;
 import mobomobo.util.BookBestPaging;
 
 public interface BookFamousLineService {
@@ -93,6 +94,20 @@ public interface BookFamousLineService {
 	 * @return
 	 */
 	public int viewLike(String bookBestno);
+	/**
+	 * 북마크 확인 및 개수
+	 * @param bookMark
+	 * @return
+	 */
+	public int viewBookMark(BookMark bookMark);
+	
+	/**
+	 * 첫화면에 보여질 북마크 상태
+	 * @param bookBestno
+	 * @param session
+	 * @return
+	 */
+	public boolean viewBookMark(String bookBestno, HttpSession session);
 
 }
 
