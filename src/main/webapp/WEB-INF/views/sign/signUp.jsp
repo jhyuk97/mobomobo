@@ -16,13 +16,13 @@
 </head>
 <body>
 
-<form action="/mobo/signup/form" method="post" class="box">
+<form action="/mobo/sign/signUp" method="post" class="box">
 
 	<h1>Sign Up</h1> <br><br>
 	
 	<label for="id">아이디</label><br>
-	<input type="text" name="id" id="id" />
-	<input type="button" id="idbtn" value="중복확인" disabled="disabled"/><br>
+	<input type="text" name="id" id="id" value="${param.id}"/>
+	<input type="button" id="idbtn" value="중복확인" /><br>
 	<span id="idMsg"></span><span id="idMsg_cor"></span><br><br>
 	
 	<label for="pw">비밀번호</label> <br>
@@ -34,7 +34,7 @@
 	<span id="cpwMsg"></span> <br><br>
 	
 	<label for="nick">닉네임</label> <br>
-	<input type="text" name="nick" id="nick" />
+	<input type="text" name="nick" id="nick" value="${param.nick}"/>
 	<input type="button" id="nickbtn" value="중복확인" /> <br>
 	<span id="nickMsg"></span><span id="nickMsg_cor"></span> <br><br>
 	
@@ -61,8 +61,8 @@
     <input type="text" class="df" name="addrdetail" id="addrdetail" /> <br><br>
 
 	<label for="email">이메일</label> <br>
-	<input type="text" name="email" id="email" placeholder="ex) abcd1234@naver.com"/>
-	<input type="button" id="mailbtn" value="인증" disabled="disabled" /><br>
+	<input type="text" name="email" id="email" placeholder="ex) abcd1234@naver.com" value="${param.email}"/>
+	<input type="button" id="mailbtn" value="인증"  /><br>
 	<input type="text" name="atnum" id="atnum" placeholder="인증번호"/>
 	<input type="button" id="atnbtn" value="확인" /> <br>
 	<span id="emailMsg"></span> <span id="cor_num"></span> <span id="wro_num"></span> <br>

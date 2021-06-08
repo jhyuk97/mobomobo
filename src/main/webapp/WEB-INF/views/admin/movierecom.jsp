@@ -10,24 +10,23 @@
 
 <style type="text/css">
 
-/* 라이트 박스 스타일 */
 #lightbox {
-  position: fixed;  /* 위치 고정 */
-  width:100%;  /* 너비 */
-  height:100%;  /* 높이 */
-  background-color:rgba(0,0,0,0.7);  /* 배경색 */
-  top:0;  /* 시작 위치 - 위쪽 끝 */
-  left:0; /* 시작 위치 - 왼쪽 끝 */
-  display:none;  /* 화면에서 감추기 */
+  position: fixed;  
+  width:100%;  
+  height:100%;  
+  background-color:rgba(0,0,0,0.7);  
+  top:0;  
+  left:0; 
+  display:none;  
   z-index: 10;
 }
 
 #lightbox #writePopup {
-  position:absolute;  /* top, left에 의해 위치 지정 */
-  top:50%;  /* 위쪽에서 50% 부터 */
-  left:50%;  /* 왼쪽에서 50% 부터 */
-  transform:translate(-50%, -50%);  /* 요소를 화면 중앙에 표시하기 위해 이동 */
-  border:5px solid #eee; /* 이미지 테두리 */ 
+  position:absolute;  
+  top:50%;  
+  left:50%;  
+  transform:translate(-50%, -50%); 
+  border:5px solid #eee; 
   width:500px;
   height:500px;
   background: white;      
@@ -52,6 +51,28 @@
 	
 }
 
+.writeBtn {
+	float: right;
+}
+
+.movieWriteInfo {
+	display : flex;
+}
+
+.marginbottom {
+	margin-bottom : 10px;
+}
+
+.writeMovieInput {
+	border: none;
+}
+
+.writeMovieInput:focus {
+	outline: none;
+}
+
+
+
 </style>
 
        
@@ -62,7 +83,10 @@
           
           
             <div class="card-header border-0">
-              <h3 class="mb-0">영화추천</h3>
+              <h3 class="mb-0" style="display:inline-block">영화추천</h3>
+              <div class="writeBtn">
+              <input type="button" value="작성" onclick="openWritePopup()" class="btn btn-primary"/>
+              </div>
             </div>
             
             
@@ -75,7 +99,6 @@
                     <th scope="col">분류</th>
                     <th scope="col">Key</th>
                     <th scope="col">삭제</th>
-                    <th scope="col"></th>
                   </tr>
                 </thead>               
                 <tbody>
@@ -83,14 +106,16 @@
                 	<tr data-movieNo="${movie.movieNo }">
                 		<td>${movie.movieNo }</td>
                 		<td>${movie.title }</td>
+                		
                 		<c:if test="${movie.division == 'recom' }">
                 		<td>무부 추천 영화</td>
                 		</c:if>
                 		<c:if test="${movie.division == 'academy' }">
                 		<td>아카데미 상</td>
                 		</c:if>
+                		
                 		<td>${movie.key }</td>
-                		<td><button type="button" onclick="deleteMovie(${movie.movieNo})">삭제</button></td>
+                		<td><button type="button" onclick="deleteMovie(${movie.movieNo})" class="btn btn-warning btn-sm">삭제</button></td>
                 	</tr>
                 </c:forEach>
                 </tbody>
@@ -140,16 +165,18 @@
         </div>
       </div>
 
-      <input type="button" value="작성" onclick="openWritePopup()"/>
+      
 
     <div id="lightbox">
 		<div id="writePopup">
 		
-		<h2>추천영화 등록</h2>
-		<a onclick="popupClose()" id="closeBtn"><img src="/resources/img/close.png" style="width:30px; height:30px;"/></a>
+		<div id="writePopupHead">
+			<h2>추천영화 등록</h2>
+			<a onclick="popupClose()" id="closeBtn"><img src="/resources/img/close.png" style="width:30px; height:30px;"/></a>
+		</div>
 		
-		<input type="text" id="search">
-		<button type="button" onclick="popupMovieSearch()">검색</button>
+		<input type="text" id="search" class="form-control" style="width:300px; display:inline-block;">
+		<button type="button" onclick="popupMovieSearch()" class="btn btn-outline-primary">검색</button>
 		
 		<hr>
 		
@@ -227,23 +254,32 @@ function choiceMovie(title, key, image) {
 	
 	var html = "";
 	
+	html += "<div class='movieWriteInfo'>"
+	
+	html += "<div>"
 	if(image != 'null') {
-	html += "<img src='" + image + "' style='width:70px; height:100px;'>"
+	html += "<img src='" + image + "' style='width:100px; height:130px;'>"
 	} else {
-	html += "<img src='/resources/img/noImage.png' style='width:70px; height:100px;'>"
+	html += "<img src='/resources/img/noImage.png' style='width:100px; height:130px;'>"
 	}
+	html += "</div>"
+	
+	html += "<div style='margin-left : 20px;'>"
 	html += "<form action='/admin/movierecomWrite' method='post'>"
-	html += "<select name='division'>"
+	html += "<select name='division' class='marginbottom'>"
 	html += "<option value='academy'>아카데미</option>"
 	html += "<option value='recom'>무부추천</option>"
 	html += "</select>"
-	html += "<input type='text' name='title' value='"+ title +"' style='width:100%'>"
-	html += "<input type='text' name='key' value='"+ key +"' style='width:100%'>"
+	html += "<input type='text' name='title' value='"+ title +"' style='width:100%' readonly='readonly' class='marginbottom writeMovieInput'>"
+	html += "<input type='text' name='key' value='"+ key +"' style='width:100%' readonly='readonly' class='marginbottom writeMovieInput'>"
 	if(image != 'null') {
 	html += "<input type='hidden' name='image' value='"+ image +"' style='width:100%'>"
 	}
-	html += "<input type='submit' value='작성'>"
+	html += "<input type='submit' value='등록' class='btn btn-primary'>"
 	html += "</form>"
+	html += "</div>"
+	
+	html += "</div>"
 	
 	$("#movieList").html(html);
 }

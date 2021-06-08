@@ -1,6 +1,9 @@
 package mobomobo.controller;
 
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import mobomobo.dto.BookBest;
+import mobomobo.dto.BookBestImg;
+import mobomobo.dto.BookBestLike;
 import mobomobo.service.face.BookFamousLineService;
 import mobomobo.util.BookBestPaging;
 @Controller
@@ -31,15 +36,68 @@ public class BookFamousController {
 		BookBestPaging paging = bookFamousLineService.getPaging(inData);
 		
 		logger.debug(paging.toString());
+		// 리스트
+		List<HashMap<String,Object>> list = bookFamousLineService.getList(paging);
 		
-		List<BookBest> list = bookFamousLineService.getList(paging);
-		logger.debug(list.toString());
+		
 		
 		model.addAttribute("list",list);
 		model.addAttribute("paging",paging);
 		
 	}
 	
+	
+	
+	@RequestMapping(value="/famousDetail")
+	public void detail(String bookBestno, Model model) {
+		logger.info("/mobo/book/famousDetail");
+		logger.debug(bookBestno);
+		
+		BookBest bookBest = bookFamousLineService.getBookBestInfo(bookBestno);
+		logger.debug(bookBest.toString());
+		BookBestImg img = bookFamousLineService.getBookBestImgInfo(bookBestno);
+//		logger.debug(img.toString());
+		
+		String [] str = bookBest.getBestContext().split("/");
+		
+		for(int i=0;i<str.length;i++) {
+			logger.debug(str[i]);
+		}
+		
+		
+		model.addAttribute("context",str);
+		model.addAttribute("detail",bookBest);
+		model.addAttribute("img",img);
+
+	}
+	
+	@RequestMapping(value="/like",method = RequestMethod.GET)
+	public void like (int bookBestno, HttpSession session) {
+		logger.info("/mobo/book/like [GET]");
+		
+		BookBestLike bookBestLike = new BookBestLike();
+		
+		bookBestLike.setBookBestno(bookBestno);
+		bookBestLike.setUserno((int)session.getAttribute("userno"));
+		
+		// 
+//		if(bookFamousLineService.getLike(bookBestLike)) {
+//			
+//		} else {
+//			
+//		}
+		
+		
+		
+		
+		
+//		bookFamousLineService.like(bookBestno);
+		
+		
+		
+		
+		
+	}
 	
 	
 	

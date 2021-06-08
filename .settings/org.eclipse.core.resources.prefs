@@ -1,3 +1,7 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 encoding//src/main/java/mobomobo/controller/MarketController.java=UTF-8
 encoding/<project>=UTF-8
+=======
+encoding//src/main/webapp/WEB-INF/views/mobo/notice/list.jsp=UTF-8
+>>>>>>> 461a22ecfcbea11d720334ab81a157d4e96b1102

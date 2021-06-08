@@ -114,8 +114,8 @@ function updateUser() {
                     <th scope="col">회원이름</th>
                     <th scope="col">가입일</th>
                     <th scope="col">연령대</th>
-                    <th scope="col">등급</th>
-                    <th scope="col">삭제${id}</th>
+                    <th scope="col">등급(마스터만 변경가능)</th>
+                    <th scope="col">삭제</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -127,8 +127,9 @@ function updateUser() {
                 	<td>${userInfo.age }</td>
                 	<td>
                 	<!-- 유저 등급 변경하기 -->
-<%-- 					<c:choose><c:when test="${empty login }">   --%>
-<%--                 	<c:choose><c:when test=" ${id} == equals("master123") ">  --%>
+                	<c:choose>
+                	<c:when test="${id == 'master123'}"> 
+                	
                 	<form action="/admin/userUpdate" method="post" name="from">
                 		<select class="form-control form-control-sm" name="grade" id="grade" class="grade"> <!-- 선택 시 form으로 묶어서 전송 or josn으로 바로바로  -->
 							<option  value="${userInfo.grade}">${userInfo.grade }</option>
@@ -151,13 +152,14 @@ function updateUser() {
 						<button class="btn btn-success btn-sm" onclick="updateUser();">변경</button>
 					</form>
 					
-<%-- 					</c:when> --%>
+					</c:when>
 					
-<%--                 	<c:otherwise>  --%>
-<%-- 						${userInfo.grade } --%>
-<%--  					</c:otherwise> --%>
+                		<c:otherwise> 
+							${userInfo.grade }
+ 						</c:otherwise>
  					
-<%-- 						</c:choose>  --%>
+					</c:choose> 
+						
 					</td>
                 	<td>
                 		<button class="btn btn-warning btn-sm" onclick="deleteUser(${userInfo.userno });" >삭제</button>
@@ -169,32 +171,9 @@ function updateUser() {
             </div>
             <div class="card-footer py-4">
               <nav aria-label="...">
-                <span class="pull-left">totalUser : ${session.getAttribute("id")} </span>
-<%--                 <span class="pull-left">totalUser : ${paging.totalCount }</span> --%>
+                <span class="pull-left">totalUser : ${paging.totalCount }</span>
                 <ul class="pagination justify-content-end mb-0">
 				<jsp:include page="/WEB-INF/views/util/usermanagementpaging.jsp" />
-<!--                   <li class="page-item disabled"> -->
-<!--                     <a class="page-link" href="#" tabindex="-1"> -->
-<!--                       <i class="fas fa-angle-left"></i> -->
-<!--                       <span class="sr-only">Previous</span> -->
-<!--                     </a> -->
-<!--                   </li> -->
-<!--                   <li class="page-item active"> -->
-<!--                     <a class="page-link" href="#">1</a> -->
-<!--                   </li> -->
-<!--                   <li class="page-item"> -->
-<!--                     <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a> -->
-<!--                   </li> -->
-<!--                   <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-<!--                    <li class="page-item"><a class="page-link" href="#">4</a></li> -->
-<!--                     <li class="page-item"><a class="page-link" href="#">5</a></li> -->
-<!--                   <li class="page-item"> -->
-<!--                     <a class="page-link" href="#"> -->
-<!--                       <i class="fas fa-angle-right"></i> -->
-<!--                       <span class="sr-only">Next</span> -->
-<!--                     </a> -->
-<!--                   </li> -->
-
                 </ul>
               </nav>
             </div>
