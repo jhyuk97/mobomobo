@@ -214,7 +214,6 @@
 						<button id="openChat">채팅</button>
 					</c:otherwise>
 				</c:choose>
-				<button id="openChat">채팅</button>
 				</div>
 			</div>
 		</div>

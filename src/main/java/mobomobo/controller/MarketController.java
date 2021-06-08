@@ -154,30 +154,33 @@ public class MarketController {
 		return mav;
 	}
 	
+	
 	@RequestMapping(value="/chat", method=RequestMethod.GET)
-	public void openChat(int mNo, HttpSession session, Model model) {
+	public void openChat(@RequestParam(defaultValue="0")int mNo, HttpSession session, Model model) {
 		
-		Market market = marketService.Select(mNo);
-		
-		//게시글번호+판매자id + 구매희망자id로 채팅방id 생성
-		String roomId = "m:" + mNo + "su:" + market.getId() + "bu:" + session.getAttribute("id");
-		
-		
-		Chat room = chatList.findRoomById(roomId);
-		
-		//채팅방 유무확인 없으면 생성후 리스트에 저장
-		//chatroom이 채팅방 리스트 보유 객체
-		if(room == null) {
-			//새로운 채팅방 생성후 채팅방 return
-			room = chatList.createChat(roomId);
+		if(mNo != 0) {
+			Market market = marketService.Select(mNo);
 			
+			//게시글번호+판매자id + 구매희망자id로 채팅방id 생성
+			String roomId = "m:" + mNo + "su:" + market.getId() + "bu:" + session.getAttribute("id");
+			
+			
+			Chat room = chatList.findRoomById(roomId);
+			
+			//채팅방 유무확인 없으면 생성후 리스트에 저장
+			//chatroom이 채팅방 리스트 보유 객체
+			if(room == null) {
+				//새로운 채팅방 생성후 채팅방 return
+				room = chatList.createChat(roomId);
+				
+			}
+			model.addAttribute("room",room);
+			model.addAttribute("market", market);
+
 		}
-		
 		List<ChatLog> roomlist = marketService.SelectChatList(session.getAttribute("id").toString());
 		
-		model.addAttribute("room",room);
 		model.addAttribute("roomlist", roomlist);
-		model.addAttribute("market", market);
 //		
 	}
 	
