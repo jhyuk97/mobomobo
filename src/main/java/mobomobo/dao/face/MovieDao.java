@@ -10,6 +10,7 @@ import java.util.List;
 
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
+import mobomobo.dto.MovieBestCommentLike;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
 import mobomobo.dto.MovieStarRating;
@@ -125,6 +126,40 @@ public interface MovieDao {
 	public List<MovieAward> selectRecomList();
 
 	public String selectStarAvgOfSingle(String key);
+	
+	
+	/**
+	 * 유저의 댓글 추천 조회
+	 * @param movieBestLike
+	 * @return
+	 */
+	public int selectCntMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike);
+	
+	/**
+	 * 댓글 추천 삽입
+	 * @param movieBestLike
+	 */
+	public void insertMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike);
+	
+	/**
+	 * 댓글 추천 정보 지우기 
+	 * @param movieBestLike
+	 */
+	public void deleteMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike);
+	
+	/**
+	 * 게시글 전체 추천 수 조회하기
+	 * @param movieBestLike
+	 * @return
+	 */
+	public int selectTotalCntMovieBestCommentLike(MovieBestLike movieBestLike);
+
+	public List<MovieBestCommentLike> selectMovieBestCommentLike(int movieBestNo);
+	
+	public int selectCntAllMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike);
+	
+	
+	
 
 
 }
