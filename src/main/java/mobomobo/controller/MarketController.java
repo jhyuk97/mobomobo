@@ -188,7 +188,7 @@ public class MarketController {
 	public ModelAndView Chatroom(ChatLog data, ModelAndView mav) {
 		
 		List<ChatLog> log = marketService.selectLog(data.getRoomid());
-				
+		
 		mav.addObject("log", log);
 		mav.addObject("roomid", data.getRoomid());
 		mav.addObject("mTitle", data.getmTitle());
