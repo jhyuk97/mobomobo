@@ -33,8 +33,6 @@
 		) R
 		WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
-<<<<<<< HEAD
-=======
 	
 	<delete id="userDelete" parameterType="UserInfo">
 		DELETE userinfo
@@ -138,12 +136,5 @@
   where movieBestNo = #{movieBestNo}
 
   </delete>
-	
-	
-	
-	
-	
-	
->>>>>>> 508786dfe6870e8d49c4983a37bf0d29544f6330
 
 </mapper>

@@ -126,5 +126,7 @@ public interface MovieDao {
 
 	public String selectStarAvgOfSingle(String key);
 
+	public List<MovieAward> selectAwardList();
+
 
 }

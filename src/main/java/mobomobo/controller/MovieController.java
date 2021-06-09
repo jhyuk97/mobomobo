@@ -1,8 +1,8 @@
 package mobomobo.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class MovieController {
 		
 		logger.info("명장면 게시판 ");
 		
-MovieBestPaging paging = movieService.getPaging(inData); 
+		MovieBestPaging paging = movieService.getPaging(inData); 
 		
 		logger.info(paging.toString()); 
 		
@@ -277,11 +277,16 @@ MovieBestPaging paging = movieService.getPaging(inData);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 
 	}
-	
+
+	@RequestMapping(value="/awardList")
+	public void awardList(Model model) {
+		
+		List<MovieAward> list = movieService.getAwardList();
+		
+		model.addAttribute("list", list);
+	}
 	
 	
 	

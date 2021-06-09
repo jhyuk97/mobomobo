@@ -124,5 +124,7 @@ public interface MovieService {
 
 	public List<MovieCrawler> getMovieCrawler(String title, String directors);
 
+	public List<MovieAward> getAwardList();
+
 
 }

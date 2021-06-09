@@ -44,6 +44,33 @@ a { text-decoration:none; }
 	width : 25%;
 }
 
+.box{
+
+/**아래 내용들은 알아서 변경 **/
+  width: 100%;
+  height: 350px;
+  float: center;
+  color: #E62200;
+  max-width: 350px;
+  padding-top: 30px;
+  background: #fff;
+  border-radius: 30px; 
+
+
+/**이미지 위아래로 움직이는 효과 (이미 이미지 자체에 효과가 있긴 해서 필요 없음 빼면 됨)**/
+  animation: up-down 1.4s infinite ease-in-out alternate;
+}
+
+@keyframes up-down{
+  from{
+    transform: translatey(0px);
+  }
+  to{
+    transform: translatey(-20px);
+  }
+}
+
+
 
 </style>
 
@@ -57,7 +84,9 @@ a { text-decoration:none; }
        <div class="row no-gutters justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
             <h2 class="mb-4">MOVIE</h2>
+            
             <p id="p">당신의 인생 영화, 무부무부에서 만나보세요</p>
+            <a href="/mobo/movie/awardList"><img src="/resources/img/movieaward1.gif" class="box" ></a>
           </div>
         
         

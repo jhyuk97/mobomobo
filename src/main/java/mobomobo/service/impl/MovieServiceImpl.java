@@ -849,6 +849,11 @@ public class MovieServiceImpl implements MovieService{
 		return movieDao.selectViewImageList(viewMovieBest);
 	}
 	
+	@Override
+	public List<MovieAward> getAwardList() {
+		return movieDao.selectAwardList(); 
+	}
+	
 	
 	
 	
