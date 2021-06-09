@@ -84,5 +84,32 @@
 		ORDER BY S.age
   	</select>
   	
+  	<select id="selectAllCnt" parameterType="mobomobo.util.BookBestPaging" resultType="int">
+  		SELECT COUNT(*) FROM bookkey
+  		WHERE award = '맨부커'
+  	</select>
+  	<select id="selelctAdminBookRecomList" parameterType="mobomobo.util.BookBestPaging" resultType="mobomobo.dto.BookKey">
+  		SELECT * FROM( 
+ 		 	SELECT rownum rnum,B.* FROM( 
+		 		SELECT * 
+		 		FROM bookkey 
+                WHERE award ='맨부커'
+		 		ORDER BY isbn DESC 
+		 		)B 
+		 	) BOARD 
+	 	WHERE rnum BETWEEN #{startNo } AND #{endNo }
+  	</select>
+  	<delete id="deleteBookKey" parameterType="mobomobo.dto.BookKey">
+  		DELETE FROM bookkey
+  		WHERE isbn = #{isbn }
+  	</delete>
+  	<insert id="insertBookKeyByAward" parameterType="mobomobo.dto.BookKey">
+  		INSERT INTO bookkey
+  		VALUES(#{isbn }, #{bookTitle },#{award })
+  	</insert>
+  	<select id="selectBookKeyCnt" parameterType="mobomobo.dto.BookKey" resultType="int">
+  		SELECT COUNT(*) FROM bookkey
+  		WHERE isbn =#{isbn }
+  	</select>
   
   </mapper>

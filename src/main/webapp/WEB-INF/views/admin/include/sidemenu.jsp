@@ -38,7 +38,7 @@
             </a>
           </li>
            <li class="nav-item">
-            <a class="nav-link " href="/admin/tables">
+            <a class="nav-link " href="/admin/book/bookRecom">
               <i class="ni ni-tv-2 text-yellow"></i>책추천
             </a>
           </li>

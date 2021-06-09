@@ -10,11 +10,11 @@
 
        
      <script type="text/javascript">
-	function deleteBookBest(bookBestno){
+	function deleteBookBest(isbn){
 		
 		
-		console.log(bookBestno);
-		location.href="/admin/book/delete?bookBestno="+bookBestno;
+		console.log(isbn);
+		location.href="/admin/book/recomDelete?isbn="+isbn;
 		
 	}
  
@@ -35,22 +35,21 @@
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th scope="col">no</th>
+                    <th scope="col">isbn</th>
 
                     <th scope="col">제목</th>
-                    <th scope="col">날짜</th>
-                    <th scope="col">유저</th>
+                    <th scope="col">상</th>
                     <th scope="col">삭제</th>
                   </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${list }" var="list">
                 <tr>
-                    <td scope="col">${list.BOOKBESTNO }</td>
-                    <td scope="col"><a href="/admin/book/famousDetail?bookBestno=${list.BOOKBESTNO }">${list.BESTTITLE }</a></td>
-                    <td scope="col"><fmt:formatDate value="${list.WRITEDATE }" pattern="yyyy-MM-dd"/></td>
-                    <td scope="col">${list.USERNO }</td>
-                    <td scope="col"><button class="btn btn-warning btn-sm" onclick="deleteBookBest(${list.BOOKBESTNO})" >삭제</button></td>
+                    <td scope="col">${list.isbn }</td>
+                    <td scope="col"><a href="/admin/book/famousDetail?bookBestno=${list.isbn }">${list.bookTitle}</a></td>
+                    
+                    <td scope="col">${list.award }</td>
+                    <td scope="col"><button class="btn btn-warning btn-sm" onclick="deleteBookBest(${list.isbn })" >삭제</button></td>
                 </tr>
                 
                 </c:forEach>
@@ -58,7 +57,7 @@
               </table>
             </div>
             <div class="card-footer py-4">
-	            <input type="button" class="btn btn-default" onclick="javascript:location.href='/admin/book/famousWrite'" value="글작성">
+	            <input type="button" class="btn btn-default" onclick="javascript:location.href='/admin/book/recomWrite'" value="글작성">
             	<jsp:include page="/WEB-INF/views/util/bestmanagementpaging.jsp" />
             
             </div>

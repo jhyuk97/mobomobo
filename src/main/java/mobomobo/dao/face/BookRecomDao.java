@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import mobomobo.dto.BookBest;
+import mobomobo.dto.BookKey;
 import mobomobo.dto.BookMark;
 import mobomobo.dto.BookStarRatingInsert;
 import mobomobo.util.BookBestPaging;
@@ -100,6 +101,39 @@ public interface BookRecomDao {
 	 * @return
 	 */
 	public List<HashMap<String, Object>> selectAgeAvgByisbn(String isbn);
+
+	/**
+	 * 전체 개수 조회
+	 * @param inData
+	 * @return
+	 */
+	public int selectAllCnt(BookBestPaging inData);
+
+	/**
+	 * 페이징 처리된 관리자 시상식 추천 게시물 리스트 조회
+	 * @param paging
+	 * @return
+	 */
+	public List<BookKey> selelctAdminBookRecomList(BookBestPaging paging);
+
+	/**
+	 * isbn으로 시상작 삭제
+	 * @param bookKey
+	 */
+	public void deleteBookKey(BookKey bookKey);
+
+	/**
+	 * bookkey 삽입 맨부커
+	 * @param bookKey
+	 */
+	public void insertBookKeyByAward(BookKey bookKey);
+
+	/**
+	 * 이미 존재하는 KEY인지 검사
+	 * @param bookKey
+	 * @return
+	 */
+	public int selectBookKeyCnt(BookKey bookKey);
 
 
 	
