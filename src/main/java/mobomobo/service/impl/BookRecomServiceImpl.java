@@ -18,7 +18,7 @@ import mobomobo.dto.BookMark;
 import mobomobo.dto.BookStarRating;
 import mobomobo.dto.BookStarRatingInsert;
 import mobomobo.service.face.BookRecomService;
-import mobomobo.util.BookRecomPaging;
+import mobomobo.util.BookBestPaging;
 @Service
 public class BookRecomServiceImpl implements BookRecomService{
 	//로깅 객체
@@ -53,17 +53,17 @@ public class BookRecomServiceImpl implements BookRecomService{
 	}
 
 	@Override
-	public List<BookBest> getList(BookRecomPaging paging) {
+	public List<BookBest> getList(BookBestPaging paging) {
 		
 		return bookRecomDao.selectAll(paging);
 	}
 
 	@Override
-	public BookRecomPaging getPaing(BookRecomPaging inData) {
+	public BookBestPaging getPaing(BookBestPaging inData) {
 		// 총 게시글수 
 		int totalCount = bookRecomDao.selectTotalCntByAwards();
 		// 페이징 계산
-		BookRecomPaging paging = new BookRecomPaging(totalCount,inData.getCurPage());
+		BookBestPaging paging = new BookBestPaging(totalCount,inData.getCurPage());
 		
 		return paging;
 	}

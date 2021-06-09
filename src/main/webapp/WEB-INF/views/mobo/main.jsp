@@ -29,17 +29,18 @@
                 <div class="container">
                     <div class="row p-5">
                      <div class="mx-auto col-md-8 col-lg-6 order-lg-last"> 
-                            <img class="img-fluid" src="/resources/img/poster1.jpg" alt="">
+                        <img class="img-fluid" src="/resources/img/MCU.gif" alt="#">
+<!--                         <img class="img-fluid" src="/resources/img/movie_star.gif" alt="#"> -->
                        </div>
                         <div class="col-lg-6 mb-0 d-flex align-items-center">
                             <div class="text-align-left align-self-center">
-                                <h1 class="h1 text-success"><b>MOBOMOBO'S</b> HOME</h1>
-                                <h3 class="h2">MOBOMOBO</h3>
-                	                <p>
-                                	  MOVIE & BOOK  <a rel="sponsored" class="text-success" href="https://templatemo.com" target="_blank">TemplateMo</a> website. 
+<!--                                 <h1 class="h1 text-success"><b>MOBOMOBO'S</b> HOME</h1> -->
+<!--                                 <h3 class="h2">MOBOMOBO</h3> -->
+<!--                 	                <p> -->
+<!--                                 	  MOVIE & BOOK  <a rel="sponsored" class="text-success" href="https://templatemo.com" target="_blank">TemplateMo</a> website.  -->
                                    
                                     
-                                </p>
+<!--                                 </p> -->
                             </div>
                         </div>
                     </div>
@@ -255,7 +256,6 @@
     </section>
     <!-- End Categories of The Month -->
 
-
    
 <%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>
 
@@ -275,9 +275,6 @@ function movieStarRating() {
 	for(var i=0; i<3; i++) {
 		
 		var star = $("#starrating" + i).val();
-		
-		console.log(star);
-		console.log(Number.isInteger(star));
 		
 		var html = "";
 		

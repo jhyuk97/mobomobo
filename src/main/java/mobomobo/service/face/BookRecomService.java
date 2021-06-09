@@ -10,7 +10,7 @@ import mobomobo.dto.BookKey;
 import mobomobo.dto.BookMark;
 import mobomobo.dto.BookStarRating;
 import mobomobo.dto.BookStarRatingInsert;
-import mobomobo.util.BookRecomPaging;
+import mobomobo.util.BookBestPaging;
 
 public interface BookRecomService {
 
@@ -26,14 +26,14 @@ public interface BookRecomService {
 	 * @param paging 
 	 * @return
 	 */
-	public List<BookBest> getList(BookRecomPaging paging);
+	public List<BookBest> getList(BookBestPaging paging);
 
 	/**
 	 * 페이징
 	 * @param inData
 	 * @return
 	 */
-	public BookRecomPaging getPaing(BookRecomPaging inData);
+	public BookBestPaging getPaing(BookBestPaging inData);
 
 	/**
 	 * 시상식 전체 리스트 목록

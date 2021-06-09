@@ -43,6 +43,13 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+		<!-- 스프링 웹소켓 -->
+		<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-websocket</artifactId>
+    		<version>${org.springframework-version}</version>
+		</dependency>
+		
 		
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring 스프링에서 마이바티스 사용하는 용도 -->
 		<dependency>
@@ -106,6 +113,13 @@
 		    <artifactId>json-simple</artifactId>
 		    <version>1.1.1</version>
 		</dependency>
+		
+		<!-- jsoup 1.11.3 -->
+		<dependency>
+         <groupId>org.jsoup</groupId>
+         <artifactId>jsoup</artifactId>
+         <version>1.11.3</version>
+        </dependency>   
 		
 		
 			<!-- Jackson Databind 2.12.3 버전 -->

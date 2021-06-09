@@ -1,5 +1,11 @@
 package mobomobo.dao.face;
 
+import java.util.HashMap;
+import java.util.List;
+
+import mobomobo.dto.BookMark;
+import mobomobo.dto.Movie;
+import mobomobo.dto.MovieAward;
 import java.util.List;
 
 import mobomobo.dto.MovieBest;
@@ -107,6 +113,18 @@ public interface MovieDao {
 	public List<MovieBestImg> imglist();
 
 	public List<MovieBestImg> selectViewImageList(MovieBest viewMovieBest);
+
+	public List<MovieStarRating> selectStarAvg(String key);
+
+	public int selectBookMarkByUserNo(BookMark bookmark);
+
+	public void deleteBookMark(BookMark bookmark);
+
+	public void insertBookMark(BookMark bookmark);
+
+	public List<MovieAward> selectRecomList();
+
+	public String selectStarAvgOfSingle(String key);
 
 
 }

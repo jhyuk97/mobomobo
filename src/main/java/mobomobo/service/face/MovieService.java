@@ -1,15 +1,19 @@
 package mobomobo.service.face;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
 
+import mobomobo.dto.BookMark;
 import mobomobo.dto.Movie;
+import mobomobo.dto.MovieAward;
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
+import mobomobo.dto.MovieCrawler;
 import mobomobo.dto.MovieStarRating;
 import mobomobo.util.MovieBestPaging;
 
@@ -103,6 +107,22 @@ public interface MovieService {
 
 	public List<MovieBestImg> viewImage(MovieBest viewMovieBest);
 
+
+	public List<Movie> adminMovieSearchList(String search) throws IOException, ParseException;
+
+	public List<MovieStarRating> getStarAvg(String key);
+
+	public boolean checkBookMark(BookMark bookmark);
+
+	public boolean manageBookMark(BookMark bookmark);
+
+	public List<MovieAward> getRecomList();
+
+	public Movie getMovieSearchOne(String string) throws IOException, ParseException;
+
+	public String getStarAvgOfSingle(String key);
+
+	public List<MovieCrawler> getMovieCrawler(String title, String directors);
 
 
 }

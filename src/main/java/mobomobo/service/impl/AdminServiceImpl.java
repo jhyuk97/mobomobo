@@ -1,5 +1,6 @@
 package mobomobo.service.impl;
 
+import java.util.HashMap;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -15,6 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import mobomobo.dao.face.AdminDao;
+import mobomobo.dto.MovieAward;
+import mobomobo.dto.UserInfo;
+import mobomobo.service.face.AdminService;
+import mobomobo.util.AdminMovieRecomPaging;
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.UserInfo;
@@ -24,7 +29,6 @@ import mobomobo.util.Paging;
 
 @Service
 public class AdminServiceImpl implements AdminService{
-	
 	
 	//로깅 객체
 	private static final Logger logger
@@ -77,8 +81,29 @@ public class AdminServiceImpl implements AdminService{
 			logger.info("adminservice 의 countUser의 결과 - false");
 			return false;
 		}
+		
+	}
+
+	@Override
+	public void writeMovierecom(HashMap<String, String> map) {
+
+		adminDao.insertMovierecom(map);
+	}
 	
+	@Override
+	public AdminMovieRecomPaging getAdminMovieListPaging(int curPage) {
+
+		int totalCount = adminDao.selectMoiveCnt();
+		
+		AdminMovieRecomPaging moviePaging = new AdminMovieRecomPaging(totalCount, curPage);
+		
+		return moviePaging;
+	}
 	
+	@Override
+	public List<MovieAward> getAwardMovieList(AdminMovieRecomPaging moviepaging) {
+		
+		return adminDao.selectMovieAwardList(moviepaging);
 	}
 
 	@Override
@@ -102,8 +127,12 @@ public class AdminServiceImpl implements AdminService{
 			return false;
 		}
 		
-		
-		
+	}
+	
+	@Override
+	public void removeMovierecom(MovieAward movieAward) {
+
+		adminDao.deleteMovierecom(movieAward);
 	}
 
 	
