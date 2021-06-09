@@ -229,7 +229,34 @@ color: #bcbcbc;
     background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
   }
 }
-
+.rembutton{
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 22px;
+  text-decoration: none;
+  margin: 20px;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  float: right;
+}
+.rembutton:focus {
+	outline: none;
+}
+.rembutton:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+.purple {
+  background-color: #B3B7EF;
+  box-shadow: 0px 5px 0px 0px #DDDFF8;
+}
+.purple:hover {
+  background-color: #DDDFF8;
+}
 
 
 </style>
@@ -248,7 +275,7 @@ function clickLikeBtn(){
 				$("#likeCnt").text(result)
 			}
 			, error: function( ){
-				alert("실패");
+				alert("로그인이 필요합니다.");
 			}
 	})
 	
@@ -276,6 +303,125 @@ function clickBookMark(){
 					<button id="bookMarkBtn" class="bubbly-button" onclick="clickBookMark()">북마크</button> 
 					`)
 			}
+		}
+		, error: function( ){
+			alert("로그인이 필요합니다.");
+		}
+})
+}
+function commentInsert(){
+	
+	
+	console.log("!!!!!!!!!!!!!!!!")
+	
+	
+	$.ajax({
+		type: "GET"
+		, url: "/mobo/book/comment"
+		, data: { "bookBestno": '${detail.bookBestno }',
+					"commentText" : $("#commentText").val()}
+		, dataType: "json"
+		, success: function( result ) {
+			$("#commentText").val("");
+			console.log("성공");
+			console.log(result);
+			console.log(result.commentDate)
+			
+			
+			$("#commentList").prepend(`
+					<ul class="list-group list-group-flush" data-commentno="${'${result.commentno}'}">
+				    <li class="list-group-item">
+					<div class="form-inline mb-2">
+						<label for="replyId"><i class="fa fa-user-circle fa-2x"></i></label>&nbsp;&nbsp;&nbsp;<b>${'${result.nick }'}</b>
+						&nbsp;&nbsp;&nbsp;
+						
+						${'${result.commentDate}'}
+					</div>
+					${'${result.commentText }'}
+					
+					<button class="btn bg-replay mt-3 pull-right replayBtn">삭제</button>
+				    <input type="hidden" class="btn bg-replay mt-3 pull-right replayBtn" value="삭제"/>
+					
+					
+				    </li>
+				    
+				    
+				</ul>
+					
+					`)
+			
+		}
+		, error: function( ){
+			alert("실패");
+		}
+})
+	
+}
+
+$(document).ready(function() {
+
+	$(document).on("click",".replayBtn",function(event){
+		console.log("click!!!!!!!!!!!!!!!")
+		console.log($(this).parents("ul").attr("data-commentno"))
+		console.log($(this).next().val())
+		
+		var commentno = $(this).parents("ul").attr("data-commentno");
+		
+		if($(this).next().val() == "삭제"){
+			console.log("삭제입니다")
+			deleteComment(commentno)
+			
+		} else if($(this).next().val() == "추천"){
+			console.log("추천입니다")
+			recommendComment(commentno)
+		}		
+		
+		
+	})
+	
+	
+	
+})
+function recommendComment(commentno){
+	$.ajax({
+		type: "GET"
+		, url: "/mobo/book/commentRecom"
+		, data: { "commentno": commentno
+					}
+		, dataType: "json"
+		, success: function( result ) {
+			
+			console.log($("[data-commentno='"+result.commentno+"']").find("button"))
+			if(result.isRecom){
+				// 삭제
+				$("[data-commentno='"+result.commentno+"']").find("button > span").text(result.commentCnt)
+				if(result.commentCnt === 0){
+					$("[data-commentno='"+result.commentno+"']").find("button > span").text("")
+				}
+// 			$("[data-commentno='"+result.commentno+"']").find("button").removeClass().addClass("bubbly-button pull-right replayBtn");
+			} else {
+				$("[data-commentno='"+result.commentno+"']").find("button > span").text(result.commentCnt)
+// 			$("[data-commentno='"+result.commentno+"']").find("button").removeClass().addClass("btn bg-replay mt-3 pull-right replayBtn");
+			
+			}
+			
+// 			$("[data-commentno='"+result+"']").remove();
+		}
+		, error: function( ){
+			alert("실패");
+		}
+})
+}
+
+function deleteComment(commentno){
+	$.ajax({
+		type: "GET"
+		, url: "/mobo/book/commentDelete"
+		, data: { "commentno": commentno
+					}
+		, dataType: "json"
+		, success: function( result ) {
+			$("[data-commentno='"+result+"']").remove();
 		}
 		, error: function( ){
 			alert("실패");
@@ -350,7 +496,8 @@ function clickBookMark(){
           
       
         </div><!-- row 끝 -->
-        
+      <c:if test="${not empty id }">
+      
      <div class="button1">   
      <c:if test="${isBookMarkState eq true }">
 	    <button id="bookMarkBtn" class="bubbly-button" onclick="clickBookMark()">북마크❤</button>    
@@ -360,6 +507,7 @@ function clickBookMark(){
      </c:if>
     </div>
     
+      </c:if>  
     <div class="button2">   
   <button  onclick="clickLikeBtn()" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;<span id="likeCnt">${likeCnt }</span> 
  </button> 
@@ -370,9 +518,9 @@ function clickBookMark(){
 	<!-- 비로그인 -->
 	<c:if test="${not login }">
 	
-	<button id="mainlist" class="btn btn-filled" onclick='location.href="/mobo/movie/moviebestboard";'>목록</button>
-	<button id="join" class="btn btn-outline-fill" onclick='location.href="/mobo/signup/form";'>회원가입</button>
-	<button id="login" class="btn btn-outline-fill" onclick='location.href="/mobo/signin/login";'>로그인</button>
+	<button id="mainlist" class="btn btn-filled" onclick='location.href="/mobo/book/bookFamous";'>목록</button>
+	<button id="join" class="btn btn-outline-fill" onclick='location.href="/mobo/sign/signUp";'>회원가입</button>
+	<button id="login" class="btn btn-outline-fill" onclick='location.href="/mobo/sign/login";'>로그인</button>
 	
 	</c:if>
 	
@@ -388,26 +536,32 @@ function clickBookMark(){
 	</div>
 	<!-- 댓글 리스트 -->
 	
+	<div id="commentList">
 	
-	<c:forEach items="${movieBestCommentList }" var="movieBestCommentList">
-		<ul class="list-group list-group-flush" data-commentno="${movieBestCommentList.commentNo}">
+	<c:forEach items="${commentList }" var="list">
+		<ul class="list-group list-group-flush" data-commentno="${list.COMMENTNO}">
 		    <li class="list-group-item">
 			<div class="form-inline mb-2">
-				<label for="replyId"><i class="fa fa-user-circle fa-2x"></i></label>&nbsp;&nbsp;&nbsp;<b>${movieBestCommentList.nick }</b>
+				<label for="replyId"><i class="fa fa-user-circle fa-2x"></i></label>&nbsp;&nbsp;&nbsp;<b>${list.NICK }</b>
 				&nbsp;&nbsp;&nbsp;
 				
-				<fmt:formatDate value="${movieBestCommentList.commentDate }" pattern="yyyy-MM-dd"/>
+				<fmt:formatDate value="${list.COMMENTDATE }" pattern="yyyy-MM-dd"/>
 			</div>
 			
 			
-			${movieBestCommentList.commentText }
+			${list.COMMENTTEXT }
 			
 			
-			<c:if test="${sessionScope.nick eq movieBestCommentList.nick }">
-		    <button type="submit" id="deleteComment" class="btn bg-replay mt-3" onclick="deleteComment(${movieBestCommentList.commentNo });">삭제
-		    </button>
+			<c:if test="${sessionScope.nick eq list.NICK }">
+			<button class="btn bg-replay mt-3 pull-right replayBtn">삭제</button>
+		    <input type="hidden" class="btn bg-replay mt-3 pull-right replayBtn" value="삭제"/>
+
 		    </c:if>
-			
+			<c:if test="${sessionScope.nick ne list.NICK }">
+			<button class="btn bg-replay mt-3 pull-right replayBtn"><i class="far fa-thumbs-up" aria-hidden="true"></i><span>${list.CNT }</span></button>
+		    <input type="hidden" class="btn bg-replay mt-3 pull-right replayBtn" value="추천"/>
+
+			</c:if>
 		    </li>
 		    
 		    
@@ -419,6 +573,7 @@ function clickBookMark(){
 		
 		
 		</c:forEach>
+	</div>
 	
 	        
 	
@@ -428,11 +583,11 @@ function clickBookMark(){
 		    <li class="list-group-item">
 			<div class="form-inline mb-2">
 				<label for="replyId"><i class="fa fa-user-circle fa-2x"></i></label>
-				<input type="text" class="form-control ml-2" name="id" placeholder="아이디" id="moviebestcommentid" value="${id }" readonly="readonly">
-				<input type="text" class="form-control ml-2" name="nick" placeholder="닉네임" id="moviebestcommentnick" value="${nick }" readonly="readonly">
+				<input type="text" class="form-control ml-2" name="id" placeholder="아이디" id="bookbestcommentid" value="${id }" readonly="readonly">
+				<input type="text" class="form-control ml-2" name="nick" placeholder="닉네임" id="bookbestcommentnick" value="${nick }" readonly="readonly">
 			</div>
-			<textarea class="form-control" id="exampleFormControlTextarea1" name="commentText" rows="3"></textarea>
-			<button type="button" id="btnmoviebestcomment" class="btn bg-replay mt-3" >댓글 등록</button>
+			<textarea class="form-control" id="commentText" name="commentText" rows="3"></textarea>
+			<button type="button" id="btnmoviebestcomment" class="btn bg-replay mt-3" onclick="commentInsert()">댓글 등록</button>
 		    </li>
 		</ul>
 	</div>

@@ -87,6 +87,47 @@
   		INSERT INTO bookmark(bookmarkno,userno,category,key)
   		VALUES(bookmarkno_seq.nextval,#{userno },'bookbest',#{key })
   	</insert>
-  
+  	<select id="selectCommentNo" resultType="int">
+  		SELECT bookbestcomment_seq.nextval FROM dual 
+  	</select>
+  	<insert id="insertBookBestComment" parameterType="mobomobo.dto.BookBestComment">
+  		INSERT INTO bookbestcomment(commentno,bookbestno,id,nick,commenttext)
+  		VALUES(#{commentno },#{bookBestno },#{id },#{nick },#{commentText })
+  	</insert>
+  	<select id="selectBookBestCommentByCommentNo" parameterType="mobomobo.dto.BookBestComment" resultType="mobomobo.dto.BookBestComment">
+  		SELECT * FROM bookbestcomment
+  		WHERE commentno = #{commentno }
+  	</select>
+  	<select id="selectBookBestCommentList" parameterType="String" resultType="HashMap">
+  		SELECT BBC.commentno,BBC.id,BBC.nick,BBC.commenttext,BBC.commentdate,BBCL.cnt FROM bookbestcomment BBC,
+		(
+		SELECT commentno,COUNT(*) cnt
+		FROM bookbestcommentlike
+		GROUP BY commentno
+		)BBCL
+		WHERE BBC.commentno = BBCL.commentno(+) AND BBC.bookbestno = #{bookBestno }
+		ORDER BY BBC.commentno DESC
+  	</select>
+  	<delete id="deleteBookBestComment" parameterType="mobomobo.dto.BookBestComment">
+  		DELETE FROM bookbestcomment
+  		WHERE commentno = #{commentno }
+  	</delete>
+  	<select id="selectBookBestCommentLikeCnt" resultType="int" parameterType="mobomobo.dto.BookBestCommentLike">
+  		SELECT COUNT(*) FROM bookbestcommentlike
+  		WHERE commentno = #{commentno } AND userno = #{userno }
+  	</select>
+  	<delete id="deleteBookBestCommentLike" parameterType="mobomobo.dto.BookBestCommentLike">
+  		DELETE FROM bookbestcommentlike
+  		WHERE commentno = #{commentno } AND userno = #{userno }
+  	</delete>
+  	<insert id="insertBookBestCommetLike" parameterType="mobomobo.dto.BookBestCommentLike">
+  		INSERT INTO bookbestcommentlike
+  		VALUES (#{commentno }, #{userno })
+  	</insert>
+  	
+  	<select id="selectCommentCnt" parameterType="mobomobo.dto.BookBestCommentLike" resultType="int">
+  		select count(*) from bookbestcommentlike
+		where commentno = #{commentno }
+  	</select>
   
   </mapper>

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import mobomobo.dto.BookBest;
+import mobomobo.dto.BookBestComment;
+import mobomobo.dto.BookBestCommentLike;
 import mobomobo.dto.BookBestImg;
 import mobomobo.dto.BookBestLike;
 import mobomobo.dto.BookMark;
@@ -56,22 +58,29 @@ public class BookFamousController {
 		logger.info("/mobo/book/famousDetail");
 		logger.debug(bookBestno);
 		
+		// 상세보기 정보
 		BookBest bookBest = bookFamousLineService.getBookBestInfo(bookBestno);
 		logger.debug(bookBest.toString());
 		BookBestImg img = bookFamousLineService.getBookBestImgInfo(bookBestno);
 //		logger.debug(img.toString());
-		
+		// 명대사 3가지
 		String [] str = bookBest.getBestContext().split("/");
 		
 		for(int i=0;i<str.length;i++) {
 			logger.debug(str[i]);
 		}
 		
-		
+		// 추천
 		int likeCnt = bookFamousLineService.viewLike(bookBestno);
+		// 북마크
 		boolean bookMarkState = bookFamousLineService.viewBookMark(bookBestno,session);
+		// 댓글, 댓글 추천 개수
+		List<HashMap<String,Object>> commentList = bookFamousLineService.getCommentList(bookBestno);
 		
 		
+		
+		
+		model.addAttribute("commentList",commentList);
 		model.addAttribute("isBookMarkState",bookMarkState);
 		model.addAttribute("likeCnt",likeCnt);
 		model.addAttribute("context",str);
@@ -103,6 +112,50 @@ public class BookFamousController {
 		bookMark.setUserno((int)session.getAttribute("userno"));
 		
 		return bookFamousLineService.viewBookMark(bookMark);
+		
+	}
+	
+	@RequestMapping(value="/comment")
+	public @ResponseBody BookBestComment commentWrite(BookBestComment bookBestComment, HttpSession session) {
+		logger.info("/comment ");
+		
+		logger.debug(bookBestComment.toString());
+		
+		BookBestComment info = bookFamousLineService.getBookBestComment(bookBestComment,session);
+		
+		logger.debug(info.toString());
+		
+		bookFamousLineService.insert(info);
+		
+		return bookFamousLineService.getComment(info);
+		
+		
+	}
+	@RequestMapping(value="/commentDelete")
+	public @ResponseBody int commentDelete(BookBestComment bookBestComment) {
+		logger.info("/commentDelete ");
+		logger.debug(bookBestComment.toString());
+		
+		bookFamousLineService.delete(bookBestComment);
+		
+		return bookBestComment.getCommentno();
+	}
+	@RequestMapping(value="/commentRecom")
+	public @ResponseBody HashMap<String,Object> commentRecom(BookBestCommentLike bookBestCommentlike, HttpSession session) {
+		logger.info("/commentRecom ");
+		logger.debug(bookBestCommentlike.toString());
+		
+		bookBestCommentlike.setUserno((int)session.getAttribute("userno"));
+		
+		boolean isRecom = bookFamousLineService.viewCommentLike(bookBestCommentlike);
+		int commentCnt = bookFamousLineService.getCommentCnt(bookBestCommentlike);
+		
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		map.put("isRecom", isRecom);
+		map.put("commentno", bookBestCommentlike.getCommentno());
+		map.put("commentCnt",commentCnt);
+		
+		return map;
 		
 	}
 	

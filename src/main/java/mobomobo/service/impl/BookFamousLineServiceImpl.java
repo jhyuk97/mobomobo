@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import mobomobo.dao.face.BookFamousLineDao;
 import mobomobo.dto.BookBest;
+import mobomobo.dto.BookBestComment;
+import mobomobo.dto.BookBestCommentLike;
 import mobomobo.dto.BookBestImg;
 import mobomobo.dto.BookBestLike;
 import mobomobo.dto.BookMark;
@@ -226,10 +228,12 @@ public class BookFamousLineServiceImpl implements BookFamousLineService {
 	}
 	@Override
 	public boolean viewBookMark(String bookBestno, HttpSession session) {
-		
 		BookMark bookMark = new BookMark();
-		bookMark.setUserno((int)session.getAttribute("userno"));
-		bookMark.setKey(bookBestno);
+		if(session.getAttribute("userno") != null) {
+			bookMark.setUserno((int)session.getAttribute("userno"));
+			bookMark.setKey(bookBestno);
+			
+		}
 		
 		
 		if(bookFamousLineDao.selectBookMarkCnt(bookMark)>0) {
@@ -239,6 +243,54 @@ public class BookFamousLineServiceImpl implements BookFamousLineService {
 		}
 		
 		
+	}
+	@Override
+	public BookBestComment getBookBestComment(BookBestComment bookBestComment, HttpSession session) {
+		
+		bookBestComment.setId((String)session.getAttribute("id"));
+		bookBestComment.setNick((String)session.getAttribute("nick"));
+		bookBestComment.setCommentno(bookFamousLineDao.selectCommentNo());
+		return bookBestComment;
+	}
+	@Override
+	public void insert(BookBestComment info) {
+		bookFamousLineDao.insertBookBestComment(info);
+	}
+	@Override
+	public BookBestComment getComment(BookBestComment info) {
+		
+		return bookFamousLineDao.selectBookBestCommentByCommentNo(info);
+	}
+	@Override
+	public List<HashMap<String, Object>> getCommentList(String bookBestno) {
+		return bookFamousLineDao.selectBookBestCommentList(bookBestno);
+		
+	}
+	@Override
+	public void delete(BookBestComment bookBestComment) {
+		
+		bookFamousLineDao.deleteBookBestComment(bookBestComment);
+		
+		
+	}
+	@Override
+	public boolean viewCommentLike(BookBestCommentLike bookBestCommentlike) {
+		if(bookFamousLineDao.selectBookBestCommentLikeCnt(bookBestCommentlike)>0) {
+			// 추천 되어 있음
+			// 추천 삭제
+			bookFamousLineDao.deleteBookBestCommentLike(bookBestCommentlike);
+			return true;
+			
+		} else {
+			// 추천 안되어 있음
+			// 추천 
+			bookFamousLineDao.insertBookBestCommetLike(bookBestCommentlike);
+			return false;
+		}
+	}
+	@Override
+	public int getCommentCnt(BookBestCommentLike bookBestCommentlike) {
+		return bookFamousLineDao.selectCommentCnt(bookBestCommentlike);
 	}
 
 }
