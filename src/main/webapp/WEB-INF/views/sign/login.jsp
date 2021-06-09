@@ -256,7 +256,7 @@ body {
 
 <!-- 카카오 로그인  -->
 <a id="kakao-login-btn"></a>
-<!-- <button class="api-btn" onclick="kakaoLogout()">로그아웃</button> -->
+<!-- <button class="api-btn" onclick="kakaoLogout()">로그아웃</button> --><br>
 	<a id="custom-logout-btn" href="javascript:kakaoLogout()">로그아웃</a>
 <!-- 카카오 로그인  -->
 
