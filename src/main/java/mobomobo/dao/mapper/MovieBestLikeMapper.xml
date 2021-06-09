@@ -40,6 +40,63 @@
    </select>
    
  
+   <select id="selectCntMovieBestCommentLike" parameterType="mobomobo.dto.MovieBestCommentLike" resultType="int">
+   
+   SELECT count(*) FROM moviebestcommentlike
+   WHERE commentNo = #{commentNo} AND id = #{id}	
+   
+   
+   </select>
+   
+   <insert id="insertMovieBestCommentLike" parameterType="mobomobo.dto.MovieBestCommentLike">
+   
+   insert into moviebestcommentlike
+   values (#{commentNo}, #{id}, #{movieBestNo})
+   
+   
+   </insert>
+   
+   <delete id="deleteMovieBestCommentLike" parameterType="mobomobo.dto.MovieBestCommentLike">
+   
+   delete moviebestcommentlike
+   where id = #{id} 
+   	and commentNo = #{commentNo} 
+   
+   </delete>
+   
+   <select id="selectTotalCntMovieBestCommentLike" parameterType="mobomobo.dto.MovieBestCommentLike" resultType="int">
+   
+   select count(*) from moviebestcommentlike
+   where commentNo = #{commentNo} and movieBestNo =#{movieBestNo}
+   
+   
+   </select>
+   
+   
+   <select id="selectMovieBestCommentLike" parameterType="int" resultType="mobomobo.dto.MovieBestComment">
+   
+     SELECT * FROM (
+			SELECT rownum rnum, B.* FROM (
+				SELECT
+					commentNo
+					, movieBestNo
+					, id
+				FROM moviebestcommentlike
+				WHERE movieBestNo = #{movieBestNo}
+				ORDER BY commentno
+			) B
+		) ORDER BY rnum
+   
+   
+   </select>
+   
+   
+    <select id="selectCntAllMovieBestCommentLike" parameterType="mobomobo.dto.MovieBestCommentLike" resultType="int">
+   
+   SELECT count(*) FROM moviebestcommentlike
+   WHERE commentNo = #{commentNo} 
+   
+   </select>
    
    
    

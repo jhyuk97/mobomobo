@@ -11,13 +11,14 @@ public class MovieBestComment {
 	private String commentText;
 	private Date commentDate;
 	private int commentDiv;
+	private int commentcnt;
 	
 	
 	@Override
 	public String toString() {
 		return "MovieBestComment [commentNo=" + commentNo + ", movieBestNo=" + movieBestNo + ", id=" + id + ", nick="
 				+ nick + ", commentText=" + commentText + ", commentDate=" + commentDate + ", commentDiv=" + commentDiv
-				+ "]";
+				+ ", commentcnt=" + commentcnt + "]";
 	}
 
 
@@ -89,6 +90,17 @@ public class MovieBestComment {
 	public void setCommentDiv(int commentDiv) {
 		this.commentDiv = commentDiv;
 	}
+
+
+	public int getCommentcnt() {
+		return commentcnt;
+	}
+
+
+	public void setCommentcnt(int commentcnt) {
+		this.commentcnt = commentcnt;
+	}
+	
 	
 	
 	

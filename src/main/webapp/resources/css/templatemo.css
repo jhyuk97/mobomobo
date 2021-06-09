@@ -100,7 +100,32 @@ body, ul, li, p, a, label, input, div {
 
 
 /* Hero Carousel */
-#template-mo-zay-hero-carousel { background: #EADFF2 !important;}
+#template-mo-zay-hero-carousel { background: #ddccf5 !important;}
+
+.test0 {
+	
+	background: #4360BD !important;
+}
+
+.test1 {
+	
+	background: #FFD2D0 !important;
+}
+
+.test2 {
+	
+	background: #E8FFB3 !important;
+	
+	
+}
+
+
+.test3 {
+	
+	
+	
+	background: #212121 !important;
+}
 
 /* Accordion */
 .templatemo-accordion a { color: #000;}

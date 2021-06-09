@@ -25,73 +25,53 @@
             <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
-            <div class="carousel-item active">
+            <div class="carousel-item active test0" style="height:500px;">
                 <div class="container">
                     <div class="row p-5">
-                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last"> 
-                        <img class="img-fluid" src="/resources/img/MCU.gif" alt="#">
-<!--                         <img class="img-fluid" src="/resources/img/movie_star.gif" alt="#"> -->
-                       </div>
-                        <div class="col-lg-6 mb-0 d-flex align-items-center">
-                            <div class="text-align-left align-self-center">
-<!--                                 <h1 class="h1 text-success"><b>MOBOMOBO'S</b> HOME</h1> -->
-<!--                                 <h3 class="h2">MOBOMOBO</h3> -->
-<!--                 	                <p> -->
-<!--                                 	  MOVIE & BOOK  <a rel="sponsored" class="text-success" href="https://templatemo.com" target="_blank">TemplateMo</a> website.  -->
-                                   
-                                    
-<!--                                 </p> -->
-                            </div>
-                        </div>
+                     <img class="img-fluid" src="/resources/img/maindis2.gif" >
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item test1" style="height:500px;">
                 <div class="container">
                     <div class="row p-5">
-                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="/resources/img/PO2.jpg" alt="">
-                        </div>
-                        <div class="col-lg-6 mb-0 d-flex align-items-center">
-                            <div class="text-align-left">
-                                <h1 class="h1">아이 엠 히스레저</h1>
-                                <h3 class="h2">Aliquip ex ea commodo consequat</h3>
-                                <p>
-                                    You are permitted to use this Zay CSS template for your commercial websites. 
-                                    You are <strong>not permitted</strong> to re-distribute the template ZIP file in any kind of template collection websites.
-                                </p>
-                            </div>
-                        </div>
+                       <img class="img-fluid" src="/resources/img/mainbook3.gif"  >
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item test2" style="height:500px;">
                 <div class="container">
                     <div class="row p-5">
-                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="/resources/img/PO3.jpg" alt="">
-                        </div>
-                        <div class="col-lg-6 mb-0 d-flex align-items-center">
-                            <div class="text-align-left">
-                                <h1 class="h1">빌리 엘리어트</h1>
-                                <h3 class="h2">Ullamco laboris nisi ut </h3>
-                                <p>
-                                    We bring you 100% free CSS templates for your websites. 
-                                    If you wish to support TemplateMo, please make a small contribution via PayPal or tell your friends about our website. Thank you.
-                                </p>
-                            </div>
+                       
+                        <img class="img-fluid" src="/resources/img/mainmovie5.gif" >
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item test3" style="height:500px;">
+                <div class="container">
+                    <div class="row p-5">
+                        
+                            <img class="img-fluid" src="/resources/img/MCU1.gif" >
+                        
+                        
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+       
+        
+        
+        
+        
+        
         <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
             <i class="fas fa-chevron-left"></i>
         </a>
         <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
             <i class="fas fa-chevron-right"></i>
         </a>
-    </div>
+    
     <!-- End Banner Hero -->
     
     
