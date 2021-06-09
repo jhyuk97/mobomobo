@@ -63,15 +63,19 @@ a { text-decoration:none; }
         
         <c:forEach items="${list }" var="item">
         
+        
           <div class="col-md-3 ftco-animate">
             <div class="blog-entry">
-              <a href="/mobo/book/detail?bookBestno=${item.bookBestno }" class="block-20" style="background-image: url('/resources/board/images/1917.jpg');">
+            
+            
+              <a href="/mobo/book/famousDetail?bookBestno=${item.BOOKBESTNO }" class="block-20" style="background-image: url('/upload/${item.STOREDIMG }');">
               </a>
+            
               <div class="text p-4 d-block">
                 <div class="meta mb-3">
-                  <div><a href="/mobo/book/detail?bookBestno=${item.bookBestno }">${item.bestTitle }</a></div>
+                  <div><a href="/mobo/book/famousDetail?bookBestno=${item.BOOKBESTNO }">${item.BESTTITLE }</a></div>
                 </div>
-                <h3 class="heading"><a href="/mobo/book/detail?bookBestno=${item.bookBestno }">${item.bookTitle } | ${item.bookAuthor } | <fmt:formatDate value="${item.writeDate }" pattern="yyyy-MM-dd"/></a></h3>
+                <h3 class="heading"><a href="/mobo/book/famousDetail?bookBestno=${item.BOOKBESTNO }">${item.BOOKTITLE }| ${item.BOOKAUTHOR }</a></h3>
               </div>
             </div>
           </div>

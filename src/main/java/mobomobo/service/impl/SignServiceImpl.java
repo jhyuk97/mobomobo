@@ -172,6 +172,42 @@ public class SignServiceImpl implements SignService{
 	}
 
 
+	@Override
+	public String findUserId(UserInfo userInfo) {
+		
+		logger.info("service의 findUserId 접속 완료");
+		
+		UserInfo id = signDao.selectFindUserId(userInfo);
+		
+		logger.info("DAO 처리한 id의 값 : {}",id);
+		
+		if(id == null) {
+			
+			logger.info("id값이 공백이면");
+			
+			return null;
+//			return id;
+		} else {
+			logger.info("DAO 처리한 id의 값중 id만 추출 : {}",id.getId());
+			
+			return id.getId();
+			
+		}
+			
+	}
+
+
+	@Override
+	public UserInfo findUserPw(UserInfo userInfo) {
+		
+		logger.info("service의 findUserPw 접속 완료");
+		
+
+		
+		return signDao.selectFindUserPw(userInfo);
+	}
+
+
 
 
 }

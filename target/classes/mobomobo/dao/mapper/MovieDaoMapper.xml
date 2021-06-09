@@ -115,7 +115,7 @@
   
   <select id="selectMovieBestComment" parameterType="int" resultType="mobomobo.dto.MovieBestComment">
   
-  SELECT * FROM (
+ 	SELECT * FROM (
 			SELECT rownum rnum, B.* FROM (
 				SELECT
 					commentNo
@@ -125,11 +125,12 @@
 					, commentText
 					, commentDate
 					, commentDiv
-				FROM moviebestcomment
-				WHERE movieBestNo = #{movieBestNo}
+                    , (select count(*) from moviebestcommentlike cl where cl.commentNo = c.commentNo) commentcnt
+				FROM moviebestcomment c
+				WHERE movieBestNo = #{movieBesNo}
 				ORDER BY commentDate
 			) B
-		) ORDER BY rnum
+		) ORDER BY rnum	
   
 
   </select>

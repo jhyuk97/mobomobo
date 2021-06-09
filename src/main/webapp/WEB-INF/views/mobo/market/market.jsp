@@ -184,6 +184,7 @@ a { text-decoration:none; }
 <!--                     </ul> -->
 <!--                 </div> -->
 					<a href="/mobo/market/write"><button>글쓰기</button></a>
+					<a href="/mobo/market/chat"><button>채팅리스트 가기</button></a>
 					<%@include file="/WEB-INF/views/mobo/market/paging.jsp" %>
 
             </div>

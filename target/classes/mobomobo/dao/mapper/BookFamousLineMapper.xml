@@ -7,21 +7,54 @@
   	<select id="selectCntAll" resultType="int">
 		 SELECT COUNT(*) FROM bookbest
   	</select>
-  	<select id="selectList" resultType="mobomobo.dto.BookBest" parameterType="mobomobo.util.BookBestPaging">
-  		SELECT * FROM(
-		 	SELECT rownum rnum,B.* FROM(
-		 		SELECT *
-		 		FROM bookbest
-		 		ORDER BY bookbestno DESC
-		 		)B
-		 	) BOARD
-	 	WHERE rnum BETWEEN #{startNo } AND #{endNo }
+  	<select id="selectList" resultType="HashMap" parameterType="mobomobo.util.BookBestPaging">
+  		SELECT * FROM (
+		    SELECT rownum rnum, M.* FROM (
+		        SELECT MB.bookbestno, MB.besttitle, MB.bestcontext,MB.bookauthor,MB.booktitle,MB.userno,MB.writedate, MI.fileno, MI.storedimg FROM bookbest MB, (
+		        SELECT MO.* FROM (
+		            SELECT row_number() over (partition by bookbestno order by fileno) rnum
+		            , storedimg, bookbestno, fileno FROM bookbestimg
+		            ) MO
+		            WHERE rnum = 1
+		        )MI
+		        WHERE MB.bookbestno = MI.bookbestno(+)
+		        ORDER BY bookbestno DESC
+		        )M
+		    )bookbest 
+		  WHERE rnum BETWEEN #{startNo } AND #{endNo }
+  	</select>
+  	<select id="selectCntBookBestNo" resultType="int">
+  		SELECT bookbest_seq.nextval FROM dual 
   	</select>
   	<insert id="insertBookBest" parameterType="mobomobo.dto.BookBest">
   		INSERT INTO bookbest(bookbestno, userno,besttitle,bestcontext,booktitle,bookauthor,publicationdate)
-  		VALUES(BOOKBEST_SEQ.nextval, #{userno },#{bestTitle },#{bestContext },#{bookTitle },#{bookAuthor },#{publicationDate })
+  		VALUES(#{bookBestno }, #{userno },#{bestTitle },#{bestContext },#{bookTitle },#{bookAuthor },#{publicationDate })
   	</insert>
+  	
+  	<select id="selectBookBestImgFileNo" resultType="int">
+  		SELECT bookbestimg_seq.nextval FROM dual
+  	</select>
+  	<insert id="insertBookBestImg" parameterType="mobomobo.dto.BookBestImg">
+  		INSERT INTO bookbestimg(fileno,bookbestno,originimg,storedimg,filesize,contenttype)
+  		VALUES(#{fileno },#{bookBestno },#{originImg },#{storedImg },#{fileSize }, #{contentType })
+  	</insert>
+  	
+  	<select id="selectBookBest" parameterType="String" resultType="mobomobo.dto.BookBest">
+  		SELECT * FROM bookbest
+  		WHERE bookbestno = #{bookBestno }
+  	</select>
   
+  	<select id="selectBookBestImg" parameterType="String" resultType="mobomobo.dto.BookBestImg">
+  		SELECT * FROM bookbestimg
+  		WHERE bookbestno = #{bookBestno }
+  	</select>
+  	<select id="selectImgList" resultType="mobomobo.dto.BookBestImg">
+  		SELECT * FROM bookbestimg
+  	</select>
+  	<delete id="deleteBookBest" parameterType="String">
+  		DELETE FROM bookbest
+  		WHERE bookbestno = #{bookBestno }
+  	</delete>
   
   
   </mapper>

@@ -59,5 +59,19 @@ public interface SignDao {
 	 * @return
 	 */
 	public UserInfo selectKakaoUserInfo(Object object);
+	
+	/**
+	 * 아이디 찾기
+	 * @param userInfo
+	 * @return
+	 */
+	public UserInfo selectFindUserId(UserInfo userInfo);
+	
+	/**
+	 * 입력한 값중에서 id로 비밀번호 찾기
+	 * @param userInfo  - 입력한 정보
+	 * @return pw
+	 */
+	public UserInfo selectFindUserPw(UserInfo userInfo);
 
 }

@@ -12,7 +12,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="mobomobo">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	
 		<!-- 마이바티스 쿼리 Loggers -->
