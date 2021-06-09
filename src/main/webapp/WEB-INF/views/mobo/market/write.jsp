@@ -12,7 +12,11 @@
 		</div>
 		
 		<div>
-			<p>카테고리 <select id="mCate" name="mCate"><option value="영화">영화</option><option value="책">책</option></select></p>
+			<p>카테고리 <select id="mCate" name="mCate">
+						<option value="영화">영화</option>
+						<option value="책">책</option>
+						<option value="대본집">대본집</option>
+					  </select></p>
 		</div>
 		
 		<div>
@@ -21,7 +25,8 @@
 		</div>
 		
 		<div>
-			<p>이미지<input type="file" multiple="multiple" accept=".jpg, .png" name="file"/></p>
+			<p>이미지<input id="imgfile" type="file" multiple="multiple" accept=".jpg, .png" name="file" maxlength="10"/></p>
+			<div id="ImgPreview"></div>
 		</div>
 		
 		<div>
@@ -65,4 +70,49 @@ $(document).ready(function(){
 	})
 	
 })
+
+
+function ImagePreview(input){
+	const container = document.getElementById("ImgPreview");
+	
+	if(input.files){
+		
+		const fileArr = Array.from(input.files)
+		
+		const $Div = document.createElement("div")
+		
+		fileArr.forEach((file, index) => {
+			const reader = new FileReader()
+			
+			const $imgDiv = document.createElement("div")   
+            const $img = document.createElement("img")
+            $img.classList.add("image")
+            const $label = document.createElement("label")
+            $label.classList.add("image-label")
+            $label.textContent = file.name
+            
+            $imgDiv.appendChild($img)
+            $imgDiv.appendChild($label)
+            reader.onload = e => {
+                $img.src = e.target.result
+                
+                $imgDiv.style.width = ($img.naturalWidth) * 0.2 + "px"
+                $imgDiv.style.height = ($img.naturalHeight) * 0.2 + "px"
+            }
+            
+            $Div.appendChild($imgDiv)
+            reader.readAsDataURL(file)
+		})
+		
+		container.appendChild($Div)
+	}
+}
+
+
+const Image = document.getElementById("imgfile")
+
+Image.addEventListener("change", e => {
+	ImagePreview(e.target)
+})
+
 </script>

@@ -10,6 +10,7 @@ import mobomobo.dto.Movie;
 import mobomobo.dto.MovieAward;
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
+import mobomobo.dto.MovieBestCommentLike;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
 import mobomobo.dto.MovieCrawler;
@@ -122,6 +123,38 @@ public interface MovieService {
 	public String getStarAvgOfSingle(String key);
 
 	public List<MovieCrawler> getMovieCrawler(String title, String directors);
+	
+	
+	/**
+	 * 추천 상태 확인 
+	 * @param movieBestLike
+	 * @return
+	 */
+	public boolean isMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike);
+	
+	/**
+	 * 확인 및 취소 
+	 * @param movieBestLike
+	 * @return
+	 */
+	public boolean movieCommentlike(MovieBestCommentLike movieBestCommentLike);
+	
+	/**
+	 * 총 추천 수 
+	 * @param movieBestLike
+	 * @return
+	 */
+	public int getTotalCntMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike);
+	
+	
+	
+	/**
+	 * 댓글 좋아요 리스트
+	 * @param movieBestNo
+	 * @return
+	 */
+
+	public List<MovieBestCommentLike> getMovieBestCommentLikeList(int movieBestNo);
 
 
 }
