@@ -456,7 +456,7 @@ function deleteComment(commentno){
       
         
           <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
-          <a href="#" class="image" style="background-image: url('/resources/board/images/moviedetail3.gif'); " data-scrollax=" properties: { translateY: '-20%'}"></a>
+          <a href="#" class="image" style="background-image: url('https://source.unsplash.com/1600x900/?book/1'); " data-scrollax=" properties: { translateY: '-20%'}"></a>
 
             <div class="text">
               <h4 class="subheading">#HIGHLIGHT 1</h4>
@@ -469,7 +469,7 @@ function deleteComment(commentno){
           </div>
           
           <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
-           <a href="#" class="image image-2 order-2" style="background-image: url('/resources/board/images/moviedetail2.jpg');" data-scrollax=" properties: { translateY: '-20%'}">
+           <a href="#" class="image image-2 order-2" style="background-image: url('https://source.unsplash.com/1600x900/?book/2');" data-scrollax=" properties: { translateY: '-20%'}">
             </a>
             <div class="text">
               <h4 class="subheading">#HIGHLIGHT 2</h4>
@@ -482,7 +482,7 @@ function deleteComment(commentno){
           </div>
           
           <div class="block-3 d-md-flex ftco-animate" data-scrollax-parent="true">
-          <a href="#" class="image" style="background-image: url('/resources/board/images/moviedetail3.gif'); " data-scrollax=" properties: { translateY: '-20%'}"></a>
+          <a href="#" class="image" style="background-image: url('https://source.unsplash.com/1200x700/?book/3'); " data-scrollax=" properties: { translateY: '-20%'}"></a>
             <div class="text">
               <h4 class="subheading">#HIGHLIGHT 3</h4>
               <h1 id="title" class="heading">#3명대사</h1> <!-- 마찬가지로 header에 title 코드 있음 -->

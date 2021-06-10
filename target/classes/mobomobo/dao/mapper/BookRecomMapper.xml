@@ -76,12 +76,15 @@
   		WHERE isbn = #{isbn } AND userno = #{userno }  
   	</update>
   	<select id="selectAgeAvgByisbn" parameterType="String" resultType="HashMap">
-  		SELECT
-		    distinct S.age, ( SELECT 
-		                avg(R.starrating) FROM bookstarrating R WHERE S.age = R.age AND s.isbn = r.isbn) avg
-		FROM bookstarrating S
-		WHERE isbn =#{isbn }
-		ORDER BY S.age
+<!--   		SELECT -->
+<!-- 		    distinct S.age, ( SELECT  -->
+<!-- 		                avg(R.starrating) FROM bookstarrating R WHERE S.age = R.age AND s.isbn = r.isbn) avg -->
+<!-- 		FROM bookstarrating S -->
+<!-- 		WHERE isbn =#{isbn } -->
+<!-- 		ORDER BY S.age -->
+			select age,AVG(starrating) AVG from bookstarrating
+			where isbn = #{isbn }
+			group by age
   	</select>
   	
   	<select id="selectAllCnt" parameterType="mobomobo.util.BookBestPaging" resultType="int">

@@ -36,10 +36,7 @@ public class BookRecomServiceImpl implements BookRecomService{
 		
 		
 		for(int i = 0; i< isbn.length; i++) {
-			
-			
 			list.add(bookRecomDao.selectBookStarRating( isbn[i].substring(0,isbn[i].indexOf(" ")) )); 
-			
 		}		
 		
 		
