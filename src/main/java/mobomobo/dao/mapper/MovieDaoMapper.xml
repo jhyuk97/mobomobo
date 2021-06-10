@@ -197,7 +197,22 @@
    		ORDER BY movieno DESC
    </select>
    
+		<insert id="InsertMovieBestBookmark" parameterType="mobomobo.dto.BookMark">
 	
+	INSERT INTO bookmark(bookmarkno, userno, category, key, title, image)
+	values(bookmarkno_seq.nextval, #{userno}, #{category}, #{key}, #{title}, #{image})
+	
+	</insert>
+	
+	<delete id="DeleteMovieBestBookmark" parameterType="mobomobo.dto.BookMark">
+		DELETE bookmark
+		where userno=#{userno} and key=#{key}
+	</delete>
+	
+	<select id="CheckMovieBestBookmark" parameterType="mobomobo.dto.BookMark" resultType="int">
+		SELECT COUNT(*) from bookmark
+		where userno=#{userno} and key=#{key}
+	</select>
 	
 	
 

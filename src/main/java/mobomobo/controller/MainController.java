@@ -43,6 +43,14 @@ public class MainController {
 		return msc;
 	}
 	
+
+	@RequestMapping(value="/errorpage2")
+	public String moviebesterrorpage2() {
+		
+		
+		return "/mobo/errorpage2";
+	}
+	
 	
 
 }
