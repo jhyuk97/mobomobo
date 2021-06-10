@@ -181,5 +181,9 @@ function updateUser() {
         </div>
       </div>
 
+
+<button type="button" class="btn btn-info" data-container="body" data-toggle="popover" data-color="info" data-placement="top" data-content="This is a very beautiful popover, show some love.">
+  Info popover
+</button>
       
     <%@include file="/WEB-INF/views/admin/include/footer.jsp" %>
