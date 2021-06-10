@@ -1,7 +1,6 @@
 package mobomobo.service.face;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
@@ -156,6 +155,8 @@ public interface MovieService {
 	 */
 
 	public List<MovieBestCommentLike> getMovieBestCommentLikeList(int movieBestNo);
+
+	public List<MovieAward> getAwardList();
 
 
 }

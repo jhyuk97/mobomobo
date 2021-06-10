@@ -1,0 +1,16 @@
+DROP TABLE userimg;
+
+CREATE TABLE userimg(
+    userno NUMBER
+    , originimg VARCHAR2(400)
+    , storedimg VARCHAR2(400) DEFAULT 'basig.png'
+    , filesize NUMBER
+    , contenttype VARCHAR2(10)
+);
+
+ALTER TABLE userimg
+ADD CONSTRAINT userimgno_fk
+    FOREIGN KEY (userno)
+    REFERENCES userinfo(userno) ON DELETE CASCADE;
+
+INSERT INTO userimg ( userno )	VALUES ( userinfo_seq.currval );

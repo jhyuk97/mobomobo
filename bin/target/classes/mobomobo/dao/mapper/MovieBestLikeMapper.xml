@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+   <mapper namespace="mobomobo.dao.face.MovieDao">
+   
+   <select id="selectCntMovieBestLike" parameterType="mobomobo.dto.MovieBestLike" resultType="int">
+   
+   SELECT count(*) FROM MovieBestLike
+		WHERE id = #{id, jdbcType=VARCHAR}
+			AND movieBestNo = #{movieBestNo}
+   
+   
+   </select>
+   
+   <insert id="insertMovieBestLike" parameterType="mobomobo.dto.MovieBestLike">
+   
+   insert into MovieBestLike
+   values (#{movieBestNo}, #{id, jdbcType=VARCHAR})
+   
+   
+   </insert>
+   
+   <delete id="deleteMovieBestLike" parameterType="mobomobo.dto.MovieBestLike">
+   
+   delete MovieBestLike
+   where id = #{id, jdbcType=VARCHAR} 
+   	and movieBestNo = #{movieBestNo}
+   
+   </delete>
+   
+   <select id="selectTotalCntMovieBestLike" parameterType="mobomobo.dto.MovieBestLike" resultType="int">
+   
+   select count(*) from MovieBestLike
+   where movieBestNo = #{movieBestNo}
+   
+   
+   </select>
+   
+ 
+   <select id="selectCntMovieBestCommentLike" parameterType="mobomobo.dto.MovieBestCommentLike" resultType="int">
+   
+   SELECT count(*) FROM moviebestcommentlike
+   WHERE commentNo = #{commentNo} AND id = #{id}	
+   
+   
+   </select>
+   
+   <insert id="insertMovieBestCommentLike" parameterType="mobomobo.dto.MovieBestCommentLike">
+   
+   insert into moviebestcommentlike
+   values (#{commentNo}, #{id}, #{movieBestNo})
+   
+   
+   </insert>
+   
+   <delete id="deleteMovieBestCommentLike" parameterType="mobomobo.dto.MovieBestCommentLike">
+   
+   delete moviebestcommentlike
+   where id = #{id} 
+   	and commentNo = #{commentNo} 
+   
+   </delete>
+   
+   <select id="selectTotalCntMovieBestCommentLike" parameterType="mobomobo.dto.MovieBestCommentLike" resultType="int">
+   
+   select count(*) from moviebestcommentlike
+   where commentNo = #{commentNo} and movieBestNo =#{movieBestNo}
+   
+   
+   </select>
+   
+   
+   <select id="selectMovieBestCommentLike" parameterType="int" resultType="mobomobo.dto.MovieBestComment">
+   
+     SELECT * FROM (
+			SELECT rownum rnum, B.* FROM (
+				SELECT
+					commentNo
+					, movieBestNo
+					, id
+				FROM moviebestcommentlike
+				WHERE movieBestNo = #{movieBestNo}
+				ORDER BY commentno
+			) B
+		) ORDER BY rnum
+   
+   
+   </select>
+   
+   
+    <select id="selectCntAllMovieBestCommentLike" parameterType="mobomobo.dto.MovieBestCommentLike" resultType="int">
+   
+   SELECT count(*) FROM moviebestcommentlike
+   WHERE commentNo = #{commentNo} 
+   
+   </select>
+   
+   
+   
+     </mapper>

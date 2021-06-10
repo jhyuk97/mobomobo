@@ -888,6 +888,11 @@ public class MovieServiceImpl implements MovieService{
 		return movieDao.selectMovieBestCommentLike(movieBestNo);
 	}
 	
+	@Override
+	public List<MovieAward> getAwardList() {
+		return movieDao.selectAwardList(); 
+	}
+	
 	
 	
 	
