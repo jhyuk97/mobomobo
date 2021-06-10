@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import mobomobo.dao.face.BookRecomDao;
 import mobomobo.dto.BookBest;
+import mobomobo.dto.BookKey;
 import mobomobo.dto.BookMark;
-import mobomobo.dto.BookStarRating;
 import mobomobo.dto.BookStarRatingInsert;
 import mobomobo.service.face.BookRecomService;
 import mobomobo.util.BookBestPaging;
@@ -36,10 +36,7 @@ public class BookRecomServiceImpl implements BookRecomService{
 		
 		
 		for(int i = 0; i< isbn.length; i++) {
-			
-			
 			list.add(bookRecomDao.selectBookStarRating( isbn[i].substring(0,isbn[i].indexOf(" ")) )); 
-			
 		}		
 		
 		
@@ -158,6 +155,35 @@ public class BookRecomServiceImpl implements BookRecomService{
 	@Override
 	public List<HashMap<String, Object>> getAgeAvg(String isbn) {
 		return bookRecomDao.selectAgeAvgByisbn(isbn);
+	}
+
+	@Override
+	public List<BookKey> getAdminRecomList(BookBestPaging paging) {
+		
+		return bookRecomDao.selelctAdminBookRecomList(paging);
+	}
+
+	@Override
+	public BookBestPaging getAdminPaging(BookBestPaging inData) {
+		// 총 게시글 수 조회
+		int totalCount = bookRecomDao.selectAllCnt(inData);
+		// 페이징 계산
+		BookBestPaging paging = new BookBestPaging(totalCount,inData.getCurPage());
+		return paging;
+	}
+
+	@Override
+	public void deleteRecom(BookKey bookKey) {
+		bookRecomDao.deleteBookKey(bookKey);
+	}
+
+	@Override
+	public void insertBookKey(BookKey bookKey) {
+		
+		if(bookRecomDao.selectBookKeyCnt(bookKey) == 0) {
+			bookRecomDao.insertBookKeyByAward(bookKey);
+		}
+		
 	}
 
 	

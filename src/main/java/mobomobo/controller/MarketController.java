@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.socket.WebSocketSession;
-
-import mobomobo.util.Paging;
 import mobomobo.util.chat.Chat;
 import mobomobo.util.chat.ChatRooms;
 import mobomobo.dto.BookMark;
@@ -27,6 +25,7 @@ import mobomobo.dto.ChatLog;
 import mobomobo.dto.Market;
 import mobomobo.dto.MarketImg;
 import mobomobo.service.face.MarketService;
+import mobomobo.util.Paging;
 
 @Controller
 @RequestMapping(value="/mobo/market")
@@ -188,7 +187,7 @@ public class MarketController {
 	public ModelAndView Chatroom(ChatLog data, ModelAndView mav) {
 		
 		List<ChatLog> log = marketService.selectLog(data.getRoomid());
-				
+		
 		mav.addObject("log", log);
 		mav.addObject("roomid", data.getRoomid());
 		mav.addObject("mTitle", data.getmTitle());

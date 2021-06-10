@@ -28,13 +28,6 @@
           <div class="card shadow">
             <div class="card-header border-0">
               <h1 class="mb-0">책 명대사</h1>
-              <div>
-	         <div id="plz">
-			 	<button type="button" class="btn btn-outline-primary" style="float: right;" id="btnSearch" >검색</button>
-   				<input type="text" class="form-control" style="float: right; 	width: 200px;" id="search" value="${param.search }" placeholder="회원이름으로 검색하세요">
-			</div>
-			<br>
-			</div>
               
               
             </div>

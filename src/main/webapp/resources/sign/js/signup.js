@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	
 	
-	var uidReg = /^[A-Za-z0-9]{8,}$/
+	var uidReg = /^[A-Za-z0-9]{6,}$/
 	var upwReg = /^[A-Za-z0-9]{8,}$/
 	var emailReg = /^[_\.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+\.)+[a-zA-Z]{2,6}$/i;
 	var telReg = /^\d{3}\d{3,4}\d{4}$/;
@@ -18,7 +18,7 @@ $(document).ready(function() {
 		$("#id").keyup(function() {
 			if( !uidReg.test( $("#id").val())) {
 				$("#idMsg_cor").html("");
-				$("#idMsg").html("8자 이상 영문/숫자로 입력");
+				$("#idMsg").html("6자 이상 영문/숫자로 입력");
 				$("#idbtn").attr('disabled', true);
 				idFlag = "false";
 			} else {

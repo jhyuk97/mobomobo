@@ -10,7 +10,7 @@
 
 $(document).ready(function() {	
 	
-	var uidReg = /^[A-Za-z0-9]{8,}$/;
+	var uidReg = /^[A-Za-z0-9]{6,}$/;
 	var emailReg = /^[_\.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+\.)+[a-zA-Z]{2,6}$/i;
 	var idFlag = "";
 	var emFlag = "";

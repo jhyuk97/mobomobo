@@ -1,13 +1,9 @@
 package mobomobo.dao.face;
 
-import java.util.HashMap;
 import java.util.List;
 
 import mobomobo.dto.BookMark;
-import mobomobo.dto.Movie;
 import mobomobo.dto.MovieAward;
-import java.util.List;
-
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
 import mobomobo.dto.MovieBestCommentLike;
