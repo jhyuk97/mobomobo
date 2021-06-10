@@ -30,7 +30,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Brand -->
-      <a class="navbar-brand pt-0" href="/admin/main">
+      <a class="navbar-brand pt-0" href="/mobo/main">
         <img src="/resources/admin/img/brand/logoadmin.png" class="navbar-brand-img" alt="...">
       </a>
       
