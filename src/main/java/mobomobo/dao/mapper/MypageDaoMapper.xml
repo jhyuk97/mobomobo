@@ -20,20 +20,27 @@
 	<select id="selectMyWritingByUserNo" parameterType="int" resultType="mobomobo.dto.MyPage">
 		SELECT * FROM (
 		    SELECT rownum rnum, B.* FROM (
-		        SELECT dtitle as title, ddate As wdate, hit, boarddiv FROM debate
+		        SELECT dno as boardno, dtitle as title, ddate As wdate, hit, boarddiv FROM debate
 		        WHERE boarddiv = 4
 		        AND userno = #{userno}
 		        UNION
-		        SELECT dtitle as title, ddate As wdate, hit, boarddiv FROM debate
+		        SELECT dno as boardno, dtitle as title, ddate As wdate, hit, boarddiv FROM debate
 		        WHERE boarddiv = 5
 		        AND userno = #{userno}
 		        UNION
-		        SELECT mtitle as title , mdate As wdate, mviews as hit, boarddiv FROM market
+		        SELECT mno as boardno, mtitle as title , mdate As wdate, mviews as hit, boarddiv FROM market
 		        WHERE boarddiv = 3
 		        AND userno = #{userno}
 		    )B 
 		    ORDER BY wdate DESC
 		)
+	</select>
+	
+	<select id="selectUserInfoCnt" parameterType="mobomobo.dto.UserInfo" resultType="int">
+		SELECT count(*) FROM userinfo
+		WHERE 1=1
+		AND id = #{id}
+		AND userpw = #{pw}
 	</select>
 
 

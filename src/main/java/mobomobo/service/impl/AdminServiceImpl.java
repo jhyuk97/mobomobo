@@ -228,13 +228,6 @@ public class AdminServiceImpl implements AdminService{
 		
 		
 	}
-<<<<<<< HEAD
-=======
 
-	
-	
-	
-	
->>>>>>> 41ce4d0931f14e7bc5766ecd9e98ff5d9fda7862
 	
 }

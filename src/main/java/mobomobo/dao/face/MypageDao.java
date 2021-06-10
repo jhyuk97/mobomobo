@@ -14,5 +14,7 @@ public interface MypageDao {
 
 	public List<MyPage> selectMyWritingByUserNo(int userno);
 
+	public int selectUserInfoCnt(UserInfo userinfo);
+
 
 }

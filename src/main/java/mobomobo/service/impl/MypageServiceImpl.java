@@ -46,5 +46,18 @@ public class MypageServiceImpl implements MypageService {
 		return mypage;
 	}
 	
+	@Override
+	public boolean checkUserInfo(UserInfo userinfo) {
+
+		int cnt = mypageDao.selectUserInfoCnt(userinfo);
+		
+		if (cnt > 0) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
 
 }

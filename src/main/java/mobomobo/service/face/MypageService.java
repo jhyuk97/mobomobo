@@ -14,4 +14,6 @@ public interface MypageService {
 
 	public List<MyPage> getMyWriting(int userno);
 
+	public boolean checkUserInfo(UserInfo userinfo);
+
 }

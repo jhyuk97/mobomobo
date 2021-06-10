@@ -2,15 +2,9 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<<<<<<< HEAD
 
 <!DOCTYPE html>
-<html>    
-=======
-   
-<!DOCTYPE html>
 <html>
->>>>>>> 41ce4d0931f14e7bc5766ecd9e98ff5d9fda7862
 <head>
 
 <!-- jquery -->
