@@ -511,7 +511,7 @@ color: #bcbcbc;
         </div><!-- row 끝 -->
         
      <div class="button1">   
-    <button class="bubbly-button">북마크</button>    
+    <button id="moviebestbookmark" class="bubbly-button">북마크</button>    
     </div>
     
     <div class="button2">   
@@ -644,7 +644,33 @@ color: #bcbcbc;
 		  bubblyButtons[i].addEventListener('click', animateButton, false);
 		}
 
-		
+		$("#moviebestbookmark").click(function(){
+			if(${login ne true}){
+				alert('로그인 후 가능합니다');
+			}else{
+				$.ajax({
+					url: '/mobo/movie/moviebest/bookmark',
+					data: {key: ${view.movieBestNo}, category:"moviebest", userno: ${userno} , title: "${view.title}"},
+					type: 'POST',
+					dataType: 'json',
+					success: function(res){
+						console.log(res);
+						
+						console.log(res.check);
+						
+						if(res.check){
+							$("#moviebestbookmark")
+							.html('북마크');
+						}else{
+							$("#moviebestbookmark")
+							.html('북마크 취소');
+						}
+						
+					}
+				})
+			}
+		});
+
 </script>
     
    
