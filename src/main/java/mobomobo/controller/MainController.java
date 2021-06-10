@@ -43,7 +43,7 @@ public class MainController {
 		return msc;
 	}
 	
-
+//이거는 왜한거에요?? 에러페이지 jsp 테스트염ㅋ 혹시 저거 지우고하면 에러 안나요? ㅠ....저거 지워도 이제 ㅇ돌아올수없는강을건넛어염ㅋ
 	@RequestMapping(value="/errorpage2")
 	public String moviebesterrorpage2() {
 		
@@ -52,5 +52,4 @@ public class MainController {
 	}
 	
 	
-
 }

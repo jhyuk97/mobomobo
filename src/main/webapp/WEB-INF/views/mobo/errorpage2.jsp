@@ -1893,13 +1893,13 @@ div {
 
 .error {
 	font-family: 'MaruBuri-Regular';
-	fonr-size: 50px;
+	font-size: 30px;
 	
 }
 
 .error2 {
 	font-family: 'MaruBuri-Regular';
-	fonr-size: 50px;
+	font-size: 30px;
 }
 
 .wrap {
@@ -1976,11 +1976,10 @@ div {
 죄송합니다</h1>
 
 <h1 class="error2">
-로그인 후 이용바랍니다
+에러가 발생했습니다
 </h1>
 
-<button id="home" class="btn btn-outline-fill" onclick='location.href="/mobo/main";'>홈</button>
-<button id="login" class="btn btn-outline-fill" onclick='location.href="/mobo/sign/login";'>로그인</button>
+<button id="home" class="btn btn-outline-fill" onclick='location.href="/mobo/main";'>무부무부로 돌아가기</button>
 
 </div>
 
