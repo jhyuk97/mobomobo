@@ -91,8 +91,8 @@
 	
 	
 	<insert id="InsertBookmark" parameterType="mobomobo.dto.BookMark">
-		INSERT INTO bookmark(bookmarkno, userno, category, key)
-		values(bookmarkno_seq.nextval, #{userno}, #{category}, #{key})
+		INSERT INTO bookmark(bookmarkno, userno, category, key, title)
+		values(bookmarkno_seq.nextval, #{userno}, #{category}, #{key}, #{title})
 	</insert>
 	
 	<delete id="DeleteBookmark" parameterType="mobomobo.dto.BookMark">

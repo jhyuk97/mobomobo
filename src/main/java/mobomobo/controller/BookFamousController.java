@@ -104,12 +104,13 @@ public class BookFamousController {
 	}
 	
 	@RequestMapping(value="/bookMark")
-	public @ResponseBody int bookMark(String bookBestno, HttpSession session) {
+	public @ResponseBody int bookMark(String bookBestno, String title, HttpSession session) {
 		logger.info("/bookMark ");
 		
 		BookMark bookMark = new BookMark();
 		bookMark.setKey(bookBestno);
 		bookMark.setUserno((int)session.getAttribute("userno"));
+		bookMark.setTitle(title);
 		
 		return bookFamousLineService.viewBookMark(bookMark);
 		

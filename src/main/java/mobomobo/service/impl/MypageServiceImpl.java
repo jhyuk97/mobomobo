@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mobomobo.dao.face.MypageDao;
+import mobomobo.dto.BookMark;
 import mobomobo.dto.MyPage;
 import mobomobo.dto.UserImg;
 import mobomobo.dto.UserInfo;
@@ -57,6 +58,12 @@ public class MypageServiceImpl implements MypageService {
 			return false;
 		}
 		
+	}
+	
+	@Override
+	public List<BookMark> getMyBookMark(int userno) {
+		
+		return mypageDao.selectMyBookMarkByUserNo(userno);
 	}
 	
 

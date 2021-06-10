@@ -42,6 +42,13 @@
 		AND id = #{id}
 		AND userpw = #{pw}
 	</select>
+	
+	<select id="selectMyBookMarkByUserNo" parameterType="int" resultType="mobomobo.dto.BookMark">
+		SELECT rownum as rnum, B.* FROM (
+			SELECT * FROM bookmark
+			WHERE userno = #{userno}
+		) B
+	</select>
 
 
 </mapper>

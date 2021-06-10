@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import mobomobo.dto.BookMark;
 import mobomobo.dto.MyPage;
 import mobomobo.dto.UserImg;
 import mobomobo.dto.UserInfo;
@@ -64,6 +65,17 @@ public class MypageController {
 		List<MyPage> myWriting = mypageService.getMyWriting(userno);
 		
 		return myWriting;
+		
+	}
+	
+	@RequestMapping(value="/mobo/mypage/bookmarkView")
+	public @ResponseBody List<BookMark> bookmarkView(HttpSession session) {
+		
+		int userno = (int)session.getAttribute("userno");
+		
+		List<BookMark> myBookMark = mypageService.getMyBookMark(userno); 
+		
+		return myBookMark;
 		
 	}
 }

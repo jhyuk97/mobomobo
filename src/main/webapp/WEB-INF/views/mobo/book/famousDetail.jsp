@@ -284,7 +284,8 @@ function clickBookMark(){
 	$.ajax({
 		type: "GET"
 		, url: "/mobo/book/bookMark"
-		, data: { "bookBestno": '${detail.bookBestno }' }
+		, data: { "bookBestno": '${detail.bookBestno }'
+				, 'title' : '${detail.bestTitle }'}
 		, dataType: "json"
 		, success: function( result ) {
 			console.log("성공");

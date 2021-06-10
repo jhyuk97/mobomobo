@@ -77,7 +77,7 @@ a, a:visited {
 	  <li><a title="INFO" onclick="infoView()">INFO</a></li>
 	  <li><a title="WRITING" onclick="writingView()" >WRITING</a></li>  
 	  <li><a title="COMMENT" >COMMENT</a></li>
-	  <li><a title="BOOKMARK">BOOKMARK</a></li>  
+	  <li><a title="BOOKMARK" onclick="bookmarkView()">BOOKMARK</a></li>  
 	  <li><a title="COUPON">COUPON</a></li>
 	</ul>
 
@@ -240,6 +240,76 @@ function writingView() {
 			
 			$("#userInfoBox").html(html);
 		}
+	})
+}
+
+function bookmarkView() {
+	
+	$.ajax({
+		type : 'get'
+		, url : '/mobo/mypage/bookmarkView'
+		, dataType : 'json'
+		, success : function(data) {
+			
+			$("#userInfoBox").html("");
+			
+			var html = "";
+			
+			html += "<table>"
+			html += "	<tr>"
+			html += "		<th>번호</th>"
+			html += "		<th>제목</th>"
+			html += "		<th>카테고리</th>"
+			html += "		<th>삭제</th>"
+			html += "	</tr>"
+			
+			for(var i=0; i<data.length; i++) {
+				html += "<tr>"
+				html += "	<td>" + data[i].rnum + "</td>"
+				
+				if(data[i].category == 'movie') {
+					html += "	<td><a href='/mobo/movie/movierecomDetail?key=" + data[i].key  + "&image=" + data[i].image + "'>" + data[i].title + "</a></td>"
+							
+				} else if(data[i].category == 'moviebest') {
+					html += "	<td><a href='/mobo/movie/moviedetail?movieBestNo=" + data[i].key + "'>" + data[i].title + "</a></td>"
+							
+				} else if(data[i].category == 'book') {
+					html += "	<td><a href='/mobo/book/detail?isbn=" + data[i].key +"'>" + data[i].title + "</a></td>"
+							
+				} else if(data[i].category == 'bookbest') {
+					html += "	<td><a href='/mobo/book/famousDetail?bookBestno=" + data[i].key + "'>" + data[i].title + "</a></td>"
+							
+				} else if(data[i].category == 'product') {
+					html += "	<td><a href='/mobo/market/ " + data[i].key + "'>" + data[i].title + "</a></td>"
+				}
+				
+				if(data[i].category == 'movie') {
+					html += "	<td>영화</td>"
+							
+				} else if(data[i].category == 'moviebest') {
+					html += "	<td>영화 명장면</td>"
+							
+				} else if(data[i].category == 'book') {
+					html += "	<td>책</td>"
+							
+				} else if(data[i].category == 'bookbest') {
+					html += "	<td>책 명대사</td>"
+							
+				} else if(data[i].category == 'product') {
+					html += "	<td>중고 마켓</td>"
+				}
+				
+				html += "<td> <input type='checkbox' /> </td>"
+				
+				html += "</tr>"
+			}
+			
+			html+= "</table>"
+			
+			$("#userInfoBox").html(html);
+			
+		}
+			
 	})
 }
 
