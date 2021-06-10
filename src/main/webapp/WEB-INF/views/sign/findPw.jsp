@@ -6,6 +6,17 @@
 <script type="text/javascript" src ="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript">
+$(document).ready(function() {
+	$("#cancel").click(function() {
+		history.go(-1);
+	});
+	
+	$("#id").focus();
+});
+</script>
+
+
+<script type="text/javascript">
 
 
 $(document).ready(function() {	
@@ -19,7 +30,7 @@ $(document).ready(function() {
 	$("#id").keyup(function() {
 		if( !uidReg.test( $("#id").val())) {
 			$("#idMsg_cor").html("");
-			$("#idMsg").html("8자 이상 영문/숫자로 입력");
+			$("#idMsg").html("6자 이상 영문/숫자로 입력");
 			$("#idbtn").attr('disabled', true);
 			idFlag = "false";
 		} else {
@@ -76,15 +87,15 @@ $(document).ready(function() {
 	<br><br>
 	
 	<label for="id">아이디</label>
-	<input type="text" id="id" name="id" />
+	<input type="text" id="id" name="id" /><br>
 	<span id="idMsg"></span><span id="idMsg_cor"></span><br><br>
 		
 	<label for="name">이름</label>
-	<input type="text" id="name" name="name" />
+	<input type="text" id="name" name="name" /><br>
 	<span id="namegenMsg"></span> <br><br>
 	
 	<label for="email">이메일</label>
-	<input type="text" id="email" name="email" />
+	<input type="text" id="email" name="email" /><br>
 	<span id="emailMsg"></span> <span id="cor_num"></span> <span id="wro_num"></span> <br>
 	
 	<br>

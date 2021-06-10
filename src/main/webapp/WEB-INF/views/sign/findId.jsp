@@ -9,7 +9,14 @@
 <script type="text/javascript" src ="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript">
+$(document).ready(function() {
 
+	
+	$("#name").focus();
+});
+</script>
+
+<script type="text/javascript">
 
 $(document).ready(function() {	
 	
@@ -48,13 +55,7 @@ $(document).ready(function() {
 
 </script>
 
-      <section class="ftco-section ">
-       <div class="row no-gutters justify-content-center mb-5 pb-5">
-          <div class="col-md-7 text-center heading-section ftco-animate">
-            <h2 class="mb-4">HIGHLIGHT</h2>
-            <p id="p">당신의 인생 영화, 무부무부에서 만나보세요</p>
-          </div>
-        </div>
+
 
 <br><br><br>
         <div class="container">
@@ -66,11 +67,11 @@ $(document).ready(function() {
 <br>
 	<label for="name">이름</label>
 	<input type="text" id="name" name="name" />
-	<span id="namegenMsg"></span> <br><br>
+	<br><br>
 		
 	<label for="email">이메일</label>
-	<input type="text" id="email" name="email" />
-	<span id="emailMsg"></span> <span id="cor_num"></span> <span id="wro_num"></span> <br>
+	<input type="text" id="email" name="email" /><br>
+	<span id="emailMsg"></span>
 	
 <!-- 	<button type="button" id ="button" class="btn btn-success" data-container="body" data-toggle="popover" data-color="success" data-placement="top" data-content="완료값 불러올꺼임"> -->
 <!--  		아이디 찾기 -->
@@ -83,6 +84,7 @@ $(document).ready(function() {
 	<br>
 
 	<input type="submit" id="submit" value="아이디 찾기" class="btn btn-outline-info">
+
 	<br>
 	<br>
 	<div style="border-top: 1px solid #A48654;">
@@ -92,26 +94,12 @@ $(document).ready(function() {
 
 </form>
 
-<!-- <div> -->오스카
-<!--     <table class="table align-items-center"> -->
-<!--         <thead class="thead-light"> -->
-<!--             <tr> -->
-<!--                 <th scope="col" class="sort" data-sort="name">Project</th> -->
-<!--                 <th scope="col" class="sort" data-sort="budget">Budget</th> -->
-<!--                 <th scope="col" class="sort" data-sort="status">Status</th> -->
-<!--                 <th scope="col">Users</th> -->
-<!--                 <th scope="col" class="sort" data-sort="completion">Completion</th> -->
-<!--                 <th scope="col"></th> -->
-<!--             </tr> -->
-<!--         </thead> -->
-<!-- 	</table> -->
-<!-- 	</div> -->
-	
+
 
 	
 
 </div>
- </section>
+
 
 <br><br><br>
 <%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>

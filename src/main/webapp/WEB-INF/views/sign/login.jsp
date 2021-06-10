@@ -209,7 +209,7 @@ body {
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action="/mobo/sign/login" method="post">
 					<span class="login100-form-title p-b-26">
-						Welcome
+
 						
 <!--   <a id="custom-login-btn" href="javascript:loginWithKakao()"> -->
 <!--   <img -->
