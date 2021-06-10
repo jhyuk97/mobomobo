@@ -1,5 +1,6 @@
 package mobomobo.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -27,9 +28,11 @@ public class MainController {
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public void main(Model model) {
 		
+		List<HashMap<String,Object>> bookList = mainService.getBookStarRatingList();
 		List<MovieStarRating> movieList = mainService.getMovieStarRatingList();
 		
 		model.addAttribute("movieList", movieList);
+		model.addAttribute("bookList", bookList);
 	}
 	
 	@RequestMapping(value="/footer/starRatingCount")

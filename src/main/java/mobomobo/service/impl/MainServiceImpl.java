@@ -1,5 +1,6 @@
 package mobomobo.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public int getMovieStarRatingCount() {
 		return mainDao.selectMovieStarRatingCount();
+	}
+
+	@Override
+	public List<HashMap<String,Object>> getBookStarRatingList() {
+		return mainDao.selectGroupByBookStarRatingAvg();
 	}
 	
 	

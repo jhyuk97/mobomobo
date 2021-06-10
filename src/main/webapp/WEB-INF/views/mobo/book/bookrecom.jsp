@@ -157,16 +157,21 @@ a { text-decoration:none; }
                 data:data,
                 success : function(result){
                    	for(var i = 0; i< result.documents.length; i++){
+                   		var isbn = result.documents[i].isbn.substring(0,10);
+                   		console.log("!!!!!!!!!!!!!!!!!!!!!!!!")
+                   		console.log(isbn)
+                   		console.log("!!!!!!!!!!!!!!!!!!!!!!!!")
+                   		
                    	$("#searchCategory").append(`
                    			<div class="col-md-3">
 				            <div class="blog-entry">
-				            <a href="/mobo/book/detail?isbn=${'${result.documents[i].isbn }'}" class="block-20" style="background-image: url('${'${result.documents[i].thumbnail}'}');">
+				            <a href="/mobo/book/detail?isbn=${'${isbn }'}" class="block-20" style="background-image: url('${'${result.documents[i].thumbnail}'}');">
 				              </a>
 				              <div class="text p-4 d-block">
 				                <div class="meta mb-3">
-				                  <div><a href="/mobo/book/detail?isbn=${'${result.documents[i].isbn }'}">${'${result.documents[i].title }'}</a></div>
+				                  <div><a href="/mobo/book/detail?isbn=${'${isbn }'}">${'${result.documents[i].title }'}</a></div>
 				                </div>
-				                <h6 class="heading"><a href="/mobo/book/detail?isbn=${'${result.documents[i].isbn }'}">작가:${'${result.documents[i].authors }'} </a></h6>
+				                <h6 class="heading"><a href="/mobo/book/detail?isbn=${'${isbn }'}">작가:${'${result.documents[i].authors }'} </a></h6>
 				              </div>
 				            </div>
 				          </div>
@@ -302,9 +307,9 @@ a { text-decoration:none; }
                 	getStarRating(isbn,arrayRating)
                 	
                    	for(var i = 0; i < arrayTitle.length; i++){
-
+                   		var isbn = result.documents[i].isbn.substring(0,10);
 						var img = `
-							<a href="/mobo/book/detail?isbn=${'${result.documents[i].isbn }'}" class="block-20" style="background-image: url('${'${result.documents[i].thumbnail}'}');">
+							<a href="/mobo/book/detail?isbn=${'${isbn }'}" class="block-20" style="background-image: url('${'${result.documents[i].thumbnail}'}');">
 
 						`
                    	
