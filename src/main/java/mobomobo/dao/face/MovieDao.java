@@ -157,5 +157,7 @@ public interface MovieDao {
 	
 	
 
+	public List<MovieAward> selectAwardList();
+
 
 }

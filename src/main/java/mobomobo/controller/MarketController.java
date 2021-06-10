@@ -193,7 +193,7 @@ public class MarketController {
 		mav.addObject("mTitle", data.getmTitle());
 		mav.setViewName("/mobo/market/chatroom");
 		
-		return mav;
+		return mav; 
 	}
 	
 }

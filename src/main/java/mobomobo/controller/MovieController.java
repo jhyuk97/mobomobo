@@ -292,9 +292,15 @@ public class MovieController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 
+	}
+
+	@RequestMapping(value="/awardList")
+	public void awardList(Model model) {
+		
+		List<MovieAward> list = movieService.getAwardList();
+		
+		model.addAttribute("list", list);
 	}
 	
 	
@@ -328,7 +334,6 @@ public class MovieController {
 		
 		return mav;
 	}
-	
 	
 	
 	

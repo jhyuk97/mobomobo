@@ -156,5 +156,7 @@ public interface MovieService {
 
 	public List<MovieBestCommentLike> getMovieBestCommentLikeList(int movieBestNo);
 
+	public List<MovieAward> getAwardList();
+
 
 }

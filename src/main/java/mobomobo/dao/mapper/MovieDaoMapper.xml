@@ -191,6 +191,12 @@
 	WHERE rnum BETWEEN 1 AND 3
    </select>
    
+   <select id="selectAwardList" resultType="mobomobo.dto.MovieAward">
+   		SELECT * FROM movie
+   		WHERE division = 'academy'
+   		ORDER BY movieno DESC
+   </select>
+   
 	
 	
 	

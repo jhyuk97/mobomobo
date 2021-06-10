@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  
+<mapper namespace="mobomobo.dao.face.SignDao">
+
+	<select id="selectId" parameterType="String" resultType="int">
+		SELECT count(*) FROM userinfo
+		WHERE id = #{id}
+	</select>
+	
+	<select id="selectNick" parameterType="String" resultType="int">
+		SELECT count(*) FROM userinfo
+		WHERE nick = #{nick}
+	</select>
+	
+	<insert id="join" parameterType="mobomobo.dto.UserInfo">
+		INSERT INTO userinfo ( userno, id, userpw, nick, name, email, postnum, addr, addrdetail, age)
+		VALUES ( userinfo_seq.nextval, #{id}, #{pw}, #{nick}, #{name}, #{email}, #{postnum}, #{addr}, #{addrdetail}, #{age} )
+	</insert>
+	
+	<insert id="joinUserImg">
+		INSERT INTO userimg ( userno )
+		VALUES ( userinfo_seq.currval )
+	</insert>
+	
+	<select id="login" parameterType="mobomobo.dto.UserInfo" resultType="int">
+		SELECT count(*) FROM userinfo
+		WHERE id = #{id} AND userpw = #{pw}
+	</select>
+	
+	<select id="selectUserInfo" parameterType="String" resultType="mobomobo.dto.UserInfo">
+		SELECT * FROM userinfo
+		WHERE id = #{id}
+	</select>
+	
+	<select id="kakaologin" parameterType="hashMap" resultType="int">
+		SELECT count(*) FROM userinfo
+		WHERE id = #{id}
+	</select>
+	
+	
+	<select id="selectKakaoUserInfo" parameterType="Object" resultType="mobomobo.dto.UserInfo">
+		SELECT * FROM userinfo
+		WHERE id = #{id}
+	</select>
+	
+	<select id="selectFindUserId" parameterType="mobomobo.dto.UserInfo" resultType="mobomobo.dto.UserInfo">
+		SELECT * FROM userinfo
+		WHERE name = #{name} AND email = #{email}
+	</select>
+	
+	<select id="selectFindUserPw" parameterType="mobomobo.dto.UserInfo" resultType="mobomobo.dto.UserInfo">
+		SELECT * FROM userinfo
+		WHERE id = #{id}
+	</select>
+
+
+
+</mapper>  
+
+  
+  
