@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mobomobo.dao.face.AdminDao">
+
+	<sql id="whereTitleSearch">
+        WHERE name LIKE '%' || #{search} || '%' AND NOT id = 'master123'
+	</sql>
+
+	<sql id="selectUserInfo">
+        SELECT
+			userno, name, joindate, age, grade
+        FROM userinfo
+	</sql>
+	
+	<select id="selectCntAll" resultType="int" parameterType="Paging">
+		SELECT COUNT(*) FROM (
+	    	<include refid="selectUserInfo" />
+	    	<include refid="whereTitleSearch" />
+    	)
+	</select>
+	
+	<select id="selectPageList" resultType="UserInfo" parameterType="Paging">
+		SELECT * FROM (
+		    SELECT rownum rnum, B.* FROM (
+		    	<include refid="selectUserInfo" />
+		    	<include refid="whereTitleSearch" />
+		        ORDER BY userno DESC
+		    ) B
+		) R
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<delete id="userDelete" parameterType="UserInfo">
+		DELETE userinfo
+		WHERE userno = #{userno}
+	</delete>
+	
+	<select id="countUser" parameterType="UserInfo" resultType="int">
+		SELECT COUNT(*) FROM userinfo WHERE userno=#{userno}
+	</select>
+	
+	<insert id="insertMovierecom" parameterType="hashmap">
+		INSERT INTO movie (movieno, key, title, image, division)
+		VALUES (movieno_seq.nextval, #{key}, #{title}, #{image}, #{division})
+	</insert>
+	
+	<select id="selectMoiveCnt" resultType="int">
+		SELECT count(*) from movie
+	</select>
+	
+	<select id="selectMovieAwardList" parameterType="mobomobo.util.AdminMovieRecomPaging" resultType="mobomobo.dto.MovieAward">
+		SELECT * FROM (
+   			 SELECT rownum rnum, M.* FROM(
+       			 SELECT movieno, title, key, image, division
+       			 FROM movie
+      			 ORDER BY movieno DESC
+      		 ) M
+    	) Movie
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<update id="userUpdate" parameterType="UserInfo">
+		UPDATE userinfo SET grade = #{grade}
+		WHERE userno = #{userno}
+	</update>
+	
+	<delete id="deleteMovierecom" parameterType="mobomobo.dto.MovieAward">
+		DELETE movie
+		WHERE movieNo = #{movieNo}
+	</delete>
+	
+	
+	<select id="movieBestSelectCntAll" resultType="int">
+  
+  select COUNT(*) FROM MovieBest
+  
+  </select>  
+  
+  <select id="selectPageMovieBest" resultType="mobomobo.dto.MovieBest" parameterType="mobomobo.util.Paging">
+  	
+  
+    select movieBestNo, title, maincontent, subtitle1, content1 , subtitle2, content2, subtitle3, content3
+    from (
+        select movieBestNo, title, maincontent, subtitle1, content1 , subtitle2, content2, subtitle3, content3,
+            row_number() over(order by movieBestNo desc) as rNum
+        from movieBest
+        ) mb
+    where rNum between ${startNo} and #{endNo}
+        order by movieBestNo desc
+  </select>
+  
+  <insert id="movieBestInsert" parameterType="mobomobo.dto.MovieBest">
+  <selectKey order="BEFORE" resultType="int" keyProperty="movieBestNo">
+			SELECT movieBest_seq.nextval FROM dual
+		</selectKey>
+  
+  insert into MovieBest (movieBestNo, title, maincontent, subtitle1, content1, subtitle2, content2, subtitle3, content3)
+  values (#{movieBestNo},#{title},#{maincontent},#{subtitle1},#{content1},#{subtitle2},#{content2},#{subtitle3},#{content3})
+  
+  </insert>
+  
+  <insert id="movieBestInsertFile" parameterType="mobomobo.dto.MovieBestImg">
+  
+  insert into MovieBestImg (imgNo, movieBestNo, originName, storedName) 
+  values (moviebestimg_seq.nextval, #{movieBestNo}, #{originName}, #{storedName})
+  
+  
+  </insert>
+  
+  <select id="selectByMovieBestFileNo" parameterType="int" resultType="mobomobo.dto.MovieBestImg">
+  
+  	select * from MovieBestImg
+  	where imgNo = #{imgNo}
+  
+  </select>
+  
+  <select id="selectByMovieBestNo" parameterType="mobomobo.dto.MovieBest" resultType="mobomobo.dto.MovieBestImg">
+		SELECT * FROM MovieBestImg
+		WHERE movieBestNo= #{movieBestNo}
+	</select>
+  
+  <delete id="deleteMovieBestImg" parameterType="mobomobo.dto.MovieBest">
+  
+  delete moviebestimg
+  where movieBestNo = #{movieBestNo}
+  
+  </delete>
+  
+  <delete id="deleteMovieBest" parameterType="mobomobo.dto.MovieBest">
+  
+  delete moviebest
+  where movieBestNo = #{movieBestNo}
+
+  </delete>
+
+
+</mapper>

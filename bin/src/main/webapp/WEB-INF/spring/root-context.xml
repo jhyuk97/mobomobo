@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- 오라클 DB연결 -->
+	<bean id="dataSourceSpied" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="scott"/>
+		<property name="password" value="tiger"/>
+	</bean>
+		
+		
+	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource" >
+		
+		<!-- 프록시 대상 DB DataSource 설정하기( 원본 DB) -->
+		<constructor-arg ref="dataSourceSpied"/>
+		
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE"/>
+				<property name="sqlPrefix" value="SQL:::"/>
+			</bean>
+		</property>
+	</bean>
+	
+		<!-- 마이바티스 수행 객체 설정 (SqlSession) -->
+	<bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	
+		<!-- 설정된 DB정보 입력 -->
+		<property name="dataSource" ref="dataSource" />
+		
+		<!-- Mapper 파일 위치 설정 -->
+		<property name="mapperLocations">
+			<array>
+				<value>classpath:/mobomobo/dao/**/*Mapper.xml</value>
+			</array>
+		</property>
+		
+
+		<!-- config파일 설정 -->
+		<property name="configLocation">
+			<value>classpath:/mybatis-config.xml</value>
+		</property>
+		
+	</bean>
+	
+	
+
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="mobomobo.dao"/>
+	</bean>
+	
+		<!-- 트랜잭션 매니저를 스프링bean으로 등록함 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 메일 인증 등록 -->
+
+	
+<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
+	 <property name="host" value="smtp.naver.com"/> <!-- 메인서버 호스트 -->
+	 <property name="port" value="587"/> <!-- 메인서버 포트번호 -->
+	 <property name="username" value="dyd7199@naver.com"/> <!-- 자신의 이메일 아이디 적어주셔야해요!  -->
+	 <property name="password" value="dydghks123"/> <!-- 자신의 비밀번호 적어주셔야 해요! -->
+	   <!-- 보안연결 SSL과 관련된 설정 -->
+	 <property name="javaMailProperties">
+	  <props>
+	  <prop key="mail.smtp.auth">true</prop>
+	  <prop key="mail.smtp.starttls.enable">true</prop>
+	  <prop key="mail.smtps.checkserveridentity">true</prop>
+	  <prop key="mail.smtps.ssl.trust">*</prop>
+	  <prop key="mail.debug">true</prop>
+	  <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+	  </props>
+	 </property>
+	</bean>
+	
+	
+	
+</beans>

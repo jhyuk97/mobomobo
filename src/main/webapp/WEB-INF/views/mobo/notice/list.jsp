@@ -16,11 +16,15 @@
    
 	<%@include file="/WEB-INF/views/mobo/layout/header.jsp" %>
    
+<<<<<<< HEAD
 <style type="text/css">
 
 
 </style>
 	
+=======
+   
+>>>>>>> 483848d733ae47cc14cb4ef3ecea5966cea989e3
    <section class="ftco-section">
       <div class="container">
          <div class="row justify-content-center">

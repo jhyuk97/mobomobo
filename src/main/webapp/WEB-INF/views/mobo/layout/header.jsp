@@ -4,7 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html>   
+=======
+<html>
+>>>>>>> 483848d733ae47cc14cb4ef3ecea5966cea989e3
 <head>
 
 <!-- jquery -->
@@ -178,7 +182,14 @@ p {
                 					</c:when></c:choose>
                 				<c:choose><c:when test="${login }">      
                 <a class="dropdown-item" href="/mobo/sign/logout"><div class="menufont">로그아웃</div></a>
+                					<c:choose>
+                					<c:when test="${grade eq 'admin' || grade eq 'master' }">
                 <a class="dropdown-item" href="/admin/main"><div class="menufont">관리자페이지</div></a>
+                					</c:when>
+                					<c:otherwise>
+                <a class="dropdown-item" href="#"><div class="menufont">마이페이지</div></a>                					
+                					</c:otherwise>
+                					</c:choose>
                 					</c:when></c:choose>
                 </div>
                 </div>

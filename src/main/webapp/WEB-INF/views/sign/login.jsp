@@ -209,7 +209,7 @@ body {
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action="/mobo/sign/login" method="post">
 					<span class="login100-form-title p-b-26">
-						Welcome
+
 						
 <!--   <a id="custom-login-btn" href="javascript:loginWithKakao()"> -->
 <!--   <img -->
@@ -256,7 +256,7 @@ body {
 
 <!-- 카카오 로그인  -->
 <a id="kakao-login-btn"></a>
-<!-- <button class="api-btn" onclick="kakaoLogout()">로그아웃</button> -->
+<!-- <button class="api-btn" onclick="kakaoLogout()">로그아웃</button> --><br>
 	<a id="custom-logout-btn" href="javascript:kakaoLogout()">로그아웃</a>
 <!-- 카카오 로그인  -->
 

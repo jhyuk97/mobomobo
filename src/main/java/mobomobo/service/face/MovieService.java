@@ -1,7 +1,6 @@
 package mobomobo.service.face;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import org.json.simple.parser.ParseException;
@@ -11,8 +10,10 @@ import mobomobo.dto.Movie;
 import mobomobo.dto.MovieAward;
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
+import mobomobo.dto.MovieBestCommentLike;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
+import mobomobo.dto.MovieCrawler;
 import mobomobo.dto.MovieStarRating;
 import mobomobo.util.MovieBestPaging;
 
@@ -120,6 +121,62 @@ public interface MovieService {
 	public Movie getMovieSearchOne(String string) throws IOException, ParseException;
 
 	public String getStarAvgOfSingle(String key);
+
+	public List<MovieCrawler> getMovieCrawler(String title, String directors);
+	
+	
+	/**
+	 * 추천 상태 확인 
+	 * @param movieBestLike
+	 * @return
+	 */
+	public boolean isMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike);
+	
+	/**
+	 * 확인 및 취소 
+	 * @param movieBestLike
+	 * @return
+	 */
+	public boolean movieCommentlike(MovieBestCommentLike movieBestCommentLike);
+	
+	/**
+	 * 총 추천 수 
+	 * @param movieBestLike
+	 * @return
+	 */
+	public int getTotalCntMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike);
+	
+	
+	
+	/**
+	 * 댓글 좋아요 리스트
+	 * @param movieBestNo
+	 * @return
+	 */
+
+	public List<MovieBestCommentLike> getMovieBestCommentLikeList(int movieBestNo);
+
+	public List<MovieAward> getAwardList();
+	
+	
+	
+	/**
+	 * 명장면 게시판 북마크 추가 
+	 * @param bookmark
+	 */
+	public void AddMovieBestBookmark(BookMark bookmark);
+	
+	/**
+	 * 명장면 게시판 북마크 제거
+	 * @param bookmark
+	 */
+	public void RemoveMovieBestBookmark(BookMark bookmark);
+	
+	/**
+	 * 명장면 게시판 북마크 확인
+	 * @param bookmark
+	 */
+	public boolean CheckMovieBestBookmark(BookMark bookmark);
 
 
 }

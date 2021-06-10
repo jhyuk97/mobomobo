@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -75,14 +74,13 @@ public class BookRecomController {
 	public void detail(String isbn, HttpSession session, Model model) {
 		logger.info("/mobo/book/detail [GET]");
 		
-		logger.debug(isbn.substring(0,isbn.indexOf(" ")));
 		// 북마크 확인
-		boolean bookMarkState = bookRecomService.getBookMarkInfo(isbn.substring(0,isbn.indexOf(" ")),session);
+		boolean bookMarkState = bookRecomService.getBookMarkInfo(isbn,session);
 		
 		logger.debug("{}",bookMarkState);
 		// 평점 조회
 		
-		HashMap<String,Object> avg = bookRecomService.getDetailAvg(isbn.substring(0,isbn.indexOf(" ")));
+		HashMap<String,Object> avg = bookRecomService.getDetailAvg(isbn);
 		
 		logger.debug("{}",avg);
 		
@@ -91,7 +89,7 @@ public class BookRecomController {
 		
 		model.addAttribute("bookMark",bookMarkState);
 		model.addAttribute("avg",avg);
-		model.addAttribute("isbn",(String)isbn.substring(0,isbn.indexOf(" ")));
+		model.addAttribute("isbn",isbn);
 	}
 	
 	

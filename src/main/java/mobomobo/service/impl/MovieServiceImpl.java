@@ -7,13 +7,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +28,10 @@ import mobomobo.dto.Movie;
 import mobomobo.dto.MovieAward;
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
+import mobomobo.dto.MovieBestCommentLike;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
+import mobomobo.dto.MovieCrawler;
 import mobomobo.dto.MovieStarRating;
 import mobomobo.service.face.MovieService;
 import mobomobo.util.MovieBestPaging;
@@ -45,6 +50,10 @@ public class MovieServiceImpl implements MovieService{
 	//감독명에 맞는 영화 조회 (4개)
 	@Override
 	public List<Movie> getMainList(String directorName) throws IOException, ParseException {
+		
+		List<Movie> list = new ArrayList<>();
+		
+		if(directorName != null) {
 		
 		StringBuilder urlBuilder = new StringBuilder("http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json");
 		
@@ -91,36 +100,34 @@ public class MovieServiceImpl implements MovieService{
 
         JSONArray parseMovieList = (JSONArray) parseMovieListResult.get("movieList");
         
-        JSONObject movieList;    
-        JSONObject director;
-        
-        List<Movie> list = new ArrayList<>();
-        
-        for(int i=0; i<parseMovieList.size(); i++) {
-        	movieList = (JSONObject) parseMovieList.get(i);
-        	
-        	Movie movie = new Movie();
-
-        	movie.setKey((String) movieList.get("movieCd"));
-        	movie.setTitle((String) movieList.get("movieNm"));
-        	movie.setGenres((String) movieList.get("repGenreNm"));
-        	
-        	JSONArray dir = (JSONArray) movieList.get("directors");
-        	
-        	for(int j=0; j<dir.size(); j++) {
-        		director = (JSONObject) dir.get(j);
-        		
-        		movie.setDirectors((String) director.get("peopleNm"));
-        	}
-
-        	movie = getMovieImage(movie);
-        	
-        	list.add(movie);
-        	
-        }
-		
-		return list;
+	        JSONObject movieList;    
+	        JSONObject director;
+	        
+	        for(int i=0; i<parseMovieList.size(); i++) {
+	        	movieList = (JSONObject) parseMovieList.get(i);
+	        	
+	        	Movie movie = new Movie();
 	
+	        	movie.setKey((String) movieList.get("movieCd"));
+	        	movie.setTitle((String) movieList.get("movieNm"));
+	        	movie.setGenres((String) movieList.get("repGenreNm"));
+	        	
+	        	JSONArray dir = (JSONArray) movieList.get("directors");
+	        	
+	        	for(int j=0; j<dir.size(); j++) {
+	        		director = (JSONObject) dir.get(j);
+	        		
+	        		movie.setDirectors((String) director.get("peopleNm"));
+	        	}
+	
+	        	movie = getMovieImage(movie);
+	        	
+	        	list.add(movie);
+	        	
+	        }
+	
+		}
+		return list;
 	}
 	
 	//검색한 영화의 수 조회
@@ -315,6 +322,7 @@ public class MovieServiceImpl implements MovieService{
 	        	} else {
 	        		movie.setImage((String)movieList.get("image"));
 	        		
+	        		
 	        	}
 	        }
         }
@@ -371,7 +379,12 @@ public class MovieServiceImpl implements MovieService{
         
         movie.setTitle((String)parseMovieInfo.get("movieNm"));
         movie.setShowTm((String)parseMovieInfo.get("showTm"));
-        movie.setOpenDt((String)parseMovieInfo.get("openDt"));
+        
+        String year = ((String)parseMovieInfo.get("openDt")).substring(0, 4);
+        String month = ((String)parseMovieInfo.get("openDt")).substring(4, 6);
+        String day = ((String)parseMovieInfo.get("openDt")).substring(6, 8);
+        
+        movie.setOpenDt(year + "년 " + month + "월 " + day + "일");
         
         JSONArray dir = (JSONArray) parseMovieInfo.get("directors");
         JSONArray nat = (JSONArray) parseMovieInfo.get("nations");
@@ -599,6 +612,64 @@ public class MovieServiceImpl implements MovieService{
 		
 	}
 	
+	//영화 구매 정보 크롤링 
+	@Override
+	public List<MovieCrawler> getMovieCrawler(String title, String directors) {
+
+		List<MovieCrawler> list = new ArrayList<>();
+		
+		String URL = "https://serieson.naver.com/search/search.nhn?t=movie&fs=default&q=" + title;
+		
+		Connection conn = Jsoup.connect(URL);
+		
+		try {
+			Document html = conn.get();
+			
+			Elements ulTag = html.getElementsByClass("lst_list");
+			
+			if(ulTag.toString().split("<li>").length > 2) {
+				
+				for(int i=0; i < (ulTag.toString().split("<li>").length) -1; i++ ) {
+				
+					if((html.getElementsByClass("info").get(i).getElementsByClass("cast").get(0).text()).equals("감독 " + directors)) {
+					
+					MovieCrawler movie = new MovieCrawler();
+					
+					movie.setTitle(html.getElementsByClass("N=a:mov.title").get(i).getElementsByTag("a").text());
+					
+					movie.setSummary(html.getElementsByClass("dsc").get(i).text());
+					
+					movie.setPrice(html.getElementsByClass("cont").get(i).getElementsByClass("price2 v2").get(0).getElementsByClass("by_tit").text() + " : " + html.getElementsByClass("cont").get(i).getElementsByClass("price2 v2").get(0).getElementsByTag("strong").text() + "원");
+					
+					movie.setBuyUrl("https://serieson.naver.com" + html.getElementsByClass("N=a:mov.title").get(i).attr("href"));
+					
+					list.add(movie);
+					
+					}
+				}
+			} else if(ulTag.toString().split("<li>").length > 1) {
+				
+				MovieCrawler movie = new MovieCrawler();
+				
+				movie.setTitle(html.getElementsByClass("N=a:mov.title").get(0).getElementsByTag("a").text());
+				
+				movie.setSummary(html.getElementsByClass("dsc").get(0).text());
+				
+				movie.setPrice(html.getElementsByClass("cont").get(0).getElementsByClass("price2 v2").get(0).getElementsByClass("by_tit").text() + " : " + html.getElementsByClass("cont").get(0).getElementsByClass("price2 v2").get(0).getElementsByTag("strong").text() + "원");
+				
+				movie.setBuyUrl("https://serieson.naver.com" + html.getElementsByClass("N=a:mov.title").get(0).attr("href"));
+				
+				list.add(movie);
+				
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
 	//별점 저장하기
 	@Override
 	public void setStarRating(MovieStarRating movieStarRating) {
@@ -778,8 +849,76 @@ public class MovieServiceImpl implements MovieService{
 	public List<MovieBestImg> viewImage(MovieBest viewMovieBest) {
 		return movieDao.selectViewImageList(viewMovieBest);
 	}
+
+	@Override
+	public boolean isMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike) {
+		int cnt = movieDao.selectCntMovieBestCommentLike(movieBestCommentLike);
+		
+		if(cnt > 0) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+
+	@Override
+	public boolean movieCommentlike(MovieBestCommentLike movieBestCommentLike) {
+		if(isMovieBestCommentLike(movieBestCommentLike)) {
+			movieDao.deleteMovieBestCommentLike(movieBestCommentLike);
+			
+			return false;
+			
+		} else {
+			
+			movieDao.insertMovieBestCommentLike(movieBestCommentLike);
+			
+			return true;
+		}
+	}
+
+	@Override
+	public int getTotalCntMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike) {
+		return movieDao.selectCntAllMovieBestCommentLike(movieBestCommentLike);
+		
+	}
+
+	@Override
+	public List<MovieBestCommentLike> getMovieBestCommentLikeList(int movieBestNo) {
+		return movieDao.selectMovieBestCommentLike(movieBestNo);
+	}
+	
+	@Override
+	public List<MovieAward> getAwardList() {
+		return movieDao.selectAwardList(); 
+	}
 	
 	
+	@Override
+	public void AddMovieBestBookmark(BookMark bookmark) {
+		
+		
+		movieDao.InsertMovieBestBookmark(bookmark);
+		
+	}
+
+	@Override
+	public void RemoveMovieBestBookmark(BookMark bookmark) {
+		
+		movieDao.DeleteMovieBestBookmark(bookmark);
+		
+	}
+
+	@Override
+	public boolean CheckMovieBestBookmark(BookMark bookmark) {
+		
+		int count = movieDao.CheckMovieBestBookmark(bookmark);
+		
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
 	
 	
 	

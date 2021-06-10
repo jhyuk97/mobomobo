@@ -34,7 +34,33 @@
   
 <style>
 a { text-decoration:none; }
+.box{
 
+/**아래 내용들은 알아서 변경 **/
+  width: 100%;
+  height: 250px;
+  color: #E62200;
+  max-width: 1600px;
+/*   padding-top: 30px; */
+/*   padding-bottom: 30px; */
+	position: relative;
+	top : 70px;
+  background: #fff;
+  border-radius: 30px; 
+
+
+/**이미지 위아래로 움직이는 효과 (이미 이미지 자체에 효과가 있긴 해서 필요 없음 빼면 됨)**/
+/*   animation: up-down 1.4s infinite ease-in-out alternate; */
+}
+
+@keyframes up-down{
+  from{
+    transform: translatey(0px);
+  }
+  to{
+    transform: translatey(-20px);
+  }
+}
 
 </style>
 
@@ -131,16 +157,21 @@ a { text-decoration:none; }
                 data:data,
                 success : function(result){
                    	for(var i = 0; i< result.documents.length; i++){
+                   		var isbn = result.documents[i].isbn.substring(0,10);
+                   		console.log("!!!!!!!!!!!!!!!!!!!!!!!!")
+                   		console.log(isbn)
+                   		console.log("!!!!!!!!!!!!!!!!!!!!!!!!")
+                   		
                    	$("#searchCategory").append(`
                    			<div class="col-md-3">
 				            <div class="blog-entry">
-				            <a href="/mobo/book/detail?isbn=${'${result.documents[i].isbn }'}" class="block-20" style="background-image: url('${'${result.documents[i].thumbnail}'}');">
+				            <a href="/mobo/book/detail?isbn=${'${isbn }'}" class="block-20" style="background-image: url('${'${result.documents[i].thumbnail}'}');">
 				              </a>
 				              <div class="text p-4 d-block">
 				                <div class="meta mb-3">
-				                  <div><a href="/mobo/book/detail?isbn=${'${result.documents[i].isbn }'}">${'${result.documents[i].title }'}</a></div>
+				                  <div><a href="/mobo/book/detail?isbn=${'${isbn }'}">${'${result.documents[i].title }'}</a></div>
 				                </div>
-				                <h6 class="heading"><a href="/mobo/book/detail?isbn=${'${result.documents[i].isbn }'}">작가:${'${result.documents[i].authors }'} </a></h6>
+				                <h6 class="heading"><a href="/mobo/book/detail?isbn=${'${isbn }'}">작가:${'${result.documents[i].authors }'} </a></h6>
 				              </div>
 				            </div>
 				          </div>
@@ -224,10 +255,6 @@ a { text-decoration:none; }
              				$('#paging li#selectNum'+currentPage).addClass('active')
                     
                     
-                    
-                    
-                    
-                    
                 }
             });
         	
@@ -280,9 +307,9 @@ a { text-decoration:none; }
                 	getStarRating(isbn,arrayRating)
                 	
                    	for(var i = 0; i < arrayTitle.length; i++){
-
+                   		var isbn = result.documents[i].isbn.substring(0,10);
 						var img = `
-							<a href="/mobo/book/detail?isbn=${'${result.documents[i].isbn }'}" class="block-20" style="background-image: url('${'${result.documents[i].thumbnail}'}');">
+							<a href="/mobo/book/detail?isbn=${'${isbn }'}" class="block-20" style="background-image: url('${'${result.documents[i].thumbnail}'}');">
 
 						`
                    	
@@ -299,9 +326,9 @@ a { text-decoration:none; }
         }
 </script>		
            
- <h1><a href="/mobo/book/awardsList">시상식</a></h1>
-
-
+ <div class="container">
+	<a href="/mobo/book/awardsList"><img src="/resources/img/bookaward2.gif" class="box"></a> <!-- div에 넣어서 해도 됨-->
+ </div>
 
 
 
@@ -310,7 +337,7 @@ a { text-decoration:none; }
       <section class="ftco-section ">
        <div class="row no-gutters justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
-            <h2 class="mb-4">BOOK</h2>
+            <h2 class="mb-4">책추천</h2>
             <p id="p">당신의 인생 책, 무부무부에서 만나보세요</p>
           </div>
         

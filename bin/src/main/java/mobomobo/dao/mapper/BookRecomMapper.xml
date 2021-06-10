@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="mobomobo.dao.face.BookRecomDao">
+  	
+  	<select id="selectBookStarRating" resultType="HashMap" parameterType="String">
+  	
+	  	SELECT avg(starrating) AS AVG FROM bookstarrating 
+	  	WHERE isbn = #{isbn }
+	  	
+  	
+  	</select>
+  	
+<!--   	<select id="selectAll" resultType="mobomobo.dto.BookBest" parameterType="mobomobo.util.BookRecomPaging"> -->
+<!--   		SELECT * FROM( -->
+<!-- 		 	SELECT rownum rnum,B.* FROM( -->
+<!-- 		 		SELECT * -->
+<!-- 		 		FROM bookbest -->
+<!-- 		 		ORDER BY bookbestno DESC -->
+<!-- 		 		)B -->
+<!-- 		 	) BOARD -->
+<!-- 	 	WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
+  	
+<!--   	</select> -->
+  	
+  	<select id="selectTotalCntByAwards" resultType="int">
+  		SELECT COUNT(*) FROM bookbest
+  	</select>
+  	
+  	<select id="selectAll" resultType="HashMap">
+  		SELECT
+		    S.*, ( SELECT avg(R.starrating) FROM bookstarrating R WHERE S.isbn = R.isbn) avg
+		FROM bookkey S
+		WHERE award ='맨부커'
+  	</select>
+  	<select id="selectBookMarkByKeyUserno" resultType="int" parameterType="mobomobo.dto.BookMark">
+  	
+  		SELECT COUNT(*) FROM bookmark
+  		WHERE userno = #{userno } AND key = #{key }
+  	</select>
+  	<delete id="deleteBookMarkByKeyUserno" parameterType="mobomobo.dto.BookMark">
+  		DELETE FROM bookmark
+  		WHERE userno = #{userno } AND key =#{key }
+  	</delete>
+  	<insert id="insertBookMarkByKeyUserno" parameterType="mobomobo.dto.BookMark">
+  		INSERT INTO bookmark
+  		VALUES(bookmarkno_seq.nextval,#{userno },#{category },#{key })
+  	</insert>
+  	<insert id="insertBookStarRaingByRatingKeyUsernoAge" parameterType="mobomobo.dto.BookStarRatingInsert">
+  		INSERT INTO bookstarrating(isbn,userno,age,starrating)
+		VALUES(#{isbn },#{userno },#{age },#{starRating })
+  	
+  	</insert>
+  	<select id="selectBookStarRatingByIsbn" parameterType="String" resultType="HashMap">
+  		SELECT AVG(starrating) avg FROM bookstarrating 
+  		WHERE isbn = #{isbn }
+  	</select>
+  	
+  	<select id="selectBookKeyByIsbn" parameterType="mobomobo.dto.BookStarRatingInsert" resultType="int">
+  		SELECT COUNT(*) FROM bookstarrating
+  		WHERE isbn = #{isbn } AND userno = #{userno }
+  	</select>
+  	<insert id="insertBookKey" parameterType="mobomobo.dto.BookStarRatingInsert">
+  		INSERT INTO bookkey(isbn,booktitle)
+  		VALUES(#{isbn },#{title })
+  	</insert>
+  	<select id="selectBookey" parameterType="mobomobo.dto.BookStarRatingInsert" resultType="int">
+  		SELECT COUNT(*) FROM bookkey
+  		WHERE isbn = #{isbn }
+  	</select>
+  	<update id="updateBookStarRating" parameterType="mobomobo.dto.BookStarRatingInsert">
+  		UPDATE bookstarrating SET starrating = #{starRating } 
+  		WHERE isbn = #{isbn } AND userno = #{userno }  
+  	</update>
+  	<select id="selectAgeAvgByisbn" parameterType="String" resultType="HashMap">
+<!--   		SELECT -->
+<!-- 		    distinct S.age, ( SELECT  -->
+<!-- 		                avg(R.starrating) FROM bookstarrating R WHERE S.age = R.age AND s.isbn = r.isbn) avg -->
+<!-- 		FROM bookstarrating S -->
+<!-- 		WHERE isbn =#{isbn } -->
+<!-- 		ORDER BY S.age -->
+			select age,AVG(starrating) AVG from bookstarrating
+			where isbn = #{isbn }
+			group by age
+  	</select>
+  	
+  	<select id="selectAllCnt" parameterType="mobomobo.util.BookBestPaging" resultType="int">
+  		SELECT COUNT(*) FROM bookkey
+  		WHERE award = '맨부커'
+  	</select>
+  	<select id="selelctAdminBookRecomList" parameterType="mobomobo.util.BookBestPaging" resultType="mobomobo.dto.BookKey">
+  		SELECT * FROM( 
+ 		 	SELECT rownum rnum,B.* FROM( 
+		 		SELECT * 
+		 		FROM bookkey 
+                WHERE award ='맨부커'
+		 		ORDER BY isbn DESC 
+		 		)B 
+		 	) BOARD 
+	 	WHERE rnum BETWEEN #{startNo } AND #{endNo }
+  	</select>
+  	<delete id="deleteBookKey" parameterType="mobomobo.dto.BookKey">
+  		DELETE FROM bookkey
+  		WHERE isbn = #{isbn }
+  	</delete>
+  	<insert id="insertBookKeyByAward" parameterType="mobomobo.dto.BookKey">
+  		INSERT INTO bookkey
+  		VALUES(#{isbn }, #{bookTitle },#{award })
+  	</insert>
+  	<select id="selectBookKeyCnt" parameterType="mobomobo.dto.BookKey" resultType="int">
+  		SELECT COUNT(*) FROM bookkey
+  		WHERE isbn =#{isbn }
+  	</select>
+  
+  </mapper>

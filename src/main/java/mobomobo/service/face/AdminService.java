@@ -3,14 +3,13 @@ package mobomobo.service.face;
 import java.util.HashMap;
 import java.util.List;
 
-import mobomobo.dto.MovieAward;
-import mobomobo.dto.UserInfo;
-import mobomobo.util.AdminMovieRecomPaging;
 import org.springframework.web.multipart.MultipartFile;
 
+import mobomobo.dto.MovieAward;
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.UserInfo;
+import mobomobo.util.AdminMovieRecomPaging;
 import mobomobo.util.MovieBestPaging;
 import mobomobo.util.Paging;
 
@@ -30,7 +29,11 @@ public interface AdminService {
 	 * @return - list
 	 */
 	public List<UserInfo> list(Paging paging);
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 483848d733ae47cc14cb4ef3ecea5966cea989e3
 	/**
 	 * 회원관리 페이지에서 user삭제 하기
 	 * 

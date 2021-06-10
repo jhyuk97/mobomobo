@@ -1,13 +1,11 @@
 package mobomobo.controller;
 
 
-import java.io.Writer;
+
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -20,9 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import mobomobo.dto.UserInfo;
 import mobomobo.service.face.SignService;
@@ -195,17 +190,59 @@ public class SignController {
 	}
 	
 	@RequestMapping(value = "/mobo/sign/findid", method = RequestMethod.GET)
-	public void findid() {
+	public String findid() {
 		
 		logger.info("findid - GET 요청");
+		
+//		logger.info("아이디찾기 ");
+		
+		return "sign/findId";
+		
+	}
+	
+	@RequestMapping(value = "/mobo/sign/findid", method = RequestMethod.POST)
+	public String findidProc(UserInfo userInfo, Model model) {
+		
+		logger.info("findid - Post 요청");
+		
+		logger.info("아이디찾기 - userInfo의 값 : {} ", userInfo);
+		
+		String id = signService.findUserId(userInfo);
+		
+		logger.info("찾은 id의 값은 : {} ", id);
+		
+		model.addAttribute("id", id);
+		
+		return "sign/findIdView";
 		
 	}
 	
 	@RequestMapping(value = "/mobo/sign/findpw", method = RequestMethod.GET)
-	public void findpw() {
+	public String findpw() {
 		
 		logger.info("findpw - GET 요청");
 		
+		return "sign/findPw";
+		
+	}
+	
+	@RequestMapping(value = "/mobo/sign/findpw", method = RequestMethod.POST)
+	public String findpwProc(UserInfo userInfo, Model model) {
+		
+		logger.info("findpw - POST 요청");
+		
+		logger.info("findPw - 입력한 값 : {}", userInfo);
+		
+		UserInfo userPw = signService.findUserPw(userInfo);
+		
+		logger.info("검사한 user의 정보들 : {}",userPw);
+		
+		model.addAttribute("id",userPw.getId());
+		model.addAttribute("pw",userPw.getPw());
+
+
+		
+		return "sign/findPwView";
 		
 	}
 	

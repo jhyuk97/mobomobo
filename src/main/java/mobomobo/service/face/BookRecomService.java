@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import mobomobo.dto.BookBest;
 import mobomobo.dto.BookKey;
 import mobomobo.dto.BookMark;
-import mobomobo.dto.BookStarRating;
 import mobomobo.dto.BookStarRatingInsert;
 import mobomobo.util.BookBestPaging;
 
@@ -104,6 +103,32 @@ public interface BookRecomService {
 	 * @return 
 	 */
 	public List<HashMap<String, Object>> getAgeAvg(String isbn);
+
+	/**
+	 * 책 시상식 리스트 페이징
+	 * @param paging 
+	 * @return
+	 */
+	public List<BookKey> getAdminRecomList(BookBestPaging paging);
+
+	/**
+	 * 페이징 계산
+	 * @param inData
+	 * @return
+	 */
+	public BookBestPaging getAdminPaging(BookBestPaging inData);
+
+	/**
+	 * 시상작 삭제
+	 * @param bookKey
+	 */
+	public void deleteRecom(BookKey bookKey);
+
+	/**
+	 * 맨부커 시상식 bookKey삽입
+	 * @param bookKey
+	 */
+	public void insertBookKey(BookKey bookKey);
 
 	
 
