@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mobomobo.dao.face.MovieDebateDao">
+
+	<select id="selectDebateCntAll" resultType="int" parameterType="mobomobo.util.DebatePaging">
+		SELECT COUNT(*) FROM debate
+	</select>
+	
+	<select id="selectDebateList" resultType="mobomobo.dto.Debate" parameterType="mobomobo.util.DebatePaging">
+		SELECT * FROM (
+		    SELECT rownum rnum, B.* FROM (
+		    	SELECT * FROM debate
+		        ORDER BY dno DESC
+		    ) B
+		) R
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+
+	<select id="selectByDebateNo" parameterType="Debate"	resultType="Debate">
+        SELECT
+        	dno, dTitle, dContent, userno, nick, dDate, hit, boardDiv
+        FROM debate
+		WHERE dno = #{dNo }
+	</select>
+	
+	<update id="updateHit" parameterType="Debate">
+		UPDATE debate SET hit = hit + 1
+		WHERE dno = #{dNo }
+	</update>
+	
+	
+</mapper>	

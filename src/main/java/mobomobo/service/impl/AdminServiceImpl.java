@@ -61,8 +61,6 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.selectPageList(paging);
 	}
 
-<<<<<<< HEAD
-=======
 	@Override
 	public boolean userDelete(UserInfo userno) {
 		
@@ -231,10 +229,5 @@ public class AdminServiceImpl implements AdminService{
 		
 	}
 
-	
-	
-	
-	
->>>>>>> 508786dfe6870e8d49c4983a37bf0d29544f6330
 	
 }
