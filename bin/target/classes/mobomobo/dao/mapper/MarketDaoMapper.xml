@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mobomobo.dao.face.MarketDao">
+
+	<sql id="selectMarket">
+		SELECT
+		mNo, mTitle, mContent, 
+		mViews, mDate, mPrice, mCate
+		FROM Market
+	</sql>
+	
+	<sql id="titleSearch">
+		WHERE mTitle LIKE '%' || #{search} || '%'
+	</sql>
+
+	<select id="SelectAll" parameterType="Paging" resultType="mobomobo.dto.Market">
+		SELECT * FROM (
+		    SELECT rownum rnum, B.* FROM (
+		        <include refid="selectMarket"/>
+		        <include refid="titleSearch"/>
+		        <if test='category != null and !category.equals("")'>
+		        	AND mCate=#{category}
+		        </if>
+		        ORDER BY mNo DESC
+		    ) B
+		) R
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+		
+	</select>
+
+	<select id="SelectCntAll" resultType="int">
+		Select count(*) from (
+			<include refid="selectMarket"/>
+		    <include refid="titleSearch"/>
+		    <if test='category != null and !category.equals("")'>
+		        	AND mCate=#{category}
+		    </if>
+		)
+	</select>
+	
+	<select id="selectImg" resultType="mobomobo.dto.MarketImg">
+		Select imgNo, mNo, originImg, storedImg, contentType from marketImg
+	</select>
+	
+	<select id="Select" parameterType="int" resultType="mobomobo.dto.Market">
+		SELECT * FROM market, userinfo
+		WHERE market.userno=userinfo.userno and mNo=${mNo}
+	</select>
+	
+	<select id="SelectFile" parameterType="int" resultType="mobomobo.dto.MarketImg">
+		SELECT * FROM marketImg
+		WHERE mNo=${mNo}
+	</select>
+
+
+	<delete id="DeleteMarket" parameterType="int">
+		Delete Market where mno= ${mNo}
+	</delete>
+	
+	
+	<insert id="InsertMarket" parameterType="mobomobo.dto.Market">
+		INSERT INTO Market(mNo, mcate, mcontent, userno, mtitle, mprice)
+		values(market_seq.nextval, #{mCate}, #{mContent}, (select userno from userinfo where id=#{id}), #{mTitle}, #{mPrice})
+	</insert>
+	
+	
+	<insert id="InsertMarketImg" parameterType="mobomobo.dto.MarketImg">
+		INSERT INTO marketimg(imgNo, mNo, originimg, storedimg, filesize, contentType)
+		values(marketimg_seq.nextval, market_seq.currval, #{OriginImg}, #{StoredImg}, #{filesize}, #{contentType})
+	</insert>
+	
+	<update id="UpdateMarket" parameterType="mobomobo.dto.Market">
+		UPDATE market 
+		set mTitle=#{mTitle}, mContent=#{mContent}, mCate=#{mCate}, mPrice=#{mPrice}
+		where mNo=#{mNo}
+	</update>
+	
+	<delete id="DeleteMarketImg" parameterType="mobomobo.dto.Market">
+		DELETE marketimg
+		where mno=#{mNo}
+	</delete>
+	
+	<insert id="UpdateMarketImg" parameterType="mobomobo.dto.MarketImg">
+		INSERT INTO marketimg(imgNo, mNo, originimg, storedimg, filesize, contentType)
+		values(marketimg_seq.nextval, #{mNo}, #{OriginImg}, #{StoredImg}, #{filesize}, #{contentType})
+	</insert>
+	
+	
+	<insert id="InsertBookmark" parameterType="mobomobo.dto.BookMark">
+		INSERT INTO bookmark(bookmarkno, userno, category, key)
+		values(bookmarkno_seq.nextval, #{userno}, #{category}, #{key})
+	</insert>
+	
+	<delete id="DeleteBookmark" parameterType="mobomobo.dto.BookMark">
+		DELETE bookmark
+		where userno=#{userno} and key=#{key}
+	</delete>
+	
+	<select id="CheckBookmark" parameterType="mobomobo.dto.BookMark" resultType="int">
+		SELECT COUNT(*) from bookmark
+		where userno=#{userno} and key=#{key}
+	</select>
+	
+	<insert id="InsertChat" parameterType="mobomobo.dto.ChatLog">
+		INSERT INTO chatlog(lno, msg, suid, buid, sendid, roomid, mTitle, sunick) 
+		values(chatlog_seq.nextval, #{msg}, #{suid}, #{buid}, #{sendid}, #{roomid}, #{mTitle}, (select nick from userinfo where id=#{sendid}))
+	</insert>
+
+	<select id="ChatRoomList" parameterType="String" resultType="mobomobo.dto.ChatLog">
+		SELECT distinct roomid, mTitle, suNick from chatlog 
+		where (suid=#{userid} or sendid=#{userid}) and suNick != (SELECT nick from userinfo where id=#{suid})
+	</select>
+
+	<select id="selectLog" parameterType="String" resultType="mobomobo.dto.ChatLog">
+		SELECT * from chatlog where roomid=#{roomid} order by lno asc
+	</select>
+
+</mapper>

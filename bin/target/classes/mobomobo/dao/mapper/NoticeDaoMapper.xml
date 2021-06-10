@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mobomobo.dao.face.NoticeDao">
+	
+	<sql id="noticeTitleSearch">
+		WHERE ntitle LIKE '%' || #{search} || '%' 
+	</sql>
+	
+	<sql id="noticeContentSearch">
+		OR ncontent LIKE '%' || #{search} || '%' 
+	</sql>
+
+	<sql id="selectNotice">
+        SELECT * FROM notice
+    	<if test='search != null and !search.equals("")'>
+    	<include refid="noticeTitleSearch"/>
+    	<include refid="noticeContentSearch"/>
+    	</if>
+	</sql>
+	
+	<select id="selectNoticeCntAll" resultType="int" parameterType="mobomobo.util.NoticePaging">
+		SELECT COUNT(*) FROM notice
+	</select>
+	
+	<select id="selectNoticeList" resultType="mobomobo.dto.Notice" parameterType="mobomobo.util.NoticePaging">
+		SELECT * FROM (
+		    SELECT rownum rnum, B.* FROM (
+		    	<include refid="selectNotice"/>
+		    	<if test='search != null and !search.equals("")'>
+		    	<include refid="noticeTitleSearch"/>
+		    	<include refid="noticeContentSearch"/>
+		    	</if>
+		        ORDER BY nno DESC
+		    ) B
+		) R
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+
+	<select id="selectByNoticeNo" parameterType="Notice"	resultType="Notice">
+        SELECT
+        	nno, ntitle, ncontent, ndate, nviews, userno
+        FROM notice
+		WHERE nno = #{nNo }
+	</select>
+	
+	<insert id="insert" parameterType="Notice">
+		<selectKey order="BEFORE" resultType="int" keyProperty="nNo">
+			SELECT notice_seq.nextval FROM dual
+		</selectKey>
+		
+		INSERT INTO notice( nno, ntitle, ncontent )
+		VALUES( #{nNo}, #{nTitle}, #{nContent} )
+	</insert>
+	
+	<delete id="delete" parameterType="Notice">
+		DELETE notice
+		WHERE nno = #{nNo}
+	</delete>
+	
+	<update id="update" parameterType="Notice">
+		UPDATE notice
+		SET ntitle = #{nTitle }, ncontent = #{nContent}
+		WHERE nno = #{nNo}
+	</update>
+	
+	<update id="updateHit" parameterType="Notice">
+		UPDATE notice SET nviews = nviews + 1
+		WHERE nno = #{nNo }
+	</update>
+	
+</mapper>

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import mobomobo.dto.BookBest;
+import mobomobo.dto.BookKey;
 import mobomobo.dto.BookMark;
 import mobomobo.dto.BookStarRatingInsert;
 import mobomobo.util.BookBestPaging;
