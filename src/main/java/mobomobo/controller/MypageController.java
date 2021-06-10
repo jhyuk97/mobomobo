@@ -78,4 +78,10 @@ public class MypageController {
 		return myBookMark;
 		
 	}
+	
+	@RequestMapping(value="/mobo/mypage/commentView")
+	public @ResponseBody List<MyPage> commentView(HttpSession session) {
+		
+		return null;
+	}
 }

@@ -76,7 +76,7 @@ a, a:visited {
 	<ul role="navigation" class="navmypage">
 	  <li><a title="INFO" onclick="infoView()">INFO</a></li>
 	  <li><a title="WRITING" onclick="writingView()" >WRITING</a></li>  
-	  <li><a title="COMMENT" >COMMENT</a></li>
+	  <li><a title="COMMENT" onclick="commentView()">COMMENT</a></li>
 	  <li><a title="BOOKMARK" onclick="bookmarkView()">BOOKMARK</a></li>  
 	  <li><a title="COUPON">COUPON</a></li>
 	</ul>
@@ -242,6 +242,19 @@ function writingView() {
 		}
 	})
 }
+
+function commentView() {
+	
+	$.ajax({
+		type : 'get'
+		, url : '/mobo/mypage/commentView'
+		, dataType : 'json'
+		, success : function(data) {
+			
+		}
+	})	
+}
+
 
 function bookmarkView() {
 	

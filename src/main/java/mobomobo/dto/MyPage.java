@@ -5,11 +5,17 @@ import java.util.Date;
 public class MyPage {
 	
 	private int rnum;
+	
 	private int boardNo;
 	private String title;
 	private Date wdate;
 	private int hit;
 	private int boardDiv;
+	
+	private int commentno;
+	
+	
+	
 	@Override
 	public String toString() {
 		return "MyPage [rnum=" + rnum + ", boardNo=" + boardNo + ", title=" + title + ", wdate=" + wdate + ", hit="
