@@ -154,10 +154,30 @@ public interface MovieDao {
 	
 	public int selectCntAllMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike);
 	
-	
-	
-
 	public List<MovieAward> selectAwardList();
+	
+	/**
+	 * 명장면 게시판 북마크 넣기
+	 * @param bookmark
+	 */
+	public void InsertMovieBestBookmark(BookMark bookmark);
+	
+	/**
+	 * 명장면 게시판 북마크 삭제
+	 * @param bookmark
+	 */
+	public void DeleteMovieBestBookmark(BookMark bookmark);
+
+	/**
+	 * 명장면 게시판 북마크 확인 
+	 * @param bookmark
+	 * @return
+	 */
+	public int CheckMovieBestBookmark(BookMark bookmark);
+
+	
+	
+	
 
 
 }

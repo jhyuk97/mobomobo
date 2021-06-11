@@ -245,8 +245,38 @@
 $(document).ready(function(){
 	
 	movieStarRating();
+	bookStarRating();
 	
 })
+function bookStarRating(){
+	
+	
+// 	${bookList }.forEach(function(e){
+// 		console.log(e);
+// 	})
+// 	for( var i = 0 i< ${bookList }.length;i++){
+// 		console.log(${bookList }.get(i));
+// 	}
+	
+	
+// 	console.log(${bookList }))
+	console.log('!!!')
+	$.ajax({
+            url: "https://dapi.kakao.com/v3/search/book",
+            headers: {'Authorization': 'KakaoAK 7ab4fb38af1de0cf515ccc51bc417dd5'},
+            type : "get",
+            data:{
+            	query:'893746103X',
+                target:'isbn'
+            },
+            success : function(result){
+            	console.log(result)
+            },
+            error: function(){
+    			alert("실패");
+    		}
+	})
+}
 
 function movieStarRating() {
 	

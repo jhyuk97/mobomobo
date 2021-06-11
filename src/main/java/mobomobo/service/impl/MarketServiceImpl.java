@@ -76,10 +76,23 @@ public class MarketServiceImpl implements MarketService {
 				
 		return paging;
 	}
+	
+	
+
+	@Override
+	public Paging getAdminPaging(Paging inData) {
+		
+		int totalCount = marketDao.SelectCntAll(inData);
+		
+		Paging paging = new Paging(totalCount, inData.getCurPage());
+		
+		return paging;
+	}
 
 	@Override
 	public Market Select(int mNo) {
-				
+		marketDao.updateViews(mNo);
+		
 		return marketDao.Select(mNo);
 	}
 

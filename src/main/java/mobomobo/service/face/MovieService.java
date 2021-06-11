@@ -157,6 +157,26 @@ public interface MovieService {
 	public List<MovieBestCommentLike> getMovieBestCommentLikeList(int movieBestNo);
 
 	public List<MovieAward> getAwardList();
+	
+	
+	
+	/**
+	 * 명장면 게시판 북마크 추가 
+	 * @param bookmark
+	 */
+	public void AddMovieBestBookmark(BookMark bookmark);
+	
+	/**
+	 * 명장면 게시판 북마크 제거
+	 * @param bookmark
+	 */
+	public void RemoveMovieBestBookmark(BookMark bookmark);
+	
+	/**
+	 * 명장면 게시판 북마크 확인
+	 * @param bookmark
+	 */
+	public boolean CheckMovieBestBookmark(BookMark bookmark);
 
 
 }
