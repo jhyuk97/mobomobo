@@ -1,10 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
-Built-By: jisoomin
-Build-Jdk: 11.0.10
-=======
-Built-By: HP
-Build-Jdk: 1.8.0_282
->>>>>>> 483848d733ae47cc14cb4ef3ecea5966cea989e3
+Built-By: jhyuk
+Build-Jdk: 1.8.0_275
 Created-By: Maven Integration for Eclipse
 

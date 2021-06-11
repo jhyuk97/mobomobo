@@ -29,11 +29,6 @@ public interface AdminService {
 	 * @return - list
 	 */
 	public List<UserInfo> list(Paging paging);
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> 483848d733ae47cc14cb4ef3ecea5966cea989e3
 	/**
 	 * 회원관리 페이지에서 user삭제 하기
 	 * 
