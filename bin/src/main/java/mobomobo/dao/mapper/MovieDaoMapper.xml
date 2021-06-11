@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  
+<mapper namespace="mobomobo.dao.face.MovieDao">
+
+	<delete id="deleteStarRating" parameterType="mobomobo.dto.MovieStarRating">
+		DELETE FROM moviestarrating
+		WHERE 1=1
+		AND userno = #{userno}
+		AND key = #{key}
+	</delete>
+
+	<insert id="insertStarRating" parameterType="mobomobo.dto.MovieStarRating">
+		INSERT INTO moviestarrating (key, title, image, userno, age, starrating )
+		VALUES (#{key}, #{title}, #{image}, #{userno}, #{age}, #{starRating} )
+	</insert>
+
+	<select id="existMovieStarRatingByUserNo" resultType="int" parameterType="mobomobo.dto.MovieStarRating">
+		SELECT count(*) FROM moviestarrating
+		WHERE 1=1
+		AND userno = #{userno}
+		AND key = #{key}
+	</select>
+	
+	<select id="selectMovieStarRatingByUserno" resultType="double" parameterType="mobomobo.dto.MovieStarRating">
+		SELECT starrating FROM moviestarrating
+		WHERE 1=1
+		AND userno = #{userno}
+		AND key = #{key}
+	</select>
+	
+	<select id="selectStarAvg" resultType="mobomobo.dto.MovieStarRating" parameterType="String">
+		SELECT age, avg(starrating) as avg FROM moviestarrating
+		WHERE key = #{key}
+		GROUP BY age
+		ORDER BY age
+	</select>
+	
+	<select id="selectBookMarkByUserNo" resultType="int" parameterType="mobomobo.dto.BookMark">
+		SELECT count(*) from bookmark
+		WHERE userno = #{userno}
+		AND key = #{key}
+	</select>
+	
+	<delete id="deleteBookMark" parameterType="mobomobo.dto.BookMark">
+		DELETE FROM bookmark
+		WHERE userno = #{userno}
+		AND key = #{key}
+	</delete>
+	
+	<insert id="insertBookMark" parameterType="mobomobo.dto.BookMark">
+		INSERT INTO bookmark (bookmarkno, userno, category, key)
+		VALUES (bookmarkno_seq.nextval, #{userno}, #{category}, #{key})
+	</insert>
+	
+	<select id="selectRecomList" resultType="mobomobo.dto.MovieAward">
+		SELECT * FROM (
+			SELECT ROWNUM rnum, M.* FROM (
+				SELECT * FROM movie
+				WHERE division = 'recom'
+				ORDER BY movieno DESC
+			) M
+		)
+		WHERE rnum BETWEEN 1 AND 4
+	</select>
+	
+	<select id="selectStarAvgOfSingle" parameterType="string" resultType="string">
+		SELECT ROUND(AVG(starrating),1) avg FROM moviestarrating
+		WHERE key = #{key}
+	</select>
+	<select id="selectCntAll" resultType="int">
+  
+  select COUNT(*) FROM MovieBest
+  
+  </select>  
+  
+  <select id="selectPageList" resultType="mobomobo.dto.MovieBest" parameterType="mobomobo.util.Paging">
+  SELECT * FROM (
+    SELECT rownum rnum, M.* FROM (
+        SELECT MB.moviebestno, MB.title, MB.maincontent, MI.imgno, MI.originName, MI.storedName FROM moviebest MB, (
+        SELECT MO.* FROM (
+            SELECT row_number() over (partition by moviebestno order by imgno) rnum
+            , imgno, moviebestno, originName, storedName FROM moviebestimg
+            ) MO
+            WHERE rnum = 1
+        )MI
+        WHERE MB.moviebestno = MI.moviebestno(+)
+        ORDER BY moviebestno DESC
+        ) M
+    )moviebest 
+  WHERE rnum BETWEEN #{startNo} AND #{endNo}
+  </select>
+  
+  
+  <select id="movielist" resultType="mobomobo.dto.MovieBest">
+  
+   select * from movieBest
+  
+  
+  </select>
+  
+  
+  <select id="selectMovieByMovieBestNo" parameterType="mobomobo.dto.MovieBest" resultType="mobomobo.dto.MovieBest">
+  
+    select movieBestNo, title, maincontent, subtitle1, content1 , subtitle2, content2, subtitle3, content3 from movieBest
+        where movieBestNo = #{movieBestNo}
+  
+  
+  </select>
+  
+  
+  <select id="selectMovieBestComment" parameterType="int" resultType="mobomobo.dto.MovieBestComment">
+  
+ 	SELECT * FROM (
+			SELECT rownum rnum, B.* FROM (
+				SELECT
+					commentNo
+					, movieBestNo
+					, id
+					, nick
+					, commentText
+					, commentDate
+					, commentDiv
+                    , (select count(*) from moviebestcommentlike cl where cl.commentNo = c.commentNo) commentcnt
+				FROM moviebestcomment c
+				WHERE movieBestNo = #{movieBesNo}
+				ORDER BY commentDate
+			) B
+		) ORDER BY rnum	
+  
+
+  </select>
+  
+  <insert id="insertMovieBestComment" parameterType="mobomobo.dto.MovieBestComment">
+  
+  insert into moviebestcomment (commentNo, movieBestNo, id, nick, commentText, commentDate)
+  values (moviebestcomment_seq.nextval, #{movieBestNo} , #{id, jdbcType=VARCHAR}, #{nick, jdbcType=VARCHAR} , #{commentText, jdbcType=VARCHAR}, sysdate)
+  
+  
+  </insert>
+  
+    <delete id="deleteMovieBestComment" parameterType="mobomobo.dto.MovieBestComment">
+   
+   delete moviebestcomment
+   where commentNo = #{commentNo, jdbcType=VARCHAR}
+   
+   
+   
+   </delete>
+   
+   
+   
+   <select id="movieBestCountComment" parameterType="mobomobo.dto.MovieBestComment" resultType="int">
+		SELECT COUNT(*) FROM moviebestcomment WHERE commentNo=#{commentNo, jdbcType=VARCHAR}
+	</select>
+   
+   
+   
+   <select id="imglist" resultType="mobomobo.dto.MovieBestImg">
+   
+   SELECT * FROM (
+    SELECT rownum rnum, M.* FROM (
+        SELECT MB.moviebestno, MB.title, MB.maincontent, MI.imgno, MI.originname, MI.storedname FROM moviebest MB, (
+        SELECT MO.* FROM (
+            SELECT row_number() over (partition by moviebestno order by imgno) rnum
+            , imgno, moviebestno, originname, storedname FROM moviebestimg
+            ) MO
+            WHERE rnum = 1
+        )MI
+        WHERE MB.moviebestno = MI.moviebestno(+)
+        ORDER BY moviebestno DESC
+        ) M
+    )moviebest 
+	WHERE rnum BETWEEN 1 AND 9
+   
+   
+   </select>
+   
+   <select id="selectViewImageList" parameterType="mobomobo.dto.MovieBest" resultType="mobomobo.dto.MovieBestImg" >
+   	SELECT * FROM (
+	    SELECT rownum rnum, M.* FROM (
+	        SELECT * FROM moviebestimg
+	        WHERE moviebestno = #{movieBestNo}
+	        ORDER BY imgno desc
+	    ) M
+	)
+	WHERE rnum BETWEEN 1 AND 3
+   </select>
+   
+   <select id="selectAwardList" resultType="mobomobo.dto.MovieAward">
+   		SELECT * FROM movie
+   		WHERE division = 'academy'
+   		ORDER BY movieno DESC
+   </select>
+   
+	
+	
+	
+
+</mapper>

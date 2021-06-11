@@ -1,13 +1,9 @@
 package mobomobo.dao.face;
 
-import java.util.HashMap;
 import java.util.List;
 
 import mobomobo.dto.BookMark;
-import mobomobo.dto.Movie;
 import mobomobo.dto.MovieAward;
-import java.util.List;
-
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
 import mobomobo.dto.MovieBestCommentLike;
@@ -157,6 +153,28 @@ public interface MovieDao {
 	public List<MovieBestCommentLike> selectMovieBestCommentLike(int movieBestNo);
 	
 	public int selectCntAllMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike);
+	
+	public List<MovieAward> selectAwardList();
+	
+	/**
+	 * 명장면 게시판 북마크 넣기
+	 * @param bookmark
+	 */
+	public void InsertMovieBestBookmark(BookMark bookmark);
+	
+	/**
+	 * 명장면 게시판 북마크 삭제
+	 * @param bookmark
+	 */
+	public void DeleteMovieBestBookmark(BookMark bookmark);
+
+	/**
+	 * 명장면 게시판 북마크 확인 
+	 * @param bookmark
+	 * @return
+	 */
+	public int CheckMovieBestBookmark(BookMark bookmark);
+
 	
 	
 	

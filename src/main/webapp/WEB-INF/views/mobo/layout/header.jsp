@@ -2,9 +2,13 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-   
+
 <!DOCTYPE html>
+<<<<<<< HEAD
+<html>   
+=======
 <html>
+>>>>>>> 483848d733ae47cc14cb4ef3ecea5966cea989e3
 <head>
 
 <!-- jquery -->
@@ -63,6 +67,13 @@ p {
 	font-size: 20px;
 	font-family: 'Jal_Onuel';
 }
+
+.notice{
+	font-size: small !important;
+	font-family: 'Jal_Onuel';
+	color: gray; 
+}
+
 
 #p {
 		font-size: 20px;
@@ -136,7 +147,7 @@ p {
                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                               <a class="dropdown-item" href="/mobo/movie/movierecom"><div class="menufont">영화추천</div></a>
                              <a class="dropdown-item" href="/mobo/movie/moviebestboard"><div class="menufont">영화명장면</div></a>
-                             <a class="dropdown-item" href="single-blog.html"><div class="menufont">영화토론</div></a>
+                             <a class="dropdown-item" href="/mobo/movie/debate"><div class="menufont">영화토론</div></a>
                              </div>
                         </li>
                        <li class="nav-item dropdown">
@@ -146,7 +157,7 @@ p {
                                <div id="menufont" class="dropdown-menu" aria-labelledby="navbarDropdown">
                               <a class="dropdown-item" href="/mobo/book/bookrecom"><div class="menufont">책추천</div></a>
                              <a class="dropdown-item" href="/mobo/book/bookFamous"><div class="menufont">책명대사</div></a>
-                             <a class="dropdown-item" href="single-blog.html"><div class="menufont">책토론</div></a>
+                             <a class="dropdown-item" href="/mobo/book/debate"><div class="menufont">책토론</div></a>
                              </div>
                         </li>
                         
@@ -171,7 +182,14 @@ p {
                 					</c:when></c:choose>
                 				<c:choose><c:when test="${login }">      
                 <a class="dropdown-item" href="/mobo/sign/logout"><div class="menufont">로그아웃</div></a>
+                					<c:choose>
+                					<c:when test="${grade eq 'admin' || grade eq 'master' }">
                 <a class="dropdown-item" href="/admin/main"><div class="menufont">관리자페이지</div></a>
+                					</c:when>
+                					<c:otherwise>
+                <a class="dropdown-item" href="#"><div class="menufont">마이페이지</div></a>                					
+                					</c:otherwise>
+                					</c:choose>
                 					</c:when></c:choose>
                 </div>
                 </div>

@@ -119,44 +119,14 @@ a { text-decoration:none; }
       <section class="ftco-section ">
        <div class="row no-gutters justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
-            <h2 class="mb-4">BOOK</h2>
+            <h2 class="mb-4">맨부커 시상식</h2>
             <p id="p">당신의 인생 책, 무부무부에서 만나보세요</p>
           </div>
         
         
         
         
-        <!-- 검색창 -->
-      <div class="s010">
-      <form>
-        <div class="inner-form">
-          <div class="basic-search">
-          
-            <div class="input-field">
-              <input id="search" type="text" placeholder="영화를 무부하세요" />
-              <div class="icon-wrap">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                  <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
-                </svg>
-              </div>
-            </div>
-            </div>
-            <div class="advance-search">
-              <div class="row third">
-              <div class="input-field">
-                <div class="result-count">
-                  </div>
-                <div class="group-btn">
-                  <button class="btn-delete" id="delete">RESET</button>
-                  <button class="btn-search">SEARCH</button>
-                </div>
-              </div>
-            </div>
-          </div>
-   	 </div>
-   			 
-    </form> <!-- 검색 폼 태그 -->
-    </div> <!-- 검색창 div 태그 -->
+      
     </div> <!-- 제목부터 검색까지 묶어주는 div 태그 -->
         
         

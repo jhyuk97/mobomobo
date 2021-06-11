@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="mobomobo.dao.face.BookFamousLineDao">
+  	<select id="selectCntAll" resultType="int">
+		 SELECT COUNT(*) FROM bookbest
+  	</select>
+  	<select id="selectList" resultType="HashMap" parameterType="mobomobo.util.BookBestPaging">
+  		SELECT * FROM (
+		    SELECT rownum rnum, M.* FROM (
+		        SELECT MB.bookbestno, MB.besttitle, MB.bestcontext,MB.bookauthor,MB.booktitle,MB.userno,MB.writedate, MI.fileno, MI.storedimg FROM bookbest MB, (
+		        SELECT MO.* FROM (
+		            SELECT row_number() over (partition by bookbestno order by fileno) rnum
+		            , storedimg, bookbestno, fileno FROM bookbestimg
+		            ) MO
+		            WHERE rnum = 1
+		        )MI
+		        WHERE MB.bookbestno = MI.bookbestno(+)
+		        ORDER BY bookbestno DESC
+		        )M
+		    )bookbest 
+		  WHERE rnum BETWEEN #{startNo } AND #{endNo }
+  	</select>
+  	<select id="selectCntBookBestNo" resultType="int">
+  		SELECT bookbest_seq.nextval FROM dual 
+  	</select>
+  	<insert id="insertBookBest" parameterType="mobomobo.dto.BookBest">
+  		INSERT INTO bookbest(bookbestno, userno,besttitle,bestcontext,booktitle,bookauthor,publicationdate)
+  		VALUES(#{bookBestno }, #{userno },#{bestTitle },#{bestContext },#{bookTitle },#{bookAuthor },#{publicationDate })
+  	</insert>
+  	
+  	<select id="selectBookBestImgFileNo" resultType="int">
+  		SELECT bookbestimg_seq.nextval FROM dual
+  	</select>
+  	<insert id="insertBookBestImg" parameterType="mobomobo.dto.BookBestImg">
+  		INSERT INTO bookbestimg(fileno,bookbestno,originimg,storedimg,filesize,contenttype)
+  		VALUES(#{fileno },#{bookBestno },#{originImg },#{storedImg },#{fileSize }, #{contentType })
+  	</insert>
+  	
+  	<select id="selectBookBest" parameterType="String" resultType="mobomobo.dto.BookBest">
+  		SELECT * FROM bookbest
+  		WHERE bookbestno = #{bookBestno }
+  	</select>
+  
+  	<select id="selectBookBestImg" parameterType="String" resultType="mobomobo.dto.BookBestImg">
+  		SELECT * FROM bookbestimg
+  		WHERE bookbestno = #{bookBestno }
+  	</select>
+  	<select id="selectImgList" resultType="mobomobo.dto.BookBestImg">
+  		SELECT * FROM bookbestimg
+  	</select>
+  	<delete id="deleteBookBest" parameterType="String">
+  		DELETE FROM bookbest
+  		WHERE bookbestno = #{bookBestno }
+  	</delete>
+  	<select id="selectBookBestLikeCnt" parameterType="mobomobo.dto.BookBestLike" resultType="int">
+  		SELECT COUNT(*) FROM bookbestlike
+  		WHERE userno = #{userno } AND bookbestno = #{bookBestno }
+  	</select>
+  	<insert id="insertBookBestLike" parameterType="mobomobo.dto.BookBestLike">
+  		INSERT INTO bookbestlike (bookbestno, userno)
+  		VALUES(#{bookBestno },#{userno })
+  	</insert>
+  	<delete id="deleteBookBestLike" parameterType="mobomobo.dto.BookBestLike">
+  		DELETE FROM bookbestlike
+  		WHERE bookbestno = #{bookBestno } AND userno = #{userno }
+  	</delete>
+  	<select id="selectBookBestLike" parameterType="mobomobo.dto.BookBestLike" resultType="int" >
+  		SELECT COUNT(*) FROM bookbestlike
+  		WHERE bookbestno = #{bookBestno }
+  	</select>
+  	<select id="selectBookBestLikeByFirstView" parameterType="String" resultType="int">
+  		SELECT COUNT(*) FROM bookbestlike
+  		WHERE bookbestno = #{bookBestno }
+  	</select>
+  	<select id="selectBookMarkCnt" parameterType="mobomobo.dto.BookMark" resultType="int">
+  		SELECT COUNT(*) FROM bookmark
+  		WHERE key =#{key } AND userno = #{userno }
+  	</select>
+  	<delete id="deleteBookMark" parameterType="mobomobo.dto.BookMark">
+  		DELETE FROM bookmark
+  		WHERE key = #{key } AND userno = #{userno }
+  	</delete>
+  	<insert id="insertBookMark" parameterType="mobomobo.dto.BookMark">
+  		INSERT INTO bookmark(bookmarkno,userno,category,key)
+  		VALUES(bookmarkno_seq.nextval,#{userno },'bookbest',#{key })
+  	</insert>
+  	<select id="selectCommentNo" resultType="int">
+  		SELECT bookbestcomment_seq.nextval FROM dual 
+  	</select>
+  	<insert id="insertBookBestComment" parameterType="mobomobo.dto.BookBestComment">
+  		INSERT INTO bookbestcomment(commentno,bookbestno,id,nick,commenttext)
+  		VALUES(#{commentno },#{bookBestno },#{id },#{nick },#{commentText })
+  	</insert>
+  	<select id="selectBookBestCommentByCommentNo" parameterType="mobomobo.dto.BookBestComment" resultType="mobomobo.dto.BookBestComment">
+  		SELECT * FROM bookbestcomment
+  		WHERE commentno = #{commentno }
+  	</select>
+  	<select id="selectBookBestCommentList" parameterType="String" resultType="HashMap">
+  		SELECT BBC.commentno,BBC.id,BBC.nick,BBC.commenttext,BBC.commentdate,BBCL.cnt FROM bookbestcomment BBC,
+		(
+		SELECT commentno,COUNT(*) cnt
+		FROM bookbestcommentlike
+		GROUP BY commentno
+		)BBCL
+		WHERE BBC.commentno = BBCL.commentno(+) AND BBC.bookbestno = #{bookBestno }
+		ORDER BY BBC.commentno DESC
+  	</select>
+  	<delete id="deleteBookBestComment" parameterType="mobomobo.dto.BookBestComment">
+  		DELETE FROM bookbestcomment
+  		WHERE commentno = #{commentno }
+  	</delete>
+  	<select id="selectBookBestCommentLikeCnt" resultType="int" parameterType="mobomobo.dto.BookBestCommentLike">
+  		SELECT COUNT(*) FROM bookbestcommentlike
+  		WHERE commentno = #{commentno } AND userno = #{userno }
+  	</select>
+  	<delete id="deleteBookBestCommentLike" parameterType="mobomobo.dto.BookBestCommentLike">
+  		DELETE FROM bookbestcommentlike
+  		WHERE commentno = #{commentno } AND userno = #{userno }
+  	</delete>
+  	<insert id="insertBookBestCommetLike" parameterType="mobomobo.dto.BookBestCommentLike">
+  		INSERT INTO bookbestcommentlike
+  		VALUES (#{commentno }, #{userno })
+  	</insert>
+  	
+  	<select id="selectCommentCnt" parameterType="mobomobo.dto.BookBestCommentLike" resultType="int">
+  		select count(*) from bookbestcommentlike
+		where commentno = #{commentno }
+  	</select>
+  
+  </mapper>

@@ -50,7 +50,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 		logger.info("serviceImpl - detail 로 들어오셨습니까?");
 		
-		// 업데이트
+		// 조회수 증가 
 		noticeDao.updateHit(notice);
 		
 		return noticeDao.selectByNoticeNo(notice);

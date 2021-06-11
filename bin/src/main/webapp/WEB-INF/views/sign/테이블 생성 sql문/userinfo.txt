@@ -1,0 +1,39 @@
+
+DROP TABLE userinfo;
+
+CREATE TABLE userinfo(
+    userno NUMBER CONSTRAINT userpk PRIMARY KEY
+    , userid VARCHAR2(30) UNIQUE NOT NULL
+    , userpw VARCHAR2(100) NOT NULL
+    , nick VARCHAR2(30) UNIQUE NOT NULL
+    , name VARCHAR2(30) NOT NULL
+    , email VARCHAR2(100) NOT NULL
+    , postnum NUMBER NOT NULL
+    , addr VARCHAR2(100) NOT NULL
+    , addrdetail VARCHAR2(500) NOT NULL
+    , joindate DATE DEFAULT sysdate
+    , age NUMBER
+    , grade VARCHAR2(50) DEFAULT 'user'
+);
+
+CREATE SEQUENCE userinfo_seq;
+
+
+DROP SEQUENCE userinfo_seq;
+
+INSERT INTO userinfo VALUES (
+    userinfo_seq.nextval
+    , 'master123'
+    , 'master123'
+    , 'masternick'
+    , 'mastername'
+    , 'master@master.com'
+    , 123
+    , 'master'
+    , 'master'
+    , sysdate
+    , 10
+    , 'master'
+);
+
+commit;

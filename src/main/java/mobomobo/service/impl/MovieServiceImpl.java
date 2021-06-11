@@ -888,7 +888,37 @@ public class MovieServiceImpl implements MovieService{
 		return movieDao.selectMovieBestCommentLike(movieBestNo);
 	}
 	
+	@Override
+	public List<MovieAward> getAwardList() {
+		return movieDao.selectAwardList(); 
+	}
 	
+	
+	@Override
+	public void AddMovieBestBookmark(BookMark bookmark) {
+		
+		
+		movieDao.InsertMovieBestBookmark(bookmark);
+		
+	}
+
+	@Override
+	public void RemoveMovieBestBookmark(BookMark bookmark) {
+		
+		movieDao.DeleteMovieBestBookmark(bookmark);
+		
+	}
+
+	@Override
+	public boolean CheckMovieBestBookmark(BookMark bookmark) {
+		
+		int count = movieDao.CheckMovieBestBookmark(bookmark);
+		
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
 	
 	
 	

@@ -49,7 +49,7 @@ public class NoticeController {
 		
 	}
 	@RequestMapping(value="/notice/detail", method = RequestMethod.GET)
-	public void noticDetail(Notice notice, Model model) {
+	public void noticeDetail(Notice notice, Model model) {
 		logger.info("/admin/notice/detail [GET] ");
 		
 		logger.info("notice 의 값은 : {}",notice);
