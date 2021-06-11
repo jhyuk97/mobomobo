@@ -20,6 +20,9 @@ public interface MarketService {
 	//페이징 객체 생성
 	public Paging getPaging(Paging inData);
 	
+	//관리자 페이징 생성
+	public Paging getAdminPaging(Paging inData);
+	
 	
 	//상세보기 조회
 	public Market Select(int mNo);

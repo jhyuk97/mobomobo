@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.support.SecurityContextProvider;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.socket.WebSocketSession;
 
 import mobomobo.util.Paging;
 import mobomobo.util.chat.Chat;
@@ -76,6 +74,7 @@ public class MarketController {
 		model.addAttribute("market", market);
 		model.addAttribute("Img", mImg);
 		model.addAttribute("bookmark", IsBookmark);
+		
 		
 		return "/mobo/market/product";
 	}
