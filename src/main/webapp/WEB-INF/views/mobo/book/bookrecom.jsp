@@ -79,8 +79,8 @@ a { text-decoration:none; }
                 target:'authors'
              },"#kimyongha");
         	getBookInfo("7ab4fb38af1de0cf515ccc51bc417dd5",{
-                query:"2021",
-                target:'datetime'
+        		query:"문학동네",
+                target:'publisher'
              },"#newBook");
         	getBookInfo("7ab4fb38af1de0cf515ccc51bc417dd5",{
         		query:["정유정"],
@@ -484,7 +484,7 @@ a { text-decoration:none; }
           
         <!-- 3번 카테고리 -->
         <div class="row category" id="newBook">
-        <h2 class="mb-4">2021 신작 도서</h2> <!-- 꼭 div row 다음에 넣어주기 -->
+        <h2 class="mb-4">문학동네</h2> <!-- 꼭 div row 다음에 넣어주기 -->
           <div class="col-md-3 ftco-animate">
             <div class="blog-entry">
 					<!-- 이미지 들어가는 곳 -->
