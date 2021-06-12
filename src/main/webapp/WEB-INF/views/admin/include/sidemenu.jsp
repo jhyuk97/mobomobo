@@ -58,7 +58,7 @@
             </a>
           </li>
            <li class="nav-item">
-            <a class="nav-link " href="/admin/tables">
+            <a class="nav-link " href="/admin/market">
               <i class="ni ni-tv-2 text-green"></i>중고마켓
             </a>
           </li>
