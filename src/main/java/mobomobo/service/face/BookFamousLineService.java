@@ -8,7 +8,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.multipart.MultipartFile;
 
 import mobomobo.dto.BookBest;
+import mobomobo.dto.BookBestComment;
+import mobomobo.dto.BookBestCommentLike;
 import mobomobo.dto.BookBestImg;
+import mobomobo.dto.BookBestLike;
+import mobomobo.dto.BookMark;
 import mobomobo.util.BookBestPaging;
 
 public interface BookFamousLineService {
@@ -81,10 +85,79 @@ public interface BookFamousLineService {
 	public void delete(String bookBestno);
 
 	/**
-	 * 추천 하기
-	 * @param bookBestno
+	 * ajax로 보내줄 추천개수
+	 * @param bookBestLike
+	 * @return
 	 */
-	public void like(String bookBestno);
+	public int viewLike(BookBestLike bookBestLike);
+
+	/**
+	 * 첫화면에 보여질 추천 개수
+	 * @return
+	 */
+	public int viewLike(String bookBestno);
+	/**
+	 * 북마크 확인 및 개수
+	 * @param bookMark
+	 * @return
+	 */
+	public int viewBookMark(BookMark bookMark);
+	
+	/**
+	 * 첫화면에 보여질 북마크 상태
+	 * @param bookBestno
+	 * @param session
+	 * @return
+	 */
+	public boolean viewBookMark(String bookBestno, HttpSession session);
+
+	/**
+	 * 댓글 dto 정보 저장
+	 * @param bookBestComment
+	 * @param session
+	 * @return
+	 */
+	public BookBestComment getBookBestComment(BookBestComment bookBestComment, HttpSession session);
+
+	/**
+	 * 댓글 등록
+	 * @param info
+	 */
+	public void insert(BookBestComment info);
+
+	/**
+	 * 삽입후 댓글 바로 불러오기
+	 * @param info
+	 * @return
+	 */
+	public BookBestComment getComment(BookBestComment info);
+
+	/**
+	 * 댓글 불러오기
+	 * @param bookBestno
+	 * @return
+	 */
+	public List<HashMap<String, Object>> getCommentList(String bookBestno);
+
+	/**
+	 * 댓글 삭제
+	 * @param bookBestComment
+	 */
+	public void delete(BookBestComment bookBestComment);
+
+	/**
+	 * 댓글 추천
+	 * @param bookBestCommentlike
+	 * @return 
+	 */
+	public boolean viewCommentLike(BookBestCommentLike bookBestCommentlike);
+
+	/**
+	 * 코맨트 추천 개수
+	 * @param bookBestCommentlike
+	 * @return
+	 */
+	public int getCommentCnt(BookBestCommentLike bookBestCommentlike);
 
 }
 

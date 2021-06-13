@@ -22,5 +22,16 @@
 	<select id="selectMovieStarRatingCount" resultType="int">
 		SELECT count(*) FROM moviestarrating
 	</select>
+	<select id="selectGroupByBookStarRatingAvg" resultType="mobomobo.dto.BookStarRating">
+			SELECT * FROM (
+		 		   	SELECT rownum rnum, M.* FROM(
+			        select isbn, avg(starrating) as starrating
+			        FROM bookstarrating
+			        GROUP BY isbn
+			        ORDER BY starrating DESC
+		    		) M
+				)
+				WHERE rnum BETWEEN 1 AND 3
+	</select>
 
 </mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  
+<mapper namespace="mobomobo.dao.face.MypageDao">
+
+	<select id="selectUserInfoByUserNo" parameterType="int" resultType="mobomobo.dto.UserInfo">
+		SELECT * FROM userinfo
+		WHERE userno = #{userno}
+	</select>
+	
+	<select id="selectUserImgByUserNo" parameterType="int" resultType="mobomobo.dto.UserImg">
+		SELECT * FROM userImg
+		WHERE userno = #{userno}
+	</select>
+	
+	<select id="selectMyWritingByUserNo" parameterType="int" resultType="mobomobo.dto.MyPage">
+		SELECT * FROM (
+		    SELECT rownum rnum, B.* FROM (
+		        SELECT dno as boardno, dtitle as title, ddate As wdate, hit, boarddiv FROM debate
+		        WHERE boarddiv = 4
+		        AND userno = #{userno}
+		        UNION
+		        SELECT dno as boardno, dtitle as title, ddate As wdate, hit, boarddiv FROM debate
+		        WHERE boarddiv = 5
+		        AND userno = #{userno}
+		        UNION
+		        SELECT mno as boardno, mtitle as title , mdate As wdate, mviews as hit, boarddiv FROM market
+		        WHERE boarddiv = 3
+		        AND userno = #{userno}
+		    )B 
+		    ORDER BY wdate DESC
+		)
+	</select>
+	
+	<select id="selectUserInfoCnt" parameterType="mobomobo.dto.UserInfo" resultType="int">
+		SELECT count(*) FROM userinfo
+		WHERE 1=1
+		AND id = #{id}
+		AND userpw = #{pw}
+	</select>
+
+
+</mapper>

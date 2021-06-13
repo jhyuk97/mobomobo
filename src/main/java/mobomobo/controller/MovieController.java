@@ -1,8 +1,8 @@
 package mobomobo.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -241,6 +241,19 @@ public class MovieController {
 			model.addAttribute("isMovieBestCommentLike", isMovieBestCommentLike);
 			model.addAttribute("cntMovieBestCommentLike", movieService.getTotalCntMovieBestCommentLike(movieBestCommentLike));
 			model.addAttribute("movieBestCommentLikeList", movieBestCommentLikeList);
+			
+			
+			
+			//명장면 게시판 북마크 
+			BookMark bookmark = new BookMark();
+			bookmark.setKey(movieBestNo+"");
+			bookmark.setTitle((String) session.getAttribute("title"));
+			bookmark.setUserno((int)session.getAttribute("userno"));	
+			
+			boolean isMovieBestBookmark = movieService.checkBookMark(bookmark);
+			
+			model.addAttribute("bookmark", isMovieBestBookmark);
+				
 
 	
 		//댓글 목록 전달
@@ -292,9 +305,15 @@ public class MovieController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 
+	}
+
+	@RequestMapping(value="/awardList")
+	public void awardList(Model model) {
+		
+		List<MovieAward> list = movieService.getAwardList();
+		
+		model.addAttribute("list", list);
 	}
 	
 	
@@ -329,8 +348,26 @@ public class MovieController {
 		return mav;
 	}
 	
-	
-	
+	@RequestMapping(value="/moviebest/bookmark", method=RequestMethod.POST)
+	public ModelAndView moviebestbookmark(BookMark bookmark, ModelAndView mav) {
+		
+		logger.info("{}",bookmark);
+		
+		boolean isMovieBestBookmark = movieService.CheckMovieBestBookmark(bookmark);
+		
+		mav.setViewName("jsonView");
+		
+		if(isMovieBestBookmark) {
+			movieService.RemoveMovieBestBookmark(bookmark);
+			mav.addObject("check", isMovieBestBookmark);
+			
+		}else {
+			movieService.AddMovieBestBookmark(bookmark);
+			mav.addObject("check", isMovieBestBookmark);
+		}
+		
+		return mav;
+	}
 	
 	
 	

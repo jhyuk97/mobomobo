@@ -4,17 +4,27 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%@include file="/WEB-INF/views/mobo/layout/header.jsp" %>
+
+<link rel="stylesheet" href="/resources/css/chat.css">
+
 <script type="text/javascript">
 $(document).ready(function(){
-	$.ajax({
-		url:"/mobo/market/chatroom"
-		,data:{"roomid": '${room.roomid}', "mTitle":'${market.mTitle}'}
-		,dataType:"html"
-		,type:"GET"
-		,success:function(res){
-			$("#chatLine").html(res);
-		}
-	});
+	
+	if(${not empty room}){
+		readLog('${room.roomid}','${market.mTitle}');
+	}
+	
+	
+// 	$.ajax({
+// 		url:"/mobo/market/chatroom"
+// 		,data:{"roomid": '${room.roomid}', "mTitle":'${market.mTitle}'}
+// 		,dataType:"html"
+// 		,type:"GET"
+// 		,success:function(res){
+// 			$("#chatLine").html(res);
+// 		}
+// 	});
 })
 
 
@@ -34,6 +44,7 @@ function readLog(roomid, mTitle){
 </script>
 
 <style type="text/css">
+
 .roomLine{
 	width:50%;
 	float:left;
@@ -42,25 +53,40 @@ function readLog(roomid, mTitle){
 .chatLine{
 	width:50%;
 	float:right;
+	height:500px;
 	box-sizing: border-box;
 }
 
 </style>    
-<div>
-	<div class="roomLine">
-		<div>
-			<table id="roomtable" border="1">
-				<tr><th>채팅방</th></tr>
-			<c:forEach var="list" items="${roomlist }">
-				<tr><td onclick="readLog('${list.roomid}', '${list.mTitle }')">${list.mTitle }:${list.suNick }</td></tr>
-			</c:forEach>
-			</table>
-		</div>
-	</div>
-	
-	<div id="chatLine" class="chatLine">
-		
-	</div>
+
+<div class="container1 clearfix">
+    <div class="people-list" id="people-list">
+      
+      <ul class="list" style="list-style:none;">
+      <c:forEach var="list" items="${roomlist }">
+        <li class="clearfix" onclick="readLog('${list.roomid}', '${list.mTitle }')">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />
+          <div class="about">
+            <div class="name" style="color:#fff;">${list.suNick }</div>
+            <div class="status">
+            </div>
+          </div>
+        </li>
+        
+        </c:forEach>
+        
+      </ul>
+    </div>
+    
+    <div id="chatLine" style="height:650px;">
+    </div> <!-- end chat -->
+    
+  </div> <!-- end container -->
 
 
-</div>
+
+
+
+
+
+<%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>	

@@ -26,7 +26,7 @@
 	<span id="idMsg"></span><span id="idMsg_cor"></span><br><br>
 	
 	<label for="pw">비밀번호</label> <br>
-	<input type="password" name="pw" id="pw" /> <br>
+	<input type="password" name="pw" id="pw" placeholder="분실 시 재발급됩니다"/> <br>
 	<span id="pwMsg"></span> <br><br>
 	
 	<label for="cpw">비밀번호 확인</label> <br>

@@ -6,6 +6,17 @@
 <script type="text/javascript" src ="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript">
+$(document).ready(function() {
+	$("#cancel").click(function() {
+		history.go(-1);
+	});
+	
+	$("#id").focus();
+});
+</script>
+
+
+<script type="text/javascript">
 
 
 $(document).ready(function() {	
@@ -19,7 +30,7 @@ $(document).ready(function() {
 	$("#id").keyup(function() {
 		if( !uidReg.test( $("#id").val())) {
 			$("#idMsg_cor").html("");
-			$("#idMsg").html("8자 이상 영문/숫자로 입력");
+			$("#idMsg").html("6자 이상 영문/숫자로 입력");
 			$("#idbtn").attr('disabled', true);
 			idFlag = "false";
 		} else {
@@ -68,27 +79,32 @@ $(document).ready(function() {
 
 
 <br><br><br>
-        <div class="container">
+
+
+<div class="container">
+
+
 <form action="/mobo/sign/findpw" method="post" class="box">
 
 	<h1>비밀번호 찾기</h1>
 	
 	<br><br>
 	
-	<label for="id">아이디</label>
-	<input type="text" id="id" name="id" />
-	<span id="idMsg"></span><span id="idMsg_cor"></span><br><br>
+	<label for="id">아이디 : </label>
+	<input type="text" id="id" name="id" placeholder="회원가입시 사용한 ID를 입력하세요" style="width: 300px;"/><br>
+	<span id="idMsg"></span><span id="idMsg_cor"></span><br>
 		
-	<label for="name">이름</label>
-	<input type="text" id="name" name="name" />
-	<span id="namegenMsg"></span> <br><br>
+	<label for="name" >이름 :&nbsp;&nbsp;&nbsp;</label>
+	<input type="text" id="name" name="name" placeholder="회원가입시 사용한 이름을 입력하세요" style="width: 300px;"/>
+	<br><br>
+		
+	<label for="email">이메일 : </label>
+	<input type="text" id="email" name="email" placeholder="회원가입시 사용한 이메일을 입력하세요" style="width: 300px;"/><br>
+	<span id="emailMsg"></span>
 	
-	<label for="email">이메일</label>
-	<input type="text" id="email" name="email" />
-	<span id="emailMsg"></span> <span id="cor_num"></span> <span id="wro_num"></span> <br>
 	
 	<br>
-	<input type="submit" id="submit" value="비밀번호 찾기" class="btn btn-outline-info"/>
+	<input type="submit" id="submit" value="비밀번호 재 발급하기" class="btn btn-outline-info"/>
 	
 	<br><br>
 	<div style="border-top: 1px solid #A48654;">
