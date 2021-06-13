@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mobomobo.dao.face.MainDao;
+import mobomobo.dto.BookStarRating;
 import mobomobo.dto.MovieStarRating;
 import mobomobo.service.face.MainService;
 
@@ -27,7 +28,7 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public List<HashMap<String,Object>> getBookStarRatingList() {
+	public List<BookStarRating> getBookStarRatingList() {
 		return mainDao.selectGroupByBookStarRatingAvg();
 	}
 	

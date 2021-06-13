@@ -316,6 +316,7 @@
               <h4>평점:<fmt:formatNumber value="${avg.AVG }" pattern=".0"/></h3>
               <br>
               <c:if test="${not empty userno }">
+              
               <div class="star-box" >
 				<span class="star star_left"></span><!-- 
 				 --><span class="star star_right"></span><!-- 
@@ -328,12 +329,13 @@
 				 --><span class="star star_left"></span><!-- 
 				 --><span class="star star_right"></span>
 				 
-			</div>
             <div class="star-value" id="starValue">0</div>
-	
-				<button type="button" id="starBtn">별점 입력</button>
-            
+				<button class="bubbly-button pull-right" type="button" id="starBtn">별점 입력</button>
+			</div>
               </c:if>
+             
+	
+            
             
             
             </div>

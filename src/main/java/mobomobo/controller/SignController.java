@@ -185,6 +185,8 @@ public class SignController {
 	public String logout(HttpSession session) {
 
 		session.invalidate();
+		
+		logger.info("logout?");
 
 		return "redirect: /mobo/main";
 	}

@@ -108,6 +108,7 @@
   outline: 0;
   border: 0;
   float: right;
+  background-color: #c2b0f2;
 
 }
 
@@ -139,7 +140,7 @@
 		<div class="row">
 		
 			<!-- 이미지 슬라이드 -->
-			<c:if test="${Img.size() } > 0">
+			<c:if test="${Img.size() > 0 }">
 			<div class="col-lg-5 mt-5">
 			
 				<div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -153,22 +154,14 @@
 							
 							<div class="carousel-item active">
 								<div class="container">
-									<div class="row p-5">
-										<div class="mx-auto col-md-8 col-lg-6 order-lg-last"> 
-											<img style="width:100%;" class="card-img img-fluid" src="/emp/${Img.get(0).getStoredImg() }" alt="Card image cap" id="product-detail">
-										</div>
-									</div>
+									<img style="padding:30px; height:560px;" class="card-img img-fluid" src="/emp/${Img.get(0).getStoredImg() }" alt="Card image cap" id="product-detail">
 								</div>
 							</div>
 							
 							<c:forEach var="img" items="${Img }" begin="1">
 					            <div class="carousel-item">
 					                <div class="container">
-					                    <div class="row p-5">
-					                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-					                            <img class="card-img img-fluid" src="/emp/${img.getStoredImg() }" alt="Card image cap" id="product-detail">
-					                        </div>
-					                    </div>
+					                    <img style="padding:30px; height:560px;" class="card-img img-fluid" src="/emp/${img.getStoredImg() }" alt="Card image cap" id="product-detail">
 					                </div>
 					            </div>
 							</c:forEach>

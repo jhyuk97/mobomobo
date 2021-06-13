@@ -1,5 +1,9 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: zimmy
+=======
+Built-By: user
+>>>>>>> 8bfcddd06623f3a064f7ab502dae860c20ea1771
 Build-Jdk: 1.8.0_275
 Created-By: Maven Integration for Eclipse
 
