@@ -380,11 +380,15 @@ public class MovieServiceImpl implements MovieService{
         movie.setTitle((String)parseMovieInfo.get("movieNm"));
         movie.setShowTm((String)parseMovieInfo.get("showTm"));
         
-        String year = ((String)parseMovieInfo.get("openDt")).substring(0, 4);
-        String month = ((String)parseMovieInfo.get("openDt")).substring(4, 6);
-        String day = ((String)parseMovieInfo.get("openDt")).substring(6, 8);
-        
-        movie.setOpenDt(year + "년 " + month + "월 " + day + "일");
+//        if((String)parseMovieInfo.get("openDt") != null) {
+//        String year = ((String)parseMovieInfo.get("openDt")).substring(0, 4);
+//        String month = ((String)parseMovieInfo.get("openDt")).substring(4, 6);
+//        String day = ((String)parseMovieInfo.get("openDt")).substring(6, 8);
+//        
+//        movie.setOpenDt(year + "년 " + month + "월 " + day + "일");
+//        } else {
+        	movie.setOpenDt((String)parseMovieInfo.get("openDt"));
+//        }
         
         JSONArray dir = (JSONArray) parseMovieInfo.get("directors");
         JSONArray nat = (JSONArray) parseMovieInfo.get("nations");

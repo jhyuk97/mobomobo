@@ -1,5 +1,6 @@
 package mobomobo.dao.face;
 
+import java.util.HashMap;
 import java.util.List;
 
 import mobomobo.dto.BookMark;
@@ -17,7 +18,33 @@ public interface MypageDao {
 
 	public int selectUserInfoCnt(UserInfo userinfo);
 
-	public List<BookMark> selectMyBookMarkByUserNo(int userno);
+	public List<BookMark> selectMyBookMarkByUserNo(HashMap<String, Object> map);
+
+	public List<MyPage> selectMyCommentByUserid(String userid);
+
+	public void insertUserImage(UserImg userImg);
+
+	public void deleteUserImg(int userno);
+
+	public void insertOriginImage(UserImg userImg);
+
+	public void deleteCheckBookMark(HashMap<String, Object> map);
+
+	public void deleteMarketWriting(HashMap<String, Object> map);
+
+	public void deleteDebateWriting(HashMap<String, Object> map);
+
+	public void deleteMovieComment(HashMap<String, Object> map);
+
+	public void deleteBookComment(HashMap<String, Object> map);
+
+	public void deleteDebateComment(HashMap<String, Object> map);
+
+	public void updateUserInfo(UserInfo userInfo);
+
+	public void updateUserInfoIncludePw(UserInfo userInfo);
+
+	public int selectCntAll(int userno);
 
 
 }

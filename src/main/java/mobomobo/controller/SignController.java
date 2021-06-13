@@ -94,7 +94,7 @@ public class SignController {
 
 //		logger.info("/mobo/signup/email - [POST] 요청 ");
 		
-//		logger.info("받아온 email 값 : {}", email);
+		logger.info("받아온 email 값 : {}", email);
 		
 		
 		

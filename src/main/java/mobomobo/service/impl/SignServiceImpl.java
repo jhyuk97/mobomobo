@@ -76,7 +76,7 @@ public class SignServiceImpl implements SignService{
 //		logger.info("여기서 사용자의 email을 받아올 수 있나 : {}", email);
 		
 		/* 이메일 보내기 */
-		String setFrom = "dyd7199@naver.com"; //본인 이메일로 변경해주세요!
+		String setFrom = "zimmyrabbit@naver.com"; //본인 이메일로 변경해주세요!
 		String toMail = email;
 		String title = "회원가입 인증 이메일 입니다.";
 		String content = 
