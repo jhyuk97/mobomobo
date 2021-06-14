@@ -25,6 +25,7 @@
 }
 
 .myPageContainer {
+	width : 1300px;
 	min-height: 1000px;
 }
 
@@ -72,6 +73,9 @@ a, a:visited {
 
 .userInfoTable {
 	margin : 0 auto;
+	border-collapse: separate;
+	border-spacing: 0 10px;
+	text-align: center;
 }
   
 .infoImg {
@@ -84,7 +88,25 @@ a, a:visited {
 
 .userInfoImgBox {
 	margin : 0 auto;
+	text-align: center;
 }
+
+.userinfoWrap {
+	width : 100%;
+}
+
+.longTitle {
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	display : inline-block;
+	width : 270px;
+}
+
+.cursor {
+	cursor: pointer;
+}
+
 
 
 </style>
@@ -94,11 +116,11 @@ a, a:visited {
 <div class="myPageContainer">
 
 	<ul role="navigation" class="navmypage">
-	  <li><a title="INFO" onclick="infoView()">INFO</a></li>
-	  <li><a title="WRITING" onclick="writingView()" >WRITING</a></li>  
-	  <li><a title="COMMENT" onclick="commentView()">COMMENT</a></li>
-	  <li><a title="BOOKMARK" onclick="bookmarkView(1)">BOOKMARK</a></li>  
-	  <li><a title="COUPON">COUPON</a></li>
+	  <li><a title="INFO" onclick="infoView()" class="cursor">INFO</a></li>
+	  <li><a title="WRITING" onclick="writingView(1)" class="cursor">WRITING</a></li>  
+	  <li><a title="COMMENT" onclick="commentView(1)" class="cursor">COMMENT</a></li>
+	  <li><a title="BOOKMARK" onclick="bookmarkView(1)" class="cursor">BOOKMARK</a></li>  
+	  <li><a title="COUPON" class="cursor">COUPON</a></li>
 	</ul>
 
 	<div id="userInfoBox">
@@ -254,6 +276,7 @@ function infoView() {
 			
 			var html = "";
 			
+			html += "<div class='userinfoWrap'>"
 			html += "<div class='userInfoImgBox'>"
 			if (data.userImg.storedName == 'basig.png') {
 			html += "	<img src='/resources/img/basig.png' class='infoImg'>"
@@ -336,6 +359,7 @@ function infoView() {
 			html += "</table>"
 			
 			html += "<input type='button' value='수정' onclick='userInfoUpdate()' />"
+			html += "</div>"
 			
 			
 			$("#userInfoBox").html(html);
@@ -346,11 +370,12 @@ function infoView() {
 }
 
 //글 목록 조회
-function writingView() {
+function writingView(curPage) {
 		
 	$.ajax({
 		type : 'get'
 		, url : '/mobo/mypage/writingView'
+		, data : {'curPage' : curPage}
 		, dataType : 'json'
 		, success : function(data) {
 			
@@ -359,40 +384,40 @@ function writingView() {
 			var html = "";
 			html += "<table class='userInfoTable'>"
 			html += "	<tr>"
-			html += "		<th>번호</th>"
-			html += "		<th>제목</th>"
-			html += "		<th>작성일</th>"
-			html += "		<th>조회수</th>"
-			html += "		<th>게시판</th>"
-			html += "		<th>추천수</th>"
-			html += "		<th>삭제</th>"
+			html += "		<th style='width : 90px;'>번호</th>"
+			html += "		<th style='width : 270px;'>제목</th>"
+			html += "		<th style='width : 180px;'>작성일</th>"
+			html += "		<th style='width : 90px;'>조회수</th>"
+			html += "		<th style='width : 90px;'>게시판</th>"
+			html += "		<th style='width : 90px;'>추천수</th>"
+			html += "		<th style='width : 90px;'>삭제</th>"
 			html += "	</tr>"
 			
-			for(var i=0; i<data.length; i++) {
+			for(var i=0; i<data.writing.length; i++) {
 				html += "<tr>"
-				html += "	<td>" + data[i].rnum + "</td>"
+				html += "	<td>" + data.writing[i].rnum + "</td>"
 				
-				if(data[i].boardDiv == 3) {
-					html += "	<td><a href='/mobo/market/" + data[i].boardNo + "'>" + data[i].title + "</a></td>"
-				} else if (data[i].boardDiv == 4) {
-					html += "	<td><a href=''>" + data[i].title + "</a></td>"					
-				} else if (data[i].boardDiv == 5) {
-					html += "	<td><a href=''>" + data[i].title + "</a></td>"					
+				if(data.writing[i].boardDiv == 3) {
+					html += "	<td class='longTitle'><a href='/mobo/market/" + data.writing[i].boardNo + "'>" + data.writing[i].title + "</a></td>"
+				} else if (data.writing[i].boardDiv == 4) {
+					html += "	<td class='longTitle'><a href=''>" + data.writing[i].title + "</a></td>"					
+				} else if (data.writing[i].boardDiv == 5) {
+					html += "	<td class='longTitle'><a href=''>" + data.writing[i].title + "</a></td>"					
 				}
 				
-				html += "	<td>" + moment(data[i].wdate).format('YYYY-MM-DD') + "</td>"
-				html += "	<td>" + data[i].hit + "</td>"
+				html += "	<td>" + moment(data.writing[i].wdate).format('YYYY-MM-DD') + "</td>"
+				html += "	<td>" + data.writing[i].hit + "</td>"
 				
-				if(data[i].boardDiv == 3) {
+				if(data.writing[i].boardDiv == 3) {
 					html += "	<td>중고 마켓</td>"
-				} else if (data[i].boardDiv == 4) {
+				} else if (data.writing[i].boardDiv == 4) {
 					html += "	<td>영화 토론</td>"					
-				} else if (data[i].boardDiv == 5) {
+				} else if (data.writing[i].boardDiv == 5) {
 					html += "	<td>책 토론</td>"					
 				}
 				
-				html += "<td>" + data[i].likeCnt + "</td>"
-				html += "	<td> <input type='checkbox' name='ckBoxDelete' value='writing-" + data[i].boardDiv + "-" + data[i].boardNo + "'/> </td>"
+				html += "<td>" + data.writing[i].likeCnt + "</td>"
+				html += "	<td> <input type='checkbox' name='ckBoxDelete' value='writing-" + data.writing[i].boardDiv + "-" + data.writing[i].boardNo + "'/> </td>"
 				
 				html += "</tr>"
 			}
@@ -401,6 +426,20 @@ function writingView() {
 			
 			html += "<input type='button' onclick='checkDelete()' value='삭제' />"
 			
+			html += "<div class='card-footer py-4'>"
+			html += "<nav>"
+			html += "<ul class='pagination justify-content-center mb-0'>"
+			for(var i=data.paging.startPage; i<=data.paging.endPage; i++ ) {
+				if(i == data.paging.curPage) {
+					html += "<li class='page-item active'><a class='page-link' onclick='writingkView(" + i + ")' >" + i + "</a></li>"
+				} else {
+					html += "<li><a class='page-link' onclick='writingView(" + i + ")' >" + i + "</a></li>"
+				}
+			}
+			html += "</ul>"
+			html += "</nav>"
+			html += "</div>"
+			
 			$("#userInfoBox").html(html);
 			
 		}
@@ -408,12 +447,13 @@ function writingView() {
 }
 
 //댓글 목록 조회
-function commentView() {
+function commentView(curPage) {
 	
 	$.ajax({
 		type : 'get'
 		, url : '/mobo/mypage/commentView'
 		, dataType : 'json'
+		, data : {'curPage' : curPage}
 		, success : function(data) {
 			
 			$("#userInfoBox").html("");
@@ -422,40 +462,54 @@ function commentView() {
 			
 			html += "<table class='userInfoTable'>"
 			html += "	<tr>"
-			html += "		<th>번호</th>"
-			html += "		<th>댓글내용</th>"
-			html += "		<th>카테고리</th>"
-			html += "		<th>작성일</th>"
-			html += "		<th>추천 수</th>"
-			html += "		<th>삭제</th>"
+			html += "		<th style='width : 90px;'>번호</th>"
+			html += "		<th style='width : 270px;'>댓글내용</th>"
+			html += "		<th style='width : 90px;'>카테고리</th>"
+			html += "		<th style='width : 180px;'>작성일</th>"
+			html += "		<th style='width : 90px;'>추천 수</th>"
+			html += "		<th style='width : 90px;'>삭제</th>"
 			html += "	</tr>"
 			
-			for(var i=0; i<data.length; i++) {
+			for(var i=0; i<data.comment.length; i++) {
 				html += "<tr>"
-				html += "	<td>" + data[i].rnum + "</td>"
-				if(data[i].commentDiv == 1) {
-					html += "	<td><a href='/mobo/movie/moviedetail?movieBestNo=" + data[i].boardNo + "'>" + data[i].commentText + "</a></td>"
+				html += "	<td>" + data.comment[i].rnum + "</td>"
+				if(data.comment[i].commentDiv == 1) {
+					html += "	<td class='longTitle'><a href='/mobo/movie/moviedetail?movieBestNo=" + data.comment[i].boardNo + "'>" + data.comment[i].commentText + "</a></td>"
 					html += "	<td>영화 명장면</td>"
-				} else if (data[i].commentDiv == 2) {
-					html += "	<td><a href='/mobo/book/famousDetail?bookBestno=" + data[i].boardNo + "'>" + data[i].commentText + "</a></td>"
+				} else if (data.comment[i].commentDiv == 2) {
+					html += "	<td class='longTitle'><a href='/mobo/book/famousDetail?bookBestno=" + data.comment[i].boardNo + "'>" + data.comment[i].commentText + "</a></td>"
 					html += "	<td>책 명대사</td>"
-				} else if (data[i].commentDiv == 4) {
-					html += "	<td><a>" + data[i].commentText + "</a></td>"
+				} else if (data.comment[i].commentDiv == 4) {
+					html += "	<td class='longTitle'><a>" + data.comment[i].commentText + "</a></td>"
 					html += "	<td>영화 토론</td>"
-				} else if (data[i].commentDiv == 5) {
-					html += "	<td><a>" + data[i].commentText + "</a></td>"
+				} else if (data.comment[i].commentDiv == 5) {
+					html += "	<td class='longTitle'><a>" + data.comment[i].commentText + "</a></td>"
 					html += "	<td>책 토론</td>"
 				}
-				html += "	<td>" + moment(data[i].wdate).format('YYYY-MM-DD') + "</td>"
+				html += "	<td>" + moment(data.comment[i].wdate).format('YYYY-MM-DD') + "</td>"
 
-				html += "	<td>" + data[i].likeCnt + "</td>"
-				html += "	<td> <input type='checkbox' name='ckBoxDelete' value='comment-" + data[i].commentDiv + "-" + data[i].commentNo + "'/> </td>"
+				html += "	<td>" + data.comment[i].likeCnt + "</td>"
+				html += "	<td> <input type='checkbox' name='ckBoxDelete' value='comment-" + data.comment[i].commentDiv + "-" + data.comment[i].commentNo + "'/> </td>"
 				html += "</tr>"
 			}
 			
 			html += "</table>"
 			
 			html += "<input type='button' onclick='checkDelete()' value='삭제' />"
+			
+			html += "<div class='card-footer py-4'>"
+			html += "<nav>"
+			html += "<ul class='pagination justify-content-center mb-0'>"
+			for(var i=data.paging.startPage; i<=data.paging.endPage; i++ ) {
+				if(i == data.paging.curPage) {
+					html += "<li class='page-item active'><a class='page-link' onclick='commentView(" + i + ")' >" + i + "</a></li>"
+				} else {
+					html += "<li><a class='page-link' onclick='commentView(" + i + ")' >" + i + "</a></li>"
+				}
+			}
+			html += "</ul>"
+			html += "</nav>"
+			html += "</div>"
 			
 			$("#userInfoBox").html(html);
 		
@@ -485,10 +539,10 @@ function bookmarkView(curPage) {
 			
 			html += "<table class='userInfoTable'>"
 			html += "	<tr>"
-			html += "		<th>번호</th>"
-			html += "		<th>제목</th>"
-			html += "		<th>카테고리</th>"
-			html += "		<th>삭제</th>"
+			html += "		<th style='width : 90px;'>번호</th>"
+			html += "		<th style='width : 270px;'>제목</th>"
+			html += "		<th style='width : 90px;'>카테고리</th>"
+			html += "		<th style='width : 90px;'>삭제</th>"
 			html += "	</tr>"
 			
 			for(var i=0; i<data.bookmark.length; i++) {
@@ -496,23 +550,23 @@ function bookmarkView(curPage) {
 				html += "	<td>" + data.bookmark[i].rnum + "</td>"
 				
 				if(data.bookmark[i].category == 'movie') {
-					html += "	<td><a href='/mobo/movie/movierecomDetail?key=" + data.bookmark[i].key  + "&image=" + data.bookmark[i].image + "'>" + data.bookmark[i].title + "</a></td>"
+					html += "	<td class='longTitle'><a href='/mobo/movie/movierecomDetail?key=" + data.bookmark[i].key  + "&image=" + data.bookmark[i].image + "'>" + data.bookmark[i].title + "</a></td>"
 					html += "	<td>영화</td>"
 							
 				} else if(data.bookmark[i].category == 'moviebest') {
-					html += "	<td><a href='/mobo/movie/moviedetail?movieBestNo=" + data.bookmark[i].key + "'>" + data.bookmark[i].title + "</a></td>"
+					html += "	<td class='longTitle'><a href='/mobo/movie/moviedetail?movieBestNo=" + data.bookmark[i].key + "'>" + data.bookmark[i].title + "</a></td>"
 					html += "	<td>영화 명장면</td>"
 							
 				} else if(data.bookmark[i].category == 'book') {
-					html += "	<td><a href='/mobo/book/detail?isbn=" + data.bookmark[i].key +"'>" + data.bookmark[i].title + "</a></td>"
+					html += "	<td class='longTitle'><a href='/mobo/book/detail?isbn=" + data.bookmark[i].key +"'>" + data.bookmark[i].title + "</a></td>"
 					html += "	<td>책</td>"
 							
 				} else if(data.bookmark[i].category == 'bookbest') {
-					html += "	<td><a href='/mobo/book/famousDetail?bookBestno=" + data.bookmark[i].key + "'>" + data.bookmark[i].title + "</a></td>"
+					html += "	<td class='longTitle'><a href='/mobo/book/famousDetail?bookBestno=" + data.bookmark[i].key + "'>" + data.bookmark[i].title + "</a></td>"
 					html += "	<td>책 명대사</td>"
 							
 				} else if(data.bookmark[i].category == 'product') {
-					html += "	<td><a href='/mobo/market/ " + data.bookmark[i].key + "'>" + data.bookmark[i].title + "</a></td>"
+					html += "	<td class='longTitle'><a href='/mobo/market/ " + data.bookmark[i].key + "'>" + data.bookmark[i].title + "</a></td>"
 					html += "	<td>중고 마켓</td>"
 				}
 				

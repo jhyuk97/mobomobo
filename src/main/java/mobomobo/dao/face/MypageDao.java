@@ -14,13 +14,13 @@ public interface MypageDao {
 
 	public UserImg selectUserImgByUserNo(int userno);
 
-	public List<MyPage> selectMyWritingByUserNo(int userno);
+	public List<MyPage> selectMyWritingByUserNo(HashMap<String, Object> map);
 
 	public int selectUserInfoCnt(UserInfo userinfo);
 
 	public List<BookMark> selectMyBookMarkByUserNo(HashMap<String, Object> map);
 
-	public List<MyPage> selectMyCommentByUserid(String userid);
+	public List<MyPage> selectMyCommentByUserid(HashMap<String, Object> map);
 
 	public void insertUserImage(UserImg userImg);
 
@@ -45,6 +45,10 @@ public interface MypageDao {
 	public void updateUserInfoIncludePw(UserInfo userInfo);
 
 	public int selectCntAll(int userno);
+
+	public int selectCntAllComment(String userid);
+
+	public int selectCtnAllWriting(int userno);
 
 
 }

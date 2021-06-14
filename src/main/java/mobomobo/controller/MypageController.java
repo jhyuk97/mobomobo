@@ -61,13 +61,19 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/mobo/mypage/writingView")
-	public @ResponseBody List<MyPage> writingView(HttpSession session) {
+	public @ResponseBody HashMap<String, Object> writingView(HttpSession session, int curPage) {
 		
 		int userno = (int)session.getAttribute("userno");
 		
-		List<MyPage> myWriting = mypageService.getMyWriting(userno);
+		Paging paging = mypageService.getWritingPaging(curPage, userno);
 		
-		return myWriting;
+		List<MyPage> myWriting = mypageService.getMyWriting(userno, paging);
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("writing", myWriting);
+		map.put("paging", paging);
+		
+		return map;
 		
 	}
 	
@@ -89,13 +95,19 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/mobo/mypage/commentView")
-	public @ResponseBody List<MyPage> commentView(HttpSession session) {
+	public @ResponseBody HashMap<String, Object> commentView(HttpSession session, int curPage) {
 		
 		String userid = (String)session.getAttribute("id");
 		
-		List<MyPage> myComment = mypageService.getMyComment(userid); 
+		Paging paging = mypageService.getCommentPaging(curPage, userid);
 		
-		return myComment;
+		List<MyPage> myComment = mypageService.getMyComment(userid, paging); 
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("comment", myComment);
+		map.put("paging", paging);
+		
+		return map;
 	}
 	
 	@RequestMapping(value="/mobo/mypage/updateImg", method=RequestMethod.POST)

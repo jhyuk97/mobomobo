@@ -61,9 +61,33 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
-	public List<MyPage> getMyWriting(int userno) {
+	public Paging getCommentPaging(int curPage, String userid) {
 
-		List<MyPage> mypage = mypageDao.selectMyWritingByUserNo(userno);
+		int totalCount = mypageDao.selectCntAllComment(userid);
+		
+		Paging paging = new Paging(totalCount, curPage);
+		
+		return paging;
+	}
+	
+	@Override
+	public Paging getWritingPaging(int curPage, int userno) {
+
+		int totalCount = mypageDao.selectCtnAllWriting(userno);
+		
+		Paging paging = new Paging(totalCount, curPage);
+		
+		return paging;
+	}
+	
+	@Override
+	public List<MyPage> getMyWriting(int userno, Paging paging) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userno", userno);
+		map.put("paging", paging);
+
+		List<MyPage> mypage = mypageDao.selectMyWritingByUserNo(map);
 		
 		return mypage;
 	}
@@ -92,8 +116,13 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
-	public List<MyPage> getMyComment(String userid) {
-		return mypageDao.selectMyCommentByUserid(userid); 
+	public List<MyPage> getMyComment(String userid, Paging paging) {
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("userid", userid);
+		map.put("paging", paging);
+		
+		return mypageDao.selectMyCommentByUserid(map); 
 	}
 	
 	@Override

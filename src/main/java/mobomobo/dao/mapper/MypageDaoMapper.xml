@@ -21,7 +21,7 @@
 		WHERE userno = #{userno}
 	</select>
 	
-	<select id="selectMyWritingByUserNo" parameterType="int" resultType="mobomobo.dto.MyPage">
+	<select id="selectMyWritingByUserNo" parameterType="map" resultType="mobomobo.dto.MyPage">
 		SELECT * FROM (
 		    SELECT rownum rnum, B.* FROM (
 		        SELECT D.dno as boardno, D.dtitle as title, D.ddate As wdate, D.hit, D.boarddiv, DH.likecnt
@@ -34,6 +34,7 @@
 		    )B 
 		    ORDER BY wdate DESC
 		)
+		WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
 	</select>
 	
 	<select id="selectUserInfoCnt" parameterType="mobomobo.dto.UserInfo" resultType="int">
@@ -53,7 +54,7 @@
 	    WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
 	</select>
 	
-	<select id="selectMyCommentByUserid" parameterType="string" resultType="mobomobo.dto.MyPage">
+	<select id="selectMyCommentByUserid" parameterType="map" resultType="mobomobo.dto.MyPage">
 		SELECT * FROM(
 			SELECT rownum rnum, C.* FROM (
 	  			SELECT MC.commentno, MC.moviebestno as boardno, MC.commenttext, MC.commentdate as wdate, MC.commentdiv, MCL.likecnt
@@ -73,6 +74,7 @@
 	    		) C
 	    	ORDER BY wdate DESC
 		)
+		WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
 	</select>
 	
 	<insert id="insertUserImage" parameterType="mobomobo.dto.UserImg">
@@ -141,6 +143,45 @@
 		SELECT count(*) FROM bookmark
 		WHERE userno = #{userno}
 	</select>
+	
+	<select id="selectCtnAllWriting" resultType="int" parameterType="int">
+		SELECT count(*) FROM (
+		    SELECT rownum rnum, B.* FROM (
+		        SELECT D.dno as boardno, D.dtitle as title, D.ddate As wdate, D.hit, D.boarddiv, DH.likecnt
+	               FROM debate D, (SELECT dno, COUNT(*) likecnt FROM debatehot GROUP BY dno )DH
+		        WHERE D.dno = DH.dno(+)
+	               AND userno = #{userno}
+		        UNION
+		        SELECT mno as boardno, mtitle as title , mdate As wdate, mviews as hit, boarddiv, 0 FROM market
+		        WHERE userno = #{userno}
+		    )B 
+		    ORDER BY wdate DESC
+		)
+	</select>
+	
+	<select id="selectCntAllComment" resultType="int" parameterType="string">
+		SELECT count(*) FROM(
+			SELECT rownum rnum, C.* FROM (
+	  			SELECT MC.commentno, MC.moviebestno as boardno, MC.commenttext, MC.commentdate as wdate, MC.commentdiv, MCL.likecnt
+	  			FROM moviebestcomment MC, (SELECT commentno,COUNT(*) likecnt FROM moviebestcommentlike GROUP BY commentno )MCL
+	 			WHERE MC.commentno = MCL.commentno(+)
+	  			AND id = #{userid}
+	  			UNION
+	  			SELECT BC.commentno, BC.bookbestno as boardno, BC.commenttext, BC.commentdate as wdate, BC.commentdiv, BCL.likecnt
+	  			FROM bookbestcomment BC, (SELECT commentno,COUNT(*) likecnt FROM bookbestcommentlike GROUP BY commentno )BCL
+				WHERE BC.commentno = BCL.commentno(+)
+	  			AND id = #{userid}
+	 			UNION
+	   			SELECT DC.dcno as commentno, DC.dno as boardno, DC.dccontent as commenttext, DC.dcdate as wdate, DC.commentdiv, DCL.likecnt
+	    		FROM debatecomment DC, (SELECT dcno ,COUNT(*) likecnt FROM debatecommenthot GROUP BY dcno )DCL
+	    		WHERE DC.dcno = DCL.dcno(+)
+	    		AND userid = #{userid}
+	    		) C
+	    	ORDER BY wdate DESC
+	)
+	</select>
+	
+	
 
 
 

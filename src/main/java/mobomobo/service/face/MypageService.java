@@ -16,13 +16,13 @@ public interface MypageService {
 
 	public UserImg getUserImg(int userno);
 
-	public List<MyPage> getMyWriting(int userno);
+	public List<MyPage> getMyWriting(int userno, Paging paging);
 
 	public boolean checkUserInfo(UserInfo userinfo);
 
 	public List<BookMark> getMyBookMark(int userno, Paging paging);
 
-	public List<MyPage> getMyComment(String userid);
+	public List<MyPage> getMyComment(String userid, Paging paging);
 
 	public void updateUserImage(MultipartFile imagefile, int userno);
 
@@ -33,5 +33,9 @@ public interface MypageService {
 	public void checkTransUserInfo(UserInfo userInfo);
 
 	public Paging getBookMarkPaging(int curPage, int userno);
+
+	public Paging getWritingPaging(int curPage, int userno);
+
+	public Paging getCommentPaging(int curPage, String userid);
 
 }
