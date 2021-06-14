@@ -2,20 +2,13 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!DOCTYPE html>
 <<<<<<< HEAD
-   
-<!DOCTYPE html>
-<html>
-=======
-<!DOCTYPE html>
-<html>
-
-
-
-
-<!DOCTYPE html>
 <html>   
->>>>>>> 508786dfe6870e8d49c4983a37bf0d29544f6330
+=======
+<html>
+>>>>>>> 483848d733ae47cc14cb4ef3ecea5966cea989e3
 <head>
 
 <!-- jquery -->
@@ -49,6 +42,7 @@ div 태그 느낌표 뜨는 거...해결 방법 아시면 알려주세염 그냥
 
 <!-- 헤더 푸터 기본 css는 templatemo.css 입니다  -->
 
+
 <style>
 
 
@@ -74,6 +68,13 @@ p {
 	font-size: 20px;
 	font-family: 'Jal_Onuel';
 }
+
+.notice{
+	font-size: small !important;
+	font-family: 'Jal_Onuel';
+	color: gray; 
+}
+
 
 #p {
 		font-size: 20px;
@@ -147,7 +148,7 @@ p {
                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                               <a class="dropdown-item" href="/mobo/movie/movierecom"><div class="menufont">영화추천</div></a>
                              <a class="dropdown-item" href="/mobo/movie/moviebestboard"><div class="menufont">영화명장면</div></a>
-                             <a class="dropdown-item" href="single-blog.html"><div class="menufont">영화토론</div></a>
+                             <a class="dropdown-item" href="/mobo/movie/debate"><div class="menufont">영화토론</div></a>
                              </div>
                         </li>
                        <li class="nav-item dropdown">
@@ -157,7 +158,7 @@ p {
                                <div id="menufont" class="dropdown-menu" aria-labelledby="navbarDropdown">
                               <a class="dropdown-item" href="/mobo/book/bookrecom"><div class="menufont">책추천</div></a>
                              <a class="dropdown-item" href="/mobo/book/bookFamous"><div class="menufont">책명대사</div></a>
-                             <a class="dropdown-item" href="single-blog.html"><div class="menufont">책토론</div></a>
+                             <a class="dropdown-item" href="/mobo/book/debate"><div class="menufont">책토론</div></a>
                              </div>
                         </li>
                         
@@ -181,14 +182,64 @@ p {
                              <a class="dropdown-item" href="/mobo/sign/signUp"><div class="menufont">회원가입</div></a>
                 					</c:when></c:choose>
                 				<c:choose><c:when test="${login }">      
-                <a class="dropdown-item" href="/mobo/sign/logout"><div class="menufont">로그아웃</div></a>
+                <a class="dropdown-item" href="javascript:kakaoLogout()"><div class="menufont">로그아웃</div></a>
+                					<c:choose>
+                					<c:when test="${grade eq 'admin' || grade eq 'master' }">
                 <a class="dropdown-item" href="/admin/main"><div class="menufont">관리자페이지</div></a>
+                					</c:when>
+                					<c:otherwise>
+                <a class="dropdown-item" href="#"><div class="menufont">마이페이지</div></a>                					
+                					</c:otherwise>
+                					</c:choose>
                 					</c:when></c:choose>
                 </div>
                 </div>
                 </li>
                 </ul>
             </div>
+            
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+<script type="text/javascript">
+
+Kakao.init('733d53597c1a83a03aa0b68ca9c16d65');
+
+// function kakaoLogout() {
+// 	Kakao.Auth.logout(function(response) {
+		
+// 		console.log("logout")
+		
+//     location.href="/mobo/sign/logout";
+// 	}); 
+// }
+
+function kakaoLogout() {
+	 
+	console.log("로그아웃 버튼 눌러서 들어왔나")
+	
+// 	console.log("kakao", Kakao)
+// 	console.log("kakao", Kakao.Auth)
+	
+    if (Kakao.Auth.getAccessToken()) {
+      Kakao.API.request({
+        url: '/v1/user/unlink',
+        success: function (response) {
+        	console.log(response)
+        	console.log("sucsses")
+    location.href="/mobo/sign/logout";
+        },
+        fail: function (error) {
+          console.log(error)
+        	console.log("fail..")
+        },
+      })
+      Kakao.Auth.setAccessToken(undefined)
+    }
+    
+
+  } 
+  
+</script> 
 
        
     </nav>

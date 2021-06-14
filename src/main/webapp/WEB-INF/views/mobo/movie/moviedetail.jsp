@@ -38,14 +38,11 @@
 <script type="text/javascript">
 
 $(document).ready(function() { 
+	
 	if(${isMovieBestLike }) {
-		$("#btnMovieBestLike")
-			.addClass("bubbly-button")
-			
-	} else {
-		$("#btnMovieBestLike")
-			.addClass("bubbly-button")
-			
+		$("#btnMovieBestLike").find("i").addClass("fa").removeClass("far")
+	} else { //추천 취소 성공
+		$("#btnMovieBestLike").find("i").addClass("far").removeClass("fa")
 	}
 	
 	$("#btnMovieBestLike").click(function() {
@@ -59,23 +56,30 @@ $(document).ready(function() {
 				console.log("성공");
 	
 				if( data.result ) { //추천 성공
-					$("#btnMovieBestLike")
-					.removeClass("bubbly-button")
-					.addClass("bubbly-button")
-					.html('추천');
-					
-				
+					$("#btnMovieBestLike").find("i").addClass("fa").removeClass("far")
 				} else { //추천 취소 성공
-					$("#btnMovieBestLike")
-					.removeClass("bubbly-button")
-					.addClass("bubbly-button")
-					.html('추천');
+					$("#btnMovieBestLike").find("i").addClass("far").removeClass("fa")
+				}
+				
+// 				if( data.result ) { //추천 성공
+// 					$("#btnMovieBestLike")
+// 					.removeClass("bubbly-button")
+// 					.addClass("bubbly-button")
+// 					.html('추천');
 					
 				
-				}
+// 				} else { //추천 취소 성공
+// 					$("#btnMovieBestLike")
+// 					.removeClass("bubbly-button")
+// 					.addClass("bubbly-button")
+// 					.html('추천');
+					
+				
+// 				}                                                                                                               
 	
 				//추천수 적용
-				$("#btnMovieBestLike").html(data.cnt);
+// 				$("#btnMovieBestLike").html(data.cnt);
+				$("#bestLike").html(data.cnt);
 			}
 			, error: function() {
 				console.log("실패"); 
@@ -106,10 +110,46 @@ $(document).ready(function() {
 		$form.submit();
 		
 	}); //$("#btnCommInsert").click() end
-
+	
 });
 
+
+//댓글 좋아요 버튼 클릭
+function moviebestComment( commentNo ) {
+
+	console.log('function moviebestComment called', commentNo)
+	
+	$.ajax({
+		type: "GET"
+		, url: "/mobo/movie/like/comment"
+		, data: { "movieBestNo": '${view.movieBestNo }' , "commentNo": commentNo}
+		, dataType: "json"
+		, success: function( data ) {
+			console.log("성공");
+
+			if( data.result ) { //추천 성공
+				$("[data-commentno='"+commentNo+"']").find("i")
+				.removeClass("far")
+				.addClass("fa")
+		
+			} else { //추천 취소 성공
+				$("[data-commentno='"+commentNo+"']").find("i")
+				.removeClass("fa")
+				.addClass("far")
+			}
+
+			//추천수 적용
+			$("[data-commentno='"+commentNo+"']").find(".bestCommentLike").html(data.cnt)
+		}
+		, error: function() {
+			console.log("실패"); 
+		}
+	}); //ajax end
+	
+} //function moviebestComment end
+
 function deleteComment(commentNo) {
+	
 	$.ajax({
 		type: "post"
 		, url: "/mobo/movie/comment/delete"
@@ -131,6 +171,12 @@ function deleteComment(commentNo) {
 		}
 	});
 }
+
+
+
+
+
+
 </script>	   
 
 	
@@ -156,6 +202,7 @@ function deleteComment(commentNo) {
 #deleteComment{
 	float:right;
 	text-align: right;
+	padding: 10px 15px;
 }
 
 #btnmoviebestcomment{
@@ -324,6 +371,42 @@ color: #bcbcbc;
 
 
 
+.rembutton{
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 22px;
+  text-decoration: none;
+  margin: 20px;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  float: right;
+
+}
+
+
+.rembutton:focus {
+	outline: none;
+}
+
+.rembutton:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+
+.purple {
+  background-color: #b3b7ef;
+  box-shadow: 0px 5px 0px 0px #dddff8;
+}
+
+.purple:hover {
+  background-color: #dddff8;
+}
+
+
 </style>
 
  
@@ -428,11 +511,11 @@ color: #bcbcbc;
         </div><!-- row 끝 -->
         
      <div class="button1">   
-    <button class="bubbly-button">북마크</button>    
+    <button id="moviebestbookmark" class="bubbly-button">북마크</button>    
     </div>
     
     <div class="button2">   
-  <button id="btnMovieBestLike" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;${cntMovieBestLike } 
+  <button id="btnMovieBestLike" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;<span id="bestLike">${cntMovieBestLike }</span> 
  </button> 
   </div>
 
@@ -443,7 +526,7 @@ color: #bcbcbc;
 	
 	<button id="mainlist" class="btn btn-filled" onclick='location.href="/mobo/movie/moviebestboard";'>목록</button>
 	<button id="join" class="btn btn-outline-fill" onclick='location.href="/mobo/signup/form";'>회원가입</button>
-	<button id="login" class="btn btn-outline-fill" onclick='location.href="/mobo/signin/login";'>로그인</button>
+	<button id="login" class="btn btn-outline-fill" onclick='location.href="/mobo/sign/login";'>로그인</button>
 	
 	</c:if>
 	
@@ -463,32 +546,36 @@ color: #bcbcbc;
 	<c:forEach items="${movieBestCommentList }" var="movieBestCommentList">
 		<ul class="list-group list-group-flush" data-commentno="${movieBestCommentList.commentNo}">
 		    <li class="list-group-item">
-			<div class="form-inline mb-2">
-				<label for="replyId"><i class="fa fa-user-circle fa-2x"></i></label>&nbsp;&nbsp;&nbsp;<b>${movieBestCommentList.nick }</b>
-				&nbsp;&nbsp;&nbsp;
+				<div class="form-inline mb-2">
+					<label for="replyId"><i class="fa fa-user-circle fa-2x"></i></label>&nbsp;&nbsp;&nbsp;<b>${movieBestCommentList.nick }</b>
+					&nbsp;&nbsp;&nbsp;
+					
+					<fmt:formatDate value="${movieBestCommentList.commentDate }" pattern="yyyy-MM-dd"/>
+					
+				</div>
+			
+				<div>
+				${movieBestCommentList.commentText }
+				</div>
+			
+				<div>
 				
-				<fmt:formatDate value="${movieBestCommentList.commentDate }" pattern="yyyy-MM-dd"/>
-			</div>
-			
-			
-			${movieBestCommentList.commentText }
-			
-			
-			<c:if test="${sessionScope.nick eq movieBestCommentList.nick }">
-		    <button type="submit" id="deleteComment" class="btn bg-replay mt-3" onclick="deleteComment(${movieBestCommentList.commentNo });">삭제
-		    </button>
-		    </c:if>
+				<c:if test="${sessionScope.nick ne movieBestCommentList.nick }">
+				<button class="btnMovieBestCommentLike rembutton purple" onclick="moviebestComment(${movieBestCommentList.commentNo });"  >
+				<i class="far fa-thumbs-up" aria-hidden="true"></i>
+				&nbsp;&nbsp;
+				<span class="bestCommentLike">${movieBestCommentList.commentcnt }</span>
+				</button>
+				</c:if>
+	 			</div>
+	 			
+	 			
+				<c:if test="${sessionScope.nick eq movieBestCommentList.nick }">
+			    <button type="submit" id="deleteComment" class="btn bg-replay mt-3" onclick="deleteComment(${movieBestCommentList.commentNo });">삭제</button>
+			    </c:if>
 			
 		    </li>
-		    
-		    
 		</ul>
-		
-		
-		
-		
-		
-		
 		</c:forEach>
 	
 	        
@@ -509,6 +596,7 @@ color: #bcbcbc;
 	</div>
 	</div>
 	
+
 	</c:if>
 	
 	
@@ -556,7 +644,33 @@ color: #bcbcbc;
 		  bubblyButtons[i].addEventListener('click', animateButton, false);
 		}
 
-		
+		$("#moviebestbookmark").click(function(){
+			if(${login ne true}){
+				alert('로그인 후 가능합니다');
+			}else{
+				$.ajax({
+					url: '/mobo/movie/moviebest/bookmark',
+					data: {key: ${view.movieBestNo}, category:"moviebest", userno: ${userno} , title: "${view.title}"},
+					type: 'POST',
+					dataType: 'json',
+					success: function(res){
+						console.log(res);
+						
+						console.log(res.check);
+						
+						if(res.check){
+							$("#moviebestbookmark")
+							.html('북마크');
+						}else{
+							$("#moviebestbookmark")
+							.html('북마크 취소');
+						}
+						
+					}
+				})
+			}
+		});
+
 </script>
     
    

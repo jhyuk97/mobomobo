@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
   <!-- Navigation -->
         <ul class="navbar-nav">
-              <li class="nav-item active ">
-            <a class="nav-link active " href="/admin/login">
-              <i class="ni ni-key-25 text-primary"></i> Login
-            </a>
-          </li>
+<!--               <li class="nav-item active "> -->
+<!--             <a class="nav-link active " href="/admin/login"> -->
+<!--               <i class="ni ni-key-25 text-primary"></i> Login -->
+<!--             </a> -->
+<!--           </li> -->
 		<li class="nav-item  ">
             <a class="nav-link  " href="/admin/usermanagement">
               <i class="ni ni-tv-2 text-info"></i> 회원관리
@@ -38,7 +38,7 @@
             </a>
           </li>
            <li class="nav-item">
-            <a class="nav-link " href="/admin/tables">
+            <a class="nav-link " href="/admin/book/bookRecom">
               <i class="ni ni-tv-2 text-yellow"></i>책추천
             </a>
           </li>
@@ -58,7 +58,7 @@
             </a>
           </li>
            <li class="nav-item">
-            <a class="nav-link " href="/admin/tables">
+            <a class="nav-link " href="/admin/market">
               <i class="ni ni-tv-2 text-green"></i>중고마켓
             </a>
           </li>
@@ -78,7 +78,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="/admin/maintest">MAIN</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="/admin/main">MAIN</a>
        
        
       </div>

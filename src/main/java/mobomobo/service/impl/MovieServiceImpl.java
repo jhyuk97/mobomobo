@@ -28,6 +28,7 @@ import mobomobo.dto.Movie;
 import mobomobo.dto.MovieAward;
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
+import mobomobo.dto.MovieBestCommentLike;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
 import mobomobo.dto.MovieCrawler;
@@ -848,8 +849,76 @@ public class MovieServiceImpl implements MovieService{
 	public List<MovieBestImg> viewImage(MovieBest viewMovieBest) {
 		return movieDao.selectViewImageList(viewMovieBest);
 	}
+
+	@Override
+	public boolean isMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike) {
+		int cnt = movieDao.selectCntMovieBestCommentLike(movieBestCommentLike);
+		
+		if(cnt > 0) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+
+	@Override
+	public boolean movieCommentlike(MovieBestCommentLike movieBestCommentLike) {
+		if(isMovieBestCommentLike(movieBestCommentLike)) {
+			movieDao.deleteMovieBestCommentLike(movieBestCommentLike);
+			
+			return false;
+			
+		} else {
+			
+			movieDao.insertMovieBestCommentLike(movieBestCommentLike);
+			
+			return true;
+		}
+	}
+
+	@Override
+	public int getTotalCntMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike) {
+		return movieDao.selectCntAllMovieBestCommentLike(movieBestCommentLike);
+		
+	}
+
+	@Override
+	public List<MovieBestCommentLike> getMovieBestCommentLikeList(int movieBestNo) {
+		return movieDao.selectMovieBestCommentLike(movieBestNo);
+	}
+	
+	@Override
+	public List<MovieAward> getAwardList() {
+		return movieDao.selectAwardList(); 
+	}
 	
 	
+	@Override
+	public void AddMovieBestBookmark(BookMark bookmark) {
+		
+		
+		movieDao.InsertMovieBestBookmark(bookmark);
+		
+	}
+
+	@Override
+	public void RemoveMovieBestBookmark(BookMark bookmark) {
+		
+		movieDao.DeleteMovieBestBookmark(bookmark);
+		
+	}
+
+	@Override
+	public boolean CheckMovieBestBookmark(BookMark bookmark) {
+		
+		int count = movieDao.CheckMovieBestBookmark(bookmark);
+		
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
 	
 	
 	

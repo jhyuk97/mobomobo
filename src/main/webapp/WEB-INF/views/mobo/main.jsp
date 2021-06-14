@@ -25,73 +25,53 @@
             <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
-            <div class="carousel-item active">
+            <div class="carousel-item active test0" style="height:500px;">
                 <div class="container">
                     <div class="row p-5">
-                     <div class="mx-auto col-md-8 col-lg-6 order-lg-last"> 
-                        <img class="img-fluid" src="/resources/img/MCU.gif" alt="#">
-<!--                         <img class="img-fluid" src="/resources/img/movie_star.gif" alt="#"> -->
-                       </div>
-                        <div class="col-lg-6 mb-0 d-flex align-items-center">
-                            <div class="text-align-left align-self-center">
-<!--                                 <h1 class="h1 text-success"><b>MOBOMOBO'S</b> HOME</h1> -->
-<!--                                 <h3 class="h2">MOBOMOBO</h3> -->
-<!--                 	                <p> -->
-<!--                                 	  MOVIE & BOOK  <a rel="sponsored" class="text-success" href="https://templatemo.com" target="_blank">TemplateMo</a> website.  -->
-                                   
-                                    
-<!--                                 </p> -->
-                            </div>
-                        </div>
+                     <img class="img-fluid" src="/resources/img/maindis2.gif" >
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item test1" style="height:500px;">
                 <div class="container">
                     <div class="row p-5">
-                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="/resources/img/PO2.jpg" alt="">
-                        </div>
-                        <div class="col-lg-6 mb-0 d-flex align-items-center">
-                            <div class="text-align-left">
-                                <h1 class="h1">아이 엠 히스레저</h1>
-                                <h3 class="h2">Aliquip ex ea commodo consequat</h3>
-                                <p>
-                                    You are permitted to use this Zay CSS template for your commercial websites. 
-                                    You are <strong>not permitted</strong> to re-distribute the template ZIP file in any kind of template collection websites.
-                                </p>
-                            </div>
-                        </div>
+                       <img class="img-fluid" src="/resources/img/mainbook3.gif"  >
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
+            <div class="carousel-item test2" style="height:500px;">
                 <div class="container">
                     <div class="row p-5">
-                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="/resources/img/PO3.jpg" alt="">
-                        </div>
-                        <div class="col-lg-6 mb-0 d-flex align-items-center">
-                            <div class="text-align-left">
-                                <h1 class="h1">빌리 엘리어트</h1>
-                                <h3 class="h2">Ullamco laboris nisi ut </h3>
-                                <p>
-                                    We bring you 100% free CSS templates for your websites. 
-                                    If you wish to support TemplateMo, please make a small contribution via PayPal or tell your friends about our website. Thank you.
-                                </p>
-                            </div>
+                       
+                        <img class="img-fluid" src="/resources/img/mainmovie5.gif" >
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item test3" style="height:500px;">
+                <div class="container">
+                    <div class="row p-5">
+                        
+                            <img class="img-fluid" src="/resources/img/MCU1.gif" >
+                        
+                        
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+       
+        
+        
+        
+        
+        
         <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
             <i class="fas fa-chevron-left"></i>
         </a>
         <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
             <i class="fas fa-chevron-right"></i>
         </a>
-    </div>
+    
     <!-- End Banner Hero -->
     
     
@@ -136,90 +116,25 @@
     
      <!-- Start Featured Product -->
     <section class="bg-light">
-        <div class="container py-5">
+    <div class="container py-5">
             <div class="row text-center py-3">
                 <div class="col-lg-6 m-auto">
                     <h1 class="h1">무부'S BOOK</h1>
                     <p>
-                          무부무부 유저들의 실시간 별점으로 알 수 있는 인기 책
+                        무부무부 유저들의 실시간 별점으로 알 수 있는 인기 책
                     </p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="/resources/img/BOOK1.jpg" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                             <!--     <li class="text-muted text-right">$240.00</li>-->
-                            </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">노르웨이의 숲</a>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.
-                            </p>
-                            <p class="text-muted">Reviews (24)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="/resources/img/BOOK2.jpg" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                              <!--    <li class="text-muted text-right">$480.00</li>-->
-                            </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">보건교사 안은영</a>
-                            <p class="card-text">
-                                Aenean gravida dignissim finibus. Nullam ipsum diam, posuere vitae pharetra sed, commodo ullamcorper.
-                            </p>
-                            <p class="text-muted">Reviews (48)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="/resources/img/BOOK3.jpg" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                </li>
-                             <!--  <li class="text-muted text-right">$360.00</li> -->  
-                            </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">프로젝트 헤일메리</a>
-                            <p class="card-text">
-                                Curabitur ac mi sit amet diam luctus porta. Phasellus pulvinar sagittis diam, et scelerisque ipsum lobortis nec.
-                            </p>
-                            <p class="text-muted">Reviews (74)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
+    	  <div class="row bookData">
+            
+            <c:forEach items="${bookList }" var="book" varStatus="status"> 
+                        <input id="bookIsbn${status.index }" value="${book.isbn }" type="hidden">
+                        <input id="bookRating${status.index }" value="${book.starRating }" type="hidden">
+            </c:forEach>             
+                
+    </div>
+    
     </section>
     <!-- End Featured Product -->
     
@@ -265,8 +180,95 @@
 $(document).ready(function(){
 	
 	movieStarRating();
+	bookStarRating();
 	
 })
+function bookStarRating(){
+	console.log($("#bookIsbn"+0).val())
+	for(var i=0;i<3;i++){
+		(function(i){
+			
+	var rating = $("#bookRating"+i).val()
+		
+		$(".bookData").append(`
+    			<div class="col-12 col-md-4 mb-4" style="text-align:center">
+                <div class="card h-100 img${'${i}'}">
+                    <div class="card-body">
+                        <ul class="list-unstyled justify-content-between">
+                            <li id="bookStarRating${'${i}'}">
+                            <p>평점: ${'${rating}'}</p>
+                            </li>
+                            <input type="hidden" value="${'${rating}'}" id="bstarrating${'${i}'}"/>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    			`)
+		
+	var isbn = $("#bookIsbn"+i).val()
+		
+	$.ajax({
+            url: "https://dapi.kakao.com/v3/search/book",
+            headers: {'Authorization': 'KakaoAK 7ab4fb38af1de0cf515ccc51bc417dd5'},
+            type : "get",
+            data:{
+            	query:isbn,
+                target:'isbn'
+            },
+            success : function(result){
+            	console.log(result.documents[0].title)
+            	console.log(i)
+            	console.log($(".img"+i))
+
+            	$(".img"+i).prepend(`
+                    <a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn.substring(0,10)}'}">
+                    <img src="${'${result.documents[0].thumbnail}'}" class="card-img-top">
+                    </a>
+            			`)
+            	console.log($(".img"+i+" .card-body"));
+            	$(".img"+i+" .card-body").append(`
+            			<a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn.substring(0,10)}'}" class="h2 text-decoration-none text-dark">${'${result.documents[0].title}'}</a>	
+            			`)
+            			
+            			
+            	var star = $("#bstarrating"+i).val();
+            	console.log(star)
+            	var html = "";
+            	
+            	if(star % 1 == 0) {
+
+        			for(var j=0; j<star; j++) {
+        				
+        				html += "<img src='/resources/img/pinkStar.png' style='width:20px; height:20px;' />"
+        			}
+        		
+        		} else {
+        			
+        			for(var j=0; j<star-0.5; j++) {
+        				
+        				html += "<img src='/resources/img/pinkStar.png' style='width:20px; height:20px;' />"
+        			}
+        			
+        			html += "<img src='/resources/img/halfStar.png' style='width:15px; height:30px;' />"
+        		}
+        		
+        		html += "<p class='text-muted' style='display:inline; padding-left:15px;'>" + star + "</p>"
+        		
+        		$("#bookStarRating" + i).html(html);
+        		
+            	
+            	
+            	
+            },
+            error: function(){
+    			alert("실패");
+    		}
+	})//$.ajax({ end
+	})(i)
+	}
+}
 
 function movieStarRating() {
 	

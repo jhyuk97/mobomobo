@@ -1,8 +1,8 @@
 package mobomobo.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,6 +25,7 @@ import mobomobo.dto.Movie;
 import mobomobo.dto.MovieAward;
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
+import mobomobo.dto.MovieBestCommentLike;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
 import mobomobo.dto.MovieCrawler;
@@ -47,7 +48,7 @@ public class MovieController {
 		
 		logger.info("명장면 게시판 ");
 		
-MovieBestPaging paging = movieService.getPaging(inData); 
+		MovieBestPaging paging = movieService.getPaging(inData); 
 		
 		logger.info(paging.toString()); 
 		
@@ -198,7 +199,7 @@ MovieBestPaging paging = movieService.getPaging(inData);
 	}
 	
 	@RequestMapping(value="/moviedetail", method=RequestMethod.GET)
-	public String moviebestdetail(MovieBest viewMovieBest, MovieBestComment movieBestComment, MovieBestImg movieBestImg, Model model, HttpSession session,@RequestParam(value="movieBestNo", required=false) int movieBestNo) {
+	public String moviebestdetail(MovieBest viewMovieBest, MovieBestCommentLike movieBestCommentLike, MovieBestComment movieBestComment, MovieBestImg movieBestImg, Model model, HttpSession session,@RequestParam(value="movieBestNo", required=false) int movieBestNo) {
 		
 		logger.info("영화 명장면 게시판 상세 페이지 ");
 		
@@ -227,7 +228,34 @@ MovieBestPaging paging = movieService.getPaging(inData);
 		model.addAttribute("isMovieBestLike", isMovieBestLike);
 		model.addAttribute("cntMovieBestLike", movieService.getTotalCntMovieBestLike(movieBestLike));
 		
-		
+		//댓글 추천 조회
+		MovieBestCommentLike movieBestCommentLike1 = new MovieBestCommentLike();
+		movieBestCommentLike1.setMovieBestNo(viewMovieBest.getMovieBestNo());
+		movieBestCommentLike1.setCommentNo(movieBestComment.getCommentNo()); //명장면 게시판 게시글 번호
+			//	movieBestCommentLike1.setId((String)session.getAttribute("id")); //로그인 아이디
+				
+				
+				//댓글 추천 상태 전달
+			List <MovieBestCommentLike> movieBestCommentLikeList = movieService.getMovieBestCommentLikeList(movieBestNo); //댓글 좋아요 리스트
+			boolean isMovieBestCommentLike = movieService.isMovieBestCommentLike(movieBestCommentLike);
+			model.addAttribute("isMovieBestCommentLike", isMovieBestCommentLike);
+			model.addAttribute("cntMovieBestCommentLike", movieService.getTotalCntMovieBestCommentLike(movieBestCommentLike));
+			model.addAttribute("movieBestCommentLikeList", movieBestCommentLikeList);
+			
+			
+			
+			//명장면 게시판 북마크 
+			BookMark bookmark = new BookMark();
+			bookmark.setKey(movieBestNo+"");
+			bookmark.setTitle((String) session.getAttribute("title"));
+			bookmark.setUserno((int)session.getAttribute("userno"));	
+			
+			boolean isMovieBestBookmark = movieService.checkBookMark(bookmark);
+			
+			model.addAttribute("bookmark", isMovieBestBookmark);
+				
+
+	
 		//댓글 목록 전달
 		
 		List<MovieBestComment> movieBestCommentList = movieService.getMovieBestCommentList(movieBestNo);
@@ -277,9 +305,68 @@ MovieBestPaging paging = movieService.getPaging(inData);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 
+	}
+
+	@RequestMapping(value="/awardList")
+	public void awardList(Model model) {
+		
+		List<MovieAward> list = movieService.getAwardList();
+		
+		model.addAttribute("list", list);
+	}
+	
+	
+	@RequestMapping(value = "/like/comment")
+	public ModelAndView moviebestlikecommentlike(MovieBestComment movieBestComment, MovieBestCommentLike movieBestCommentLike, ModelAndView mav, HttpSession session, @RequestParam(value="commentNo", required=false) int commentNo) {
+	
+		
+	
+		
+		//추천 정보 토글
+		movieBestCommentLike.setId((String) session.getAttribute("id"));
+		movieBestCommentLike.setCommentNo(commentNo); 
+		movieBestComment.setCommentNo(commentNo);
+		
+		
+		
+		
+		boolean result = movieService.movieCommentlike(movieBestCommentLike);
+		
+		
+		//-------------DB 저장 
+		
+		//추천 수 조회
+		int cnt = movieService.getTotalCntMovieBestCommentLike(movieBestCommentLike);
+		
+		logger.info("@@@@@@@@@@@@@@@@@@ 현재 추천수 - : {}",cnt );
+		
+		mav.addObject("result", result);
+		mav.addObject("cnt", cnt);
+		mav.setViewName("jsonView");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/moviebest/bookmark", method=RequestMethod.POST)
+	public ModelAndView moviebestbookmark(BookMark bookmark, ModelAndView mav) {
+		
+		logger.info("{}",bookmark);
+		
+		boolean isMovieBestBookmark = movieService.CheckMovieBestBookmark(bookmark);
+		
+		mav.setViewName("jsonView");
+		
+		if(isMovieBestBookmark) {
+			movieService.RemoveMovieBestBookmark(bookmark);
+			mav.addObject("check", isMovieBestBookmark);
+			
+		}else {
+			movieService.AddMovieBestBookmark(bookmark);
+			mav.addObject("check", isMovieBestBookmark);
+		}
+		
+		return mav;
 	}
 	
 	

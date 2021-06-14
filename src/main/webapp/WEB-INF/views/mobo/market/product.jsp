@@ -95,6 +95,43 @@
     background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
   }
 }
+
+.rembutton{
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 22px;
+  text-decoration: none;
+  margin: 20px;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  float: right;
+  background-color: #c2b0f2;
+
+}
+
+
+.rembutton:focus {
+   outline: none;
+}
+
+.rembutton:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+
+.purple {
+  background-color: #b3b7ef;
+  box-shadow: 0px 5px 0px 0px #dddff8;
+}
+
+.purple:hover {
+  background-color: #dddff8;
+}
+
 </style>
 
 
@@ -103,6 +140,7 @@
 		<div class="row">
 		
 			<!-- 이미지 슬라이드 -->
+			<c:if test="${Img.size() > 0 }">
 			<div class="col-lg-5 mt-5">
 			
 				<div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -116,27 +154,17 @@
 							
 							<div class="carousel-item active">
 								<div class="container">
-									<div class="row p-5">
-										<div class="mx-auto col-md-8 col-lg-6 order-lg-last"> 
-											<img style="width:100%;" class="card-img img-fluid" src="/emp/${Img.get(0).getStoredImg() }" alt="Card image cap" id="product-detail">
-										</div>
-									</div>
+									<img style="padding:30px; height:560px;" class="card-img img-fluid" src="/emp/${Img.get(0).getStoredImg() }" alt="Card image cap" id="product-detail">
 								</div>
 							</div>
 							
 							<c:forEach var="img" items="${Img }" begin="1">
-					            
 					            <div class="carousel-item">
 					                <div class="container">
-					                    <div class="row p-5">
-					                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-					                            <img class="card-img img-fluid" src="/emp/${img.getStoredImg() }" alt="Card image cap" id="product-detail">
-					                        </div>
-					                    </div>
+					                    <img style="padding:30px; height:560px;" class="card-img img-fluid" src="/emp/${img.getStoredImg() }" alt="Card image cap" id="product-detail">
 					                </div>
 					            </div>
-				
-						</c:forEach>
+							</c:forEach>
 				
 						</div>
 						
@@ -148,6 +176,8 @@
 				        </a>
 				</div>
 			</div>
+			
+			</c:if>
 			
 			<!-- 판매 정보 -->
 			<div class="col-lg-7 mt-5">
@@ -165,7 +195,7 @@
 			
 			<div class="buttons">
 				<div class="center">
-    				<button id="bookmark" class="bubbly-button">북마크</button><br>
+    				<button id="bookmark" class="rembutton">북마크</button><br>
     			</div>
     			<div class="right">  
 				<c:choose>
@@ -174,7 +204,7 @@
 						<a href="/mobo/market/delete?mNo=${market.mNo }"><button>삭제</button></a>
 					</c:when>
 					<c:otherwise>
-						<button>채팅</button>
+						<button id="openChat">채팅</button>
 					</c:otherwise>
 				</c:choose>
 				</div>
@@ -206,6 +236,19 @@
 		}
 		
 	$(document).ready(function(){
+		
+		$("#openChat").click(function(){
+			var url="/mobo/market/chat?mNo=${market.mNo}";
+			var name='${market.mTitle}';
+			var option="width=50, height=50, location=no, menubar=no, resizable=no";
+			window.open(url,name,option);
+		})
+		
+		
+		if(${bookmark}){
+			$("#bookmark").css({background:"#dab7ea"});
+		}
+		
 		$("#bookmark").click(function(){
 			if(${login ne true}){
 				alert('로그인 후 해주세요!!');
@@ -217,6 +260,15 @@
 					dataType: 'json',
 					success: function(res){
 						console.log(res);
+						
+						console.log(res.check);
+						
+						if(res.check){
+							$("#bookmark").css({background:"#c2b0f2"});
+						}else{
+							$("#bookmark").css({background:"#dab7ea"});
+						}
+						
 					}
 				})
 			}

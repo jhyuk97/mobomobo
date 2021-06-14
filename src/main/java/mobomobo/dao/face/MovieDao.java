@@ -1,15 +1,12 @@
 package mobomobo.dao.face;
 
-import java.util.HashMap;
 import java.util.List;
 
 import mobomobo.dto.BookMark;
-import mobomobo.dto.Movie;
 import mobomobo.dto.MovieAward;
-import java.util.List;
-
 import mobomobo.dto.MovieBest;
 import mobomobo.dto.MovieBestComment;
+import mobomobo.dto.MovieBestCommentLike;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
 import mobomobo.dto.MovieStarRating;
@@ -125,6 +122,62 @@ public interface MovieDao {
 	public List<MovieAward> selectRecomList();
 
 	public String selectStarAvgOfSingle(String key);
+	
+	
+	/**
+	 * 유저의 댓글 추천 조회
+	 * @param movieBestLike
+	 * @return
+	 */
+	public int selectCntMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike);
+	
+	/**
+	 * 댓글 추천 삽입
+	 * @param movieBestLike
+	 */
+	public void insertMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike);
+	
+	/**
+	 * 댓글 추천 정보 지우기 
+	 * @param movieBestLike
+	 */
+	public void deleteMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike);
+	
+	/**
+	 * 게시글 전체 추천 수 조회하기
+	 * @param movieBestLike
+	 * @return
+	 */
+	public int selectTotalCntMovieBestCommentLike(MovieBestLike movieBestLike);
+
+	public List<MovieBestCommentLike> selectMovieBestCommentLike(int movieBestNo);
+	
+	public int selectCntAllMovieBestCommentLike(MovieBestCommentLike movieBestCommentLike);
+	
+	public List<MovieAward> selectAwardList();
+	
+	/**
+	 * 명장면 게시판 북마크 넣기
+	 * @param bookmark
+	 */
+	public void InsertMovieBestBookmark(BookMark bookmark);
+	
+	/**
+	 * 명장면 게시판 북마크 삭제
+	 * @param bookmark
+	 */
+	public void DeleteMovieBestBookmark(BookMark bookmark);
+
+	/**
+	 * 명장면 게시판 북마크 확인 
+	 * @param bookmark
+	 * @return
+	 */
+	public int CheckMovieBestBookmark(BookMark bookmark);
+
+	
+	
+	
 
 
 }

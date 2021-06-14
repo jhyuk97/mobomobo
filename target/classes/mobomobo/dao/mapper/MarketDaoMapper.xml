@@ -9,8 +9,8 @@
 	<sql id="selectMarket">
 		SELECT
 		mNo, mTitle, mContent, 
-		mViews, mDate, mPrice, mCate
-		FROM Market
+		mViews, mDate, mPrice, mCate, id
+		FROM Market inner join userinfo on market.userno = userinfo.userno
 	</sql>
 	
 	<sql id="titleSearch">
@@ -95,5 +95,34 @@
 		values(bookmarkno_seq.nextval, #{userno}, #{category}, #{key})
 	</insert>
 	
+	<delete id="DeleteBookmark" parameterType="mobomobo.dto.BookMark">
+		DELETE bookmark
+		where userno=#{userno} and key=#{key}
+	</delete>
+	
+	<select id="CheckBookmark" parameterType="mobomobo.dto.BookMark" resultType="int">
+		SELECT COUNT(*) from bookmark
+		where userno=#{userno} and key=#{key}
+	</select>
+	
+	<update id="updateViews" parameterType="int">
+		UPDATE market set mviews = mviews + 1 where mno = #{mNo}
+	</update>
+	
+	<insert id="InsertChat" parameterType="mobomobo.dto.ChatLog">
+		INSERT INTO chatlog(lno, msg, suid, buid, sendid, roomid, mTitle, sunick) 
+		values(chatlog_seq.nextval, #{msg}, #{suid}, #{buid}, #{sendid}, #{roomid}, #{mTitle}, (select nick from userinfo where id=#{sendid}))
+	</insert>
+
+	<select id="ChatRoomList" parameterType="String" resultType="mobomobo.dto.ChatLog">
+		SELECT distinct roomid, mTitle, 
+		(SELECT nick FROM userinfo 
+		WHERE (id = buid or id = suid) and id != sendid) sunick from chatlog 
+		where sendid=#{userid}
+	</select>
+
+	<select id="selectLog" parameterType="String" resultType="mobomobo.dto.ChatLog">
+		SELECT * from chatlog where roomid=#{roomid} order by lno asc
+	</select>
 
 </mapper>

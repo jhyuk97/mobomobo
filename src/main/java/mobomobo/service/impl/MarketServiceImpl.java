@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import mobomobo.dao.face.MarketDao;
 import mobomobo.dto.BookMark;
+import mobomobo.dto.ChatLog;
 import mobomobo.dto.Market;
 import mobomobo.dto.MarketImg;
 import mobomobo.service.face.MarketService;
@@ -75,10 +76,23 @@ public class MarketServiceImpl implements MarketService {
 				
 		return paging;
 	}
+	
+	
+
+	@Override
+	public Paging getAdminPaging(Paging inData) {
+		
+		int totalCount = marketDao.SelectCntAll(inData);
+		
+		Paging paging = new Paging(totalCount, inData.getCurPage());
+		
+		return paging;
+	}
 
 	@Override
 	public Market Select(int mNo) {
-				
+		marketDao.updateViews(mNo);
+		
 		return marketDao.Select(mNo);
 	}
 
@@ -215,6 +229,34 @@ public class MarketServiceImpl implements MarketService {
 		
 		marketDao.InsertBookmark(bookmark);
 		
+	}
+
+	@Override
+	public boolean CheckBookmark(BookMark bookmark) {
+		int count = marketDao.CheckBookmark(bookmark);
+		
+		if(count > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void RemoveBookmark(BookMark bookmark) {
+		
+		marketDao.DeleteBookmark(bookmark);
+		
+	}
+
+	@Override
+	public List<ChatLog> SelectChatList(String userid) {
+		return marketDao.ChatRoomList(userid);
+	}
+
+	@Override
+	public List<ChatLog> selectLog(String roomid) {
+		
+		return marketDao.selectLog(roomid);
 	}
 
 	

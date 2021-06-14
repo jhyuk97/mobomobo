@@ -3,7 +3,9 @@ package mobomobo.controller;
 
 
 import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import mobomobo.dto.UserInfo;
 import mobomobo.service.face.SignService;
 
@@ -182,6 +185,8 @@ public class SignController {
 	public String logout(HttpSession session) {
 
 		session.invalidate();
+		
+		logger.info("logout?");
 
 		return "redirect: /mobo/main";
 	}

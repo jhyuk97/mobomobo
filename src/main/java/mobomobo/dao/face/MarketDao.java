@@ -3,6 +3,7 @@ package mobomobo.dao.face;
 import java.util.List;
 
 import mobomobo.dto.BookMark;
+import mobomobo.dto.ChatLog;
 import mobomobo.dto.Market;
 import mobomobo.dto.MarketImg;
 import mobomobo.util.Paging;
@@ -78,4 +79,35 @@ public interface MarketDao {
 	 * 중고마켓 북마크 추가
 	 */
 	public void InsertBookmark(BookMark bookmark);
+	
+	/*
+	 * 중고마켓 북마크 제거
+	 */
+	public void DeleteBookmark(BookMark bookmark);
+	
+	/*
+	 * 게시글 북마크 여부확인
+	 */
+	public int CheckBookmark(BookMark bookmark);
+	
+	/*
+	 * 채팅내역 저장
+	 */
+	public void InsertChat(ChatLog chat);
+	
+	/*
+	 * 채팅 리스트
+	 */
+	public List<ChatLog> ChatRoomList(String userid);
+	
+	/*
+	 * 채팅내역 리스트
+	 */
+	public List<ChatLog> selectLog(String roomid);
+	
+	/*
+	 * 조회수 증가
+	 */
+	public void updateViews(int mNo);
+	
 }

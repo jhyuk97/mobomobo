@@ -115,7 +115,7 @@
   
   <select id="selectMovieBestComment" parameterType="int" resultType="mobomobo.dto.MovieBestComment">
   
-  SELECT * FROM (
+ 	SELECT * FROM (
 			SELECT rownum rnum, B.* FROM (
 				SELECT
 					commentNo
@@ -125,11 +125,12 @@
 					, commentText
 					, commentDate
 					, commentDiv
-				FROM moviebestcomment
-				WHERE movieBestNo = #{movieBestNo}
+                    , (select count(*) from moviebestcommentlike cl where cl.commentNo = c.commentNo) commentcnt
+				FROM moviebestcomment c
+				WHERE movieBestNo = #{movieBesNo}
 				ORDER BY commentDate
 			) B
-		) ORDER BY rnum
+		) ORDER BY rnum	
   
 
   </select>
@@ -190,7 +191,28 @@
 	WHERE rnum BETWEEN 1 AND 3
    </select>
    
+   <select id="selectAwardList" resultType="mobomobo.dto.MovieAward">
+   		SELECT * FROM movie
+   		WHERE division = 'academy'
+   		ORDER BY movieno DESC
+   </select>
+   
+		<insert id="InsertMovieBestBookmark" parameterType="mobomobo.dto.BookMark">
 	
+	INSERT INTO bookmark(bookmarkno, userno, category, key, title, image)
+	values(bookmarkno_seq.nextval, #{userno}, #{category}, #{key}, #{title}, #{image})
+	
+	</insert>
+	
+	<delete id="DeleteMovieBestBookmark" parameterType="mobomobo.dto.BookMark">
+		DELETE bookmark
+		where userno=#{userno} and key=#{key}
+	</delete>
+	
+	<select id="CheckMovieBestBookmark" parameterType="mobomobo.dto.BookMark" resultType="int">
+		SELECT COUNT(*) from bookmark
+		where userno=#{userno} and key=#{key}
+	</select>
 	
 	
 
