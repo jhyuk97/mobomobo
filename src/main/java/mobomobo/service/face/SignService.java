@@ -81,12 +81,27 @@ public interface SignService {
 	/**
 	 * 비밀번호 찾기 
 	 * 
-	 * 사용자의 id로 비밀번호 조회
+	 * 사용자가 입력한 정보 검사
 	 * 
 	 * @param userInfo - 작성한 정보
 	 * @return pw값
 	 */
-	public UserInfo findUserPw(UserInfo userInfo);
+	public int findUserPw(UserInfo userInfo);
+
+	/**
+	 * 사용자의 새로운 pw 전송
+	 * @param email - 사용자의 email
+	 * @return
+	 */
+	public String rePwEmailSend(String email);
+
+	/**
+	 * 새로 발급된 암호화된pw DB에 저장
+	 * @param pwd - 암호화 된 pw가 포함된 userInfo
+	 * @return
+	 */
+	public void updatepw(UserInfo userInfo);
+
 
 	
 

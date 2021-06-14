@@ -9,7 +9,7 @@ $(document).ready(function() {
 	var pwFlag = "";
 	var ckFlag = "";
 	var emFlag = "";
-	var numFlag = "";
+	var numFlag = "true";
 	var telFlag = "";
 	var idchFlag = "";
 	var nickchFlag = "";

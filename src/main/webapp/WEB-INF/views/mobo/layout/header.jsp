@@ -7,6 +7,11 @@
 
 <html>   
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 22355d43c9aeac33283bd3c71bbb0976bdef21e9
 <head>
 
 <!-- jquery -->
@@ -234,6 +239,7 @@ function kakaoLogout() {
       Kakao.Auth.setAccessToken(undefined)
     }
     
+    location.href="/mobo/sign/logout";
 
   } 
   

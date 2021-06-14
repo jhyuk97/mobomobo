@@ -209,14 +209,14 @@ body {
                     			"res": res
                     		}
                     		, success : function(data){
-                    			console.log("성공")
+//                     			console.log("성공")
 
-                    			console.log(data)
-                    			console.log(data.loginResult)
+//                     			console.log(data)
+//                     			console.log(data.loginResult)
                     			
                     			if( data.loginResult == true){
                     				
-                    				console.log("여기가 들어와 지나요?")
+//                     				console.log("여기가 들어와 지나요?")
                     				document.location.href ='/mobo/main';
                     				
                     			} else {
@@ -224,17 +224,17 @@ body {
                     				var con_test = confirm("회원가입을 진행하시겠습니까?");
 			                    	var userInfo = JSON.stringify(data);
                     				
-                    				console.log("아이디가 없어서 회원가입 진행시 사용하는 값들")
-                    				console.log(data)
-                    				console.log(userInfo)
-                    				console.log(userInfo.kakaoUserInfo)
-                    				console.log(userInfo.nick)
-                    				console.log(res)
-                    				console.log(res.id)
+//                     				console.log("아이디가 없어서 회원가입 진행시 사용하는 값들")
+//                     				console.log(data)
+//                     				console.log(userInfo)
+//                     				console.log(userInfo.kakaoUserInfo)
+//                     				console.log(userInfo.nick)
+//                     				console.log(res)
+//                     				console.log(res.id)
                     				
                     				
-                    				console.log("data", data)
-                    				console.log("id", data.kakaoUserInfo.id)
+//                     				console.log("data", data)
+//                     				console.log("id", data.kakaoUserInfo.id)
                     				
                     				if(con_test == true){
                     					
@@ -318,12 +318,12 @@ body {
 	      Kakao.API.request({
 	        url: '/v1/user/unlink',
 	        success: function (response) {
-	        	console.log(response)
-	        	console.log("sucsses")
+// 	        	console.log(response)
+// 	        	console.log("sucsses")
 	        },
 	        fail: function (error) {
-	          console.log(error)
-	        	console.log("fail..")
+// 	          console.log(error)
+// 	        	console.log("fail..")
 	        },
 	      })
 	      Kakao.Auth.setAccessToken(undefined)
