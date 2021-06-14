@@ -32,5 +32,34 @@
 		WHERE dno = #{dNo }
 	</update>
 	
+	<insert id="insertDebate" parameterType="Debate">
+		insert into debate ( dNo, dTitle, dContent, userno, nick, boardDiv)
+		VALUES ( dNo_seq.nextval,#{dTitle}, #{dContent}, #{userno}, #{nick}, 4 )
+	</insert>
+	
+	
+	<select id="selectDebateHotNo" resultType="int">
+		select dhNo_seq.nextval from dual
+	</select>
+	
+	<select id="selectDebateHotBydNouserNo" resultType="int" parameterType="mobomobo.dto.DebateHot">
+		select count(*) from debatehot
+		where dno = #{dNo } and userno = #{userno }
+	</select>
+	
+	<insert id="insertDebateHot" parameterType="mobomobo.dto.DebateHot">
+		insert into debatehot(dhno,dno,userno)
+		values(#{dhNo },#{dNo },#{userno })
+	</insert>
+	
+	<delete id="deleteDebateHot" parameterType="mobomobo.dto.DebateHot">
+		delete from debatehot
+		where dNo = #{dNo } and userno = #{userno }
+	</delete>
+
+	<select id="selectAllDebateHot" resultType="int" parameterType="mobomobo.dto.DebateHot">
+		select count(*) from debatehot 
+		where dno = #{dNo }
+	</select>	
 	
 </mapper>	

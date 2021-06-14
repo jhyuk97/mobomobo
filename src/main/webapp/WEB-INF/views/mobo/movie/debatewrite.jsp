@@ -3,13 +3,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@include file="/WEB-INF/views/admin/include/header.jsp" %>
+<%@include file="/WEB-INF/views/mobo/layout/header.jsp" %>
 
-<%@include file="/WEB-INF/views/admin/include/sidemenu.jsp" %>
-
+<!-- 스마트 에디터2 라이브러리 로드 -->
+<script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 
 <script type="text/javascript">
+
 $(document).ready(function() {
+	
+	$("#btnWrite").click(function() {
+		submitContents($("#btnWrite"))
+		$("form").submit();
+	});
 	
 	$("#cancel").click(function() {
 		history.go(-1);
@@ -23,31 +29,33 @@ $(document).ready(function() {
 <h1>글쓰기 페이지</h1>
 <hr>
 
-<form action="/admin/notice/write" method="post" >
+<form action="/mobo/movie/debatewrite" method="post" >
 
 	<div class="form-group">
 		<label for="writer">작성자</label>
-		<input type="text" id="writer" value="관리자" readonly="readonly"
+		<input type="text" id="writer" value="${sessionScope.nick }" readonly="readonly"
 			class="form-control" />
 	</div>
 
 	<div class="form-group">
-		<label for="title">제목</label>
-		<input type="text" id="nTitle" name="nTitle" class="form-control" />
+		<label for="dTitle">제목</label>
+		<input type="text" id="dTitle" name="dTitle" class="form-control" />
 	</div>
 	
 	<div class="form-group">
-		<label for="content">본문</label>
-		<textarea rows="10" style="width: 100%" id="nContent" name="nContent"></textarea>
+		<label for="dContent">본문</label>
+		<textarea rows="10" style="width: 100%" id="dContent" name="dContent"></textarea>
 	</div>
 	
+	
+	
+</form>
+
 	<div class="text-center">
 		<button class="btn btn-primary" id="btnWrite" type="submit">작성</button>
 		<input type="reset" id="cancel" class="btn btn-danger" value="취소" />
 	</div>
 	
-</form>
-
 </div>
 
 
@@ -55,14 +63,14 @@ $(document).ready(function() {
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors,
-	elPlaceHolder: "nContent", //에디터가 적용될 <textarea>의 id
+	elPlaceHolder: "dContent", //에디터가 적용될 <textarea>의 id
 	sSkinURI: "/resources/se2/SmartEditor2Skin.html", //에디터 스킨
 	fCreator: "createSEditor2"
 })
 
 function submitContents(elClickedObj) {
 	
-	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+	oEditors.getById["dContent"].exec("UPDATE_CONTENTS_FIELD", []);
 	
 	try {
 		elClickedObj.form.submit();
@@ -74,4 +82,4 @@ function submitContents(elClickedObj) {
 
 
 
-<%@include file="/WEB-INF/views/admin/include/footer.jsp" %>
+<%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>

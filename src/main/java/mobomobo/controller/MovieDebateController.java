@@ -3,6 +3,8 @@ package mobomobo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import mobomobo.dto.BookMark;
 import mobomobo.dto.Debate;
-import mobomobo.dto.Notice;
+import mobomobo.dto.DebateHot;
 import mobomobo.service.face.MovieDebateService;
 import mobomobo.util.DebatePaging;
 
@@ -60,8 +64,13 @@ public class MovieDebateController {
 		Debate detail = movieDebateService.detail(debate);
 		logger.info("test");
 		
+		DebateHot debateHot = new DebateHot();
+		debateHot.setdNo(debate.getdNo());
+		int cnt = movieDebateService.getLikeCnt(debateHot);
+		
 		//모델값전달
-		model.addAttribute("debatedetail", detail);
+		model.addAttribute("likeCnt",cnt);
+		model.addAttribute("Debate", detail);
 		logger.info("detail : {}" , detail);
 		
 	}
@@ -73,11 +82,16 @@ public class MovieDebateController {
 	}
 	
 	@RequestMapping(value = "/movie/debatewrite", method = RequestMethod.POST)
-	public String debateWriteProc(Debate debate, Model model) {
+	public String debateWriteProc(Debate debate, Model model, HttpSession session) {
 		
 		logger.info("제뫃ㄱ롷ㄹㅎ로ㅗㅎㄹ롷ㄹㅎㄹ :{}", debate);
 		
 		logger.info("이동됬어요!@!!@!@!@!@!@!@!@!@!@!@!");
+		
+		
+		debate.setUserno((int)session.getAttribute("userno"));
+
+		debate.setNick((String)session.getAttribute("nick"));
 		
 		logger.info("글쓰기 : {}", debate);
 		
@@ -121,6 +135,32 @@ public class MovieDebateController {
 		movieDebateService.debateUpdate(debate);
 		
 		return "redirect: /mobo/movie/debatedetail?dNo="+debate.getdNo();
+		
+	}
+	@RequestMapping(value="/movie/debatelike", method = RequestMethod.GET)
+	@ResponseBody
+	public int like(DebateHot debateHot, HttpSession session, Model model) {
+		logger.info("/debatelike");
+		
+		
+		
+		DebateHot data = movieDebateService.getDebateHot(debateHot,session);
+		logger.debug(data.toString());
+		
+		
+		if(movieDebateService.isExsitDebateHot(data)) {
+			// 데이터 있음
+			// 추천 삭제
+			movieDebateService.deleteLike(data);
+			
+		} else {
+			// 데이터 없음
+			// 추천 삽입
+			movieDebateService.insertLike(data);
+		}
+		
+		int cnt = movieDebateService.getLikeCnt(data);
+		return cnt;
 		
 	}
 	

@@ -95,7 +95,7 @@
                 
                 <tr>
                 	<td class="notice">${Debate.dNo }</td>
-                	<td style="font-size: 6px;"><a href="/mobo/notice/detail?nNo=${Debate.dNo }" class="notice">${Debate.dTitle }</a></td>
+                	<td style="font-size: 6px;"><a href="/mobo/movie/debatedetail?dNo=${Debate.dNo }" class="notice">${Debate.dTitle }</a></td>
                 	<td class="notice">${Debate.userno }</td>
                 	<td class="notice"><fmt:formatDate value="${Debate.dDate }" pattern="yy-MM-dd" /></td>
                 	<td class="notice">${Debate.hit }</td>
@@ -108,7 +108,7 @@
            		 
            		 <br><br>
            		 
-	<button id="write" class="btn btn-filled" onclick='location.href="/mobo/movie/write";'>작성</button>
+	<button id="write" class="btn btn-filled" onclick='location.href="/mobo/movie/debatewrite";'>작성</button>
 	<button id="hot" class="btn btn-filled" onclick='location.href="/mobo/movie/hot";'>HOT</button>
            		 
            		 <br><br>

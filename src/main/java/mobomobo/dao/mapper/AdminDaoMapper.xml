@@ -136,11 +136,6 @@
   where movieBestNo = #{movieBestNo}
 
   </delete>
-<<<<<<< HEAD
 	
 	
-=======
-
->>>>>>> 483848d733ae47cc14cb4ef3ecea5966cea989e3
-
 </mapper>
