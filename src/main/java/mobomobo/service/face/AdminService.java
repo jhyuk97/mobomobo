@@ -30,7 +30,6 @@ public interface AdminService {
 	 */
 	public List<UserInfo> list(Paging paging);
 
-	
 	/**
 	 * 회원관리 페이지에서 user삭제 하기
 	 * 

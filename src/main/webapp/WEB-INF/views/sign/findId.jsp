@@ -60,27 +60,20 @@ $(document).ready(function() {
 <br><br><br>
         <div class="container">
 <h1>아이디 찾기</h1>
-
+<hr>
 
 <form action="/mobo/sign/findid" method="post" class="box">
 
 <br>
-	<label for="name">이름</label>
-	<input type="text" id="name" name="name" />
+
+	<label for="name" >이름 :&nbsp;&nbsp;&nbsp;</label>
+	<input type="text" id="name" name="name" placeholder="회원가입시 사용한 이름을 입력하세요" style="width: 300px;"/>
 	<br><br>
 		
-	<label for="email">이메일</label>
-	<input type="text" id="email" name="email" /><br>
+	<label for="email">이메일 : </label>
+	<input type="text" id="email" name="email" placeholder="회원가입시 사용한 이메일을 입력하세요" style="width: 300px;"/><br>
 	<span id="emailMsg"></span>
 	
-<!-- 	<button type="button" id ="button" class="btn btn-success" data-container="body" data-toggle="popover" data-color="success" data-placement="top" data-content="완료값 불러올꺼임"> -->
-<!--  		아이디 찾기 -->
-<!-- 	</button> -->
-	
-<!-- 	<button type="button" class="btn btn-success" data-container="body" data-toggle="popover"  -->
-<!-- 	data-color="success" data-placement="top" data-content="This is a very beautiful popover, show some love."> -->
-<!--   	아이디 찾기 -->
-<!-- 	</button> -->
 	<br>
 
 	<input type="submit" id="submit" value="아이디 찾기" class="btn btn-outline-info">
@@ -89,7 +82,7 @@ $(document).ready(function() {
 	<br>
 	<div style="border-top: 1px solid #A48654;">
 		<span class="stick">혹시 비밀번호를 찾으시나요? │ </span>
-		<a href="/mobo/sign/findpw" class="link">비밀번호 찾기</a>
+		<a href="/mobo/sign/findpw" class="link">비밀번호 재 발급하기</a>
 	</div>
 
 </form>

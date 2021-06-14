@@ -104,4 +104,10 @@ public interface MarketDao {
 	 * 채팅내역 리스트
 	 */
 	public List<ChatLog> selectLog(String roomid);
+	
+	/*
+	 * 조회수 증가
+	 */
+	public void updateViews(int mNo);
+	
 }

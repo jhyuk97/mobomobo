@@ -16,7 +16,7 @@
    
 	<%@include file="/WEB-INF/views/mobo/layout/header.jsp" %>
    
-<<<<<<< HEAD
+
 <style type="text/css">
 
 
