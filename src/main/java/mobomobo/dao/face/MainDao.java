@@ -12,6 +12,6 @@ public interface MainDao {
 
 	public int selectMovieStarRatingCount();
 
-	public List<HashMap<String, Object>> selectGroupByBookStarRatingAvg();
+	public List<BookStarRating> selectGroupByBookStarRatingAvg();
 
 }

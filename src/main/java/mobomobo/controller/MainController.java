@@ -1,6 +1,5 @@
 package mobomobo.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import mobomobo.dto.BookStarRating;
 import mobomobo.dto.MovieStarRating;
 import mobomobo.service.face.MainService;
 
@@ -28,8 +28,9 @@ public class MainController {
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public void main(Model model) {
 		
-		List<HashMap<String,Object>> bookList = mainService.getBookStarRatingList();
+		List<BookStarRating> bookList = mainService.getBookStarRatingList();
 		List<MovieStarRating> movieList = mainService.getMovieStarRatingList();
+		
 		
 		model.addAttribute("movieList", movieList);
 		model.addAttribute("bookList", bookList);
