@@ -6,11 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +34,9 @@ public class MypageServiceImpl implements MypageService {
 	
 	@Autowired
 	ServletContext context;
+	
+	@Inject
+	BCryptPasswordEncoder pwdEncoder;
 	
 	@Override
 	public UserInfo getUserInfo(int userno) {
@@ -93,15 +98,11 @@ public class MypageServiceImpl implements MypageService {
 	}
 	
 	@Override
-	public boolean checkUserInfo(UserInfo userinfo) {
+	public UserInfo checkUserInfo(UserInfo userinfo) {
 
-		int cnt = mypageDao.selectUserInfoCnt(userinfo);
+		UserInfo result = mypageDao.selectUserInfoCnt(userinfo);
 		
-		if (cnt > 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return result;
 		
 	}
 	
@@ -224,6 +225,11 @@ public class MypageServiceImpl implements MypageService {
 		if(userInfo.getPw().equals("")) {
 			mypageDao.updateUserInfo(userInfo);
 		} else {
+			
+			String param = userInfo.getPw();
+			
+			userInfo.setPw(pwdEncoder.encode(param));
+			
 			mypageDao.updateUserInfoIncludePw(userInfo);
 		}
 	}

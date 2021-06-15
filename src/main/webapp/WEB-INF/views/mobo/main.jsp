@@ -137,8 +137,6 @@
     
     </section>
     <!-- End Featured Product -->
-    
-    
 
 
     <!-- Start Categories of The Month -->

@@ -27,6 +27,7 @@
 .myPageContainer {
 	width : 1300px;
 	min-height: 1000px;
+	margin : 0 auto;
 }
 
 
@@ -74,8 +75,7 @@ a, a:visited {
 .userInfoTable {
 	margin : 0 auto;
 	border-collapse: separate;
-	border-spacing: 0 10px;
-	text-align: center;
+	border-spacing: 0 20px;
 }
   
 .infoImg {
@@ -107,7 +107,68 @@ a, a:visited {
 	cursor: pointer;
 }
 
+.navmypage {
+	display : none;
+}
 
+.rembutton{
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 22px;
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+}
+.rembutton:focus, infoOptionBtn:focus, deleteBtn:focus {
+	outline: none;
+}
+.rembutton:active, infoOptionBtn:active, deleteBtn:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+.purple {
+  background-color: #B3B7EF;
+  box-shadow: 0px 5px 0px 0px #DDDFF8;
+}
+.purple:hover {
+  background-color: #DDDFF8;
+}
+
+#passwordCheck {
+	height : 500px;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.infoOptionBtn {
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 15px !important;
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+}
+
+.deleteBtn{
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 22px;
+  text-decoration: none;
+  margin: 20px;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  float: right;
+}
 
 </style>
 
@@ -120,20 +181,22 @@ a, a:visited {
 	  <li><a title="WRITING" onclick="writingView(1)" class="cursor">WRITING</a></li>  
 	  <li><a title="COMMENT" onclick="commentView(1)" class="cursor">COMMENT</a></li>
 	  <li><a title="BOOKMARK" onclick="bookmarkView(1)" class="cursor">BOOKMARK</a></li>  
-	  <li><a title="COUPON" class="cursor">COUPON</a></li>
+	  <li><a title="COUPON" class="cursor" onclick="couponView()">COUPON</a></li>
 	</ul>
 
 	<div id="userInfoBox">
-	
-	<h4>본인 확인을 위해 비밀번호를 입력해 주세요.</h4>
-	<input type="password" id="userpw">
-	<input type="button" value="확인" onclick="checkPw()"> <br>
-	<span id="wrongSpan"></span>
-	
+		<div id="passwordCheck">
+			<h4>본인 확인을 위해 비밀번호를 입력해 주세요.</h4>
+			<div>
+			<input type="password" id="userpw" style='margin-top : 20px;'>
+			<input type="button" value="확인" onclick="checkPw()" class='rembutton purple'> <br>
+			</div>
+			<span id="wrongSpan" style='color:red;'></span>
+		</div>
 	</div>
+
 	
 	<!-- existing UserInfo -->
-	<input type="hidden" id="hiddenUserPw" value="">
 	<input type="hidden" id="hiddenUserNick" value="">
 	<input type="hidden" id="hiddenUserName" value="">
 	<input type="hidden" id="hiddenUserEmail" value="">
@@ -172,49 +235,57 @@ a, a:visited {
 
 <script type="text/javascript">
 
-$(function(){
+$(document).ready(function() {
 	
-	$(document).on('keyup', '#userInfoPw', function() {
-		
-		if($('#hiddenUserPw').val() == $('#userInfoPw').val()) {
-			console.log('ㅇㅇ');
-			
-			$("#userInfoNewPw").removeAttr("readonly");
-			
-			$("#userInfoNewPwCheck").removeAttr("readonly");
-			
-			$("#userInfoNewPw").attr('placeholder', '새 비밀번호를 입력해 주세요');
-			
-		} else {
-			console.log('ㄴㄴ');
-		}
-	})
+	if('${sessionScope.mypage}') {
+		infoView();
+	}
+	
+})
+
+$(function(){
 	
 	var pwReg = /^[A-Za-z0-9]{8,}$/;
 	
 	$(document).on('keyup', '#userInfoNewPw', function() {
 		
+			$("#newpwimg").html("");
+			var html = "";
+
 		if(pwReg.test($('#userInfoNewPw').val())) {
-			console.log('ㅇㅇ');
+			html += "<img src='/resources/img/correct.jpg' style='width:20px; height:20px;'>"
+			
+			$("#newpwimg").html(html)
 			
 			$("#userInfoNewPwCheck").attr('placeholder', '다시한번 입력해 주세요');
 			
 		} else {
-			console.log('ㄴㄴ');
+			html += "<img src='/resources/img/wrong.jpg' style='width:20px; height:20px;'>"
 			
+			$("#newpwimg").html(html)
+
 			$('#pwFlag').val(false);
 		}
 	}) 
 	
 	$(document).on('keyup', '#userInfoNewPwCheck', function() {
 		
+		$("#newpwcheckimg").html("");
+		var html = "";
+		
 		if($('#userInfoNewPw').val() == $('#userInfoNewPwCheck').val()) {
-			console.log('ㅇㅇ');
+			
+			html += "<img src='/resources/img/correct.jpg' style='width:20px; height:20px;'>"
+				
+			$("#newpwcheckimg").html(html)
 			
 			$('#pwFlag').val(true);
 			
 		} else {
-			console.log('ㄴㄴ');
+			
+			html += "<img src='/resources/img/wrong.jpg' style='width:20px; height:20px;'>"
+				
+			$("#newpwcheckimg").html(html)
 			
 			$('#pwFlag').val(false);
 		}
@@ -240,11 +311,7 @@ function checkPw() {
 		, success : function(data) {
 
 			if(data) {
-				
-				var html = "";
-				html += "인증에 성공하였습니다"
-				
-				$("#userInfoBox").html(html);
+				infoView();
 				
 			} else {
 				$("#userpw").val("");
@@ -258,13 +325,14 @@ function checkPw() {
 //유저 정보 조회
 function infoView() {
 	
+	$('.navmypage').css('display', 'block');
+	
 	$.ajax({
 		type : 'get'
 		, url : '/mobo/mypage/infoView'
 		, dataType : 'json'
 		, success : function(data) {
 			
-			$("#hiddenUserPw").val(data.userInfo.pw);
 			$("#hiddenUserNick").val(data.userInfo.nick);
 			$("#hiddenUserName").val(data.userInfo.name);
 			$("#hiddenUserEmail").val(data.userInfo.email);
@@ -283,9 +351,10 @@ function infoView() {
 			} else {
 			html += "	<img src='/emp/" + data.userImg.storedName + "' class='infoImg'>"
 			}
-			html += "	<br> <input type='button' value='기본 이미지' onclick='originImg()'>"
-			html += "	<form id='form'>"
-			html += "	<input type='file' name='imagefile' id='imagefile'>"
+			html += "	<br> <input type='button' value='기본 이미지' onclick='originImg()' class='rembutton purple'>"
+			html += "	<form id='form' style='display : inline-block'>"
+			html += "	<label for='imagefile' class='rembutton purple'> 업로드 </label>"
+			html += "	<input type='file' name='imagefile' id='imagefile' style='display:none'>"
 			html += "	</form>"
 			html += "	<input type='button' value='수정' onclick='updateImg()'>"
 			
@@ -295,23 +364,19 @@ function infoView() {
 			html += "<tr>"
 			html += "	<th style='width:200px;'> ID </th> <td> " + data.userInfo.id + "</td>"
 			html += "</tr>"
-			
+
 			html += "<tr>"
-			html += "	<th> 비밀번호 </th>  <td><input type='password' id='userInfoPw'/></td>"; 
+			html += "	<th> 새 비밀번호 </th> <td><input type='password' id='userInfoNewPw'/> <div id='newpwimg' style='display:inline-block;'></div></td>"; 
 			html += "</tr>"
 			
 			html += "<tr>"
-			html += "	<th> 새 비밀번호 </th> <td><input type='password' id='userInfoNewPw' readonly='readonly' /></td>"; 
-			html += "</tr>"
-			
-			html += "<tr>"
-			html += "	<th> 새 비밀번호 확인</th> <td><input type='password' id='userInfoNewPwCheck' readonly='readonly'/></td>"; 
+			html += "	<th> 새 비밀번호 확인</th> <td><input type='password' id='userInfoNewPwCheck'/> <div id='newpwcheckimg' style='display:inline-block;'></div></td>"; 
 			html += "</tr>"
 			
 			html += "<tr>"
 			html += "	<th> 닉네임 </th> <td><input type='text' id='userInfoNick' value=" + data.userInfo.nick + " />"
-			html += " 	<input type='button' value='중복 확인' onclick='nickOverlapCheck()'></td>"
-			html += "<tr>"
+			html += " 	<input type='button' value='중복 확인' onclick='nickOverlapCheck()' class='infoOptionBtn purple'></td>"
+			html += "</tr>"
 			
 			html += "<tr>"
 			html += "	<th> 이름 </th> <td><input type='text' id='userInfoName' value=" + data.userInfo.name + " /></td>"; 
@@ -319,17 +384,17 @@ function infoView() {
 			
 			html += "<tr>"
 			html += "	<th> 이메일 </th> <td><input type='text' id='userInfoEmail' value=" + data.userInfo.email + " />"
-			html += "	<input type='button' value='인증' onclick='emailCertifiction()'/></td>"
+			html += "	<input type='button' value='인증' onclick='emailCertifiction()' class='infoOptionBtn purple'/></td>"
 			html += "</tr>"
 			
 			html += "<tr>"
 			html += "	<th> </th>"
-			html += "	<td><input type='text' id='userInfoEmailCertification' readonly='readonly'/><input type='button' value='인증' onclick='certiCheck()'/></td>"
+			html += "	<td><input type='text' id='userInfoEmailCertification' readonly='readonly'/> <input type='button' value='인증' onclick='certiCheck()' class='infoOptionBtn purple'/></td>"
 			html += "</tr>"
 			
 			html += "<tr>"
 			html += "	<th> 주소 </th> <td><input type='text' id='userInfoPostNum' value=" + data.userInfo.postnum + " style='width:80px;' readonly='readonly'/>"
-			html += " 	<input type='text' id='userInfoAddr' value='" + data.userInfo.addr + "' readonly='readonly' /> <input type='button' id='search_addr_btn' value='검색' onclick='kakaoAddress()'/> </td>"
+			html += " 	<input type='text' id='userInfoAddr' value='" + data.userInfo.addr + "' readonly='readonly' /> <input type='button' id='search_addr_btn' value='검색' onclick='kakaoAddress()' class='infoOptionBtn purple'/> </td>"
 			html += "</tr>"
 			
 			html += "<tr>"
@@ -358,7 +423,9 @@ function infoView() {
 			
 			html += "</table>"
 			
-			html += "<input type='button' value='수정' onclick='userInfoUpdate()' />"
+			html += "<div style='text-align : center;'>"
+			html += "<input type='button' value='수정' onclick='userInfoUpdate()' class='rembutton purple' style='margin-bottom : 20px;'/>"
+			html += "</div>"
 			html += "</div>"
 			
 			
@@ -424,7 +491,7 @@ function writingView(curPage) {
 			
 			html+= "</table>"
 			
-			html += "<input type='button' onclick='checkDelete()' value='삭제' />"
+			html += "<input type='button' onclick='checkDelete()' value='삭제' class='deleteBtn purple' />"
 			
 			html += "<div class='card-footer py-4'>"
 			html += "<nav>"
@@ -495,7 +562,7 @@ function commentView(curPage) {
 			
 			html += "</table>"
 			
-			html += "<input type='button' onclick='checkDelete()' value='삭제' />"
+			html += "<input type='button' onclick='checkDelete()' value='삭제' class='deleteBtn purple' />"
 			
 			html += "<div class='card-footer py-4'>"
 			html += "<nav>"
@@ -577,7 +644,7 @@ function bookmarkView(curPage) {
 			
 			html += "</table>"
 			
-			html += "<input type='button' onclick='checkDelete()' value='삭제' />"
+			html += "<input type='button' onclick='checkDelete()' value='삭제' class='deleteBtn purple' />"
 			
 			html += "<div class='card-footer py-4'>"
 			html += "<nav>"
@@ -796,7 +863,20 @@ function userInfoUpdate() {
 				infoView();
 			}
 		})
+}
 
+function couponView() {
+	
+	$("#userInfoBox").html("");
+	
+	var html = "";
+	
+	html += "<div style='text-align:center;'>";
+	html += "<img src='/resources/img/coupon2.png' />"
+	html += "</div>";
+	
+	$("#userInfoBox").html(html);
+	
 }
 
 </script>

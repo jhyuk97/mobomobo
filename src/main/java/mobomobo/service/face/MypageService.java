@@ -18,7 +18,7 @@ public interface MypageService {
 
 	public List<MyPage> getMyWriting(int userno, Paging paging);
 
-	public boolean checkUserInfo(UserInfo userinfo);
+	public UserInfo checkUserInfo(UserInfo userinfo);
 
 	public List<BookMark> getMyBookMark(int userno, Paging paging);
 

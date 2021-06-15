@@ -37,11 +37,10 @@
 		WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
 	</select>
 	
-	<select id="selectUserInfoCnt" parameterType="mobomobo.dto.UserInfo" resultType="int">
-		SELECT count(*) FROM userinfo
+	<select id="selectUserInfoCnt" parameterType="mobomobo.dto.UserInfo" resultMap="UserInfo">
+		SELECT * FROM userinfo
 		WHERE 1=1
 		AND id = #{id}
-		AND userpw = #{pw}
 	</select>
 	
 	<select id="selectMyBookMarkByUserNo" parameterType="map" resultType="mobomobo.dto.BookMark">

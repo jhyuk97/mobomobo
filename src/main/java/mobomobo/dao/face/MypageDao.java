@@ -16,7 +16,7 @@ public interface MypageDao {
 
 	public List<MyPage> selectMyWritingByUserNo(HashMap<String, Object> map);
 
-	public int selectUserInfoCnt(UserInfo userinfo);
+	public UserInfo selectUserInfoCnt(UserInfo userinfo);
 
 	public List<BookMark> selectMyBookMarkByUserNo(HashMap<String, Object> map);
 

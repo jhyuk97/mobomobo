@@ -4,11 +4,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +33,9 @@ public class MypageController {
 	@Autowired
 	MypageService mypageService;
 	
+	@Inject
+	BCryptPasswordEncoder pwdEncoder;
+	
 	@RequestMapping(value="/mobo/mypage/main")
 	public void mypageMain() { }
 	
@@ -39,9 +44,20 @@ public class MypageController {
 		
 		userinfo.setId((String)session.getAttribute("id"));
 		
-		boolean flag = mypageService.checkUserInfo(userinfo);
+		UserInfo result = mypageService.checkUserInfo(userinfo);
 		
-		return flag;
+		boolean flag = pwdEncoder.matches(userinfo.getPw(), result.getPw());
+		
+		if(flag) {
+			
+			session.setAttribute("mypage", true);
+			
+			return flag;
+		} else {
+			
+			return flag;
+		}
+		
 	}
 	
 	@RequestMapping(value="/mobo/mypage/infoView")

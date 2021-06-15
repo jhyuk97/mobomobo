@@ -321,8 +321,6 @@ public class MovieServiceImpl implements MovieService{
 	        		}
 	        	} else {
 	        		movie.setImage((String)movieList.get("image"));
-	        		
-	        		
 	        	}
 	        }
         }

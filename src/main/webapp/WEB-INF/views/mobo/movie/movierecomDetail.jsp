@@ -567,7 +567,6 @@ function updateStarRating() {
 	$("#starResultWrap").hide();
 }
 
-
 //차트
 function starAvg() {
 	
@@ -640,6 +639,7 @@ function starAvg() {
 				    scales: {
 			            y: {
 			                beginAtZero: true,
+			                stepSize : 1,
 			                max: 5
 			            }
 				    }
@@ -703,6 +703,7 @@ function starAvgOfSingle() {
 
 
 </script>
+
 
 
 
