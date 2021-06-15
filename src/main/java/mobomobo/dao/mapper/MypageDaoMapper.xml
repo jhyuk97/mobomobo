@@ -7,7 +7,11 @@
   
 <mapper namespace="mobomobo.dao.face.MypageDao">
 
-	<select id="selectUserInfoByUserNo" parameterType="int" resultType="mobomobo.dto.UserInfo">
+	<resultMap type="mobomobo.dto.UserInfo" id="UserInfo">
+		<result column="userpw" property="pw"/>
+	</resultMap>
+
+	<select id="selectUserInfoByUserNo" parameterType="int" resultMap="UserInfo">
 		SELECT * FROM userinfo
 		WHERE userno = #{userno}
 	</select>
@@ -17,31 +21,167 @@
 		WHERE userno = #{userno}
 	</select>
 	
-	<select id="selectMyWritingByUserNo" parameterType="int" resultType="mobomobo.dto.MyPage">
+	<select id="selectMyWritingByUserNo" parameterType="map" resultType="mobomobo.dto.MyPage">
 		SELECT * FROM (
 		    SELECT rownum rnum, B.* FROM (
-		        SELECT dno as boardno, dtitle as title, ddate As wdate, hit, boarddiv FROM debate
-		        WHERE boarddiv = 4
-		        AND userno = #{userno}
+		        SELECT D.dno as boardno, D.dtitle as title, D.ddate As wdate, D.hit, D.boarddiv, DH.likecnt
+                FROM debate D, (SELECT dno, COUNT(*) likecnt FROM debatehot GROUP BY dno )DH
+		        WHERE D.dno = DH.dno(+)
+                AND userno = #{userno}
 		        UNION
-		        SELECT dno as boardno, dtitle as title, ddate As wdate, hit, boarddiv FROM debate
-		        WHERE boarddiv = 5
-		        AND userno = #{userno}
+		        SELECT mno as boardno, mtitle as title , mdate As wdate, mviews as hit, boarddiv, 0 FROM market
+		        WHERE userno = #{userno}
+		    )B 
+		    ORDER BY wdate DESC
+		)
+		WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
+	</select>
+	
+	<select id="selectUserInfoCnt" parameterType="mobomobo.dto.UserInfo" resultMap="UserInfo">
+		SELECT * FROM userinfo
+		WHERE 1=1
+		AND id = #{id}
+	</select>
+	
+	<select id="selectMyBookMarkByUserNo" parameterType="map" resultType="mobomobo.dto.BookMark">
+	    SELECT * FROM (
+	        SELECT rownum as rnum, B.* FROM (
+				SELECT * FROM bookmark
+				WHERE userno = #{userno}
+			) B
+	    )
+	    WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
+	</select>
+	
+	<select id="selectMyCommentByUserid" parameterType="map" resultType="mobomobo.dto.MyPage">
+		SELECT * FROM(
+			SELECT rownum rnum, C.* FROM (
+	  			SELECT MC.commentno, MC.moviebestno as boardno, MC.commenttext, MC.commentdate as wdate, MC.commentdiv, MCL.likecnt
+	  			FROM moviebestcomment MC, (SELECT commentno,COUNT(*) likecnt FROM moviebestcommentlike GROUP BY commentno )MCL
+	 			WHERE MC.commentno = MCL.commentno(+)
+	  			AND id = #{userid}
+	  			UNION
+	  			SELECT BC.commentno, BC.bookbestno as boardno, BC.commenttext, BC.commentdate as wdate, BC.commentdiv, BCL.likecnt
+	  			FROM bookbestcomment BC, (SELECT commentno,COUNT(*) likecnt FROM bookbestcommentlike GROUP BY commentno )BCL
+				WHERE BC.commentno = BCL.commentno(+)
+	  			AND id = #{userid}
+	 			UNION
+	   			SELECT DC.dcno as commentno, DC.dno as boardno, DC.dccontent as commenttext, DC.dcdate as wdate, DC.commentdiv, DCL.likecnt
+	    		FROM debatecomment DC, (SELECT dcno ,COUNT(*) likecnt FROM debatecommenthot GROUP BY dcno )DCL
+	    		WHERE DC.dcno = DCL.dcno(+)
+	    		AND userid = #{userid}
+	    		) C
+	    	ORDER BY wdate DESC
+		)
+		WHERE rnum BETWEEN #{paging.startNo} AND #{paging.endNo}
+	</select>
+	
+	<insert id="insertUserImage" parameterType="mobomobo.dto.UserImg">
+		INSERT INTO userimg (userno, originname, storedname, filesize, contenttype)
+		VALUES(#{userNo}, #{originName}, #{storedName}, #{filesize}, #{contentType})
+	</insert>
+	
+	<delete id="deleteUserImg" parameterType="int">
+		DELETE userimg
+		WHERE userno = #{userno}
+	</delete>
+	
+	<insert id="insertOriginImage" parameterType="mobomobo.dto.UserImg">
+		INSERT INTO userimg (userno, storedname)
+		VALUES (#{userNo}, #{storedName})
+	</insert>
+	
+	<delete id="deleteCheckBookMark" parameterType="map">
+		DELETE bookmark
+		WHERE bookmarkno = #{seqNo}
+		AND category = #{category}
+	</delete>
+	
+	<delete id="deleteMarketWriting" parameterType="map">
+		DELETE market
+		WHERE mno = #{seqNo}
+	</delete>
+	
+	<delete id="deleteDebateWriting" parameterType="map">
+		DELETE debate
+		WHERE dno = #{seqNo}
+		AND boarddiv = #{category}
+	</delete>
+	
+	<delete id="deleteMovieComment">
+		DELETE moviebestcomment
+		WHERE commentno = #{seqNo}
+	</delete>
+	
+	<delete id="deleteBookComment">
+		DELETE bookbestcomment
+		WHERE commentno = #{seqNo}
+	</delete>
+	
+	<delete id="deleteDebateComment">
+		DELETE debatecomment
+		WHERE dcno = #{seqNo}
+		AND commentdiv = #{category}
+	</delete>
+	
+	<update id="updateUserInfo" parameterType="mobomobo.dto.UserInfo">
+		UPDATE userinfo
+		SET nick = #{nick}, name = #{name}, email = #{email}, postnum = #{postnum}
+		, addr = #{addr}, addrdetail = #{addrdetail}, age = #{age}
+		WHERE userno = #{userno}
+	</update>
+	
+	<update id="updateUserInfoIncludePw" parameterType="mobomobo.dto.UserInfo">
+		UPDATE userinfo
+		SET nick = #{nick}, name = #{name}, email = #{email}, postnum = #{postnum}
+		, addr = #{addr}, addrdetail = #{addrdetail}, age = #{age}, userpw = #{pw}
+		WHERE userno = #{userno}
+	</update>
+	
+	<select id="selectCntAll" resultType="int" parameterType="int">
+		SELECT count(*) FROM bookmark
+		WHERE userno = #{userno}
+	</select>
+	
+	<select id="selectCtnAllWriting" resultType="int" parameterType="int">
+		SELECT count(*) FROM (
+		    SELECT rownum rnum, B.* FROM (
+		        SELECT D.dno as boardno, D.dtitle as title, D.ddate As wdate, D.hit, D.boarddiv, DH.likecnt
+	               FROM debate D, (SELECT dno, COUNT(*) likecnt FROM debatehot GROUP BY dno )DH
+		        WHERE D.dno = DH.dno(+)
+	               AND userno = #{userno}
 		        UNION
-		        SELECT mno as boardno, mtitle as title , mdate As wdate, mviews as hit, boarddiv FROM market
-		        WHERE boarddiv = 3
-		        AND userno = #{userno}
+		        SELECT mno as boardno, mtitle as title , mdate As wdate, mviews as hit, boarddiv, 0 FROM market
+		        WHERE userno = #{userno}
 		    )B 
 		    ORDER BY wdate DESC
 		)
 	</select>
 	
-	<select id="selectUserInfoCnt" parameterType="mobomobo.dto.UserInfo" resultType="int">
-		SELECT count(*) FROM userinfo
-		WHERE 1=1
-		AND id = #{id}
-		AND userpw = #{pw}
+	<select id="selectCntAllComment" resultType="int" parameterType="string">
+		SELECT count(*) FROM(
+			SELECT rownum rnum, C.* FROM (
+	  			SELECT MC.commentno, MC.moviebestno as boardno, MC.commenttext, MC.commentdate as wdate, MC.commentdiv, MCL.likecnt
+	  			FROM moviebestcomment MC, (SELECT commentno,COUNT(*) likecnt FROM moviebestcommentlike GROUP BY commentno )MCL
+	 			WHERE MC.commentno = MCL.commentno(+)
+	  			AND id = #{userid}
+	  			UNION
+	  			SELECT BC.commentno, BC.bookbestno as boardno, BC.commenttext, BC.commentdate as wdate, BC.commentdiv, BCL.likecnt
+	  			FROM bookbestcomment BC, (SELECT commentno,COUNT(*) likecnt FROM bookbestcommentlike GROUP BY commentno )BCL
+				WHERE BC.commentno = BCL.commentno(+)
+	  			AND id = #{userid}
+	 			UNION
+	   			SELECT DC.dcno as commentno, DC.dno as boardno, DC.dccontent as commenttext, DC.dcdate as wdate, DC.commentdiv, DCL.likecnt
+	    		FROM debatecomment DC, (SELECT dcno ,COUNT(*) likecnt FROM debatecommenthot GROUP BY dcno )DCL
+	    		WHERE DC.dcno = DCL.dcno(+)
+	    		AND userid = #{userid}
+	    		) C
+	    	ORDER BY wdate DESC
+	)
 	</select>
+	
+	
+
 
 
 </mapper>

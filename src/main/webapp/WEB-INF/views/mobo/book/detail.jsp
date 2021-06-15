@@ -223,11 +223,14 @@
 		$("#bookMark").click(function() {
 			console.log("click!!")
 			
+			var title = $("#title").val()
+			
 			$.ajax({
             url: "/mobo/book/bookMark",
             type : "post",
             dataType:"json",
-            data:{ "key":"${isbn }" },
+            data:{ "key":"${isbn }"
+            	,"title" : title},
             success : function(result){
             	console.log("인서트성공!!")
             	console.log(result)

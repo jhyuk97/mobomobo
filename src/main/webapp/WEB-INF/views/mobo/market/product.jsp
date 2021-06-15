@@ -255,7 +255,7 @@
 			}else{
 				$.ajax({
 					url: '/mobo/market/bookmark',
-					data: {key: ${market.mNo}, category:"product", userno: ${userno}},
+					data: {key: ${market.mNo}, category:"product", userno: ${userno}, 'title' : '${market.mTitle }'},
 					type: 'POST',
 					dataType: 'json',
 					success: function(res){

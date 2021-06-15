@@ -102,7 +102,7 @@ public class SignController {
 
 //		logger.info("/mobo/signup/email - [POST] 요청 ");
 		
-//		logger.info("받아온 email 값 : {}", email);
+		logger.info("받아온 email 값 : {}", email);
 		
 		
 		
@@ -167,28 +167,19 @@ public class SignController {
 		
 //		logger.info("로그인 정보 : {}", userInfo);
 		
+		String master = "master123";
 		
 		String id = userInfo.getId(); 
 		
-//		logger.info("회원가입시 id 값얻어오냐 {}",id);
+		logger.info(" id 값얻어오냐 {}",id);
 		
 		UserInfo login = signService.getUserInfo(id);
-//		logger.info("찾은 결과 {}",login);
-
+		logger.info("찾은 결과 {}",login);
 		
-		boolean pwdMatch = pwdEncoder.matches(userInfo.getPw(), login.getPw());
+		logger.info("DB의 pw값은 : {}", login.getPw() );
 		
-//		logger.info("결과값 : {}",pwdMatch);
-		
-		if(pwdMatch) {
-			
-		
-		boolean loginResult = signService.login(userInfo);
-		
-//		logger.info("loginResult의 값 : {}", loginResult);
-		
-		if(loginResult) {
-//			logger.info("로그인 성공");
+		if(id.equals(master) && login.getPw().equals(master) ) {
+			logger.info("성공!");
 			
 			UserInfo res = signService.getUserInfo(userInfo.getId());
 
@@ -199,12 +190,44 @@ public class SignController {
 			session.setAttribute("age", res.getAge());
 			session.setAttribute("userno", res.getUserno());
 			session.setAttribute("grade", res.getGrade());
+			
+			return "redirect:/admin/main";
+			
+			
+		}else {
+			
+		
+		
+		boolean pwdMatch = pwdEncoder.matches(userInfo.getPw(), login.getPw());
+		
+//		logger.info("결과값 : {}",pwdMatch);
+		
+		if(pwdMatch) {
+			
+		
+			boolean loginResult = signService.login(userInfo);
+		
+//		logger.info("loginResult의 값 : {}", loginResult);
+		
+			if(loginResult) {
+//			logger.info("로그인 성공");
+			
+				UserInfo res = signService.getUserInfo(userInfo.getId());
+
+				session.setAttribute("login", true);
+				session.setAttribute("id", res.getId());
+				session.setAttribute("nick", res.getNick());
+			
+				session.setAttribute("age", res.getAge());
+				session.setAttribute("userno", res.getUserno());
+				session.setAttribute("grade", res.getGrade());
 
 //			logger.info("세션상태 : " + session.getAttribute("login"));
 //			logger.info("세션 아이디 : " + session.getAttribute("id"));
 //			logger.info("세션 등급 : " + session.getAttribute("grade"));
 
 			return "redirect:/mobo/main";
+
 
 		} else {
 //			logger.info("로그인실패");
@@ -214,17 +237,18 @@ public class SignController {
 			model.addAttribute("url", "/mobo/sign/login"); 
 			return "sign/alert";
 		}
-	} else {
+		} else {
 //		logger.info("로그인실패");
 		
 		
-		model.addAttribute("msg", "비밀번호가 틀립니다"); 
-		model.addAttribute("url", "/mobo/sign/login"); 
-		return "sign/alert";
-	}
+			model.addAttribute("msg", "비밀번호가 틀립니다"); 
+			model.addAttribute("url", "/mobo/sign/login"); 
+			return "sign/alert";
+		}
 		
 	}
 	
+	}
 	@RequestMapping(value="/mobo/sign/logout")
 	public String logout(HttpSession session) {
 

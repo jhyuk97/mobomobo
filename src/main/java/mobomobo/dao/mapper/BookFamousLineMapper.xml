@@ -84,8 +84,8 @@
   		WHERE key = #{key } AND userno = #{userno }
   	</delete>
   	<insert id="insertBookMark" parameterType="mobomobo.dto.BookMark">
-  		INSERT INTO bookmark(bookmarkno,userno,category,key)
-  		VALUES(bookmarkno_seq.nextval,#{userno },'bookbest',#{key })
+  		INSERT INTO bookmark(bookmarkno,userno,category,key,title)
+  		VALUES(bookmarkno_seq.nextval,#{userno },'bookbest',#{key },#{title})
   	</insert>
   	<select id="selectCommentNo" resultType="int">
   		SELECT bookbestcomment_seq.nextval FROM dual 
