@@ -46,8 +46,9 @@
   		WHERE userno = #{userno } AND key =#{key }
   	</delete>
   	<insert id="insertBookMarkByKeyUserno" parameterType="mobomobo.dto.BookMark">
-  		INSERT INTO bookmark
-  		VALUES(bookmarkno_seq.nextval,#{userno },#{category },#{key })
+
+  		INSERT INTO bookmark (bookmarkno, userno, category, key, title)
+  		VALUES(bookmarkno_seq.nextval,#{userno },#{category },#{key }, #{title})
   	</insert>
   	<insert id="insertBookStarRaingByRatingKeyUsernoAge" parameterType="mobomobo.dto.BookStarRatingInsert">
   		INSERT INTO bookstarrating(isbn,userno,age,starrating)

@@ -38,19 +38,17 @@ a { text-decoration:none; }
 
 /**아래 내용들은 알아서 변경 **/
   width: 100%;
-  height: 250px;
+  height: 350px;
+  float: center;
   color: #E62200;
-  max-width: 1600px;
-/*   padding-top: 30px; */
-/*   padding-bottom: 30px; */
-	position: relative;
-	top : 70px;
+  max-width: 350px;
+  padding-top: 30px;
   background: #fff;
   border-radius: 30px; 
 
 
 /**이미지 위아래로 움직이는 효과 (이미 이미지 자체에 효과가 있긴 해서 필요 없음 빼면 됨)**/
-/*   animation: up-down 1.4s infinite ease-in-out alternate; */
+  animation: up-down 1.4s infinite ease-in-out alternate;
 }
 
 @keyframes up-down{
@@ -67,6 +65,12 @@ a { text-decoration:none; }
 
 <script>
         $(document).ready(function () {
+        	
+        	$("#delete").click(function(){
+        		$("#search").focus();
+        		$("#search").val("");
+        	})
+        	
         	
         	
         	//민음사 모음
@@ -265,11 +269,6 @@ a { text-decoration:none; }
         function clickPaging(page){
         	console.log("클릭클릭")
     		
-        	
-    		
-//     		 if($id == "next")    selectedPage = next;
-//              if($id == "prev")    selectedPage = prev;
-    		
              searchBook(page)
         }
         function pagingNumberColor(curpage, totalpage) {
@@ -326,9 +325,7 @@ a { text-decoration:none; }
         }
 </script>		
            
- <div class="container">
-	<a href="/mobo/book/awardsList"><img src="/resources/img/bookaward2.gif" class="box"></a> <!-- div에 넣어서 해도 됨-->
- </div>
+ 
 
 
 
@@ -337,8 +334,9 @@ a { text-decoration:none; }
       <section class="ftco-section ">
        <div class="row no-gutters justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
-            <h2 class="mb-4">책추천</h2>
+            <h2 class="mb-4">BOOK</h2>
             <p id="p">당신의 인생 책, 무부무부에서 만나보세요</p>
+            <a href="/mobo/book/awardsList"><img src="/resources/img/bookaward1.gif" class="box" ></a>
           </div>
         
         
@@ -365,7 +363,7 @@ a { text-decoration:none; }
                 <div class="result-count">
                   </div>
                 <div class="group-btn">
-                  <button type="button" class="btn-delete" id="delete">RESET</button>
+                  <button type="button" class="btn-delete" id="delete" >RESET</button>
                   <button type="button" class="btn-search" onclick='searchBook(1);'>SEARCH</button>
                 </div>
               </div>

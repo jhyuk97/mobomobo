@@ -53,8 +53,8 @@
 	</delete>
 	
 	<insert id="insertBookMark" parameterType="mobomobo.dto.BookMark">
-		INSERT INTO bookmark (bookmarkno, userno, category, key)
-		VALUES (bookmarkno_seq.nextval, #{userno}, #{category}, #{key})
+		INSERT INTO bookmark (bookmarkno, userno, category, key, title, image)
+		VALUES (bookmarkno_seq.nextval, #{userno}, #{category}, #{key}, #{title}, #{image})
 	</insert>
 	
 	<select id="selectRecomList" resultType="mobomobo.dto.MovieAward">
