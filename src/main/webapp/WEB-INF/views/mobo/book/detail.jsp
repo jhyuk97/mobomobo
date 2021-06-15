@@ -131,15 +131,17 @@
             	console.log("성공!!")
             	console.log(result)
             	
+            	var isbn = result.documents[index].isbn.substring(0,10);
+            	
             	$("#authors").append( 
 							`
 							<div class="col-md-3">
 					            <div class="blog-entry">
-					            <a href="/mobo/book/detail?isbn=${'${result.documents[index].isbn }'}" class="block-20" style="background-image: url('${'${result.documents[index].thumbnail}'}');">
+					            <a href="/mobo/book/detail?isbn=${'${isbn }'}" class="block-20" style="background-image: url('${'${result.documents[index].thumbnail}'}');">
 					              </a>
 					              <div class="text p-4 d-block">
 					                <div class="meta mb-3">
-					                  <div><a href="/mobo/book/detail?isbn=${'${result.documents[index].isbn }'}">${'${result.documents[index].title }'}</a></div>
+					                  <div><a href="/mobo/book/detail?isbn=${'${isbn }'}">${'${result.documents[index].title }'}</a></div>
 					                </div>
 					                
 					              </div>
@@ -182,6 +184,9 @@
 	            	getBookInfoByAuthors(result.documents[0].authors,i)
             	}
             	 
+            },
+            error : function (){
+            	
             }
 	}); 
 	}

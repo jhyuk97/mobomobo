@@ -204,7 +204,7 @@ public class SignController {
 //			logger.info("세션 아이디 : " + session.getAttribute("id"));
 //			logger.info("세션 등급 : " + session.getAttribute("grade"));
 
-			return "mobo/main";
+			return "redirect:/mobo/main";
 
 		} else {
 //			logger.info("로그인실패");
