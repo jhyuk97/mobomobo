@@ -82,7 +82,7 @@ a, a:visited {
 	width : 200px;
 	height : 200px;
 	border-radius: 50%;
-	margin-bottom : 50px;
+	margin-bottom : 25px;
 	border : 1px solid #000;
 }
 
@@ -199,6 +199,10 @@ a, a:visited {
 .page-item .page-link {
 	background-color: #6247AA !important;
 	border: #6247AA !important;
+}
+
+.hide {
+	display : none;
 }
 
 </style>
@@ -382,12 +386,15 @@ function infoView() {
 			} else {
 			html += "	<img src='/emp/" + data.userImg.storedName + "' class='infoImg' id='infoImg'>"
 			}
-			html += "	<br> <input type='button' value='기본 이미지' onclick='originImg()' class='rembutton purple'>"
+			html += "	<div id='imgButtonBox'>"
+			html += "	<br> <input type='button' value='기본 이미지' onclick='originImg()' class='rembutton purple' id='imgBasic'>"
 			html += "	<form id='form' style='display : inline-block'>"
-			html += "	<label for='imagefile' class='rembutton purple'> 업로드 </label>"
+			html += "	<label for='imagefile' class='rembutton purple' id='imgUp'> 업로드 </label>"
 			html += "	<input type='file' name='imagefile' id='imagefile' style='display:none' onchange='readURL(event)'>"
+			html += "	<input type='button' value='저장' onclick='updateImg()' class='rembutton purple hide' id='imgStore'>";
+		    html += "	<input type='button' value='취소' onclick='infoView()' class='rembutton purple hide' id='imgReset'>";
 			html += "	</form>"
-			html += "	<input type='button' value='수정' onclick='updateImg()'>"
+			html += "	</div>"
 			
 			html += "</div> <hr>"
 			
@@ -481,6 +488,12 @@ function readURL(input) {
           $('#userInfoBox #infoImg').attr('src', e.target.result);
        }
        reader.readAsDataURL(input.target.files[0]);
+       
+       $("#imgBasic").addClass("hide");
+       $("#imgUp").addClass("hide");
+
+       $("#imgStore").removeClass("hide");
+       $("#imgReset").removeClass("hide");
     }
 }
 
