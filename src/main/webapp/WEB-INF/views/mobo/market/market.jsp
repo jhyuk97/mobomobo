@@ -138,12 +138,12 @@ a { text-decoration:none; }
                 <c:forEach items="${mList }" var="mList">
                     <div class="col-md-4"><!-- 품목 단위 -->
                         <div class="card mb-4 product-wap rounded-0">
-                            <div class="card rounded-0" style="width:256px; height:334px;"><!-- 섬네일 -->
+                            <div class="card rounded-0" style="width:100%; height:334px;"><!-- 섬네일 -->
                             	<c:if test="${not empty mList.storedImg }">
                                 <img class="card-img rounded-0 img-fluid" style="height:100%;" src="/emp/${mList.storedImg.get(0)}">
                                 </c:if>
                                 <c:if test="${empty mList.storedImg }">
-                                <img class="card-img rounded-0 img-fluid" src="/resources/board/images/BLUE1.jpg">
+                                <img class="card-img rounded-0 img-fluid" style="height:100%;" src="/resources/board/images/BLUE1.jpg">
                                 </c:if>
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">

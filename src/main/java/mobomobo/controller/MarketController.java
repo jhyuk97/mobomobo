@@ -25,6 +25,7 @@ import mobomobo.dto.BookMark;
 import mobomobo.dto.ChatLog;
 import mobomobo.dto.Market;
 import mobomobo.dto.MarketImg;
+import mobomobo.dto.UserImg;
 import mobomobo.service.face.MarketService;
 import mobomobo.util.Paging;
 
@@ -93,14 +94,14 @@ public class MarketController {
 	public void WriteMarket(@RequestParam(defaultValue="0")int mNo, Model model) {}
 	
 	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String WriteMarketProc(Market data, List<MultipartFile> file, HttpSession session) {
+	public String WriteMarketProc(Market data, List<MultipartFile> imgfile, HttpSession session) {
 		
-		logger.info("{}",file);
+		logger.info("{}",imgfile);
 		
 		
 		data.setId(session.getAttribute("id").toString());
 		logger.info("{}",data);
-		marketService.WriteMarket(data, file);
+		marketService.WriteMarket(data, imgfile);
 		
 		return "redirect:/mobo/market";
 	}
@@ -180,16 +181,24 @@ public class MarketController {
 
 		}
 		List<ChatLog> roomlist = marketService.SelectChatList(session.getAttribute("id").toString());
+		List<UserImg> profileList = marketService.selectChatImg(session.getAttribute("id").toString());
+		
+		logger.info("chat컨트롤러 프로필이미지 : {}", profileList);
+		
 		
 		model.addAttribute("roomlist", roomlist);
+		model.addAttribute("profile", profileList);
 //		
 	}
 	
 	@RequestMapping(value="/chatroom", method=RequestMethod.GET)
-	public ModelAndView Chatroom(ChatLog data, ModelAndView mav) {
+	public ModelAndView Chatroom(HttpSession session, ChatLog data, ModelAndView mav) {
 		
 		List<ChatLog> log = marketService.selectLog(data.getRoomid());
 		
+		List<UserImg> uImg = marketService.selectImg(data);
+		
+		mav.addObject("uImg", uImg);
 		mav.addObject("log", log);
 		mav.addObject("roomid", data.getRoomid());
 		mav.addObject("mTitle", data.getmTitle());
