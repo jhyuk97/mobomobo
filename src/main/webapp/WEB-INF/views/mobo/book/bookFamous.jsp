@@ -68,7 +68,9 @@ a { text-decoration:none; }
             <div class="blog-entry">
             
             
-              <a href="/mobo/book/famousDetail?bookBestno=${item.BOOKBESTNO }" class="block-20" style="background-image: url('/upload/${item.STOREDIMG }');">
+<%--               <a href="/mobo/book/famousDetail?bookBestno=${item.BOOKBESTNO }" class="block-20" style="background-image: url('/upload/${item.STOREDIMG }');"> --%>
+<!--               </a> -->
+              <a href="/mobo/book/famousDetail?bookBestno=${item.BOOKBESTNO }" class="block-20" style="background-image: url('/resources/img/bookFamous_01.jpg');">
               </a>
             
               <div class="text p-4 d-block">
