@@ -178,95 +178,95 @@
 $(document).ready(function(){
 	
 	movieStarRating();
-// 	bookStarRating();
+	bookStarRating();
 	
 })
-// function bookStarRating(){
-// 	console.log($("#bookIsbn"+0).val())
-// 	for(var i=0;i<3;i++){
-// 		(function(i){
+function bookStarRating(){
+	console.log($("#bookIsbn"+0).val())
+	for(var i=0;i<3;i++){
+		(function(i){
 			
-// 	var rating = $("#bookRating"+i).val()
+	var rating = $("#bookRating"+i).val()
 		
-// 		$(".bookData").append(`
-//     			<div class="col-12 col-md-4 mb-4" style="text-align:center">
-//                 <div class="card h-100 img${'${i}'}">
-//                     <div class="card-body">
-//                         <ul class="list-unstyled justify-content-between">
-//                             <li id="bookStarRating${'${i}'}">
-//                             <p>평점: ${'${rating}'}</p>
-//                             </li>
-//                             <input type="hidden" value="${'${rating}'}" id="bstarrating${'${i}'}"/>
-//                         </ul>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-//     			`)
+		$(".bookData").append(`
+    			<div class="col-12 col-md-4 mb-4" style="text-align:center">
+                <div class="card h-100 img${'${i}'}">
+                    <div class="card-body">
+                        <ul class="list-unstyled justify-content-between">
+                            <li id="bookStarRating${'${i}'}">
+                            <p>평점: ${'${rating}'}</p>
+                            </li>
+                            <input type="hidden" value="${'${rating}'}" id="bstarrating${'${i}'}"/>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    			`)
 		
-// 	var isbn = $("#bookIsbn"+i).val()
+	var isbn = $("#bookIsbn"+i).val()
 		
-// 	$.ajax({
-//             url: "https://dapi.kakao.com/v3/search/book",
-//             headers: {'Authorization': 'KakaoAK 7ab4fb38af1de0cf515ccc51bc417dd5'},
-//             type : "get",
-//             data:{
-//             	query:isbn,
-//                 target:'isbn'
-//             },
-//             success : function(result){
-//             	console.log(result.documents[0].title)
-//             	console.log(i)
-//             	console.log($(".img"+i))
+	$.ajax({
+            url: "https://dapi.kakao.com/v3/search/book",
+            headers: {'Authorization': 'KakaoAK 7ab4fb38af1de0cf515ccc51bc417dd5'},
+            type : "get",
+            data:{
+            	query:isbn,
+                target:'isbn'
+            },
+            success : function(result){
+            	console.log(result.documents[0].title)
+            	console.log(i)
+            	console.log($(".img"+i))
 
-//             	$(".img"+i).prepend(`
-//                     <a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn.substring(0,10)}'}">
-//                     <img src="${'${result.documents[0].thumbnail}'}" class="card-img-top">
-//                     </a>
-//             			`)
-//             	console.log($(".img"+i+" .card-body"));
-//             	$(".img"+i+" .card-body").append(`
-//             			<a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn.substring(0,10)}'}" class="h2 text-decoration-none text-dark">${'${result.documents[0].title}'}</a>	
-//             			`)
+            	$(".img"+i).prepend(`
+                    <a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn.substring(0,10)}'}">
+                    <img src="${'${result.documents[0].thumbnail}'}" class="card-img-top">
+                    </a>
+            			`)
+            	console.log($(".img"+i+" .card-body"));
+            	$(".img"+i+" .card-body").append(`
+            			<a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn.substring(0,10)}'}" class="h2 text-decoration-none text-dark">${'${result.documents[0].title}'}</a>	
+            			`)
             			
             			
-//             	var star = $("#bstarrating"+i).val();
-//             	console.log(star)
-//             	var html = "";
+            	var star = $("#bstarrating"+i).val();
+            	console.log(star)
+            	var html = "";
             	
-//             	if(star % 1 == 0) {
+            	if(star % 1 == 0) {
 
-//         			for(var j=0; j<star; j++) {
+        			for(var j=0; j<star; j++) {
         				
-//         				html += "<img src='/resources/img/pinkStar.png' style='width:20px; height:20px;' />"
-//         			}
+        				html += "<img src='/resources/img/star.png' style='width:30px; height:30px;' />"
+        			}
         		
-//         		} else {
+        		} else {
         			
-//         			for(var j=0; j<star-0.5; j++) {
+        			for(var j=0; j<star-0.5; j++) {
         				
-//         				html += "<img src='/resources/img/pinkStar.png' style='width:20px; height:20px;' />"
-//         			}
+        				html += "<img src='/resources/img/star.png' style='width:30px; height:30px;' />"
+        			}
         			
-//         			html += "<img src='/resources/img/halfStar.png' style='width:15px; height:30px;' />"
-//         		}
+        			html += "<img src='/resources/img/halfStar.png' style='width:15px; height:30px;' />"
+        		}
         		
-//         		html += "<p class='text-muted' style='display:inline; padding-left:15px;'>" + star + "</p>"
+        		html += "<p class='text-muted' style='display:inline; padding-left:15px;'>" + star + "</p>"
         		
-//         		$("#bookStarRating" + i).html(html);
+        		$("#bookStarRating" + i).html(html);
         		
             	
             	
             	
-//             },
-//             error: function(){
-//     			alert("실패");
-//     		}
-// 	})//$.ajax({ end
-// 	})(i)
-// 	}
-// }
+            },
+            error: function(){
+    			alert("실패");
+    		}
+	})//$.ajax({ end
+	})(i)
+	}
+}
 
 function movieStarRating() {
 	

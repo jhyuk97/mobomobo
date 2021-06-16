@@ -46,7 +46,7 @@
                 <c:forEach items="${list }" var="list">
                 <tr>
                     <td scope="col">${list.isbn }</td>
-                    <td scope="col"><a href="/admin/book/famousDetail?bookBestno=${list.isbn }">${list.bookTitle}</a></td>
+                    <td scope="col"><a href="#">${list.bookTitle}</a></td>
                     
                     <td scope="col">${list.award }</td>
                     <td scope="col"><button class="btn btn-warning btn-sm" onclick="deleteBookBest(${list.isbn })" >삭제</button></td>
