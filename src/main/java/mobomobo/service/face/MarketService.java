@@ -8,6 +8,7 @@ import mobomobo.dto.BookMark;
 import mobomobo.dto.ChatLog;
 import mobomobo.dto.Market;
 import mobomobo.dto.MarketImg;
+import mobomobo.dto.UserImg;
 import mobomobo.util.Paging;
 
 public interface MarketService {
@@ -54,4 +55,10 @@ public interface MarketService {
 	
 	//채팅내역 불러오기
 	public List<ChatLog> selectLog(String roomid);
+	
+	//유저 이미지 불러오기
+	public List<UserImg> selectImg(ChatLog log);
+	
+	//채팅방 유저프로필불러오기
+	public List<UserImg> selectChatImg(String userid);
 }

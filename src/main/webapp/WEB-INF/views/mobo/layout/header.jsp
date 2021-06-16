@@ -4,11 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html>   
-=======
-<html>
->>>>>>> 483848d733ae47cc14cb4ef3ecea5966cea989e3
+
 <head>
 
 <!-- jquery -->

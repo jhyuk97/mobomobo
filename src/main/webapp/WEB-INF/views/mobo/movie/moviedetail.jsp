@@ -516,7 +516,7 @@ color: #bcbcbc;
     
     <div class="button2">   
   <button id="btnMovieBestLike" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;<span id="bestLike">${cntMovieBestLike }</span> 
- </button> 
+ </button>
   </div>
 
 	
