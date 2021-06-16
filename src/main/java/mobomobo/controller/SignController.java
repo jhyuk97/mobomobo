@@ -226,7 +226,8 @@ public class SignController {
 //			logger.info("세션 아이디 : " + session.getAttribute("id"));
 //			logger.info("세션 등급 : " + session.getAttribute("grade"));
 
-				return "redirect:/mobo/main";
+			return "redirect:/mobo/main";
+
 
 		} else {
 //			logger.info("로그인실패");
@@ -395,6 +396,7 @@ public class SignController {
 	
 				session.setAttribute("login", true);
 				session.setAttribute("id", result.getId());
+				session.setAttribute("nick", result.getNick());
 				
 				session.setAttribute("age", result.getAge());
 				session.setAttribute("userno", result.getUserno());

@@ -4,8 +4,16 @@
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <%@include file="/WEB-INF/views/mobo/layout/header.jsp" %>
 
-<div>
-<form id="writeForm" style="margin:0px auto; width:1320px; padding:10px;" action="/mobo/market/write" method="POST" enctype="multipart/form-data">
+<section class="ftco-section ">
+       <div class="row no-gutters justify-content-center mb-5 pb-5">
+          <div class="col-md-7 text-center heading-section ftco-animate">
+            <h2 class="mb-4">MARKET</h2> <!--각자 게시판 영어 제목이 와야함-->
+            <p id="p">당신의 인생 영화, 무부무부에서 만나보세요</p><!--각자 게시판 내용이 와야함 필요없음 제외 가능-->
+          </div>
+        </div>
+
+<div class="container">
+<form id="writeForm" style="margin:0px auto;" action="/mobo/market/write" method="POST" enctype="multipart/form-data">
 	<div>
 		<div>
 			<p>제목 <input type="text" name="mTitle" id="mTitle"/></p>
@@ -26,10 +34,9 @@
 		
 		<div style="border:1px solid #c4c4c4; margin:10px 0; padding:5px; background:#f5f6f6;">
 			<div>
-			<p><input id="imgfile" name="imgfile" type="file" value="사진첨부" multiple="multiple" accept=".jpg, .png" name="file" maxlength="10"/>
+			<p><input id="imgfile" name="imgfile" type="file" value="사진추가" multiple="multiple" accept=".jpg, .png" name="file" maxlength="10"/>
 			<button type="button" onclick="removeFile()" id="imgCancel" style="float:right; border:1px solid; border-radius:5px; visibility:hidden;">선택 삭제</button>
 			</p>
-			
 			</div>
 			<div id="ImgPreview" style="margin:10px"></div>
 		</div>
@@ -43,7 +50,7 @@
 </form>
 
 </div>
-
+</section>
 <%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>
 
 <script type="text/javascript">
@@ -68,9 +75,24 @@ function submitContents(elClickedObj) {
 </script>
 
 <script type="text/javascript">
+
+var fileArr = new Array();
+
 $(document).ready(function(){
 	$("#submit").click(function(){
 		submitContents($("#submit"));
+		
+		var form = $('form')[0];
+		var formData = new FormData(form);
+		formData.append("file", fileArr);
+		
+// 		$.ajax({
+// 			url:"/mobo/market/write",
+// 			type:"POST",
+// 			data: formData,
+// 			success:function(res){location.href("/mobo/market")}
+// 		})
+		
 		$("form").submit();
 	})
 	
@@ -78,34 +100,43 @@ $(document).ready(function(){
 
 
 function ImagePreview(input){
-	const container = document.getElementById("ImgPreview");
-	
-	container.style.height="150px";
-	$("#ImgPreview").css("overflow-y", "scroll")
-	
-	
-	if(input.files){
-		
-		const fileArr = Array.from(input.files)
-		
-		const $Div = document.createElement("div")
-		
-		
-		fileArr.forEach((file, index) => {
-			const reader = new FileReader()
-			
-			const $check = document.createElement("input")
-			$check.setAttribute("type", "checkbox")
-			$check.setAttribute("id", ("check"+index))
-			$check.style.position="relative";
-			$check.style.zIndex="1";
-			
-			const $imgDiv = document.createElement("div")
-			const $label = document.createElement("label")
-            const $img = document.createElement("img")
-            $label.setAttribute("for", ("check"+index))
-            $label.style.position="relative";
-			$label.style.top="-15px";
+   const container = document.getElementById("ImgPreview");
+   
+   container.style.height="150px";
+   $("#ImgPreview").css("overflow-y", "scroll")
+   
+   if(input.files){
+      
+      const fArr = Array.from(input.files)
+      const length = fileArr.length
+      const $Div = document.createElement("div")
+      
+      console.log('fArr')
+      console.log(fArr)
+      
+      fArr.forEach((file, index) => {
+       	 fileArr.push(file)
+    	  
+       	 console.log('fileArr')
+       	 console.log(fileArr)
+    	  
+    	 const reader = new FileReader()
+         
+         const $check = document.createElement("input")
+         $check.setAttribute("type", "checkbox")
+         $check.setAttribute("id", ("check"+(length+index)))
+         $check.style.position="relative";
+         $check.style.zIndex="1";
+         
+         const $imgDiv = document.createElement("div")
+         $imgDiv.setAttribute("id", ("imgDiv"+(length+index)))
+         
+         const $label = document.createElement("label")
+         const $img = document.createElement("img")
+         $label.setAttribute("for", ("check"+(length+index)))
+         $label.style.position="relative";
+         $label.style.top="-15px";
+
 
             $img.classList.add("image")
             
@@ -117,6 +148,7 @@ function ImagePreview(input){
             reader.onload = e => {
                 $img.src = e.target.result
                 $img.style.width = "100%";
+                $img.style.height = "100%";
                 
                 $imgDiv.style.width = "200px";
                 $imgDiv.style.float = "left";
@@ -124,34 +156,37 @@ function ImagePreview(input){
             
             $Div.appendChild($imgDiv)
             reader.readAsDataURL(file)
-		})
-		
-		container.appendChild($Div)
-		
-		$("#imgCancel").css("visibility", "inline");
-	}
+      })
+      
+      container.appendChild($Div)
+      
+      $("#imgCancel").css("visibility", "inline");
+   }
+
 }
 
 
 const Image = document.getElementById("imgfile")
 
 Image.addEventListener("change", e => {
-	ImagePreview(e.target)
+   ImagePreview(e.target)
 })
 
 function removeFile(){
-	console.log($('input[name="imgfile"]')[0].files)
+	var a = new Array();
 	
-	var files = $('input[name="imgfile"]')[0].files
-	
-	for(var i=0; i<files.length; i++){
+   	for(var i=0; i<fileArr.length; i++){
 		if($('#check'+i).is(":checked")){
-			console.log(i+"번쨰 조건문 진입성공")
-			$('input[name="imgfile"]')[0].remove(i);
-			
-		}
+		console.log(i+"번쨰 조건문 진입성공")
+        a.push(i);
+        //$('input[name="imgfile"]')[0].remove(i);12
+        }
 	}
-	
+   	
+   	for(var i=0; i<a.length; i++){
+   		fileArr.splice(a[i],1);
+   	}
+   	
 }
 
 </script>

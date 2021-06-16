@@ -37,6 +37,9 @@
 a { text-decoration:none; }
 
 
+
+
+
 </style>
 <script type="text/javascript">
 
@@ -52,18 +55,19 @@ a { text-decoration:none; }
             },
             success : function(result){
             	console.log("성공!!!")
+            	var isbn = result.documents[0].isbn.substring(0,10);
             	
             	$("#awards").append(
 							`
 							<div class="col-md-3">
 					            <div class="blog-entry">
-					            <a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn }'}&&avg=${'${avg }'}" class="block-20" style="background-image: url('${'${result.documents[0].thumbnail}'}');">
+					            <a href="/mobo/book/detail?isbn=${'${isbn }'}&&avg=${'${avg }'}" class="block-20" style="background-image: url('${'${result.documents[0].thumbnail}'}');">
 					              </a>
 					              <div class="text p-4 d-block">
 					                <div class="meta mb-3">
-					                  <div><a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn }'}&&avg=${'${avg }'}">${'${result.documents[0].title }'}</a></div>
+					                  <div><a href="/mobo/book/detail?isbn=${'${isbn }'}&&avg=${'${avg }'}">${'${result.documents[0].title }'}</a></div>
 					                </div>
-					                <h3 class="heading"><a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn }'}&&avg=${'${avg }'}">평점:${'${avg }'}</a></h3>
+					                <h3 class="heading"><a href="/mobo/book/detail?isbn=${'${isbn }'}&&avg=${'${avg }'}">평점:${'${avg }'}</a></h3>
 					              </div>
 					            </div>
 					          </div>
@@ -114,7 +118,10 @@ a { text-decoration:none; }
 
 </script>
 
-
+	<div class="container">
+    <a href="/mobo/book/awardsList"><img src="/resources/img/bookaward2.gif" style="width: 100%;" ></a>
+	
+	</div>
     <!-- 제목 --><!-- 여기를 복붙해서 모든 게시판에 각각 사용하기! 위에 css 추가 필수.... -->
       <section class="ftco-section ">
        <div class="row no-gutters justify-content-center mb-5 pb-5">

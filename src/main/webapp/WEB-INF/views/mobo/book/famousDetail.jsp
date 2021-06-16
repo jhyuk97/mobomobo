@@ -444,7 +444,7 @@ function deleteComment(commentno){
           <div class="col-md-7 text-center heading-section ftco-animate">
             <span class="subheading">Highlight</span>
             <h2 class="mb-4">${detail.bestTitle }</h2>
-            <p id="p">당신의 인생 영화, 무부무부에서 만나보세요</p>
+            <p id="p">당신의 인생 책, 무부무부에서 만나보세요</p>
           </div>
         </div>
         
@@ -528,7 +528,6 @@ function deleteComment(commentno){
 	<!-- 로그인 상태 -->
 	<c:if test="${login }">
 	
-	<p id="attention">본 영화와 관련 없는 댓글은 관리자에 의하여 무통보 삭제될 수 있습니다</p>
 	  
 	<!-- 댓글 -->
 
