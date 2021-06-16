@@ -7,6 +7,10 @@
   
 <mapper namespace="mobomobo.dao.face.SignDao">
 
+	<resultMap type="mobomobo.dto.UserInfo" id="userInfo">
+		<result column="USERPW" property="pw"/>
+	</resultMap>
+
 	<select id="selectId" parameterType="String" resultType="int">
 		SELECT count(*) FROM userinfo
 		WHERE id = #{id}
@@ -29,10 +33,10 @@
 	
 	<select id="login" parameterType="mobomobo.dto.UserInfo" resultType="int">
 		SELECT count(*) FROM userinfo
-		WHERE id = #{id} AND userpw = #{pw}
+		WHERE id = #{id} 
 	</select>
 	
-	<select id="selectUserInfo" parameterType="String" resultType="mobomobo.dto.UserInfo">
+	<select id="selectUserInfo" parameterType="String" resultMap="userInfo">
 		SELECT * FROM userinfo
 		WHERE id = #{id}
 	</select>
@@ -53,11 +57,15 @@
 		WHERE name = #{name} AND email = #{email}
 	</select>
 	
-	<select id="selectFindUserPw" parameterType="mobomobo.dto.UserInfo" resultType="mobomobo.dto.UserInfo">
-		SELECT * FROM userinfo
-		WHERE id = #{id}
+	<select id="selectFindUserPw" parameterType="mobomobo.dto.UserInfo" resultType="int">
+		SELECT count(*) FROM userinfo
+		WHERE id = #{id} AND email = #{email}
 	</select>
-
+	
+	<update id="updatePw" parameterType="mobomobo.dto.UserInfo">
+		UPDATE userinfo SET userpw = #{pw}
+		WHERE id = #{id}
+	</update>
 
 
 </mapper>  

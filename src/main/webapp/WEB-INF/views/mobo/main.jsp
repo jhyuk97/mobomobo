@@ -116,94 +116,27 @@
     
      <!-- Start Featured Product -->
     <section class="bg-light">
-        <div class="container py-5">
+    <div class="container py-5">
             <div class="row text-center py-3">
                 <div class="col-lg-6 m-auto">
                     <h1 class="h1">무부'S BOOK</h1>
                     <p>
-                          무부무부 유저들의 실시간 별점으로 알 수 있는 인기 책
+                        무부무부 유저들의 실시간 별점으로 알 수 있는 인기 책
                     </p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="/resources/img/BOOK1.jpg" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                             <!--     <li class="text-muted text-right">$240.00</li>-->
-                            </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">노르웨이의 숲</a>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt in culpa qui officia deserunt.
-                            </p>
-                            <p class="text-muted">Reviews (24)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="/resources/img/BOOK2.jpg" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                              <!--    <li class="text-muted text-right">$480.00</li>-->
-                            </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">보건교사 안은영</a>
-                            <p class="card-text">
-                                Aenean gravida dignissim finibus. Nullam ipsum diam, posuere vitae pharetra sed, commodo ullamcorper.
-                            </p>
-                            <p class="text-muted">Reviews (48)</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-                    <div class="card h-100">
-                        <a href="shop-single.html">
-                            <img src="/resources/img/BOOK3.jpg" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <ul class="list-unstyled d-flex justify-content-between">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                </li>
-                             <!--  <li class="text-muted text-right">$360.00</li> -->  
-                            </ul>
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">프로젝트 헤일메리</a>
-                            <p class="card-text">
-                                Curabitur ac mi sit amet diam luctus porta. Phasellus pulvinar sagittis diam, et scelerisque ipsum lobortis nec.
-                            </p>
-                            <p class="text-muted">Reviews (74)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
+    	  <div class="row bookData">
+            
+            <c:forEach items="${bookList }" var="book" varStatus="status"> 
+                        <input id="bookIsbn${status.index }" value="${book.isbn }" type="hidden">
+                        <input id="bookRating${status.index }" value="${book.starRating }" type="hidden">
+            </c:forEach>             
+                
+    </div>
+    
     </section>
     <!-- End Featured Product -->
-    
-    
 
 
     <!-- Start Categories of The Month -->
@@ -245,38 +178,95 @@
 $(document).ready(function(){
 	
 	movieStarRating();
-	bookStarRating();
+// 	bookStarRating();
 	
 })
-function bookStarRating(){
-	
-	
-// 	${bookList }.forEach(function(e){
-// 		console.log(e);
-// 	})
-// 	for( var i = 0 i< ${bookList }.length;i++){
-// 		console.log(${bookList }.get(i));
+// function bookStarRating(){
+// 	console.log($("#bookIsbn"+0).val())
+// 	for(var i=0;i<3;i++){
+// 		(function(i){
+			
+// 	var rating = $("#bookRating"+i).val()
+		
+// 		$(".bookData").append(`
+//     			<div class="col-12 col-md-4 mb-4" style="text-align:center">
+//                 <div class="card h-100 img${'${i}'}">
+//                     <div class="card-body">
+//                         <ul class="list-unstyled justify-content-between">
+//                             <li id="bookStarRating${'${i}'}">
+//                             <p>평점: ${'${rating}'}</p>
+//                             </li>
+//                             <input type="hidden" value="${'${rating}'}" id="bstarrating${'${i}'}"/>
+//                         </ul>
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     </div>
+//     			`)
+		
+// 	var isbn = $("#bookIsbn"+i).val()
+		
+// 	$.ajax({
+//             url: "https://dapi.kakao.com/v3/search/book",
+//             headers: {'Authorization': 'KakaoAK 7ab4fb38af1de0cf515ccc51bc417dd5'},
+//             type : "get",
+//             data:{
+//             	query:isbn,
+//                 target:'isbn'
+//             },
+//             success : function(result){
+//             	console.log(result.documents[0].title)
+//             	console.log(i)
+//             	console.log($(".img"+i))
+
+//             	$(".img"+i).prepend(`
+//                     <a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn.substring(0,10)}'}">
+//                     <img src="${'${result.documents[0].thumbnail}'}" class="card-img-top">
+//                     </a>
+//             			`)
+//             	console.log($(".img"+i+" .card-body"));
+//             	$(".img"+i+" .card-body").append(`
+//             			<a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn.substring(0,10)}'}" class="h2 text-decoration-none text-dark">${'${result.documents[0].title}'}</a>	
+//             			`)
+            			
+            			
+//             	var star = $("#bstarrating"+i).val();
+//             	console.log(star)
+//             	var html = "";
+            	
+//             	if(star % 1 == 0) {
+
+//         			for(var j=0; j<star; j++) {
+        				
+//         				html += "<img src='/resources/img/pinkStar.png' style='width:20px; height:20px;' />"
+//         			}
+        		
+//         		} else {
+        			
+//         			for(var j=0; j<star-0.5; j++) {
+        				
+//         				html += "<img src='/resources/img/pinkStar.png' style='width:20px; height:20px;' />"
+//         			}
+        			
+//         			html += "<img src='/resources/img/halfStar.png' style='width:15px; height:30px;' />"
+//         		}
+        		
+//         		html += "<p class='text-muted' style='display:inline; padding-left:15px;'>" + star + "</p>"
+        		
+//         		$("#bookStarRating" + i).html(html);
+        		
+            	
+            	
+            	
+//             },
+//             error: function(){
+//     			alert("실패");
+//     		}
+// 	})//$.ajax({ end
+// 	})(i)
 // 	}
-	
-	
-// 	console.log(${bookList }))
-	console.log('!!!')
-	$.ajax({
-            url: "https://dapi.kakao.com/v3/search/book",
-            headers: {'Authorization': 'KakaoAK 7ab4fb38af1de0cf515ccc51bc417dd5'},
-            type : "get",
-            data:{
-            	query:'893746103X',
-                target:'isbn'
-            },
-            success : function(result){
-            	console.log(result)
-            },
-            error: function(){
-    			alert("실패");
-    		}
-	})
-}
+// }
 
 function movieStarRating() {
 	

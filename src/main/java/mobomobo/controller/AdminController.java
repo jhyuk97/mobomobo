@@ -59,12 +59,7 @@ public class AdminController {
 	
 			}
 
-		@RequestMapping(value="/admin/login")
-		public void login() {
-			
-			logger.info("관리자 로그인 페이지");
-			
-		}
+
 		
 		
 		@RequestMapping(value="/admin/tables")

@@ -68,6 +68,7 @@
 	 <property name="port" value="587"/> <!-- 메인서버 포트번호 -->
 	 <property name="username" value="jhyuk97@naver.com"/> <!-- 자신의 이메일 아이디 적어주셔야해요!  -->
 	 <property name="password" value="jeuk970304^"/> <!-- 자신의 비밀번호 적어주셔야 해요! -->
+
 	   <!-- 보안연결 SSL과 관련된 설정 -->
 	 <property name="javaMailProperties">
 	  <props>

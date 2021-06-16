@@ -9,79 +9,6 @@
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 
-
-<script type="text/javascript">
-// Kakao.init('733d53597c1a83a03aa0b68ca9c16d65'); //발급받은 키 중 javascript키를 사용해준다.
-// console.log(Kakao.isInitialized()); // sdk초기화여부판단
-
-
-//   function loginWithKakao() {
-//     Kakao.Auth.login({
-//       success: function(authObj) {
-//         alert(JSON.stringify(authObj))
-        
-//         var response = JSON.stringify(authObj);
-        
-//         console.log(authObj);
-        
-//         console.log(response);
-        
-//         console.log(authObj.id);
-        
-
-        
-//         console.log("-------------------");
-// //   	  var id = authObj.id;
-//   	  var id = response.scope;
-
-// //   	  var email = authObj.kakao_account.email;
-// //   	  var nick = authObj.properties.nick;
-  	  
-//   	  console.log("id", id);
-// //   	  console.log("email", email);
-// //   	  console.log("nick", nick);
-//       },
-//       fail: function(err) {
-//         alert(JSON.stringify(err))
-//       },
-//     })
-//   }
-
-// function loginWithKakao() {
-// kakao.API.request({
-//     url: '/v2/user/me',
-//     data: {
-//         property_keys: ["kakao_account.email","kakao_account.gender"]
-//     },
-//     success: function(response) {
-//         console.log(response);
-//     },
-//     fail: function(error) {
-//         console.log(error);
-//     }
-// })
-
-// };
-
-//   function kakaoLogout() {
-// 	    if (Kakao.Auth.getAccessToken()) {
-// 	      Kakao.API.request({
-// 	        url: '/v1/user/unlink',
-// 	        success: function (response) {
-// 	        	console.log(response)
-// 	        	console.log("sucsses")
-// 	        },
-// 	        fail: function (error) {
-// 	          console.log(error)
-// 	        	console.log("fail..")
-// 	        },
-// 	      })
-// 	      Kakao.Auth.setAccessToken(undefined)
-// 	    }
-// 	  }  
-  
- </script> 
-
 <title>Login V2</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -210,18 +137,9 @@ body {
 				<form class="login100-form validate-form" action="/mobo/sign/login" method="post">
 					<span class="login100-form-title p-b-26">
 
-						
-<!--   <a id="custom-login-btn" href="javascript:loginWithKakao()"> -->
-<!--   <img -->
-<!--     src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg" -->
-<!--     width="222" -->
-<!--   /> -->
-<!-- </a> -->
-
-<!-- 	<a id="custom-logout-btn" href="javascript:kakaoLogout()">로그아웃</a> -->
+	
 					</span>
 					<span class="login100-form-title p-b-48">
-<!-- 						<i class="zmdi zmdi-font"></i> -->
 							<a href="/mobo/main"> <img src="/resources/img/1.png" style="width: 250px;" ></a>
 					</span>
 
@@ -250,15 +168,18 @@ body {
 						<a href="/mobo/sign/findid" class="link">아이디찾기</a> 
 						<span class="stick">│</span> 
 						<a href="/mobo/sign/findpw"class="link">비밀번호 찾기</a>
+<!-- 카카오 로그인  -->
+
+	<a id="kakao-login-btn"></a><br><br>
+<!-- 카카오 로그인  -->
 					</div>
+					
+	
+<!-- <span style="text-align: center; " > -->
+<!-- <a id="custom-logout-btn" href="javascript:kakaoLogout()"> -->
+<!-- 카카오톡 로그아웃..</a></span> -->
 
 
-
-<!-- 카카오 로그인  -->
-<a id="kakao-login-btn"></a>
-<!-- <button class="api-btn" onclick="kakaoLogout()">로그아웃</button> --><br>
-	<a id="custom-logout-btn" href="javascript:kakaoLogout()">로그아웃</a>
-<!-- 카카오 로그인  -->
 
 
 
@@ -288,35 +209,32 @@ body {
                     			"res": res
                     		}
                     		, success : function(data){
-                    			console.log("성공")
+//                     			console.log("성공")
 
-                    			console.log(data)
-                    			console.log(data.loginResult)
+//                     			console.log(data)
+//                     			console.log(data.loginResult)
                     			
                     			if( data.loginResult == true){
                     				
-                    				console.log("여기가 들어와 지나요?")
+//                     				console.log("여기가 들어와 지나요?")
                     				document.location.href ='/mobo/main';
                     				
                     			} else {
                     			
                     				var con_test = confirm("회원가입을 진행하시겠습니까?");
-                    				
-// 			                    	var user123 = JSON.stringify(data);
 			                    	var userInfo = JSON.stringify(data);
-// 			                    	var userInfo = JSON.parse(user123);
                     				
-                    				console.log("아이디가 없어서 회원가입 진행시 사용하는 값들")
-                    				console.log(data)
-                    				console.log(userInfo)
-                    				console.log(userInfo.kakaoUserInfo)
-                    				console.log(userInfo.nick)
-                    				console.log(res)
-                    				console.log(res.id)
+//                     				console.log("아이디가 없어서 회원가입 진행시 사용하는 값들")
+//                     				console.log(data)
+//                     				console.log(userInfo)
+//                     				console.log(userInfo.kakaoUserInfo)
+//                     				console.log(userInfo.nick)
+//                     				console.log(res)
+//                     				console.log(res.id)
                     				
                     				
-                    				console.log("data", data)
-                    				console.log("id", data.kakaoUserInfo.id)
+//                     				console.log("data", data)
+//                     				console.log("id", data.kakaoUserInfo.id)
                     				
                     				if(con_test == true){
                     					
@@ -390,22 +308,22 @@ body {
             fail: function (err) {
                 alert(JSON.stringify(err));
             }
-        });
-      //]]>
-        
+        });        
         
      function kakaoLogout() {
+    	 
+    	 console.log("카카오 토큰 존재 여부",Kakao.Auth.getAccessToken())
     	 
 	    if (Kakao.Auth.getAccessToken()) {
 	      Kakao.API.request({
 	        url: '/v1/user/unlink',
 	        success: function (response) {
-	        	console.log(response)
-	        	console.log("sucsses")
+// 	        	console.log(response)
+// 	        	console.log("sucsses")
 	        },
 	        fail: function (error) {
-	          console.log(error)
-	        	console.log("fail..")
+// 	          console.log(error)
+// 	        	console.log("fail..")
 	        },
 	      })
 	      Kakao.Auth.setAccessToken(undefined)
@@ -421,8 +339,8 @@ body {
 						</span>
 
 						<a class="txt2" href="/mobo/sign/signUp">
-							Sign Up
-						</a>
+							회원가입
+						</a>	
 					</div>
 				</form>
 			</div>

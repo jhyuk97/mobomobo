@@ -72,6 +72,15 @@ public interface SignDao {
 	 * @param userInfo  - 입력한 정보
 	 * @return pw
 	 */
-	public UserInfo selectFindUserPw(UserInfo userInfo);
+	public int selectFindUserPw(UserInfo userInfo);
+	
+	/**
+	 * 암호화된 pw 를 업데이트
+	 * @param userInfo - pw가 포함된 userInfo
+	 * @return
+	 */
+	public void updatePw(UserInfo userInfo);
+	
+
 
 }

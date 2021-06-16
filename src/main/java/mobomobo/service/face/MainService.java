@@ -12,6 +12,6 @@ public interface MainService {
 
 	public int getMovieStarRatingCount();
 
-	public List<HashMap<String, Object>> getBookStarRatingList();
+	public List<BookStarRating> getBookStarRatingList();
 
 }

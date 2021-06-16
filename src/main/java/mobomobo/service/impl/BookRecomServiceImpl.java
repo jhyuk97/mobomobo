@@ -94,6 +94,7 @@ public class BookRecomServiceImpl implements BookRecomService{
 		res.setKey(bookMark.getKey());
 		res.setUserno((Integer)session.getAttribute("userno"));
 		res.setCategory("book");
+		res.setTitle(bookMark.getTitle());
 		return res;
 	}
 

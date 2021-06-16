@@ -137,6 +137,7 @@ function ImagePreview(input){
          $label.style.position="relative";
          $label.style.top="-15px";
 
+
             $img.classList.add("image")
             
             
@@ -161,6 +162,7 @@ function ImagePreview(input){
       
       $("#imgCancel").css("visibility", "inline");
    }
+
 }
 
 
@@ -184,8 +186,6 @@ function removeFile(){
    	for(var i=0; i<a.length; i++){
    		fileArr.splice(a[i],1);
    	}
-   	
-   	
    	
 }
 

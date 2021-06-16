@@ -52,7 +52,7 @@ a { text-decoration:none; }
        <div class="row no-gutters justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
             <h2 class="mb-4">HIGHLIGHT</h2>
-            <p id="p">당신의 인생 영화, 무부무부에서 만나보세요</p>
+            <p id="p">당신의 인생 책, 무부무부에서 만나보세요</p>
           </div>
         </div>
         

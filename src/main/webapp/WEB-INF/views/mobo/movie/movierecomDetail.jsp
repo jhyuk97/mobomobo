@@ -567,7 +567,6 @@ function updateStarRating() {
 	$("#starResultWrap").hide();
 }
 
-
 //차트
 function starAvg() {
 	
@@ -640,6 +639,7 @@ function starAvg() {
 				    scales: {
 			            y: {
 			                beginAtZero: true,
+			                stepSize : 1,
 			                max: 5
 			            }
 				    }
@@ -653,12 +653,16 @@ function manageBookMark() {
 	
 	var userno = $("#hiddenUserno").val();
 	var key = $("#hiddenKey").val();
+	var title = $("#hiddenTitle").val();
+	var image = $("#hiddenImage").val();
 	
 	$.ajax({
 		type : 'get'
 		,url : '/mobo/movie/bookmark'
 		,data : {'userno' : userno
-				, 'key' : key}
+				, 'key' : key
+				, 'title' : title
+				, 'image' : image}
 		,dataType : 'json'
 		,success : function(data) {
 			
@@ -699,6 +703,7 @@ function starAvgOfSingle() {
 
 
 </script>
+
 
 
 

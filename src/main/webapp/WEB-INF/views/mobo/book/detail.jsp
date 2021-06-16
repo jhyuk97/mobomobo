@@ -131,15 +131,17 @@
             	console.log("성공!!")
             	console.log(result)
             	
+            	var isbn = result.documents[index].isbn.substring(0,10);
+            	
             	$("#authors").append( 
 							`
 							<div class="col-md-3">
 					            <div class="blog-entry">
-					            <a href="/mobo/book/detail?isbn=${'${result.documents[index].isbn }'}" class="block-20" style="background-image: url('${'${result.documents[index].thumbnail}'}');">
+					            <a href="/mobo/book/detail?isbn=${'${isbn }'}" class="block-20" style="background-image: url('${'${result.documents[index].thumbnail}'}');">
 					              </a>
 					              <div class="text p-4 d-block">
 					                <div class="meta mb-3">
-					                  <div><a href="/mobo/book/detail?isbn=${'${result.documents[index].isbn }'}">${'${result.documents[index].title }'}</a></div>
+					                  <div><a href="/mobo/book/detail?isbn=${'${isbn }'}">${'${result.documents[index].title }'}</a></div>
 					                </div>
 					                
 					              </div>
@@ -182,6 +184,9 @@
 	            	getBookInfoByAuthors(result.documents[0].authors,i)
             	}
             	 
+            },
+            error : function (){
+            	
             }
 	}); 
 	}
@@ -218,11 +223,14 @@
 		$("#bookMark").click(function() {
 			console.log("click!!")
 			
+			var title = $("#title").val()
+			
 			$.ajax({
             url: "/mobo/book/bookMark",
             type : "post",
             dataType:"json",
-            data:{ "key":"${isbn }" },
+            data:{ "key":"${isbn }"
+            	,"title" : title},
             success : function(result){
             	console.log("인서트성공!!")
             	console.log(result)
@@ -313,6 +321,7 @@
               <h4>평점:<fmt:formatNumber value="${avg.AVG }" pattern=".0"/></h3>
               <br>
               <c:if test="${not empty userno }">
+              
               <div class="star-box" >
 				<span class="star star_left"></span><!-- 
 				 --><span class="star star_right"></span><!-- 
@@ -325,12 +334,13 @@
 				 --><span class="star star_left"></span><!-- 
 				 --><span class="star star_right"></span>
 				 
-			</div>
             <div class="star-value" id="starValue">0</div>
-	
-				<button type="button" id="starBtn">별점 입력</button>
-            
+				<button class="bubbly-button pull-right" type="button" id="starBtn">별점 입력</button>
+			</div>
               </c:if>
+             
+	
+            
             
             
             </div>

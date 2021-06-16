@@ -5,9 +5,15 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	
 	$("#logingo").click(function() {
 		location.href="/mobo/sign/login";
 	});
+	
+	$("#findidgo").click(function() {
+		location.href="/mobo/sign/findid";
+	});
+	
 
 });
 </script>
@@ -20,8 +26,8 @@ $(document).ready(function() {
 
 <br>
 
-<h1 class="display-4">ID 찾기 </h1>
-
+<h1 style="color: #525f7f">ID 찾기 </h1>
+<hr>
 <br>
 
   
@@ -32,48 +38,47 @@ $(document).ready(function() {
 <c:choose>
 	<c:when test="${id eq null }">
 	
-		<h1 style="text-align: center;"> 해당하는 정보가 없습니다</h1>
-		<br><br>
+	<div class="alert alert-warning" role="alert">
+	    <strong>No Find!</strong> 입력하신 정보에 일치하는 정보가 없습니다.
+	</div>
 		
+		
+
 				<div>
-					<div class="wrap-login100-form-btn">
+					<div class="wrap-login100-form-btn" style="width: 200px;">
+						<div class="login100-form-bgbtn"></div>
+						<button class="login100-form-btn" type="submit" id="logingo" >Login</button>
+					</div>
+					<br>
+					<div class="wrap-login100-form-btn" style="width: 200px;">
+						<div class="login100-form-bgbtn"></div>
+						<button class="login100-form-btn" type="submit" id="findidgo" >아이디 찾기</button>
+					</div>
+				</div>
+
+				
+			</c:when>
+	<c:otherwise>
+	
+	<div class="alert alert-primary" role="alert">
+    <strong>사용자의 id 는</strong> ${id } 입니다.
+	</div>
+
+				<div>
+					<div class="wrap-login100-form-btn" style="width: 200px;">
 						<div class="login100-form-bgbtn"></div>
 						<button class="login100-form-btn" type="submit" id="logingo" >Login</button>
 					</div>
 				</div>
 				
-			</c:when>
-	<c:otherwise>
-    <table class="table align-items-center">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col" class="sort" data-sort="name">사용자의 id 는</th>
-                <th scope="col" class="sort" data-sort="budget">${id }</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-	</table>
+				<br><br>
+				
+	<div style="border-top: 1px solid #A48654;">
+		<span class="stick">혹시 비밀번호를 찾으시나요? │ </span>
+		<a href="/mobo/sign/findpw" class="link" style="font-family: 'Jal_Onuel';
+    font-size: 18px !important; font-weight: 300 !important;">비밀번호 재 발급하기</a>
+	</div>
 	
-				<div>
-					<div class="wrap-login100-form-btn">
-						<div class="login100-form-bgbtn"></div>
-						<button class="login100-form-btn" type="submit" id="logingo" >Login</button>
-					</div>
-				</div>
 	<br><br>
 	</c:otherwise>
 </c:choose>
