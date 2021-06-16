@@ -528,7 +528,6 @@ function deleteComment(commentno){
 	<!-- 로그인 상태 -->
 	<c:if test="${login }">
 	
-	<p id="attention">본 책와 관련 없는 댓글은 관리자에 의하여 무통보 삭제될 수 있습니다</p>
 	  
 	<!-- 댓글 -->
 

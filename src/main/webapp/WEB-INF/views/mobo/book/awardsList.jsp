@@ -36,19 +36,7 @@
 
 a { text-decoration:none; }
 
-.box{
 
-/**아래 내용들은 알아서 변경 **/
-  width: 100%;
-  height: 250px;
-  float: center;
-  color: #E62200;
-  max-width: 1400px;
-  background: #fff;
-  border-radius: 30px; 
-
-
-}
 
 
 
@@ -131,7 +119,7 @@ a { text-decoration:none; }
 </script>
 
 	<div class="container">
-    <a href="/mobo/book/awardsList"><img src="/resources/img/bookaward2.gif" class="box" ></a>
+    <a href="/mobo/book/awardsList"><img src="/resources/img/bookaward2.gif" style="width: 100%;" ></a>
 	
 	</div>
     <!-- 제목 --><!-- 여기를 복붙해서 모든 게시판에 각각 사용하기! 위에 css 추가 필수.... -->
