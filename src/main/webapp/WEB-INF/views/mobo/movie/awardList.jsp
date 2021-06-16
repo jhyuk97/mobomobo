@@ -9,6 +9,26 @@
 
 .movieAwardListContainer {
 	min-height: 1000px;
+	width : 1200px;
+	margin : 0 auto;
+}
+
+.awardWrap {
+	display : flex;
+	width : 1000px;
+	flex-wrap:wrap;
+	margin : 0 auto;
+}
+
+.awardMovie {
+	width : 200px;
+	display : flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.center {
+	text-align: center;
 }
 
 </style>
@@ -16,14 +36,16 @@
 
 <div class="movieAwardListContainer">
 
-	<img src="/resources/img/movieaward2.gif"> <br>
+	 <div class="center"><img src="/resources/img/movieaward2.gif"></div> <br>
 
+	<div class="awardWrap">
 	<c:forEach items="${list }" var="award">
-	
-		${award.title }
-		<img src="${award.image }"/>
-	
+		<div class="awardMovie">
+			<div class="center"><img src="${award.image }"/></div>
+			<div class="center">${award.title }</div>
+		</div>
 	</c:forEach>
+	</div>
 
 </div>
 

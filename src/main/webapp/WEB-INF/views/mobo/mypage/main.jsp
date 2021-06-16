@@ -170,6 +170,37 @@ a, a:visited {
   float: right;
 }
 
+.couponImg{
+	float:center;
+	text-align: center;
+}
+
+.couponTitle {
+	float:center;
+	text-align: center;
+	margin: 100px;
+}
+
+.couponText {
+	margin: 100px;
+	float:center;
+	text-align: center;
+	color: gray;
+}
+
+.titleColor {
+	color : #7251B5;
+}
+
+.titleColor:hover {
+	color : #C19EE0;
+}
+
+.page-item .page-link {
+	background-color: #6247AA !important;
+	border: #6247AA !important;
+}
+
 </style>
 
 
@@ -189,7 +220,7 @@ a, a:visited {
 			<h4>본인 확인을 위해 비밀번호를 입력해 주세요.</h4>
 			<div>
 			<input type="password" id="userpw" style='margin-top : 20px;'>
-			<input type="button" value="확인" onclick="checkPw()" class='rembutton purple'> <br>
+			<input type="button" value="확인" onclick="checkPw()" class='rembutton purple'>
 			</div>
 			<span id="wrongSpan" style='color:red;'></span>
 		</div>
@@ -347,14 +378,14 @@ function infoView() {
 			html += "<div class='userinfoWrap'>"
 			html += "<div class='userInfoImgBox'>"
 			if (data.userImg.storedName == 'basig.png') {
-			html += "	<img src='/resources/img/basig.png' class='infoImg'>"
+			html += "	<img src='/resources/img/basig.png' class='infoImg' id='infoImg'>"
 			} else {
-			html += "	<img src='/emp/" + data.userImg.storedName + "' class='infoImg'>"
+			html += "	<img src='/emp/" + data.userImg.storedName + "' class='infoImg' id='infoImg'>"
 			}
 			html += "	<br> <input type='button' value='기본 이미지' onclick='originImg()' class='rembutton purple'>"
 			html += "	<form id='form' style='display : inline-block'>"
 			html += "	<label for='imagefile' class='rembutton purple'> 업로드 </label>"
-			html += "	<input type='file' name='imagefile' id='imagefile' style='display:none'>"
+			html += "	<input type='file' name='imagefile' id='imagefile' style='display:none' onchange='readURL(event)'>"
 			html += "	</form>"
 			html += "	<input type='button' value='수정' onclick='updateImg()'>"
 			
@@ -436,6 +467,23 @@ function infoView() {
 	})
 }
 
+
+function readURL(input) {
+	
+	console.log(input);
+	
+    if (input.target.files && input.target.files[0]) {
+    	
+    	console.log('aaaa');
+    	
+       var reader = new FileReader();
+       reader.onload = function (e) {
+          $('#userInfoBox #infoImg').attr('src', e.target.result);
+       }
+       reader.readAsDataURL(input.target.files[0]);
+    }
+}
+
 //글 목록 조회
 function writingView(curPage) {
 		
@@ -465,11 +513,11 @@ function writingView(curPage) {
 				html += "	<td>" + data.writing[i].rnum + "</td>"
 				
 				if(data.writing[i].boardDiv == 3) {
-					html += "	<td class='longTitle'><a href='/mobo/market/" + data.writing[i].boardNo + "'>" + data.writing[i].title + "</a></td>"
+					html += "	<td class='longTitle'><a href='/mobo/market/" + data.writing[i].boardNo + "' class='titleColor'>" + data.writing[i].title + "</a></td>"
 				} else if (data.writing[i].boardDiv == 4) {
-					html += "	<td class='longTitle'><a href=''>" + data.writing[i].title + "</a></td>"					
+					html += "	<td class='longTitle'><a href='' class='titleColor'>" + data.writing[i].title + "</a></td>"					
 				} else if (data.writing[i].boardDiv == 5) {
-					html += "	<td class='longTitle'><a href=''>" + data.writing[i].title + "</a></td>"					
+					html += "	<td class='longTitle'><a href='' class='titleColor'>" + data.writing[i].title + "</a></td>"					
 				}
 				
 				html += "	<td>" + moment(data.writing[i].wdate).format('YYYY-MM-DD') + "</td>"
@@ -541,16 +589,16 @@ function commentView(curPage) {
 				html += "<tr>"
 				html += "	<td>" + data.comment[i].rnum + "</td>"
 				if(data.comment[i].commentDiv == 1) {
-					html += "	<td class='longTitle'><a href='/mobo/movie/moviedetail?movieBestNo=" + data.comment[i].boardNo + "'>" + data.comment[i].commentText + "</a></td>"
+					html += "	<td class='longTitle'><a href='/mobo/movie/moviedetail?movieBestNo=" + data.comment[i].boardNo + "' class='titleColor'>" + data.comment[i].commentText + "</a></td>"
 					html += "	<td>영화 명장면</td>"
 				} else if (data.comment[i].commentDiv == 2) {
-					html += "	<td class='longTitle'><a href='/mobo/book/famousDetail?bookBestno=" + data.comment[i].boardNo + "'>" + data.comment[i].commentText + "</a></td>"
+					html += "	<td class='longTitle'><a href='/mobo/book/famousDetail?bookBestno=" + data.comment[i].boardNo + "' class='titleColor'>" + data.comment[i].commentText + "</a></td>"
 					html += "	<td>책 명대사</td>"
 				} else if (data.comment[i].commentDiv == 4) {
-					html += "	<td class='longTitle'><a>" + data.comment[i].commentText + "</a></td>"
+					html += "	<td class='longTitle'><a class='titleColor'>" + data.comment[i].commentText + "</a></td>"
 					html += "	<td>영화 토론</td>"
 				} else if (data.comment[i].commentDiv == 5) {
-					html += "	<td class='longTitle'><a>" + data.comment[i].commentText + "</a></td>"
+					html += "	<td class='longTitle'><a class='titleColor'>" + data.comment[i].commentText + "</a></td>"
 					html += "	<td>책 토론</td>"
 				}
 				html += "	<td>" + moment(data.comment[i].wdate).format('YYYY-MM-DD') + "</td>"
@@ -617,23 +665,23 @@ function bookmarkView(curPage) {
 				html += "	<td>" + data.bookmark[i].rnum + "</td>"
 				
 				if(data.bookmark[i].category == 'movie') {
-					html += "	<td class='longTitle'><a href='/mobo/movie/movierecomDetail?key=" + data.bookmark[i].key  + "&image=" + data.bookmark[i].image + "'>" + data.bookmark[i].title + "</a></td>"
+					html += "	<td class='longTitle'><a href='/mobo/movie/movierecomDetail?key=" + data.bookmark[i].key  + "&image=" + data.bookmark[i].image + "' class='titleColor'>" + data.bookmark[i].title + "</a></td>"
 					html += "	<td>영화</td>"
 							
 				} else if(data.bookmark[i].category == 'moviebest') {
-					html += "	<td class='longTitle'><a href='/mobo/movie/moviedetail?movieBestNo=" + data.bookmark[i].key + "'>" + data.bookmark[i].title + "</a></td>"
+					html += "	<td class='longTitle'><a href='/mobo/movie/moviedetail?movieBestNo=" + data.bookmark[i].key + "' class='titleColor'>" + data.bookmark[i].title + "</a></td>"
 					html += "	<td>영화 명장면</td>"
 							
 				} else if(data.bookmark[i].category == 'book') {
-					html += "	<td class='longTitle'><a href='/mobo/book/detail?isbn=" + data.bookmark[i].key +"'>" + data.bookmark[i].title + "</a></td>"
+					html += "	<td class='longTitle'><a href='/mobo/book/detail?isbn=" + data.bookmark[i].key +"' class='titleColor'>" + data.bookmark[i].title + "</a></td>"
 					html += "	<td>책</td>"
 							
 				} else if(data.bookmark[i].category == 'bookbest') {
-					html += "	<td class='longTitle'><a href='/mobo/book/famousDetail?bookBestno=" + data.bookmark[i].key + "'>" + data.bookmark[i].title + "</a></td>"
+					html += "	<td class='longTitle'><a href='/mobo/book/famousDetail?bookBestno=" + data.bookmark[i].key + "' class='titleColor'>" + data.bookmark[i].title + "</a></td>"
 					html += "	<td>책 명대사</td>"
 							
 				} else if(data.bookmark[i].category == 'product') {
-					html += "	<td class='longTitle'><a href='/mobo/market/ " + data.bookmark[i].key + "'>" + data.bookmark[i].title + "</a></td>"
+					html += "	<td class='longTitle'><a href='/mobo/market/ " + data.bookmark[i].key + "' class='titleColor'>" + data.bookmark[i].title + "</a></td>"
 					html += "	<td>중고 마켓</td>"
 				}
 				
@@ -871,8 +919,16 @@ function couponView() {
 	
 	var html = "";
 	
-	html += "<div style='text-align:center;'>";
+	html += "<div class='couponTitle'>";
+	html += "<h2>무부무부 회원가입 축하 쿠폰</h2>"
+	html += "</div>"
+	
+	html += "<div class='couponImg'>"
 	html += "<img src='/resources/img/coupon2.png' />"
+	html += "</div>";
+	
+	html += "<div class='couponText'>"
+	html += "<p>본인인증 아이디당 1회 사용 / 타 쿠폰과 중복 사용 불가</p>"
 	html += "</div>";
 	
 	$("#userInfoBox").html(html);

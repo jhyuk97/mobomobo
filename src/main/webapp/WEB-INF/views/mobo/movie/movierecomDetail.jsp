@@ -230,10 +230,7 @@
 	<div id="movieInfoContainer">
 	
 		<div class="titleFlexBox">
-		
-			<h2 class="mb-4">${movie.title }</h2>
-			<p id="p" style="display:block;">당신의 인생 영화, 무부무부에서 만나보세요</p>
-		
+			<h2 class="mb-4" style="font-size : 38px; font-weight : 700;">${movie.title }</h2>
 		</div>
 		
 		

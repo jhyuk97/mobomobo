@@ -633,7 +633,8 @@ public class MovieServiceImpl implements MovieService{
 				
 				for(int i=0; i < (ulTag.toString().split("<li>").length) -1; i++ ) {
 				
-					if((html.getElementsByClass("info").get(i).getElementsByClass("cast").get(0).text()).equals("감독 " + directors)) {
+					if((html.getElementsByClass("info").get(i).getElementsByClass("cast")
+							.get(0).text()).equals("감독 " + directors)) {
 					
 					MovieCrawler movie = new MovieCrawler();
 					
@@ -641,7 +642,10 @@ public class MovieServiceImpl implements MovieService{
 					
 					movie.setSummary(html.getElementsByClass("dsc").get(i).text());
 					
-					movie.setPrice(html.getElementsByClass("cont").get(i).getElementsByClass("price2 v2").get(0).getElementsByClass("by_tit").text() + " : " + html.getElementsByClass("cont").get(i).getElementsByClass("price2 v2").get(0).getElementsByTag("strong").text() + "원");
+					movie.setPrice(html.getElementsByClass("cont").get(i).getElementsByClass("price2 v2")
+							.get(0).getElementsByClass("by_tit").text()
+							+ " : " + html.getElementsByClass("cont").get(i).getElementsByClass("price2 v2")
+							.get(0).getElementsByTag("strong").text() + "원");
 					
 					movie.setBuyUrl("https://serieson.naver.com" + html.getElementsByClass("N=a:mov.title").get(i).attr("href"));
 					
