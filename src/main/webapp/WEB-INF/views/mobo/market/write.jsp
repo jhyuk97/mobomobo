@@ -179,7 +179,7 @@ function removeFile(){
 		if($('#check'+i).is(":checked")){
 		console.log(i+"번쨰 조건문 진입성공")
         a.push(i);
-        //$('input[name="imgfile"]')[0].remove(i);
+        //$('input[name="imgfile"]')[0].remove(i);12
         }
 	}
    	
