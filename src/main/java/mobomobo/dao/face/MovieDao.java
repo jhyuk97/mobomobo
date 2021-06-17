@@ -10,6 +10,7 @@ import mobomobo.dto.MovieBestCommentLike;
 import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
 import mobomobo.dto.MovieStarRating;
+import mobomobo.dto.UserImg;
 import mobomobo.util.MovieBestPaging;
 
 public interface MovieDao {
@@ -176,7 +177,13 @@ public interface MovieDao {
 	public int CheckMovieBestBookmark(BookMark bookmark);
 
 	
-	
+	/**
+	 * 유저 이미지 보여주기
+	 * @param viewUserImg
+	 * @return
+	 */
+//	public List<UserImg> selectViewUserImageList(List<MovieBestComment> movieBestCommentList);
+	public UserImg selectViewUserImageList(MovieBestComment movieBestComment);
 	
 
 

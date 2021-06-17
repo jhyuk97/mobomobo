@@ -33,6 +33,7 @@ import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
 import mobomobo.dto.MovieCrawler;
 import mobomobo.dto.MovieStarRating;
+import mobomobo.dto.UserImg;
 import mobomobo.service.face.MovieService;
 import mobomobo.util.MovieBestPaging;
 
@@ -926,7 +927,22 @@ public class MovieServiceImpl implements MovieService{
 		return false;
 	}
 	
-	
+	@Override
+	public List<UserImg> viewUserImg(List<MovieBestComment> movieBestCommentList) {
+		// TODO Auto-generated method stub
+		
+		List<UserImg> list = new ArrayList<>();
+		
+		logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@12312313123123123123123@@@@@ {}", movieBestCommentList);
+		
+		for(int i=0; i<movieBestCommentList.size(); i++) {
+			list.add(movieDao.selectViewUserImageList(movieBestCommentList.get(i)));
+		}
+		
+		return list;
+		
+	}
+
 	
 	
 }
