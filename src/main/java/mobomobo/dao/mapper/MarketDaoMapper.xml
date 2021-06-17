@@ -138,8 +138,11 @@
 
 	<select id="selectUserImg" parameterType="mobomobo.dto.ChatLog" resultMap="Userimg">
 		select originimg, userno from userimg 
-		where userno in (select userno from userinfo where id in 
-		(select distinct sendid from chatlog where roomid=#{roomid}))
+		where userno in (select userno from userinfo where id in (
+		substr(#{roomid}, instr(#{roomid},'su:')+3, instr(#{roomid},'bu:')-instr(#{roomid},'su:')-3), 
+		substr(#{roomid}, instr(#{roomid},'bu:')+3))
+		<!-- (select distinct sendid from chatlog where roomid=#{roomid})-->
+		)
 	</select>
 
 </mapper>

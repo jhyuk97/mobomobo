@@ -1,6 +1,7 @@
 package mobomobo.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -195,9 +196,13 @@ public class MarketController {
 	public ModelAndView Chatroom(HttpSession session, ChatLog data, ModelAndView mav) {
 		
 		List<ChatLog> log = marketService.selectLog(data.getRoomid());
-		
-		List<UserImg> uImg = marketService.selectImg(data);
-		
+		List<UserImg> uImg = new ArrayList<>();
+		if(log.size() > 0) {
+			uImg = marketService.selectImg(data);
+		}else {
+			uImg.add(new UserImg());
+			uImg.add(new UserImg());
+		}
 		mav.addObject("uImg", uImg);
 		mav.addObject("log", log);
 		mav.addObject("roomid", data.getRoomid());

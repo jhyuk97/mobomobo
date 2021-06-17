@@ -47,14 +47,16 @@ function btnSend(){
 	function onMessage(msg){
 		
 		var img = [];
-		
+		var imgarr = [];
+		console.log('$uImg.size()')
+		if(${uImg.size()} > 1){
 		img[1] = '${uImg.get(1).originName}'
 		img[0] = '${uImg.get(0).originName}'
-		
-		var imgarr = [];
+	
 		imgarr[0] = ${uImg.get(0).userNo}
 		imgarr[1] = ${uImg.get(1).userNo}
 		
+		}
 		// msg는 메세지 작성자 닉네임, 작성내용을 가지고 있음 
 		var data = msg.data;
 		var arr = data.split("/");
@@ -148,8 +150,8 @@ function btnSend(){
 		    	    	<c:if test="${empty img.originName }">
 		    	    	<img style="width:30px; border-radius:15px;" src="/resources/img/basig.png"/>
 		    	    	</c:if>
-		     		   	<span class="message-data-name">나:</span>
-		       		 	<span class="message-data-time">작성시간</span>
+		     		   	<span class="message-data-name"></span>
+		       		 	<span class="message-data-time"><fmt:formatDate value="${i.writeDate }" pattern="a HH:mm"/></span>
 		       		</div>
 		        	<div class="message other-message float-right">${i.msg }</div>
 	        	</li><br>
