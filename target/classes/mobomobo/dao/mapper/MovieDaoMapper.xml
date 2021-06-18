@@ -126,6 +126,7 @@
 					, commentDate
 					, commentDiv
                     , (select count(*) from moviebestcommentlike cl where cl.commentNo = c.commentNo) commentcnt
+                    , (select userno from userinfo ui where ui.id = c.id) userno
 				FROM moviebestcomment c
 				WHERE movieBestNo = #{movieBesNo}
 				ORDER BY commentDate
@@ -214,6 +215,10 @@
 		where userno=#{userno} and key=#{key}
 	</select>
 	
+		<select id="selectViewUserImageList" parameterType="mobomobo.dto.MovieBestComment" resultType="mobomobo.dto.UserImg">
+        SELECT * FROM userimg
+        WHERE userno = (select userno from userinfo where nick = #{nick})
+	</select>
 	
 
 </mapper>

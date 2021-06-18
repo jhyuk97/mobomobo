@@ -55,6 +55,7 @@
 
 	 <div class="center" style='margin-bottom : 30px;'><img src="/resources/img/movieaward2.gif"></div> <br>
 
+
 	<div class="awardWrap">
 	<c:forEach items="${list }" var="award">
 		<div class="awardMovie">

@@ -32,6 +32,10 @@
     
     <link rel="stylesheet" href="/resources/board/css/style.css">
     
+    
+    
+    
+    
 
     <%@include file="/WEB-INF/views/mobo/layout/header.jsp" %>
   

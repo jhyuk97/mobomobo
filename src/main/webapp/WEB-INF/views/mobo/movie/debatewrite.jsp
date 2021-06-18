@@ -3,10 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%@include file="/WEB-INF/views/admin/include/header.jsp" %>
-
-<%@include file="/WEB-INF/views/admin/include/sidemenu.jsp" %>
-
+<c:import url="/WEB-INF/views/mobo/layout/header.jsp" />
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -74,4 +71,4 @@ function submitContents(elClickedObj) {
 
 
 
-<%@include file="/WEB-INF/views/admin/include/footer.jsp" %>
+	<%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>

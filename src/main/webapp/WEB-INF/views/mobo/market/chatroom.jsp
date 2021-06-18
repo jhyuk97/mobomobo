@@ -47,14 +47,16 @@ function btnSend(){
 	function onMessage(msg){
 		
 		var img = [];
-		
-		img[1] = '${uImg.get(1).originName}'
-		img[0] = '${uImg.get(0).originName}'
-		
 		var imgarr = [];
+		console.log('$uImg.size()')
+		if(${uImg.size()} > 1){
+		img[1] = '${uImg.get(1).storedName}'
+		img[0] = '${uImg.get(0).storedName}'
+	
 		imgarr[0] = ${uImg.get(0).userNo}
 		imgarr[1] = ${uImg.get(1).userNo}
 		
+		}
 		// msg는 메세지 작성자 닉네임, 작성내용을 가지고 있음 
 		var data = msg.data;
 		var arr = data.split("/");
@@ -77,17 +79,24 @@ function btnSend(){
 		//같은 채팅방인지 확인
 		if(roomid == '${roomid}'){
 			
+			var date = new Date();
+			var hours = date.getHours();
+			var min = date.getMinutes();
+			var ampm = hours >= 12 ? '오후' : '오전';
+			var time = ampm + " " + hours + ":" + min;
 			
 			for(var i=0; i<2; i++){
 			if(sessionId == cur_session && imgarr[i] == ${userno}){
+				
+				
 				var str ="<li class='my'><div class='message-data align-right'>";
-				if(${not empty uImg.get(i).originName}){
+				if(${not empty uImg.get(i).storedName}){
 					str += "<img style='width:30px; border-radius:15px;' src='/emp/"+img[i]+"'/>";
 				}else{
 					str += "<img style='width:30px; border-radius:15px;' src='/resources/img/basig.png'/>";
 				}
-				str+="<span class='message-data-name'> 나: </span>";
-				str+="<span class='message-data-time'>작성시간</span>";
+				str+="<span class='message-data-name'></span>";
+				str+="<span class='message-data-time'> "+ time +"</span>";
 				str+="</div>"
 				str+="<div class='message other-message float-right'>" + message + "</div></li><br>";
 				
@@ -96,13 +105,13 @@ function btnSend(){
 				
 			}else if(sessionId != cur_session && imgarr[i] != ${userno}){
 				var str ="<li class='other'><div class='message-data'>";
-				if(${not empty uImg.get(i).originName}){
+				if(${not empty uImg.get(i).storedName}){
 					str += "<img style='width:30px; border-radius:15px;' src='/emp/"+img[i]+"'/>";
 				}else{
 					str += "<img style='width:30px; border-radius:15px;' src='/resources/img/basig.png'/>";
 				}
 				str+="<span class='message-data-name'> " + sessionId + " </span>";
-				str+="<span class='message-data-time'>작성시간</span></div>";
+				str+="<span class='message-data-time'> "+ time +"</span></div>";
 				str+="<div class='message my-message'>" + message + "</div></li><br>";
 				
 				$("#msgCon").append(str);
@@ -130,8 +139,8 @@ function btnSend(){
 <div class="chat-header clearfix">        
         <!-- 게시글 설명위치 -->
         <div class="chat-about">
-          <div class="chat-with">${mTitle }</div>
-          <div class="chat-num-messages">금액넣기</div>
+          <div class="chat-with" style="margin:15px 0">${mTitle }</div>
+          <div class="chat-num-messages"></div>
         </div>
 </div> <!-- end chat-header -->
  
@@ -142,14 +151,14 @@ function btnSend(){
         	<c:if test="${i.sendid eq id && img.userNo eq userno }">
 	        	<li class="my">
 		        	<div class="message-data align-right">
-		        		<c:if test="${not empty img.originName }">
-		    	    	<img style="width:30px; border-radius:15px;" src="/emp/${img.originName }"/>
+		        		<c:if test="${not empty img.storedName }">
+		    	    	<img style="width:30px; border-radius:15px;" src="/emp/${img.storedName }"/>
 		    	    	</c:if>
-		    	    	<c:if test="${empty img.originName }">
+		    	    	<c:if test="${empty img.storedName }">
 		    	    	<img style="width:30px; border-radius:15px;" src="/resources/img/basig.png"/>
 		    	    	</c:if>
-		     		   	<span class="message-data-name">나:</span>
-		       		 	<span class="message-data-time">작성시간</span>
+		     		   	<span class="message-data-name"></span>
+		       		 	<span class="message-data-time"><fmt:formatDate value="${i.writeDate }" pattern="a HH:mm"/></span>
 		       		</div>
 		        	<div class="message other-message float-right">${i.msg }</div>
 	        	</li><br>
@@ -157,10 +166,10 @@ function btnSend(){
 			<c:if test="${i.sendid ne id && img.userNo ne userno}">
 				<li class="other">
 		    	    <div class="message-data">
-		    	    	<c:if test="${not empty img.originName }">
-		    	    	<img style="width:30px; border-radius:15px;" src="/emp/${img.originName }"/>
+		    	    	<c:if test="${not empty img.storedName }">
+		    	    	<img style="width:30px; border-radius:15px;" src="/emp/${img.storedName }"/>
 		    	    	</c:if>
-		    	    	<c:if test="${empty img.originName }">
+		    	    	<c:if test="${empty img.storedName }">
 		    	    	<img style="width:30px; border-radius:15px;" src="/resources/img/basig.png"/>
 		    	    	</c:if>
 		     		   	<span class="message-data-name">${i.suNick }</span>

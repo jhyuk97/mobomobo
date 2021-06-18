@@ -27,7 +27,7 @@
         <div class="col">
           <div class="card shadow">
             <div class="card-header border-0">
-              <h1 class="mb-0">책 명대사</h1>
+              <h1 class="mb-0">책 추천</h1>
               
               
             </div>
