@@ -5,6 +5,35 @@
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    
+     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,700,800" rel="stylesheet">
+
+    <link rel="stylesheet" href="/resources/board/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/board/css/animate.css">
+    
+    <link rel="stylesheet" href="/resources/board/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/resources/board/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/resources/board/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/resources/board/css/aos.css">
+
+    <link rel="stylesheet" href="/resources/board/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="/resources/board/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/resources/board/css/jquery.timepicker.css">
+
+
+    
+    <link rel="stylesheet" href="/resources/board/css/flaticon.css">
+    <link rel="stylesheet" href="/resources/board/css/icomoon.css">
+
+    
+   <link rel="stylesheet" href="/resources/board/css/style.css">
+    
+    
+    
+    
 
    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 
@@ -252,26 +281,25 @@ $(document).ready(function (){
 
 </script>
 
-	<section class="ftco-section ">
+		<section class="ftco-section ">
+		<div class="container">
        <div class="row no-gutters justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
-            <h2 class="mb-4">HIGHLIGHT</h2> <!--각자 게시판 영어 제목이 와야함-->
-            <p id="p">당신의 인생 영화, 무부무부에서 만나보세요</p><!--각자 게시판 내용이 와야함 필요없음 제외 가능-->
+            <h2 class="mb-4">${Debate.dTitle }</h2> <!--각자 게시판 영어 제목이 와야함-->
+            <p id="p">당신의 인생 도서를 얘기해보세요!</p><!--각자 게시판 내용이 와야함 필요없음 제외 가능-->
           </div>
         </div>
         
-	<br><br>
-	<h2 class="heading-section">TALK</h2>
-	<hr>
-	<div>
-	<p>${Debate.dTitle } </p>
+	
+	  <div class="row">
+
 	<div style="position: relative; top:-53px;"><button style="margin:0 10px; float: right;" id="write" class="btn btn-filled" onclick='location.href="/mobo/book/debateupdate?dNo=${Debate.dNo}";'>수정</button>
 	<button style="float: right;" id="hot" class="btn btn-filled" onclick='location.href="/mobo/book/debatedelete?dNo=${Debate.dNo}";'>삭제</button></div>
 	<hr>
 	<span>${Debate.nick }</span>
 	<span style="float:right; position: relative; left: 200px;"><fmt:formatDate value="${Debate.dDate }" pattern="yy-MM-dd" /></span>
 	<hr>
-	<div>${Debate.dContent }</div>
+	<div style="height: 500px;">${Debate.dContent }</div>
 	<div style="text-align: center;" class="button2"> 
 	<c:if test="${not empty login }">
   	<button style="width:110px; height:62px; font-size:15px;" id="btnDebateBestLike" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;<span id="bestLike">${likeCnt }</span>
@@ -305,7 +333,7 @@ $(document).ready(function (){
       </ul>
    </div>
    </div>
-   
+</div>   
    
    
 </section>
@@ -324,7 +352,7 @@ $(document).ready(function (){
 		
 		$.ajax( {
 			type : 'get'
-			, url : '/mobo/movie/commentwrite'
+			, url : '/mobo/book/commentwrite'
 			, data : {'dNo' : '${Debate.dNo}'
 					, 'dcContent' : $("#exampleFormControlTextarea1").val()
 			}
@@ -347,7 +375,7 @@ $(document).ready(function (){
 		
 		$.ajax( {
 			type : 'get'
-				, url : '/mobo/movie/commentlist'
+				, url : '/mobo/book/commentlist'
 				, data : {'dNo' : '${Debate.dNo}'
 						
 				}
@@ -408,7 +436,7 @@ $(document).ready(function (){
 		
 		$.ajax( {
 			type : 'get'
-			, url : '/mobo/movie/commentdelete'
+			, url : '/mobo/book/commentdelete'
 			, data : {'dNo' : '${Debate.dNo}'
 					,'dcNo' : dcNo
 			}
@@ -430,7 +458,7 @@ $(document).ready(function (){
 		
 		$.ajax( {
 			type : 'get'
-			, url : '/mobo/movie/commentlike'
+			, url : '/mobo/book/commentlike'
 			, data : {'dNo' : '${Debate.dNo}'
 					,'dcNo' : dcNo
 			}
@@ -446,13 +474,46 @@ $(document).ready(function (){
 			
 			})
 	}
-// 				일단 
-// 				1. 목록 버튼 작동하기
-// 				2. 페이징 적용하기
-// 				3.  컨테이너 적용하기
-// 				4. hot게시판 list 출력
-				//
-  
+	var animateButton = function(e) {
+
+		  e.preventDefault;
+		  //reset animation
+		  e.target.classList.remove('animate');
+		  
+		  e.target.classList.add('animate');
+		  setTimeout(function(){
+		    e.target.classList.remove('animate');
+		  },700);
+		};
+
+		var bubblyButtons = document.getElementsByClassName("bubbly-button");
+
+		for (var i = 0; i < bubblyButtons.length; i++) {
+		  bubblyButtons[i].addEventListener('click', animateButton, false);
+		}
   
 </script>
+  
+  
+  
+  
+  
+  
+   <script src="/resources/board/js/jquery.min.js"></script>
+  <script src="/resources/board/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="/resources/board/js/popper.min.js"></script>
+  <script src="/resources/board/js/bootstrap.min.js"></script>
+  <script src="/resources/board/js/jquery.easing.1.3.js"></script>
+  <script src="/resources/board/js/jquery.waypoints.min.js"></script>
+  <script src="/resources/board/js/jquery.stellar.min.js"></script>
+  <script src="/resources/board/js/owl.carousel.min.js"></script>
+  <script src="/resources/board/js/jquery.magnific-popup.min.js"></script>
+  <script src="/resources/board/js/aos.js"></script>
+  <script src="/resources/board/js/jquery.animateNumber.min.js"></script>
+  <script src="/resources/board/js/bootstrap-datepicker.js"></script>
+  
+  <script src="/resources/board/js/particles.min.js"></script>
+  <script src="/resources/board/js/particle.js"></script>
+  <script src="/resources/board/js/scrollax.min.js"></script>
+  <script src="/resources/board/js/main.js"></script>
   

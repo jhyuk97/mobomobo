@@ -46,8 +46,16 @@ function btnSend(){
 	
 	function onMessage(msg){
 		
+		var img = [];
+		
+		img[1] = '${uImg.get(1).originName}'
+		img[0] = '${uImg.get(0).originName}'
+		
+		var imgarr = [];
+		imgarr[0] = ${uImg.get(0).userNo}
+		imgarr[1] = ${uImg.get(1).userNo}
+		
 		// msg는 메세지 작성자 닉네임, 작성내용을 가지고 있음 
-		console.log(msg.data)
 		var data = msg.data;
 		var arr = data.split("/");
 		
@@ -68,39 +76,41 @@ function btnSend(){
 		
 		//같은 채팅방인지 확인
 		if(roomid == '${roomid}'){
-		
-		// 로그인중인 유저와 메세지 보낸 유저가 같은경우
-		// 우측에 메세지가 작성됨
-// 			if(sessionId == cur_session){
-// 				var str = "<div style='text-align:right;'>";
-// 				str += "<b>나" + ": " + message + "</b>";
-// 				str += "</div>";
 			
-// 				$("#msgCon").append(str);
-// 			}else{
-// 				var str = "<div style='text-align:left;'>";
-// 				str += "<b>" + sessionId + ": " + message + "</b>";
-// 				str += "</div>";
 			
-// 				$("#msgCon").append(str);
-// 			}
-			if(sessionId == cur_session){
+			for(var i=0; i<2; i++){
+			if(sessionId == cur_session && imgarr[i] == ${userno}){
 				var str ="<li class='my'><div class='message-data align-right'>";
-				str+="<span class='message-data-name'>나:</span>";
+				if(${not empty uImg.get(i).originName}){
+					str += "<img style='width:30px; border-radius:15px;' src='/emp/"+img[i]+"'/>";
+				}else{
+					str += "<img style='width:30px; border-radius:15px;' src='/resources/img/basig.png'/>";
+				}
+				str+="<span class='message-data-name'> 나: </span>";
 				str+="<span class='message-data-time'>작성시간</span>";
 				str+="</div>"
 				str+="<div class='message other-message float-right'>" + message + "</div></li><br>";
 				
 				$("#msgCon").append(str);
-			}else{
+				$("#chatHis").scrollTop($("#chatHis")[0].scrollHeight);
+				
+			}else if(sessionId != cur_session && imgarr[i] != ${userno}){
 				var str ="<li class='other'><div class='message-data'>";
-				str+="<span class='message-data-time'>날짜</span>";
-				str+="<span class='message-data-name'>" + sessionId + "</span></div>";
+				if(${not empty uImg.get(i).originName}){
+					str += "<img style='width:30px; border-radius:15px;' src='/emp/"+img[i]+"'/>";
+				}else{
+					str += "<img style='width:30px; border-radius:15px;' src='/resources/img/basig.png'/>";
+				}
+				str+="<span class='message-data-name'> " + sessionId + " </span>";
+				str+="<span class='message-data-time'>작성시간</span></div>";
 				str+="<div class='message my-message'>" + message + "</div></li><br>";
 				
 				$("#msgCon").append(str);
+				$("#chatHis").scrollTop($("#chatHis")[0].scrollHeight);
+				
 			}
-		
+			
+			}
 		
 		}
 	}
@@ -128,19 +138,31 @@ function btnSend(){
 <div id="chatHis" class="chat-history" style="overflow-y:scroll; height:500px;">
 	<ul id="msgCon">
 		<c:forEach var="i" items="${log }">
-        
-        	<c:if test="${i.sendid eq id }">
+        	<c:forEach var="img" items="${uImg }">
+        	<c:if test="${i.sendid eq id && img.userNo eq userno }">
 	        	<li class="my">
 		        	<div class="message-data align-right">
+		        		<c:if test="${not empty img.originName }">
+		    	    	<img style="width:30px; border-radius:15px;" src="/emp/${img.originName }"/>
+		    	    	</c:if>
+		    	    	<c:if test="${empty img.originName }">
+		    	    	<img style="width:30px; border-radius:15px;" src="/resources/img/basig.png"/>
+		    	    	</c:if>
 		     		   	<span class="message-data-name">나:</span>
 		       		 	<span class="message-data-time">작성시간</span>
 		       		</div>
 		        	<div class="message other-message float-right">${i.msg }</div>
 	        	</li><br>
 			</c:if>
-			<c:if test="${i.sendid ne id }">
+			<c:if test="${i.sendid ne id && img.userNo ne userno}">
 				<li class="other">
 		    	    <div class="message-data">
+		    	    	<c:if test="${not empty img.originName }">
+		    	    	<img style="width:30px; border-radius:15px;" src="/emp/${img.originName }"/>
+		    	    	</c:if>
+		    	    	<c:if test="${empty img.originName }">
+		    	    	<img style="width:30px; border-radius:15px;" src="/resources/img/basig.png"/>
+		    	    	</c:if>
 		     		   	<span class="message-data-name">${i.suNick }</span>
 		     		   	<span class="message-data-time">작성시간</span>
 		        	</div>
@@ -148,17 +170,17 @@ function btnSend(){
 	        	</li><br>
 		
 			</c:if>
-        
+        </c:forEach>
         </c:forEach>
                    
 	</ul>
         
 </div> <!-- end chat-history -->
       
-<div class="chat-message clearfix">
-	<textarea name="content" id="message" placeholder ="Type your message" rows="3"></textarea>
+<div style="text-align:center;" class="chat-message clearfix">
+	<textarea style="width:95%;"  name="content" id="message" rows="3"></textarea>
         
-	<button id="send">Send</button>
+	<button style="float:right; margin:15px;" id="send">전송</button>
 
 </div> <!-- end chat-message -->
 

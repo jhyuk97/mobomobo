@@ -12,7 +12,6 @@
 			<li><a href="/mobo/movie/moviebestboard"><span>&larr;</span></a></li>
 		</c:if>
 
-
 		<%-- 이전 페이지 버튼 --%>
 		<%-- 첫 페이지면 금지 표시 --%>
 		<c:if test="${paging.curPage ne 1 }">
@@ -21,7 +20,6 @@
 		<c:if test="${paging.curPage eq 1 }">
 			<li class="disabled"><span>&laquo;</span></li>
 		</c:if>
-
 
 		<%-- 페이징 번호 표시 --%>
 		<%-- 현재 페이지 번호는 active 클래스 부여 -> 파랑 바탕 버튼 --%>
@@ -34,8 +32,6 @@
 			</c:if>
 		</c:forEach>
 
-
-
 		<%-- 다음 페이지 버튼 --%>
 		<%-- 마지막 페이지면 동작 안함 --%>
 		<c:if test="${paging.curPage ne paging.totalPage }">
@@ -44,6 +40,5 @@
 		<c:if test="${paging.curPage eq paging.totalPage }">
 			<li class="disabled"><span>&raquo;</span></li>
 		</c:if>
-		
 	</ul>
 </div>

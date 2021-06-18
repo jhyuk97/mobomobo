@@ -4,7 +4,36 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
+	
+	
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,700,800" rel="stylesheet">
+
+    <link rel="stylesheet" href="/resources/board/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/board/css/animate.css">
+    
+    <link rel="stylesheet" href="/resources/board/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/resources/board/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/resources/board/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/resources/board/css/aos.css">
+
+    <link rel="stylesheet" href="/resources/board/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="/resources/board/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/resources/board/css/jquery.timepicker.css">
+
+
+    
+    <link rel="stylesheet" href="/resources/board/css/flaticon.css">
+    <link rel="stylesheet" href="/resources/board/css/icomoon.css">
+
+    
+   <link rel="stylesheet" href="/resources/board/css/style.css">
+   
+    
+    <!-- 본래 코드 -->
 
    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 
@@ -69,18 +98,26 @@
 
 </style>
 
-   <section class="ftco-section">
+
+	<section class="ftco-section ">
+       <div class="row no-gutters justify-content-center mb-5 pb-5">
+          <div class="col-md-7 text-center heading-section ftco-animate">
+            <h2 class="mb-4">MOVIE TALK</h2>
+            <p id="p">당신의 인생 영화를 얘기하세요!</p>         
+          </div>
+      
+          
+          
+          
+        </div>
+
       <div class="container">
-         <div class="row justify-content-center">
-            <div class="col-md-6 text-center mb-5">
-               <h2 class="heading-section">MOVIE TALK</h2>
-            </div>
-         </div>
+        
          <div class="row">
             <div class="col-md-12">
                <div>
                   <form action="/mobo/movie/debate" method="get">
-					 <select name="type">
+					 <select name="type" class="btn btn-filled">
 					 	<option value="title">제목</option>
 					 	<option value="content">내용</option>
 					 </select>
@@ -138,10 +175,31 @@
             </div>
          </div>
       </div>
-   </section>
-   
+  
+</section>   
    
 <%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>
+
+
+
+<script src="/resources/board/js/jquery.min.js"></script>
+  <script src="/resources/board/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="/resources/board/js/popper.min.js"></script>
+  <script src="/resources/board/js/bootstrap.min.js"></script>
+  <script src="/resources/board/js/jquery.easing.1.3.js"></script>
+  <script src="/resources/board/js/jquery.waypoints.min.js"></script>
+  <script src="/resources/board/js/jquery.stellar.min.js"></script>
+  <script src="/resources/board/js/owl.carousel.min.js"></script>
+  <script src="/resources/board/js/jquery.magnific-popup.min.js"></script>
+  <script src="/resources/board/js/aos.js"></script>
+  <script src="/resources/board/js/jquery.animateNumber.min.js"></script>
+  <script src="/resources/board/js/bootstrap-datepicker.js"></script>
+  <script src="/resources/board/js/jquery.timepicker.min.js"></script>
+  <script src="/resources/board/js/particles.min.js"></script>
+  <script src="/resources/board/js/particle.js"></script>
+  <script src="/resources/board/js/scrollax.min.js"></script>
+  <script src="/resources/board/js/main.js"></script>
+
    
   <script src="/resources/board2/js/popper.js"></script>
 

@@ -20,8 +20,11 @@
 	</select>
 	
 	<select id="selectMovieStarRatingCount" resultType="int">
-		SELECT count(*) FROM moviestarrating
+		SELECT SUM(M.cnt + B.cnt) FROM
+ 			( SELECT count(*) cnt FROM moviestarrating) M 
+ 			, (SELECT count(*) cnt FROM bookstarrating) B
 	</select>
+	
 	<select id="selectGroupByBookStarRatingAvg" resultType="mobomobo.dto.BookStarRating">
 			SELECT * FROM (
 		 		   	SELECT rownum rnum, M.* FROM(

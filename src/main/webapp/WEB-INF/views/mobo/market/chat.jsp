@@ -11,6 +11,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	console.log('${profile}')
+	
 	if(${not empty room}){
 		readLog('${room.roomid}','${market.mTitle}');
 	}
@@ -36,7 +38,6 @@ function readLog(roomid, mTitle){
 		, dataType:"html"
 		, type: "GET"
 		, success:function(res){
-			
 			$("#chatLine").html(res);
 		}
 	});
@@ -65,7 +66,7 @@ function readLog(roomid, mTitle){
       <ul class="list" style="list-style:none;">
       <c:forEach var="list" items="${roomlist }">
         <li class="clearfix" onclick="readLog('${list.roomid}', '${list.mTitle }')">
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />
+          <img style="height:50px; border-radius:25px; " src="/resources/img/basig.png" alt="avatar" />
           <div class="about">
             <div class="name" style="color:#fff;">${list.suNick }</div>
             <div class="status">
@@ -78,7 +79,7 @@ function readLog(roomid, mTitle){
       </ul>
     </div>
     
-    <div id="chatLine" style="height:650px;">
+    <div id="chatLine" style="height:700px;">
     </div> <!-- end chat -->
     
   </div> <!-- end container -->

@@ -35,6 +35,31 @@
 <style>
 
 a { text-decoration:none; }
+.movieAwardListContainer {
+	min-height: 1000px;
+	width : 1200px;
+	margin : 0 auto;
+	margin-bottom: -200px;
+}
+.awardWrap {
+	display : flex;
+	width : 1000px;
+	flex-wrap:wrap;
+	margin : 0 auto;
+}
+
+.awardMovie {
+	width : 200px;
+	display : flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.center {
+	text-align: center;
+}
+
+
 
 
 </style>
@@ -52,18 +77,19 @@ a { text-decoration:none; }
             },
             success : function(result){
             	console.log("성공!!!")
+            	var isbn = result.documents[0].isbn.substring(0,10);
             	
             	$("#awards").append(
 							`
 							<div class="col-md-3">
 					            <div class="blog-entry">
-					            <a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn }'}&&avg=${'${avg }'}" class="block-20" style="background-image: url('${'${result.documents[0].thumbnail}'}');">
+					            <a href="/mobo/book/detail?isbn=${'${isbn }'}&&avg=${'${avg }'}" class="block-20" style="background-image: url('${'${result.documents[0].thumbnail}'}');">
 					              </a>
 					              <div class="text p-4 d-block">
 					                <div class="meta mb-3">
-					                  <div><a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn }'}&&avg=${'${avg }'}">${'${result.documents[0].title }'}</a></div>
+					                  <div><a href="/mobo/book/detail?isbn=${'${isbn }'}&&avg=${'${avg }'}">${'${result.documents[0].title }'}</a></div>
 					                </div>
-					                <h3 class="heading"><a href="/mobo/book/detail?isbn=${'${result.documents[0].isbn }'}&&avg=${'${avg }'}">평점:${'${avg }'}</a></h3>
+					                <h3 class="heading"><a href="/mobo/book/detail?isbn=${'${isbn }'}&&avg=${'${avg }'}">평점:${'${avg }'}</a></h3>
 					              </div>
 					            </div>
 					          </div>
@@ -114,17 +140,20 @@ a { text-decoration:none; }
 
 </script>
 
-
     <!-- 제목 --><!-- 여기를 복붙해서 모든 게시판에 각각 사용하기! 위에 css 추가 필수.... -->
-      <section class="ftco-section ">
+	<div class="movieAwardListContainer">
+	
+      <section class="ftco-section" style="height:410px;">
        <div class="row no-gutters justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
-            <h2 class="mb-4">맨부커 시상식</h2>
+            <h2 class="mb-4" style='margin-top : 50px;'>맨부커 시상식</h2>
             <p id="p">당신의 인생 책, 무부무부에서 만나보세요</p>
           </div>
-        
-        
-        
+	
+	</div>
+	</section>
+	
+		 <div class="center" style='margin-bottom : 30px;'><img src="/resources/img/bookaward2.gif"></div> <br>
         
       
     </div> <!-- 제목부터 검색까지 묶어주는 div 태그 -->
@@ -134,7 +163,7 @@ a { text-decoration:none; }
         그라데이션 색은 거기서 색상 코드 입력해서 수정하시면 돼요. -->
        
         
-        <div class="container">
+        <div class="awardWrap">
         <div class="row" id="awards">
         <h2 class="mb-4">맨부커 시상식</h2> <!-- 꼭 div row 다음에 넣어주기 -->
         
@@ -142,7 +171,7 @@ a { text-decoration:none; }
          
        
       </div> <!-- <div class="container"> -->
-    </section>
+    
     
 
 

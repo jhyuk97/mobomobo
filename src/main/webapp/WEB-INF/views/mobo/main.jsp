@@ -137,8 +137,6 @@
     
     </section>
     <!-- End Featured Product -->
-    
-    
 
 
     <!-- Start Categories of The Month -->
@@ -241,14 +239,14 @@ function bookStarRating(){
 
         			for(var j=0; j<star; j++) {
         				
-        				html += "<img src='/resources/img/pinkStar.png' style='width:20px; height:20px;' />"
+        				html += "<img src='/resources/img/star.png' style='width:30px; height:30px;' />"
         			}
         		
         		} else {
         			
         			for(var j=0; j<star-0.5; j++) {
         				
-        				html += "<img src='/resources/img/pinkStar.png' style='width:20px; height:20px;' />"
+        				html += "<img src='/resources/img/star.png' style='width:30px; height:30px;' />"
         			}
         			
         			html += "<img src='/resources/img/halfStar.png' style='width:15px; height:30px;' />"

@@ -22,23 +22,25 @@ $(document).ready(function() {
 
 <br><br>
 
-<h1 class="display-4">PW 재발급 </h1>
-
+<h1 style="color: #525f7f">PW 재발급 </h1>
+<hr>
 <br>
 
   
-  <div class="table-responsive">
-    
+
 
 
 <c:choose>
 	<c:when test="${result eq 123 }">
 	
-		<h1 style="text-align: center;"> 새로운 비밀번호가 해당 이메일로 전송되었습니다.</h1>
-		<br><br>
+	<div class="alert alert-primary" role="alert">
+    <strong>Success!</strong> 새로운 비밀번호가 해당 이메일로 전송되었습니다.
+	</div>
+	
+
 		
 				<div>
-					<div class="wrap-login100-form-btn">
+					<div class="wrap-login100-form-btn" style="width: 200px;">
 						<div class="login100-form-bgbtn"></div>
 						<button class="login100-form-btn" type="submit" id="logingo" >Login</button>
 					</div>
@@ -46,8 +48,10 @@ $(document).ready(function() {
 				
 			</c:when>
 	<c:otherwise>
-	
-    <h1 style="text-align: center;"> 입력하신 정보에 일치하는 정보가 없습니다.</h1>
+	<div class="alert alert-warning" role="alert">
+    <strong>No Find!</strong> 입력하신 정보에 일치하는 정보가 없습니다.
+	</div>
+
 		<br><br>
 		
 			<div style="border-top: 1px solid #A48654;">

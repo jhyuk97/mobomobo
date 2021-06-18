@@ -1,3 +1,5 @@
+<%@page import="mobomobo.dto.UserImg"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -32,7 +34,9 @@
     <link rel="stylesheet" href="/resources/board/css/icomoon.css">
 
     <link rel="stylesheet" href="/resources/board/css/style.css"> <!-- 이 css가 메인임 -->
-
+    
+    
+    
 	<c:import url="/WEB-INF/views/mobo/layout/header.jsp" />
 
 <script type="text/javascript">
@@ -407,6 +411,16 @@ color: #bcbcbc;
 }
 
 
+.infoimg {
+	border-radius : 70%;
+	object-fit: cover;
+	
+
+
+}
+
+
+
 </style>
 
  
@@ -542,12 +556,59 @@ color: #bcbcbc;
 	</div>
 	<!-- 댓글 리스트 -->
 	
-	
 	<c:forEach items="${movieBestCommentList }" var="movieBestCommentList">
 		<ul class="list-group list-group-flush" data-commentno="${movieBestCommentList.commentNo}">
 		    <li class="list-group-item">
 				<div class="form-inline mb-2">
-					<label for="replyId"><i class="fa fa-user-circle fa-2x"></i></label>&nbsp;&nbsp;&nbsp;<b>${movieBestCommentList.nick }</b>
+					
+				<c:set var="writerIdx" value="0" />
+						
+				<c:forEach items="${imglist }" var="img" varStatus="stat">
+						
+				
+
+					<c:if test="${movieBestCommentList.userno eq img.userNo }">
+						<c:set var="writerIdx" value="${stat.index }" />
+					</c:if>
+					
+<%-- 					<c:set var="writerIdxx" value="0" /> --%>
+
+<%-- 					<c:if test="${writerIdx ne 0 }"> --%>
+<%-- 						<c:set var="writerIdxx" value="${stat.index }" /> --%>
+<%-- 					</c:if> --%>
+					
+					
+				</c:forEach>
+
+				<c:choose>
+				<c:when test="${writerIdx eq 0 }">
+					<img src="/emp/${imglist[writerIdx].storedName }" width="60px" height="60px" class="infoimg">
+				</c:when>
+				
+
+				
+				<c:otherwise>
+					<img src="/emp/${imglist[writerIdx].storedName }" width="60" height="60" class="infoimg">
+<%-- 					<label for="replyId"><img src="/emp/<%=((List<UserImg>)request.getAttribute("imglist")).get( (int)pageContext.getAttribute("writerIdx") ).getStoredName() %>" width="50" height="50"></label> --%>
+				</c:otherwise>
+				</c:choose>
+				
+				
+<%-- 				<c:forEach items="${imglist }" var="img"> --%>
+				
+<!-- 				<div> -->
+<%-- 				${img.originName} --%>
+<!-- 				</div> -->
+				
+<!-- 				<div> -->
+<%-- 				${img.storedName} --%>
+<!-- 				댓글의 수만큼 반복을 하는게 문제다 이걸 해결해야한다  -->
+<!-- 				</div> -->
+				
+								
+
+				
+					&nbsp;&nbsp;&nbsp;<b>${movieBestCommentList.nick }</b>
 					&nbsp;&nbsp;&nbsp;
 					
 					<fmt:formatDate value="${movieBestCommentList.commentDate }" pattern="yyyy-MM-dd"/>
@@ -585,7 +646,6 @@ color: #bcbcbc;
 		<ul class="list-group list-group-flush">
 		    <li class="list-group-item">
 			<div class="form-inline mb-2">
-				<label for="replyId"><i class="fa fa-user-circle fa-2x"></i></label>
 				<input type="text" class="form-control ml-2" name="id" placeholder="아이디" id="moviebestcommentid" value="${id }" readonly="readonly">
 				<input type="text" class="form-control ml-2" name="nick" placeholder="닉네임" id="moviebestcommentnick" value="${nick }" readonly="readonly">
 			</div>

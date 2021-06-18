@@ -188,23 +188,24 @@
 					<h2>${market.mTitle }</h2>
 					<span>${market.mCate }</span> <span><fmt:formatDate value="${market.mDate }" pattern="yy-MM-dd" /></span>
 					<p>${market.mPrice }\</p>
-					<p>${market.mContent }</p>
+					<div>${market.mContent }
+					</div>
 				</div>
 				</div>
 			</div>
 			
 			<div class="buttons">
 				<div class="center">
-    				<button id="bookmark" class="rembutton">북마크</button><br>
+    				<button id="bookmark" class="rembutton">북마크</button>
     			</div>
     			<div class="right">  
 				<c:choose>
 					<c:when test="${id eq market.id }">
-						<a href="/mobo/market/update?mNo=${market.mNo }"><button class="bubbly-button">수정</button></a>
-						<a href="/mobo/market/delete?mNo=${market.mNo }"><button>삭제</button></a>
+						<a href="/mobo/market/update?mNo=${market.mNo }"><button class="rembutton">수정</button></a>
+						<a href="/mobo/market/delete?mNo=${market.mNo }"><button class="rembutton">삭제</button></a>
 					</c:when>
 					<c:otherwise>
-						<button id="openChat">채팅</button>
+						<button id="openChat" class="rembutton">채팅</button>
 					</c:otherwise>
 				</c:choose>
 				</div>
@@ -255,7 +256,7 @@
 			}else{
 				$.ajax({
 					url: '/mobo/market/bookmark',
-					data: {key: ${market.mNo}, category:"product", userno: ${userno}},
+					data: {key: ${market.mNo}, category:"product", userno: ${userno}, 'title' : '${market.mTitle }'},
 					type: 'POST',
 					dataType: 'json',
 					success: function(res){

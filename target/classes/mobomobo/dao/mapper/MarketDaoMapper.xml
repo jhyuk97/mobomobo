@@ -5,7 +5,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mobomobo.dao.face.MarketDao">
-
+	<resultMap type="mobomobo.dto.UserImg" id="Userimg">
+		<result column="ORIGINIMG" property="originName"/>
+		<result column="STOREDIMG" property="storedName"/>
+	</resultMap>
+	
+	
 	<sql id="selectMarket">
 		SELECT
 		mNo, mTitle, mContent, 
@@ -91,8 +96,8 @@
 	
 	
 	<insert id="InsertBookmark" parameterType="mobomobo.dto.BookMark">
-		INSERT INTO bookmark(bookmarkno, userno, category, key)
-		values(bookmarkno_seq.nextval, #{userno}, #{category}, #{key})
+		INSERT INTO bookmark(bookmarkno, userno, category, key, title)
+		values(bookmarkno_seq.nextval, #{userno}, #{category}, #{key}, #{title})
 	</insert>
 	
 	<delete id="DeleteBookmark" parameterType="mobomobo.dto.BookMark">
@@ -123,6 +128,18 @@
 
 	<select id="selectLog" parameterType="String" resultType="mobomobo.dto.ChatLog">
 		SELECT * from chatlog where roomid=#{roomid} order by lno asc
+	</select>
+	
+	<select id="selectChatImg" parameterType="String" resultMap="Userimg">
+		select originimg, (select nick from userinfo u where u.userno=userimg.userno) contentType from userimg 
+		where userno in (select userno from userinfo where id in 
+		(select distinct sendid from chatlog where sendid=#{userid}))
+	</select>
+
+	<select id="selectUserImg" parameterType="mobomobo.dto.ChatLog" resultMap="Userimg">
+		select originimg, userno from userimg 
+		where userno in (select userno from userinfo where id in 
+		(select distinct sendid from chatlog where roomid=#{roomid}))
 	</select>
 
 </mapper>

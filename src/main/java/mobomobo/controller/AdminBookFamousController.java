@@ -53,7 +53,7 @@ public class AdminBookFamousController {
 		logger.debug(bookBestno);
 		
 		BookBest bookBest = bookFamousLineService.getBookBestInfo(bookBestno);
-		logger.debug(bookBest.toString());
+//		logger.debug(bookBest.toString());
 		BookBestImg img = bookFamousLineService.getBookBestImgInfo(bookBestno);
 //		logger.debug(img.toString());
 		

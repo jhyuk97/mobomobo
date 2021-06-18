@@ -7,7 +7,6 @@
 
 <!-- 스마트 에디터2 라이브러리 로드 -->
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -84,3 +83,4 @@ function submitContents(elClickedObj) {
 
 
 <%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>
+

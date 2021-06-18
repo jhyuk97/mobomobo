@@ -31,17 +31,18 @@ public class BookDebateController {
 	private MovieDebateService movieDebateService;
 	
 	@RequestMapping(value="/book/debate")
-	public void debateList( DebatePaging paging, Model model ) {
+	public void debateList( DebatePaging inData, Model model ) {
 		logger.info("/mobo/book/debate [GET]");
 		logger.info("/debatelist [GET] ");
-		logger.info("파라미터 : {}", paging);
+		logger.info("파라미터 : {}", inData);
 		
 		//페이징 계산
-		paging = movieDebateService.debatePaging( paging );
+		DebatePaging paging = movieDebateService.debatePaging( inData );
 			
 		logger.info("paging값이 저장되서 들어왔냐 : {}",paging);
 				
-		paging.setSearch( paging.getSearch() );
+		paging.setSearch( inData.getSearch() );
+		paging.setType(inData.getType());
 		paging.setCategory(5);
 		logger.info("777777");
 		logger.info("페이징 : {}", paging);

@@ -33,6 +33,7 @@ import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
 import mobomobo.dto.MovieCrawler;
 import mobomobo.dto.MovieStarRating;
+import mobomobo.dto.UserImg;
 import mobomobo.service.face.MovieService;
 import mobomobo.util.MovieBestPaging;
 
@@ -321,8 +322,6 @@ public class MovieServiceImpl implements MovieService{
 	        		}
 	        	} else {
 	        		movie.setImage((String)movieList.get("image"));
-	        		
-	        		
 	        	}
 	        }
         }
@@ -380,11 +379,15 @@ public class MovieServiceImpl implements MovieService{
         movie.setTitle((String)parseMovieInfo.get("movieNm"));
         movie.setShowTm((String)parseMovieInfo.get("showTm"));
         
-        String year = ((String)parseMovieInfo.get("openDt")).substring(0, 4);
-        String month = ((String)parseMovieInfo.get("openDt")).substring(4, 6);
-        String day = ((String)parseMovieInfo.get("openDt")).substring(6, 8);
-        
-        movie.setOpenDt(year + "년 " + month + "월 " + day + "일");
+//        if((String)parseMovieInfo.get("openDt") != null) {
+//        String year = ((String)parseMovieInfo.get("openDt")).substring(0, 4);
+//        String month = ((String)parseMovieInfo.get("openDt")).substring(4, 6);
+//        String day = ((String)parseMovieInfo.get("openDt")).substring(6, 8);
+//        
+//        movie.setOpenDt(year + "년 " + month + "월 " + day + "일");
+//        } else {
+        	movie.setOpenDt((String)parseMovieInfo.get("openDt"));
+//        }
         
         JSONArray dir = (JSONArray) parseMovieInfo.get("directors");
         JSONArray nat = (JSONArray) parseMovieInfo.get("nations");
@@ -631,7 +634,8 @@ public class MovieServiceImpl implements MovieService{
 				
 				for(int i=0; i < (ulTag.toString().split("<li>").length) -1; i++ ) {
 				
-					if((html.getElementsByClass("info").get(i).getElementsByClass("cast").get(0).text()).equals("감독 " + directors)) {
+					if((html.getElementsByClass("info").get(i).getElementsByClass("cast")
+							.get(0).text()).equals("감독 " + directors)) {
 					
 					MovieCrawler movie = new MovieCrawler();
 					
@@ -639,7 +643,10 @@ public class MovieServiceImpl implements MovieService{
 					
 					movie.setSummary(html.getElementsByClass("dsc").get(i).text());
 					
-					movie.setPrice(html.getElementsByClass("cont").get(i).getElementsByClass("price2 v2").get(0).getElementsByClass("by_tit").text() + " : " + html.getElementsByClass("cont").get(i).getElementsByClass("price2 v2").get(0).getElementsByTag("strong").text() + "원");
+					movie.setPrice(html.getElementsByClass("cont").get(i).getElementsByClass("price2 v2")
+							.get(0).getElementsByClass("by_tit").text()
+							+ " : " + html.getElementsByClass("cont").get(i).getElementsByClass("price2 v2")
+							.get(0).getElementsByTag("strong").text() + "원");
 					
 					movie.setBuyUrl("https://serieson.naver.com" + html.getElementsByClass("N=a:mov.title").get(i).attr("href"));
 					
@@ -920,7 +927,22 @@ public class MovieServiceImpl implements MovieService{
 		return false;
 	}
 	
-	
+	@Override
+	public List<UserImg> viewUserImg(List<MovieBestComment> movieBestCommentList) {
+		// TODO Auto-generated method stub
+		
+		List<UserImg> list = new ArrayList<>();
+		
+		logger.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@12312313123123123123123@@@@@ {}", movieBestCommentList);
+		
+		for(int i=0; i<movieBestCommentList.size(); i++) {
+			list.add(movieDao.selectViewUserImageList(movieBestCommentList.get(i)));
+		}
+		
+		return list;
+		
+	}
+
 	
 	
 }

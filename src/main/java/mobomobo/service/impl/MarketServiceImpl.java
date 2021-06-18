@@ -20,6 +20,7 @@ import mobomobo.dto.BookMark;
 import mobomobo.dto.ChatLog;
 import mobomobo.dto.Market;
 import mobomobo.dto.MarketImg;
+import mobomobo.dto.UserImg;
 import mobomobo.service.face.MarketService;
 import mobomobo.util.Paging;
 
@@ -120,7 +121,7 @@ public class MarketServiceImpl implements MarketService {
 				return;
 			}
 		}
-	
+		
 		//파일이 저장될 경로(real path)
 		String storedPath = context.getRealPath("emp");
 		
@@ -259,6 +260,19 @@ public class MarketServiceImpl implements MarketService {
 		return marketDao.selectLog(roomid);
 	}
 
+	@Override
+	public List<UserImg> selectImg(ChatLog log) {
+		// TODO Auto-generated method stub
+		return marketDao.selectUserImg(log);
+	}
+
+	@Override
+	public List<UserImg> selectChatImg(String userid){
+		// TODO Auto-generated method stub
+		return marketDao.selectChatImg(userid);
+	}
+
+	
 	
 	
 }

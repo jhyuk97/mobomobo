@@ -6,6 +6,7 @@ import mobomobo.dto.BookMark;
 import mobomobo.dto.ChatLog;
 import mobomobo.dto.Market;
 import mobomobo.dto.MarketImg;
+import mobomobo.dto.UserImg;
 import mobomobo.util.Paging;
 
 public interface MarketDao {
@@ -109,5 +110,16 @@ public interface MarketDao {
 	 * 조회수 증가
 	 */
 	public void updateViews(int mNo);
+	
+	/*
+	 * 사용자 이미지 불러오기
+	 */
+	public List<UserImg> selectUserImg(ChatLog log);
+	
+	/*
+	 * 채팅방리스트 프로필불러오기
+	 */
+	public List<UserImg> selectChatImg(String userid);
+	
 	
 }
