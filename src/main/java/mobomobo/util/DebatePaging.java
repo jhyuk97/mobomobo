@@ -10,10 +10,11 @@ public class DebatePaging {
 	private int endPage;
 	private int startNo;	
 	private int endNo;
+	private String type;
 
 	private String search; //검색어
 	
-	private String category;//카테고리
+	private int category;//카테고리
 
 	public DebatePaging() { }
 	
@@ -80,10 +81,20 @@ public class DebatePaging {
 	
 	@Override
 	public String toString() {
-		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
-				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", startNo=" + startNo + ", endNo=" + endNo + ", search=" + search + ", category=" + category + "]";
+		return "DebatePaging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount
+				+ ", totalPage=" + totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage="
+				+ endPage + ", startNo=" + startNo + ", endNo=" + endNo + ", type=" + type + ", search=" + search
+				+ ", category=" + category + "]";
+	} 
+	
+	public String getType() {
+		return type;
 	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public int getCurPage() {
 		return curPage;
 	}
@@ -146,11 +157,11 @@ public class DebatePaging {
 		this.search = search;
 	}
 
-	public String getCategory() {
+	public int getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(int category) {
 		this.category = category;
 	}
 

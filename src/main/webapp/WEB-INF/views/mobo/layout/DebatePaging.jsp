@@ -58,19 +58,36 @@
 <!--               </nav> -->
 <!--             </div> -->
 
+<c:if test="${not empty param.search }">
+	<c:set var="searchParam" value="&search=${param.search }"/>
+</c:if>
+<c:if test="${not empty param.type }">
+	<c:set var="typeParam" value="&type=${param.type }"/>
+</c:if>
+
 <div class="paging text-center">
    <ul class="pagination">
 
       <%-- 처음 페이지 버튼 --%>
       <%-- 첫 페이지가 아닐 때 버튼 노출 --%>
       <c:if test="${paging.curPage ne 1 }">
-         <li><a href="/mobo/moviedebate/list"><span>&larr;</span></a></li>
+      <c:if test="${paging.category eq 4 }">
+         <li><a href="/mobo/movie/debate"><span>&larr;</span></a></li>
+      </c:if>
+      <c:if test="${paging.category eq 5 }">
+         <li><a href="/mobo/book/debate"><span>&larr;</span></a></li>
+      </c:if>
       </c:if>
 
       <%-- 이전 페이지 버튼 --%>
       <%-- 첫 페이지면 금지 표시 --%>
       <c:if test="${paging.curPage ne 1 }">
-         <li><a href="/mobo/moviedebate/list?curPage=${paging.curPage-1 }"> <span>&laquo;</span></a></li>
+      <c:if test="${paging.category eq 4 }">
+         <li><a href="/mobo/movie/debate?curPage=${paging.curPage-1 }${typeParam }${searchParam }"> <span>&laquo;</span></a></li>
+         </c:if>
+      <c:if test="${paging.category eq 5 }">   
+         <li><a href="/mobo/book/debate?curPage=${paging.curPage-1 }${typeParam }${searchParam }"> <span>&laquo;</span></a></li>
+         </c:if>
       </c:if>
       <c:if test="${paging.curPage eq 1 }">
          <li class="disabled"><span>&laquo;</span></li>
@@ -80,17 +97,34 @@
       <%-- 현재 페이지 번호는 active 클래스 부여 -> 파랑 바탕 버튼 --%>
       <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="page">
          <c:if test="${paging.curPage eq page }">
-            <li class="active"><a href="/mobo/moviedebate/list?curPage=${page }">${page }</a></li>
+         <c:if test="${paging.category eq 4 }">
+            <li class="active"><a href="/mobo/movie/debate?curPage=${page }${typeParam }${searchParam }">${page }</a></li>
+            </c:if>
+            <c:if test="${paging.category eq 5 }">
+            <li class="active"><a href="/mobo/book/debate?curPage=${page }${typeParam }${searchParam }">${page }</a></li>
+            </c:if>
          </c:if>
+         
+         
          <c:if test="${paging.curPage ne page }">
-            <li><a href="/mobo/moviedebate/list?curPage=${page }">${page }</a></li>
+         <c:if test="${paging.category eq 4 }">
+            <li><a href="/mobo/movie/debate?curPage=${page }${typeParam }${searchParam }">${page }</a></li>
+            </c:if>
+            <c:if test="${paging.category eq 5 }">
+            <li><a href="/mobo/book/debate?curPage=${page }${typeParam }${searchParam }">${page }</a></li>
+            </c:if>
          </c:if>
       </c:forEach>
 
       <%-- 다음 페이지 버튼 --%>
       <%-- 마지막 페이지면 동작 안함 --%>
       <c:if test="${paging.curPage ne paging.totalPage }">
-         <li><a href="/mobo/moviedebate/list?curPage=${paging.curPage + 1 }"><span>&raquo;</span></a></li>
+      <c:if test="${paging.category eq 4 }">
+         <li><a href="/mobo/movie/debate?curPage=${paging.curPage + 1 }${typeParam }${searchParam }"><span>&raquo;</span></a></li>
+            </c:if>
+      <c:if test="${paging.category eq 5 }">
+         <li><a href="/mobo/book/debate?curPage=${paging.curPage + 1 }${typeParam }${searchParam }"><span>&raquo;</span></a></li>
+            </c:if>
       </c:if>
       <c:if test="${paging.curPage eq paging.totalPage }">
          <li class="disabled"><span>&raquo;</span></li>

@@ -23,19 +23,18 @@ import mobomobo.util.DebatePaging;
 
 @Controller
 @RequestMapping(value="/mobo")
-public class MovieDebateController {
+public class BookDebateController {
 
-	private static final Logger logger = LoggerFactory.getLogger(MovieDebateController.class);
+	private static final Logger logger = LoggerFactory.getLogger(BookDebateController.class);
 	
 	@Autowired
 	private MovieDebateService movieDebateService;
 	
-	@RequestMapping(value="/movie/debate")
+	@RequestMapping(value="/book/debate")
 	public void debateList( DebatePaging inData, Model model ) {
-		logger.info("/mobo/movie/debate [GET]");
+		logger.info("/mobo/book/debate [GET]");
 		logger.info("/debatelist [GET] ");
 		logger.info("파라미터 : {}", inData);
-		
 		
 		//페이징 계산
 		DebatePaging paging = movieDebateService.debatePaging( inData );
@@ -44,7 +43,7 @@ public class MovieDebateController {
 				
 		paging.setSearch( inData.getSearch() );
 		paging.setType(inData.getType());
-		paging.setCategory(4);
+		paging.setCategory(5);
 		logger.info("777777");
 		logger.info("페이징 : {}", paging);
 				
@@ -59,10 +58,10 @@ public class MovieDebateController {
 		
 	}
 	
-	@RequestMapping(value="/movie/debatedetail", method = RequestMethod.GET)
+	@RequestMapping(value="/book/debatedetail", method = RequestMethod.GET)
 	public void debateDetail(Debate debate, Model model) {
 		
-		logger.info("/mobo/movie/debatedetail [GET] ");
+		logger.info("/mobo/book/debatedetail [GET] ");
 		logger.info("debate 의 값은 : {}" , debate);
 		
 		Debate detail = movieDebateService.detail(debate);
@@ -79,13 +78,13 @@ public class MovieDebateController {
 		
 	}
 	
-	@RequestMapping(value = "/movie/debatewrite", method = RequestMethod.GET)
+	@RequestMapping(value = "/book/debatewrite", method = RequestMethod.GET)
 	public void debateWrite() { 
 		
 		logger.info("debateWrite 글쓰기 페이지로이동시켜주세요!");
 	}
 	
-	@RequestMapping(value = "/movie/debatewrite", method = RequestMethod.POST)
+	@RequestMapping(value = "/book/debatewrite", method = RequestMethod.POST)
 	public String debateWriteProc(Debate debate, Model model, HttpSession session) {
 		
 		logger.info("제뫃ㄱ롷ㄹㅎ로ㅗㅎㄹ롷ㄹㅎㄹ :{}", debate);
@@ -101,25 +100,25 @@ public class MovieDebateController {
 		
 		movieDebateService.debateWrite(debate);
 		
-		return "redirect: /mobo/movie/debate";
+		return "redirect: /mobo/book/debate";
 	}
 	
-	@RequestMapping(value="/movie/debatedelete")
+	@RequestMapping(value="/book/debatedelete")
 	public String deleteProc(Debate debate) {
 		
 		movieDebateService.debateDelete(debate);
 		
-		return "redirect: /mobo/movie/debate";
+		return "redirect: /mobo/book/debate";
 	}
 
-	@RequestMapping(value="/movie/debateupdate", method=RequestMethod.GET)
+	@RequestMapping(value="/book/debateupdate", method=RequestMethod.GET)
 	public String debateUpdate(Debate debate, Model model) {
 		
 		logger.info("nno : {}", debate.toString());
 		
 		// 게시글 번호가 1보다 작으면 목록으로 보내기
 		if(debate.getdNo() < 1) {
-			return "redirect: /mobo/movie/debate";
+			return "redirect: /mobo/book/debate";
 		}
 		
 		// 게시글 상세 정보 전달
@@ -127,21 +126,20 @@ public class MovieDebateController {
 		logger.info("상세보기 : {}", debate.toString());
 		model.addAttribute("debatedetail", debate);
 		
-		return "/mobo/movie/debateupdate";
+		return "/mobo/book/debateupdate";
 	}
 
-	@RequestMapping(value="/movie/debateupdate", method=RequestMethod.POST)
+	@RequestMapping(value="/book/debateupdate", method=RequestMethod.POST)
 	public String debateUpdateProc(Debate debate) {
-		
 		
 		logger.info("글수정 : {}", debate);
 		
 		movieDebateService.debateUpdate(debate);
 		
-		return "redirect: /mobo/movie/debatedetail?dNo="+debate.getdNo();
+		return "redirect: /mobo/book/debatedetail?dNo="+debate.getdNo();
 		
 	}
-	@RequestMapping(value="/movie/debatelike", method = RequestMethod.GET)
+	@RequestMapping(value="/book/debatelike", method = RequestMethod.GET)
 	@ResponseBody
 	public int like(DebateHot debateHot, HttpSession session, Model model) {
 		logger.info("/debatelike");
@@ -165,7 +163,7 @@ public class MovieDebateController {
 		
 	}
 	
-	@RequestMapping(value = "/movie/commentwrite")
+	@RequestMapping(value = "/book/commentwrite")
 	@ResponseBody
 	public void writeComment(DebateComment debatecomment , HttpSession session) {
 		
@@ -179,7 +177,7 @@ public class MovieDebateController {
 		
 	}
 	
-	@RequestMapping(value = "/movie/commentlist")
+	@RequestMapping(value = "/book/commentlist")
 	@ResponseBody
 	public List<DebateComment> listComment(DebateComment debatecomment, HttpSession session) {
 		
@@ -190,7 +188,7 @@ public class MovieDebateController {
 		return list;
 	}
 	
-	@RequestMapping(value = "/movie/commentdelete")
+	@RequestMapping(value = "/book/commentdelete")
 	@ResponseBody
 	public void deleteComment(DebateComment debatecomment) {
 		
@@ -201,7 +199,7 @@ public class MovieDebateController {
 		
 	}
 	
-	@RequestMapping(value = "/movie/commentlike")
+	@RequestMapping(value = "/book/commentlike")
 	@ResponseBody
 	public void likeComment(DebateComment debatecomment, HttpSession session) {
 		
@@ -214,13 +212,14 @@ public class MovieDebateController {
 		
 	}
 	
-	@RequestMapping(value="/movie/hot")
+	@RequestMapping(value="/book/hot")
 	public void hot(Model model) {
 		
-		List<HashMap<String,Object>> list = movieDebateService.getHotList(4);
+		List<HashMap<String,Object>> list = movieDebateService.getHotList(5);
 		
 		model.addAttribute("list",list);
 	}
+	
 	
 	
 }

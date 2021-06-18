@@ -7,6 +7,7 @@
 
 <!-- 스마트 에디터2 라이브러리 로드 -->
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -28,7 +29,7 @@ $(document).ready(function() {
 <h1>글쓰기 페이지</h1>
 <hr>
 
-<form action="/mobo/movie/debatewrite" method="post" >
+<form action="/mobo/book/debatewrite" method="post" >
 
 	<div class="form-group">
 		<label for="writer">작성자</label>
@@ -39,7 +40,7 @@ $(document).ready(function() {
 	<div class="form-group">
 		<label for="dTitle">제목</label>
 		<input type="text" id="dTitle" name="dTitle" class="form-control" />
-		<input type="hidden" id="boardDiv" name="boardDiv" class="form-control" value = "4" />
+		<input type="hidden" id="boardDiv" name="boardDiv" class="form-control" value = "5" />
 	</div>
 	
 	<div class="form-group">
@@ -83,4 +84,3 @@ function submitContents(elClickedObj) {
 
 
 <%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>
-
