@@ -265,7 +265,7 @@ function choiceMovie(title, key, image) {
 	html += "</div>"
 	
 	html += "<div style='margin-left : 20px;'>"
-	html += "<form action='/admin/movierecomWrite' method='post'>"
+	html += "<form method='post'>"
 	html += "<select name='division' class='marginbottom'>"
 	html += "<option value='academy'>아카데미</option>"
 	html += "<option value='recom'>무부추천</option>"
@@ -275,7 +275,7 @@ function choiceMovie(title, key, image) {
 	if(image != 'null') {
 	html += "<input type='hidden' name='image' value='"+ image +"' style='width:100%'>"
 	}
-	html += "<input type='submit' value='등록' class='btn btn-primary'>"
+	html += "<input type='button' value='등록' class='btn btn-primary' onclick='doubleSubmit(this.form)'>"
 	html += "</form>"
 	html += "</div>"
 	
@@ -295,6 +295,20 @@ function deleteMovie(movieNo) {
 		}
 	})
 
+}
+
+var doubleSubmitFlag = false;
+
+function doubleSubmit(form) {
+
+	if(doubleSubmitFlag) {
+		alert('등록 중 입니다.');
+		return false;
+	} else {
+		doubleSubmitFlag = true;
+		form.action="/admin/movierecomWrite"
+		form.submit();
+	}
 }
 
 </script>

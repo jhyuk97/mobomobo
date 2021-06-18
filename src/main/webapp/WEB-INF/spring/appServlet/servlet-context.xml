@@ -73,6 +73,23 @@
     </websocket:handlers>
  
     <beans:bean id="ChatHandler" class="mobomobo.util.chat.ChatHandler"/>
+    
 	
+	 <interceptors>
+		<interceptor>
+			<mapping path="/mobo/movie/**"/>
+			
+			<exclude-mapping path="/mobo/movie/movierecom"/>
+			<exclude-mapping path="/mobo/movie/moviebestboard"/>
+			
+			<beans:bean class="mobomobo.interceptor.MovieRecomInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/admin/**" />
+			
+			<beans:bean class="mobomobo.interceptor.AdminPageInterceptor"/>
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>
