@@ -4,38 +4,89 @@
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <%@include file="/WEB-INF/views/mobo/layout/header.jsp" %>
 
-<div>
-<form id="writeForm" style="margin:0px auto; width:1320px;" action="/mobo/market/update" method="POST" enctype="multipart/form-data">
-<p>${market.mNo }</p>
+<style type="text/css">
+.rembutton{
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 22px;
+  text-decoration: none;
+  margin: 20px;
+  color: #fff;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  background-color: #c2b0f2;
+
+}
+
+
+.rembutton:focus {
+   outline: none;
+}
+
+.rembutton:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+</style>
+
+<br><br>
+<section class="ftco-section ">
+       <div class="row no-gutters justify-content-center mb-5 pb-5">
+          <div class="col-md-7 text-center heading-section ftco-animate">
+            <h2 class="mb-4">MARKET</h2> <!--각자 게시판 영어 제목이 와야함-->
+            <p id="p">당신의 인생 영화, 무부무부에서 만나보세요</p><!--각자 게시판 내용이 와야함 필요없음 제외 가능-->
+          </div>
+        </div>
+
+
+
+<div class="container">
+<form id="writeForm" style="margin:0px auto;" action="/mobo/market/update" method="POST" enctype="multipart/form-data">
 <input type="hidden" name="mNo" value="${market.mNo }"/>
 	<div>
 		<div>
-			<p>제목 <input type="text" name="mTitle" id="mTitle" value="${market.mTitle }"/></p>
+			<p>제목 <input type="text" class="form-control"  name="mTitle" id="mTitle" value="${market.mTitle }"/></p>
 		</div>
 		
 		<div>
-			<p>카테고리 <select id="mCate" name="mCate"><option value="영화">영화</option><option value="책">책</option></select></p>
+			<p>카테고리 <select id="mCate" class="form-control"  name="mCate"><option value="영화">영화</option><option value="책">책</option></select></p>
 		</div>
 		
 		<div>
-			<p>가격<input type="text" name="mPrice" id="mPrice" value="${market.mPrice }"/></p>
+			<p>가격<input type="text" class="form-control"  name="mPrice" id="mPrice" value="${market.mPrice }"/></p>
 			<p>본문 <textarea style="width:100%" id="content" name="mContent">${market.mContent }</textarea></p>
 		</div>
 		
-		<div>
-			<p>이미지<input type="file" multiple="multiple" accept=".jpg, .png" name="file"/></p>
+		<div style="border:1px solid #c4c4c4; margin:10px 0; padding:5px; background:#f5f6f6;">
+			<div>
+			<p><input id="imgfile" name="imgfile" type="file" value="사진추가" multiple="multiple" accept=".jpg, .png" name="file" maxlength="10"/>
+			<div id="imgName"><c:forEach var="i" items="${Img }"><span>${i.originImg }  </span></c:forEach></div>
+			</p>
+			</div>
+			<div id="ImgPreview" style="border: 1px solid rgb(196, 196, 196); margin: 10px 0px; padding: 5px; background: rgb(245, 246, 246); height: 150px; overflow-y: scroll;">
+			<c:forEach var="i" items="${Img }" varStatus="stat">
+				<div><div id="imgDiv${stat.index }" style="width:200px; float:left;">
+				<input type="checkbox" id="check${stat.index }" style="position:relative; z-index:1;"/>
+				<label for="check${stat.index }" style="position:relative; top:-15px;">
+					<img class="image" src="/emp/${i.storedImg }" style="width:100%;height:100%;">
+				</label>
+				</div></div>
+			</c:forEach>
+			</div>
 		</div>
 		
 		<div>
-			<button id="submit">등록</button>
-			<button id="cancel">취소</button>
+			<button id="submit" class="rembutton">등록</button>
+			<button type="button" id="cancel" class="rembutton">취소</button>
 		</div>
 	
 	</div>
 </form>
 
 </div>
-
+</section>
 <%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>
 
 <script type="text/javascript">
@@ -62,13 +113,107 @@ function submitContents(elClickedObj) {
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	$("#cancel").click(function(){
+		window.history.go(-1);
+	});
+	
 	$("#mCate").val('${market.mCate}').prop("selected",true);
 
 
 	$("#submit").click(function(){
 		submitContents($("#submit"));
+		
+		var form = $('form')[0];
+		var formData = new FormData(form);
+		formData.append("file", fileArr);
 		$("form").submit();
+		
 	})
 	
+});
+
+
+
+var fileArr = new Array();
+
+
+function ImagePreview(input){
+	$("#ImgPreview").html('');
+	$("#imgName").remove();
+   const container = document.getElementById("ImgPreview");
+   
+   container.style.height="150px";
+   $("#ImgPreview").css("overflow-y", "scroll")
+   
+   if(input.files){
+      
+      const fArr = Array.from(input.files)
+      const length = fileArr.length
+      const $Div = document.createElement("div")
+      
+      console.log('fArr')
+      console.log(fArr)
+      
+      fArr.forEach((file, index) => {
+       	 fileArr.push(file)
+    	  
+       	 console.log('fileArr')
+       	 console.log(fileArr)
+    	  
+    	 const reader = new FileReader()
+         
+         const $check = document.createElement("input")
+         $check.setAttribute("type", "checkbox")
+         $check.setAttribute("id", ("check"+(length+index)))
+         $check.style.position="relative";
+         $check.style.zIndex="1";
+         
+         const $imgDiv = document.createElement("div")
+         $imgDiv.setAttribute("id", ("imgDiv"+(length+index)))
+         
+         const $label = document.createElement("label")
+         const $img = document.createElement("img")
+         $label.setAttribute("for", ("check"+(length+index)))
+         $label.style.position="relative";
+         $label.style.top="-15px";
+
+
+            $img.classList.add("image")
+            
+            
+            $label.appendChild($img)
+            
+            $imgDiv.appendChild($check)
+            $imgDiv.appendChild($label)
+            reader.onload = e => {
+                $img.src = e.target.result
+                $img.style.width = "100%";
+                $img.style.height = "100%";
+                
+                $imgDiv.style.width = "200px";
+                $imgDiv.style.float = "left";
+            }
+            
+            $Div.appendChild($imgDiv)
+            reader.readAsDataURL(file)
+      })
+      
+      container.appendChild($Div)
+      
+      $("#imgCancel").css("visibility", "inline");
+   }
+
+}
+
+
+const Image = document.getElementById("imgfile")
+
+Image.addEventListener("change", e => {
+   ImagePreview(e.target)
 })
+
+
+
+
+
 </script>
