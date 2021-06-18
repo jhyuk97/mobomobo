@@ -123,7 +123,7 @@
 		SELECT distinct roomid, mTitle, 
 		(SELECT nick FROM userinfo 
 		WHERE (id = buid or id = suid) and id != sendid) sunick from chatlog 
-		where sendid=#{userid}
+		where suid=#{userid} or buid=#{userid} 
 	</select>
 
 	<select id="selectLog" parameterType="String" resultType="mobomobo.dto.ChatLog">
