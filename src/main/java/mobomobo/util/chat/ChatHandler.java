@@ -113,7 +113,7 @@ public class ChatHandler extends TextWebSocketHandler {
 	
 	//메세지 보내는 함수
 	public void insertMsg(JSONObject json, WebSocketSession session) {
-		
+		logger.info("핸들러 입니다핸들러 입니다핸들러 입니다핸들러 입니다핸들러 입니다");
 		//json에는 메세지내용, 판매글제목, 채팅방id가 저장되어있음
 		String roomid = json.get("roomid").toString();
 		
@@ -126,14 +126,6 @@ public class ChatHandler extends TextWebSocketHandler {
 		//현재 메세지 보낸유저 아이디
 		String userid = session.getAttributes().get("id").toString();
 		
-		try {
-			//내화면에 내가 보낸 메세지 보내기 '닉네임:보낸내용'
-			session.sendMessage(new TextMessage(
-					session.getAttributes().get("nick") + "/" + json.get("payload").toString()
-					+ "/" + roomid));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
 		//메세지 디비에 저장
 		ChatLog msg = new ChatLog();
@@ -146,6 +138,15 @@ public class ChatHandler extends TextWebSocketHandler {
 		
 		
 		marketDao.InsertChat(msg);
+		
+		try {
+			//내화면에 내가 보낸 메세지 보내기 '닉네임:보낸내용'
+			session.sendMessage(new TextMessage(
+					session.getAttributes().get("nick") + "/" + json.get("payload").toString()
+					+ "/" + roomid));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

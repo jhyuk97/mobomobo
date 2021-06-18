@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import mobomobo.dto.BookStarRating;
+import mobomobo.dto.Market;
 import mobomobo.dto.MovieStarRating;
 import mobomobo.service.face.MainService;
 
@@ -30,10 +31,11 @@ public class MainController {
 		
 		List<BookStarRating> bookList = mainService.getBookStarRatingList();
 		List<MovieStarRating> movieList = mainService.getMovieStarRatingList();
-		
+		List<Market> marketList = mainService.getMarketList();
 		
 		model.addAttribute("movieList", movieList);
 		model.addAttribute("bookList", bookList);
+		model.addAttribute("marketList", marketList);
 	}
 	
 	@RequestMapping(value="/footer/starRatingCount")

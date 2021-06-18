@@ -61,9 +61,11 @@ function readLog(roomid, mTitle, no){
       <ul class="list" style="list-style:none;">
       <c:forEach var="list" items="${roomlist }" varStatus="i">
         <li style="padding:5px; border:1px solid #c2b0f2;" class="clearfix" id="li${i.index }" onclick="readLog('${list.roomid}', '${list.mTitle }', ${i.index })">
+        <div class="about">
           <img style="height:50px; border-radius:25px; " src="/resources/img/basig.png" alt="avatar" />
-          <div class="about">
-            <div class="name" style="color:#fff;">${list.suNick }</div>
+            <div class="name" style="color:#fff; float:right;"><p>${list.mTitle }</p>
+				<p>${list.suNick }</p>            
+            </div>
             <div class="status">
             </div>
           </div>

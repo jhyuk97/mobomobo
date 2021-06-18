@@ -36,5 +36,17 @@
 				)
 				WHERE rnum BETWEEN 1 AND 3
 	</select>
+	
+	<select id="selectMarketList" resultType="mobomobo.dto.Market">
+		SELECT * from Market where rownum &lt;=3 order by mno desc
+	</select>
+	
+	<select id="selectmImgList" resultType="mobomobo.dto.MarketImg">
+		select * from marketimg where mno in (
+				select mno from (
+					select mno from market order by mno desc
+					) where rownum &lt;= 3
+				)
+	</select>
 
 </mapper>

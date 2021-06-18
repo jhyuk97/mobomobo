@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import mobomobo.dto.BookStarRating;
+import mobomobo.dto.Market;
+import mobomobo.dto.MarketImg;
 import mobomobo.dto.MovieStarRating;
 
 public interface MainDao {
@@ -13,5 +15,9 @@ public interface MainDao {
 	public int selectMovieStarRatingCount();
 
 	public List<BookStarRating> selectGroupByBookStarRatingAvg();
+	
+	public List<Market> selectMarketList();
+	
+	public List<MarketImg> selectmImgList();
 
 }

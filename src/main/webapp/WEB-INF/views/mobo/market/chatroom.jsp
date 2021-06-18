@@ -45,10 +45,9 @@ function btnSend(){
 	}
 	
 	function onMessage(msg){
-		
+		console.log('onmessage() 메서드 진입')
 		var img = [];
 		var imgarr = [];
-		console.log('$uImg.size()')
 		if(${uImg.size()} > 1){
 		img[1] = '${uImg.get(1).storedName}'
 		img[0] = '${uImg.get(0).storedName}'
@@ -77,17 +76,22 @@ function btnSend(){
 		roomid = arr[2];
 		
 		//같은 채팅방인지 확인
+		console.log('방확인시작')
 		if(roomid == '${roomid}'){
-			
+			console.log('방진입');
 			var date = new Date();
 			var hours = date.getHours();
-			var min = date.getMinutes();
+			var min = date.getMinutes() >= 10 ? date.getMinutes() : '0'+date.getMinutes()
 			var ampm = hours >= 12 ? '오후' : '오전';
 			var time = ampm + " " + hours + ":" + min;
 			
+			console.log(imgarr);
+			
+			console.log("사용자번호 확인" + ${userno});
+			
 			for(var i=0; i<2; i++){
 			if(sessionId == cur_session && imgarr[i] == ${userno}){
-				
+				console.log('메세지 본인 확인');
 				
 				var str ="<li class='my'><div class='message-data align-right'>";
 				if(${not empty uImg.get(i).storedName}){
