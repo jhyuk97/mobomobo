@@ -70,7 +70,9 @@ a { text-decoration:none; }
             
               <a href="/mobo/book/famousDetail?bookBestno=${item.BOOKBESTNO }" class="block-20" style="background-image: url('/upload/${item.STOREDIMG }');">
               </a>
-            
+<%--               <a href="/mobo/book/famousDetail?bookBestno=${item.BOOKBESTNO }" class="block-20" style="background-image: url('/resources/img/bookFamous_01.jpg');"> --%>
+<!--               </a> -->
+            	
               <div class="text p-4 d-block">
                 <div class="meta mb-3">
                   <div><a href="/mobo/book/famousDetail?bookBestno=${item.BOOKBESTNO }">${item.BESTTITLE }</a></div>

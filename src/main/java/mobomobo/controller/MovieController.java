@@ -30,6 +30,8 @@ import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
 import mobomobo.dto.MovieCrawler;
 import mobomobo.dto.MovieStarRating;
+import mobomobo.dto.UserImg;
+import mobomobo.dto.UserInfo;
 import mobomobo.service.face.MovieService;
 import mobomobo.util.MovieBestPaging;
 
@@ -199,7 +201,7 @@ public class MovieController {
 	}
 	
 	@RequestMapping(value="/moviedetail", method=RequestMethod.GET)
-	public String moviebestdetail(MovieBest viewMovieBest, MovieBestCommentLike movieBestCommentLike, MovieBestComment movieBestComment, MovieBestImg movieBestImg, Model model, HttpSession session,@RequestParam(value="movieBestNo", required=false) int movieBestNo) {
+	public String moviebestdetail(MovieBest viewMovieBest, UserImg userImg, UserInfo userInfo, MovieBestCommentLike movieBestCommentLike, MovieBestComment movieBestComment, MovieBestImg movieBestImg, Model model, HttpSession session,@RequestParam(value="movieBestNo", required=false) int movieBestNo) {
 		
 		logger.info("영화 명장면 게시판 상세 페이지 ");
 		
@@ -260,7 +262,12 @@ public class MovieController {
 		
 		List<MovieBestComment> movieBestCommentList = movieService.getMovieBestCommentList(movieBestNo);
 		
+		//유저 이미지 보여주기 
+		List<UserImg> imglist = movieService.viewUserImg(movieBestCommentList);
+		
+		
 		model.addAttribute("movieBestCommentList", movieBestCommentList);
+		model.addAttribute("imglist", imglist);
 		
 		return "/mobo/movie/moviedetail";
 	

@@ -15,6 +15,7 @@ import mobomobo.dto.MovieBestImg;
 import mobomobo.dto.MovieBestLike;
 import mobomobo.dto.MovieCrawler;
 import mobomobo.dto.MovieStarRating;
+import mobomobo.dto.UserImg;
 import mobomobo.util.MovieBestPaging;
 
 public interface MovieService {
@@ -178,5 +179,11 @@ public interface MovieService {
 	 */
 	public boolean CheckMovieBestBookmark(BookMark bookmark);
 
+	/**
+	 * 명장면 게시판 유저 이미지 
+	 * @param movieBestCommentList
+	 * @return
+	 */
+	public List<UserImg> viewUserImg(List<MovieBestComment> movieBestCommentList);
 
 }

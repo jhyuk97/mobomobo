@@ -167,7 +167,7 @@
             },
             success : function(result){
             	$(".block-3").prepend(`
-									<a href="portfolio.html" class="image" style="background-image: url('${'${result.documents[0].thumbnail}'}'); width: 23%;" data-scrollax=" properties: { translateY: '-20%'}">
+									<a href="portfolio.html" class="image" style="background-image: url('${'${result.documents[0].thumbnail}'}'); width: 500px;" data-scrollax=" properties: { translateY: '-20%'}">
 									 </a>
             						`)
             	$(".subheading").append(`<h2 class="mb-4">${'${result.documents[0].title}'}</h2>`)
