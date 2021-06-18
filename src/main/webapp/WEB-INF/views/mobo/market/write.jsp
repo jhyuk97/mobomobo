@@ -35,7 +35,7 @@
        <div class="row no-gutters justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
             <h2 class="mb-4">MARKET</h2> <!--각자 게시판 영어 제목이 와야함-->
-            <p id="p">당신의 인생 영화, 무부무부에서 만나보세요</p><!--각자 게시판 내용이 와야함 필요없음 제외 가능-->
+            <p id="p">가지고있는 물품을 팔아보세요</p><!--각자 게시판 내용이 와야함 필요없음 제외 가능-->
           </div>
         </div>
 
