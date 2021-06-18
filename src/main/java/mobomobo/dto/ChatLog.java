@@ -1,5 +1,7 @@
 package mobomobo.dto;
 
+import java.util.Date;
+
 public class ChatLog {
 	private String msg;//채팅내용
 	private String roomid;//채팅방 번호
@@ -9,18 +11,23 @@ public class ChatLog {
 	private String sendid;//메시지 보낸유저 id
 	private String suNick;//보낸사람 닉네임
 	private String buid;//구매희망유저 id
-	
+	private Date writeDate;
 
 	@Override
 	public String toString() {
 		return "ChatLog [msg=" + msg + ", roomid=" + roomid + ", suid=" + suid + ", lNo=" + lNo + ", mTitle=" + mTitle
-				+ ", sendid=" + sendid + ", suNick=" + suNick + ", buid=" + buid + "]";
+				+ ", sendid=" + sendid + ", suNick=" + suNick + ", buid=" + buid + ", writeDate=" + writeDate + "]";
 	}
-
+	
+	public Date getWriteDate() {
+		return writeDate;
+	}
+	public void setWriteDate(Date writeDate) {
+		this.writeDate = writeDate;
+	}
 	public String getBuid() {
 		return buid;
 	}
-
 	public void setBuid(String buid) {
 		this.buid = buid;
 	}
