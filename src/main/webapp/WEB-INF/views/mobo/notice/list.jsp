@@ -22,9 +22,6 @@
 
 </style>
 	
-=======
-   
->>>>>>> 483848d733ae47cc14cb4ef3ecea5966cea989e3
    <section class="ftco-section">
       <div class="container">
          <div class="row justify-content-center">

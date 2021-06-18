@@ -68,8 +68,8 @@
 	
 	
 	<insert id="InsertMarket" parameterType="mobomobo.dto.Market">
-		INSERT INTO Market(mNo, mcate, mcontent, userno, mtitle, mprice)
-		values(market_seq.nextval, #{mCate}, #{mContent}, (select userno from userinfo where id=#{id}), #{mTitle}, #{mPrice})
+		INSERT INTO Market(mNo, mcate, mcontent, userno, mtitle, mviews, boardDiv, mprice)
+		values(market_seq.nextval, #{mCate}, #{mContent}, (select userno from userinfo where id=#{id}), #{mTitle}, 0, 3, #{mPrice})
 	</insert>
 	
 	
@@ -130,14 +130,14 @@
 		SELECT * from chatlog where roomid=#{roomid} order by lno asc
 	</select>
 	
-	<select id="selectChatImg" parameterType="String" resultMap="Userimg">
-		select originimg, (select nick from userinfo u where u.userno=userimg.userno) contentType from userimg 
+	<select id="selectChatImg" parameterType="String" resultType="mobomobo.dto.UserImg">
+		select storedName, (select nick from userinfo u where u.userno=userimg.userno) contentType from userimg 
 		where userno in (select userno from userinfo where id in 
 		(select distinct sendid from chatlog where sendid=#{userid}))
 	</select>
 
-	<select id="selectUserImg" parameterType="mobomobo.dto.ChatLog" resultMap="Userimg">
-		select originimg, userno from userimg 
+	<select id="selectUserImg" parameterType="mobomobo.dto.ChatLog" resultType="mobomobo.dto.UserImg">
+		select storedName, userno from userimg 
 		where userno in (select userno from userinfo where id in (
 		substr(#{roomid}, instr(#{roomid},'su:')+3, instr(#{roomid},'bu:')-instr(#{roomid},'su:')-3), 
 		substr(#{roomid}, instr(#{roomid},'bu:')+3))

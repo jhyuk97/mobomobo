@@ -46,6 +46,9 @@ public class MarketController {
 		
 		//�럹�씠吏� 怨꾩궛
 		Paging paging = marketService.getPaging(inData);
+		
+		logger.info("{}", inData);
+		
 		//寃��깋�뼱 ���옣
 		paging.setSearch(inData.getSearch());
 		//移댄뀒怨좊━ ���옣
@@ -125,13 +128,13 @@ public class MarketController {
 	}
 
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public String UpdateMarketProc(Market data, List<MultipartFile> file, HttpSession session) {
+	public String UpdateMarketProc(Market data, List<MultipartFile> imgfile, HttpSession session) {
 		
-		logger.info("{}",file);
+		logger.info("{}",imgfile);
 				
 		data.setId(session.getAttribute("id").toString());
 		logger.info("{}",data);
-		marketService.UpdateMarket(data, file);
+		marketService.UpdateMarket(data, imgfile);
 		
 		return "redirect:/mobo/market";
 	}
