@@ -4,10 +4,8 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
-	
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <!-- 게시판1코드 -->
     
      <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,700,800" rel="stylesheet">
 
@@ -36,19 +34,6 @@
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <!-- 본래 코드 -->
 
    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 
@@ -251,7 +236,7 @@ $(document).ready(function (){
 		if($(this).attr("id") === $("#btnDebateBestLike").attr("id")){
 		console.log("클릭")
 		// 게시글 추천
-		urlData = '/mobo/movie/debatelike';
+		urlData = '/mobo/book/debatelike';
 		dataSet = {
 				'dNo' : ${Debate.dNo}
 		}
@@ -291,27 +276,25 @@ $(document).ready(function (){
 			
 		})
 		
+		
 }
 
 </script>
 
-	<section class="ftco-section ">
-	 <div class="container">
+		<section class="ftco-section ">
+		<div class="container">
        <div class="row no-gutters justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
             <h2 class="mb-4">${Debate.dTitle }</h2> <!--각자 게시판 영어 제목이 와야함-->
-            <p id="p">당신의 인생 영화를 얘기해보세요!</p><!--각자 게시판 내용이 와야함 필요없음 제외 가능-->
+            <p id="p">당신의 인생 도서를 얘기해보세요!</p><!--각자 게시판 내용이 와야함 필요없음 제외 가능-->
           </div>
         </div>
         
-        
-       
-	  <div class="row">
 	
-	<c:if test="${Debate.userno eq userno }">
-	<div style="position: relative; top:-53px;"><button style="margin:0 10px; float: right;" id="write" class="btn btn-filled" onclick='location.href="/mobo/movie/debateupdate?dNo=${Debate.dNo}";'>수정</button>
-	<button style="float: right;" id="hot" class="btn btn-filled" onclick='location.href="/mobo/movie/debatedelete?dNo=${Debate.dNo}";'>삭제</button></div>
-	</c:if>
+	  <div class="row">
+
+	<div style="position: relative; top:-53px;"><button style="margin:0 10px; float: right;" id="write" class="btn btn-filled" onclick='location.href="/mobo/book/debateupdate?dNo=${Debate.dNo}";'>수정</button>
+	<button style="float: right;" id="hot" class="btn btn-filled" onclick='location.href="/mobo/book/debatedelete?dNo=${Debate.dNo}";'>삭제</button></div>
 	<hr>
 	<span>${Debate.nick }</span>
 	<span style="float:right; position: relative; left: 200px;"><fmt:formatDate value="${Debate.dDate }" pattern="yy-MM-dd" /></span>
@@ -322,9 +305,10 @@ $(document).ready(function (){
   	<button style="width:110px; height:62px; font-size:15px;" id="btnDebateBestLike" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;<span id="bestLike">${likeCnt }</span>
  	</button> 
 	</c:if>
- 	<button id="list" style="float: right; margin-top:50px; margin-bottom:50px; width:110px; height:62px; border:0px; font-size:15px;" class="btn btn-filled" onclick='location.href="/mobo/movie/debate";'>목록</button>
+ 	<button id="list" style="float: right; margin-top:50px; margin-bottom:50px; width:110px; height:62px; border:0px; font-size:15px;" class="btn btn-filled" onclick='location.href="/mobo/book/debate";'>목록</button>
   	</div>
 	
+	</div>
 	
 	<!-- 로그인 상태 -->
 
@@ -350,7 +334,7 @@ $(document).ready(function (){
    </div>
    </div>
 </div>   
-   </div>
+   
    
 </section>
 <%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>
@@ -368,7 +352,7 @@ $(document).ready(function (){
 		
 		$.ajax( {
 			type : 'get'
-			, url : '/mobo/movie/commentwrite'
+			, url : '/mobo/book/commentwrite'
 			, data : {'dNo' : '${Debate.dNo}'
 					, 'dcContent' : $("#exampleFormControlTextarea1").val()
 			}
@@ -391,7 +375,7 @@ $(document).ready(function (){
 		
 		$.ajax( {
 			type : 'get'
-				, url : '/mobo/movie/commentlist'
+				, url : '/mobo/book/commentlist'
 				, data : {'dNo' : '${Debate.dNo}'
 						
 				}
@@ -452,7 +436,7 @@ $(document).ready(function (){
 		
 		$.ajax( {
 			type : 'get'
-			, url : '/mobo/movie/commentdelete'
+			, url : '/mobo/book/commentdelete'
 			, data : {'dNo' : '${Debate.dNo}'
 					,'dcNo' : dcNo
 			}
@@ -474,7 +458,7 @@ $(document).ready(function (){
 		
 		$.ajax( {
 			type : 'get'
-			, url : '/mobo/movie/commentlike'
+			, url : '/mobo/book/commentlike'
 			, data : {'dNo' : '${Debate.dNo}'
 					,'dcNo' : dcNo
 			}
@@ -489,12 +473,7 @@ $(document).ready(function (){
 			}
 			
 			})
-			
 	}
-	
-	
-	
-	
 	var animateButton = function(e) {
 
 		  e.preventDefault;
@@ -512,12 +491,15 @@ $(document).ready(function (){
 		for (var i = 0; i < bubblyButtons.length; i++) {
 		  bubblyButtons[i].addEventListener('click', animateButton, false);
 		}
-
   
 </script>
   
   
-    <script src="/resources/board/js/jquery.min.js"></script>
+  
+  
+  
+  
+   <script src="/resources/board/js/jquery.min.js"></script>
   <script src="/resources/board/js/jquery-migrate-3.0.1.min.js"></script>
   <script src="/resources/board/js/popper.min.js"></script>
   <script src="/resources/board/js/bootstrap.min.js"></script>

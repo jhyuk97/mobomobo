@@ -7,6 +7,7 @@
 
 <!-- 스마트 에디터2 라이브러리 로드 -->
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -28,8 +29,8 @@ $(document).ready(function() {
 <h1>글쓰기 페이지</h1>
 <hr>
 
-<form action="/mobo/movie/debatewrite" method="post" >
-
+<form action="/mobo/book/debateupdate" method="post" >
+	<input type="hidden" name="dNo" value="${debatedetail.dNo }"/>
 	<div class="form-group">
 		<label for="writer">작성자</label>
 		<input type="text" id="writer" value="${sessionScope.nick }" readonly="readonly"
@@ -38,13 +39,13 @@ $(document).ready(function() {
 
 	<div class="form-group">
 		<label for="dTitle">제목</label>
-		<input type="text" id="dTitle" name="dTitle" class="form-control" />
-		<input type="hidden" id="boardDiv" name="boardDiv" class="form-control" value = "4" />
+		<input type="text" id="dTitle" name="dTitle" class="form-control" value="${debatedetail.dTitle }"/>
+		<input type="hidden" id="boardDiv" name="boardDiv" class="form-control" value = "5" />
 	</div>
 	
 	<div class="form-group">
 		<label for="dContent">본문</label>
-		<textarea rows="10" style="width: 100%" id="dContent" name="dContent"></textarea>
+		<textarea rows="10" style="width: 100%" id="dContent" name="dContent">${debatedetail.dContent }</textarea>
 	</div>
 	
 	
@@ -83,4 +84,3 @@ function submitContents(elClickedObj) {
 
 
 <%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>
-
