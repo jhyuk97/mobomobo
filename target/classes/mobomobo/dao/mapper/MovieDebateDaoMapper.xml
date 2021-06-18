@@ -8,12 +8,27 @@
 
 	<select id="selectDebateCntAll" resultType="int" parameterType="mobomobo.util.DebatePaging">
 		SELECT COUNT(*) FROM debate
+			WHERE boardDiv = 4
+			<if test='type!=null and type.equals("title")'>
+		    AND dTitle like '%' || #{search} || '%'
+		    </if>
+		    <if test='type!=null and type.equals("content")'>
+		    AND dContent like '%' || #{search} || '%'
+		    </if>
 	</select>
 	
 	<select id="selectDebateList" resultType="mobomobo.dto.Debate" parameterType="mobomobo.util.DebatePaging">
 		SELECT * FROM (
 		    SELECT rownum rnum, B.* FROM (
-		    	SELECT * FROM debate
+		    	SELECT * FROM debate 
+		    	WHERE boardDiv = #{category }
+		    	<if test='type!=null and type.equals("title")'>
+		    	AND dTitle like '%' || #{search} || '%'
+		    	</if>
+		    	<if test='type!=null and type.equals("content")'>
+		    	AND dContent like '%' || #{search} || '%'
+		    	</if>
+		    	
 		        ORDER BY dno DESC
 		    ) B
 		) R
@@ -33,10 +48,18 @@
 	</update>
 	
 	<insert id="insertDebate" parameterType="Debate">
-		insert into debate ( dNo, dTitle, dContent, userno, nick, boardDiv)
-		VALUES ( dNo_seq.nextval,#{dTitle}, #{dContent}, #{userno}, #{nick}, 4 )
+		insert into debate ( dNo, dTitle, dContent, userno, nick, boardDiv, hit)
+		VALUES ( dNo_seq.nextval,#{dTitle}, #{dContent}, #{userno}, #{nick}, #{boardDiv},0 )
 	</insert>
 	
+	<delete id="deleteDebate" parameterType="Debate">
+		delete debate where dno = #{dNo }
+	</delete>
+	
+	<update id="updateDebate" parameterType="Debate">
+		update debate set dTitle = #{dTitle } , dContent = #{dContent }
+		where dno = #{dNo }
+	</update>
 	
 	<select id="selectDebateHotNo" resultType="int">
 		select dhNo_seq.nextval from dual
@@ -61,5 +84,62 @@
 		select count(*) from debatehot 
 		where dno = #{dNo }
 	</select>	
+	
+	<insert id="insertComment" parameterType="mobomobo.dto.DebateComment">
+		insert into debatecomment (DCNO,DNO,USERNO,DCCONTENT,NICK,COMMENTDIV)
+		VALUES ( dcNo_seq.nextval,#{dNo}, #{userno}, #{dcContent}, #{nick}, 4 )
+	</insert>
+	
+	<select id="selectCommentList" resultType="DebateComment" parameterType="mobomobo.dto.DebateComment">
+		select 
+		DCNO
+		, DNO
+		, USERNO
+		, DCCONTENT
+		, DCDATE
+		, COMMENTDIV
+		, NICK
+		, (SELECT COUNT(*) FROM debatecommenthot dch WHERE dc.dcno = dch.dcno AND dch.userno = #{userno}) hotState
+		, (SELECT COUNT(*) FROM debatecommenthot dch WHERE dc.dcno = dch.dcno) hotCnt
+		from debatecomment dc
+		where dno = #{dNo }
+		ORDER BY dcno DESC
+	</select>
+	
+	<delete id="deleteCommentBydcNo" parameterType="mobomobo.dto.DebateComment">
+		delete from debatecomment
+		where dcNo = #{dcNo } 
+	</delete>
+
+	<select id="commentLikeState" parameterType="mobomobo.dto.DebateComment" resultType="int">
+	SELECT COUNT(*) FROM debatecommenthot
+	WHERE dcno = #{dcNo}
+		AND userno = #{userno}
+ 	</select>
+	<insert id="insertCommentLike" parameterType="mobomobo.dto.DebateComment">
+	INSERT INTO debatecommenthot ( dchno, dcno, userno )
+	VALUES ( dchno_seq.nextval, #{dcNo}, #{userno} )
+	</insert>
+	<delete id="deleteCommentLike" parameterType="mobomobo.dto.DebateComment">
+	DELETE debatecommenthot
+	WHERE dcNo = #{dcNo}
+		AND userno = #{userno}
+	</delete>
+	
+	<select id="selectHot" resultType="HashMap" parameterType="int">
+		select * from
+			(
+			SELECT rownum rnum,BBCL.cnt,BBC.* FROM debate BBC,
+			      (
+			        select count(*) cnt,debate.dno from debatehot,debate
+			        where debate.dno = debatehot.dno and debate.boarddiv=#{category }
+			        group by debate.dno
+			        order by cnt desc
+			      )BBCL
+			      WHERE BBC.dno = BBCL.dno and cnt >= 50
+			) a
+		where rnum BETWEEN 1 AND 10
+	</select>
+	
 	
 </mapper>	

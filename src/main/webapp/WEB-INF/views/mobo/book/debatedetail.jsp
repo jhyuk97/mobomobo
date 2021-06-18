@@ -207,7 +207,7 @@ $(document).ready(function (){
 		if($(this).attr("id") === $("#btnDebateBestLike").attr("id")){
 		console.log("클릭")
 		// 게시글 추천
-		urlData = '/mobo/movie/debatelike';
+		urlData = '/mobo/book/debatelike';
 		dataSet = {
 				'dNo' : ${Debate.dNo}
 		}
@@ -247,6 +247,7 @@ $(document).ready(function (){
 			
 		})
 		
+		
 }
 
 </script>
@@ -264,10 +265,8 @@ $(document).ready(function (){
 	<hr>
 	<div>
 	<p>${Debate.dTitle } </p>
-	<c:if test="${Debate.userno eq userno }">
-	<div style="position: relative; top:-53px;"><button style="margin:0 10px; float: right;" id="write" class="btn btn-filled" onclick='location.href="/mobo/movie/debateupdate?dNo=${Debate.dNo}";'>수정</button>
-	<button style="float: right;" id="hot" class="btn btn-filled" onclick='location.href="/mobo/movie/debatedelete?dNo=${Debate.dNo}";'>삭제</button></div>
-	</c:if>
+	<div style="position: relative; top:-53px;"><button style="margin:0 10px; float: right;" id="write" class="btn btn-filled" onclick='location.href="/mobo/book/debateupdate?dNo=${Debate.dNo}";'>수정</button>
+	<button style="float: right;" id="hot" class="btn btn-filled" onclick='location.href="/mobo/book/debatedelete?dNo=${Debate.dNo}";'>삭제</button></div>
 	<hr>
 	<span>${Debate.nick }</span>
 	<span style="float:right; position: relative; left: 200px;"><fmt:formatDate value="${Debate.dDate }" pattern="yy-MM-dd" /></span>
@@ -278,7 +277,7 @@ $(document).ready(function (){
   	<button style="width:110px; height:62px; font-size:15px;" id="btnDebateBestLike" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;<span id="bestLike">${likeCnt }</span>
  	</button> 
 	</c:if>
- 	<button id="list" style="float: right; margin-top:50px; margin-bottom:50px; width:110px; height:62px; border:0px; font-size:15px;" class="btn btn-filled" onclick='location.href="/mobo/movie/debate";'>목록</button>
+ 	<button id="list" style="float: right; margin-top:50px; margin-bottom:50px; width:110px; height:62px; border:0px; font-size:15px;" class="btn btn-filled" onclick='location.href="/mobo/book/debate";'>목록</button>
   	</div>
 	
 	</div>
@@ -446,8 +445,14 @@ $(document).ready(function (){
 			}
 			
 			})
-			
 	}
+// 				일단 
+// 				1. 목록 버튼 작동하기
+// 				2. 페이징 적용하기
+// 				3.  컨테이너 적용하기
+// 				4. hot게시판 list 출력
+				//
+  
   
 </script>
   

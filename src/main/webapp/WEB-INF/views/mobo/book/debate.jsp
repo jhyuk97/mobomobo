@@ -16,9 +16,56 @@
    
 	<%@include file="/WEB-INF/views/mobo/layout/header.jsp" %>
    
-
 <style type="text/css">
 
+.btn {
+  padding: 0.66em 2.25em;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+}
+.btn:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0.125em;
+  left: 0.125em;
+  border-bottom: 0.125em solid;
+  border-right: 0.125em solid;
+}
+.btn:active {
+  transform: translate(0.125em, 0.125em);
+}
+.btn:active:after {
+  transform: translate(-0.125em, -0.125em);
+}
+
+.btn-filled {
+  background-color: #ddccf5;
+  color: #fff;
+  transition: background-color 0.2s ease-out;
+}
+.btn-filled:after {
+  border-color: #ddccf5;
+  transition: border-color 0.2s ease-out;
+}
+.btn-filled:hover {
+  background-color: #ddccf5;
+}
+.btn-filled:hover:after {
+  border-color: #ddccf5;
+}
+
+
+#write {
+	 float: right;
+}
+
+#hot {
+	 float: left;
+}
 
 </style>
 
@@ -26,11 +73,22 @@
       <div class="container">
          <div class="row justify-content-center">
             <div class="col-md-6 text-center mb-5">
-               <h2 class="heading-section">공지사항</h2>
+               <h2 class="heading-section">BOOK TALK</h2>
             </div>
          </div>
          <div class="row">
             <div class="col-md-12">
+               <div>
+                  <form action="/mobo/book/debate" method="get">
+					 <select name="category">
+					 	<option value="title">제목</option>
+					 	<option value="content">내용</option>
+					 </select>
+                     <input type="text" name="search"/>
+                     <button>검색</button>
+                  </form>
+               </div>
+            
                <div>
                   <table style="text-align: center;" class="table table-responsive-xl">
                     <thead>
@@ -44,14 +102,14 @@
                     </thead>
                     
                      <tbody>
-                <c:forEach items="${list }" var="Notice">
+                <c:forEach items="${list }" var="Debate">
                 
                 <tr>
-                	<td class="notice">${Notice.nNo }</td>
-                	<td style="font-size: 6px;"><a href="/mobo/notice/detail?nNo=${Notice.nNo }" class="notice">${Notice.nTitle }</a></td>
-                	<td class="notice">관리자</td>
-                	<td class="notice"><fmt:formatDate value="${Notice.nDate }" pattern="yy-MM-dd" /></td>
-                	<td class="notice">${Notice.nViews }</td>
+                	<td class="notice">${Debate.dNo }</td>
+                	<td style="font-size: 6px;"><a href="/mobo/book/debatedetail?dNo=${Debate.dNo }" class="notice">${Debate.dTitle }</a></td>
+                	<td class="notice">${Debate.userno }</td>
+                	<td class="notice"><fmt:formatDate value="${Debate.dDate }" pattern="yy-MM-dd" /></td>
+                	<td class="notice">${Debate.hit }</td>
                 </tr>
                  </c:forEach>
                 </tbody>
@@ -59,11 +117,18 @@
                </table>
            		 </div>
            		 
+           		 <br><br>
+           		 
+	<button id="write" class="btn btn-filled" onclick='location.href="/mobo/book/debatewrite";'>작성</button>
+	<button id="hot" class="btn btn-filled" onclick='location.href="/mobo/book/hot";'>HOT</button>
+           		 
+           		 <br><br>
+           		 
      <div class="row mt-5">
           <div class="col text-center">
             <div class="block-27">
               <ul>
-                <li><jsp:include page="/WEB-INF/views/mobo/layout/NoticePaging.jsp" /></li>
+                <li><jsp:include page="/WEB-INF/views/mobo/layout/DebatePaging.jsp" /></li>
                
               </ul>
             </div>
@@ -81,4 +146,3 @@
   <script src="/resources/board2/js/popper.js"></script>
 
   <script src="/resources/board2/js/main.js"></script>
-

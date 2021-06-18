@@ -78,7 +78,18 @@
          </div>
          <div class="row">
             <div class="col-md-12">
-               <div class="table-wrap">
+               <div>
+                  <form action="/mobo/movie/debate" method="get">
+					 <select name="type">
+					 	<option value="title">제목</option>
+					 	<option value="content">내용</option>
+					 </select>
+                     <input type="text" name="search" id="search"/>
+                     <button>검색</button>
+                  </form>
+               </div>
+            
+               <div>
                   <table style="text-align: center;" class="table table-responsive-xl">
                     <thead>
                       <tr>
