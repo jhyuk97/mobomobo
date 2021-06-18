@@ -17,21 +17,13 @@ $(document).ready(function(){
 		readLog('${room.roomid}','${market.mTitle}');
 	}
 	
-	
-// 	$.ajax({
-// 		url:"/mobo/market/chatroom"
-// 		,data:{"roomid": '${room.roomid}', "mTitle":'${market.mTitle}'}
-// 		,dataType:"html"
-// 		,type:"GET"
-// 		,success:function(res){
-// 			$("#chatLine").html(res);
-// 		}
-// 	});
 })
 
 
-function readLog(roomid, mTitle){
+function readLog(roomid, mTitle, no){
 	$("#chatLine").html('');	
+	$("li[id^=li]").removeClass("active");
+	$("#li"+no).addClass("active");
 	$.ajax({
 		  url:"/mobo/market/chatroom"
 		, data:{"roomid" : roomid, "mTitle": mTitle}
@@ -57,6 +49,9 @@ function readLog(roomid, mTitle){
 	height:500px;
 	box-sizing: border-box;
 }
+.active{
+	background-color: rgba(0,0,0,0.3);
+}
 
 </style>    
 
@@ -64,8 +59,8 @@ function readLog(roomid, mTitle){
     <div class="people-list" id="people-list">
       
       <ul class="list" style="list-style:none;">
-      <c:forEach var="list" items="${roomlist }">
-        <li class="clearfix" onclick="readLog('${list.roomid}', '${list.mTitle }')">
+      <c:forEach var="list" items="${roomlist }" varStatus="i">
+        <li style="padding:5px; border:1px solid #c2b0f2;" class="clearfix" id="li${i.index }" onclick="readLog('${list.roomid}', '${list.mTitle }', ${i.index })">
           <img style="height:50px; border-radius:25px; " src="/resources/img/basig.png" alt="avatar" />
           <div class="about">
             <div class="name" style="color:#fff;">${list.suNick }</div>

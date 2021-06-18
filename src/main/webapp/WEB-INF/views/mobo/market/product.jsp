@@ -239,10 +239,11 @@
 	$(document).ready(function(){
 		
 		$("#openChat").click(function(){
-			var url="/mobo/market/chat?mNo=${market.mNo}";
-			var name='${market.mTitle}';
-			var option="width=50, height=50, location=no, menubar=no, resizable=no";
-			window.open(url,name,option);
+			location.href="/mobo/market/chat?mNo=${market.mNo}";
+// 			var url="/mobo/market/chat?mNo=${market.mNo}";
+// 			var name='${market.mTitle}';
+// 			var option="width=50, height=50, location=no, menubar=no, resizable=no";
+// 			window.open(url,name,option);
 		})
 		
 		

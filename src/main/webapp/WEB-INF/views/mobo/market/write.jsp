@@ -4,6 +4,33 @@
 <script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <%@include file="/WEB-INF/views/mobo/layout/header.jsp" %>
 
+<style type="text/css">
+.rembutton{
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 22px;
+  text-decoration: none;
+  margin: 20px;
+  color: #fff;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  background-color: #c2b0f2;
+
+}
+
+
+.rembutton:focus {
+   outline: none;
+}
+
+.rembutton:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+</style>
+<br><br>
 <section class="ftco-section ">
        <div class="row no-gutters justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
@@ -16,11 +43,11 @@
 <form id="writeForm" style="margin:0px auto;" action="/mobo/market/write" method="POST" enctype="multipart/form-data">
 	<div>
 		<div>
-			<p>제목 <input type="text" name="mTitle" id="mTitle"/></p>
+			<p>제목 <input type="text" class="form-control" name="mTitle" id="mTitle"/></p>
 		</div>
 		
 		<div>
-			<p>카테고리 <select id="mCate" name="mCate">
+			<p>카테고리 <select id="mCate" class="form-control" name="mCate">
 						<option value="영화">영화</option>
 						<option value="책">책</option>
 						<option value="대본집">대본집</option>
@@ -28,22 +55,21 @@
 		</div>
 		
 		<div>
-			<p>가격<input type="text" name="mPrice" id="mPrice"/></p>
+			<p>가격<input type="text" class="form-control" name="mPrice" id="mPrice"/></p>
 			<p>본문 <textarea style="width:100%" id="content" name="mContent"></textarea></p>
 		</div>
 		
 		<div style="border:1px solid #c4c4c4; margin:10px 0; padding:5px; background:#f5f6f6;">
 			<div>
 			<p><input id="imgfile" name="imgfile" type="file" value="사진추가" multiple="multiple" accept=".jpg, .png" name="file" maxlength="10"/>
-			<button type="button" onclick="removeFile()" id="imgCancel" style="float:right; border:1px solid; border-radius:5px; visibility:hidden;">선택 삭제</button>
 			</p>
 			</div>
 			<div id="ImgPreview" style="margin:10px"></div>
 		</div>
 		
 		<div>
-			<button id="submit">등록</button>
-			<button id="cancel">취소</button>
+			<button id="submit" class="rembutton">등록</button>
+			<button type="button" id="cancel" class="rembutton">취소</button>
 		</div>
 	
 	</div>
@@ -78,20 +104,18 @@ function submitContents(elClickedObj) {
 
 var fileArr = new Array();
 
-$(document).ready(function(){
+$(document).ready(function(){	
+	$("#cancel").click(function(){
+		window.history.go(-1);
+	});
+	
+	
 	$("#submit").click(function(){
 		submitContents($("#submit"));
 		
 		var form = $('form')[0];
 		var formData = new FormData(form);
 		formData.append("file", fileArr);
-		
-// 		$.ajax({
-// 			url:"/mobo/market/write",
-// 			type:"POST",
-// 			data: formData,
-// 			success:function(res){location.href("/mobo/market")}
-// 		})
 		
 		$("form").submit();
 	})
@@ -100,6 +124,7 @@ $(document).ready(function(){
 
 
 function ImagePreview(input){
+	$("#ImgPreview").html('');
    const container = document.getElementById("ImgPreview");
    
    container.style.height="150px";
@@ -172,21 +197,6 @@ Image.addEventListener("change", e => {
    ImagePreview(e.target)
 })
 
-function removeFile(){
-	var a = new Array();
-	
-   	for(var i=0; i<fileArr.length; i++){
-		if($('#check'+i).is(":checked")){
-		console.log(i+"번쨰 조건문 진입성공")
-        a.push(i);
-        //$('input[name="imgfile"]')[0].remove(i);12
-        }
-	}
-   	
-   	for(var i=0; i<a.length; i++){
-   		fileArr.splice(a[i],1);
-   	}
-   	
-}
+
 
 </script>

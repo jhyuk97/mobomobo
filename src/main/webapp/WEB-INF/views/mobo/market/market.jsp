@@ -58,6 +58,42 @@ $(document).ready(function() {
 a { text-decoration:none; } 
 
 
+.rembutton{
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 22px;
+  text-decoration: none;
+  margin: 20px;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  float: right;
+  background-color: #c2b0f2;
+
+}
+
+
+.rembutton:focus {
+   outline: none;
+}
+
+.rembutton:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+
+.purple {
+  background-color: #b3b7ef;
+  box-shadow: 0px 5px 0px 0px #dddff8;
+}
+
+.purple:hover {
+  background-color: #dddff8;
+}
+
 </style>
 
 
@@ -77,39 +113,6 @@ a { text-decoration:none; }
         <div class="row"><!-- 측면 카테고리 -->
             <div class="col-lg-3">
                 <h1 class="h2 pb-4">Categories</h1>
-<!--                 <ul class="list-unstyled templatemo-accordion"> -->
-<!--                     <li class="pb-3"> -->
-<!--                         <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#"> -->
-<!--                             All -->
-<!--                             <i class="fa fa-fw fa-chevron-circle-down mt-1"></i> -->
-<!--                         </a> -->
-<!--                         <ul class="collapse show list-unstyled pl-3"> -->
-<!--                             <li><a class="text-decoration-none" href="#">Movie</a></li> -->
-<!--                             <li><a class="text-decoration-none" href="#">Book</a></li> -->
-<!--                         </ul> -->
-<!--                     </li> -->
-<!--                     <li class="pb-3"> -->
-<!--                         <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#"> -->
-<!--                             Movie -->
-<!--                             <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i> -->
-<!--                         </a> -->
-<!--                         <ul id="collapseTwo" class="collapse list-unstyled pl-3"> -->
-<!--                             <li><a class="text-decoration-none" href="#">Sport</a></li> -->
-<!--                             <li><a class="text-decoration-none" href="#">Luxury</a></li> -->
-<!--                         </ul> -->
-<!--                     </li> -->
-<!--                     <li class="pb-3"> -->
-<!--                         <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#"> -->
-<!--                             Book -->
-<!--                             <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i> -->
-<!--                         </a> -->
-<!--                         <ul id="collapseThree" class="collapse list-unstyled pl-3"> -->
-<!--                             <li><a class="text-decoration-none" href="#">Bag</a></li> -->
-<!--                             <li><a class="text-decoration-none" href="#">Sweather</a></li> -->
-<!--                             <li><a class="text-decoration-none" href="#">Sunglass</a></li> -->
-<!--                         </ul> -->
-<!--                     </li> -->
-<!--                 </ul> -->
             </div>
 
             <div class="col-lg-9">
@@ -167,26 +170,21 @@ a { text-decoration:none; }
 
 				</c:forEach>
                 </div>
-                
-                
-                
-<!--                 <div div="row">페이징 -->
-<!--                     <ul class="pagination pagination-lg justify-content-end"> -->
-<!--                         <li class="page-item disabled"> -->
-<!--                             <a class="page-link active rounded-0 mr-3 shadow-sm border-top-0 border-left-0" href="#" tabindex="-1">1</a> -->
-<!--                         </li> -->
-<!--                         <li class="page-item"> -->
-<!--                             <a class="page-link rounded-0 mr-3 shadow-sm border-top-0 border-left-0 text-dark" href="#">2</a> -->
-<!--                         </li> -->
-<!--                         <li class="page-item"> -->
-<!--                             <a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" href="#">3</a> -->
-<!--                         </li> -->
-<!--                     </ul> -->
-<!--                 </div> -->
 
-					<a href="/mobo/market/write"><button>글쓰기</button></a>
-					<a href="/mobo/market/chat"><button>채팅리스트 가기</button></a>
-					<%@include file="/WEB-INF/views/mobo/market/paging.jsp" %>
+					<a href="/mobo/market/write"><button class="rembutton">글쓰기</button></a>
+					<a href="/mobo/market/chat"><button class="rembutton">채팅리스트 가기</button></a>
+					<br><br>
+					
+					<div class="row mt-5">
+			        <div class="col text-center">
+			        	<div class="block-27">
+			        	<ul>
+			            	<li><jsp:include page="/WEB-INF/views/mobo/market/paging.jsp" /></li>
+			            </ul>
+			            </div>
+			        </div>
+			        </div>
+					
 
             </div>
 

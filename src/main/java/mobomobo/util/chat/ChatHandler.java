@@ -59,7 +59,7 @@ public class ChatHandler extends TextWebSocketHandler {
 		//현재 로그인중인 계정 아이디
 		String userid = session.getAttributes().get("id").toString();
 		
-		//세션에 저장된 채팅방번호를 json형식으로 불러옴	payload는 메세지 내용, mTitle은 판매글제목, roomid는 채팅방id    {"payload":"나 감 ㅂㅂ","mTitle":"2222","roomid":"m:63su:userid11bu:userid13"}
+		//세션에 저장된 채팅방번호를 json형식으로 불러옴	payload는 메세지 내용, mTitle은 판매글제목, roomid는 채팅방id 
 		JSONObject jsonObj = (JSONObject) parser.parse(message.getPayload());
 		
 		
