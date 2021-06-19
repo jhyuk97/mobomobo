@@ -33,7 +33,7 @@
             </a>
           </li>
            <li class="nav-item">
-            <a class="nav-link " href="/admin/tables">
+            <a class="nav-link " href="/admin/movie/adminmoviedebateHotlist">
               <i class="ni ni-tv-2 text-orange"></i>영화HOT
             </a>
           </li>
@@ -48,12 +48,12 @@
             </a>
           </li>
            <li class="nav-item">
-            <a class="nav-link " href="/admin/movie/adminbookdebatelist">
+            <a class="nav-link " href="/admin/book/adminbookdebatelist">
               <i class="ni ni-tv-2 text-yellow"></i>책토론
             </a>
           </li>
            <li class="nav-item">
-            <a class="nav-link " href="/admin/tables">
+            <a class="nav-link " href="/admin/book/adminbookdebateHotlist">
               <i class="ni ni-tv-2 text-yellow"></i>책HOT
             </a>
           </li>

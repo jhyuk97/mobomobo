@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mobomobo.dao.face.AdminMDebateDao">
+
+	<select id="selectDebateCntAll" resultType="int" parameterType="mobomobo.util.DebatePaging">
+		SELECT COUNT(*) FROM debate
+			WHERE boardDiv = 4
+			<if test='type!=null and type.equals("title")'>
+		    AND dTitle like '%' || #{search} || '%'
+		    </if>
+		    <if test='type!=null and type.equals("content")'>
+		    AND dContent like '%' || #{search} || '%'
+		    </if>
+	</select>
+	
+	<select id="selectDebateList" resultType="mobomobo.dto.Debate" parameterType="mobomobo.util.DebatePaging">
+		SELECT * FROM (
+		    SELECT rownum rnum, B.* FROM (
+		    	SELECT * FROM debate 
+		    	WHERE boardDiv = #{category }
+		    	<if test='type!=null and type.equals("title")'>
+		    	AND dTitle like '%' || #{search} || '%'
+		    	</if>
+		    	<if test='type!=null and type.equals("content")'>
+		    	AND dContent like '%' || #{search} || '%'
+		    	</if>
+		    	
+		        ORDER BY dno DESC
+		    ) B
+		) R
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<delete id="dNoDelete" parameterType="mobomobo.dto.Debate"> 
+		DELETE debate
+		WHERE dNo = #{dNo}
+	</delete>
+	
+	<select id="countdNo" parameterType="mobomobo.dto.Debate" resultType="int">
+		SELECT COUNT(*) FROM debate WHERE dNo = #{dNo}
+	</select>
+	
+	<select id="selectHot" resultType="HashMap" parameterType="int">
+		select * from
+			(
+			SELECT rownum rnum,BBCL.cnt,BBC.* FROM debate BBC,
+			      (
+			        select count(*) cnt,debate.dno from debatehot,debate
+			        where debate.dno = debatehot.dno and debate.boarddiv=#{category }
+			        group by debate.dno
+			        order by cnt desc
+			      )BBCL
+			      WHERE BBC.dno = BBCL.dno and cnt >= 50
+			) a
+		where rnum BETWEEN 1 AND 10
+	</select>
+
+
+</mapper>

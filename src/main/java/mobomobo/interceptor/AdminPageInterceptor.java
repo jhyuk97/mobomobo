@@ -16,7 +16,6 @@ public class AdminPageInterceptor implements HandlerInterceptor {
 
 		HttpSession session = request.getSession();
 		
-		System.out.println("@@@@@@@@@@@@@@@@@@@2");
 		
 		if("user".equals(session.getAttribute("grade"))) {
 			

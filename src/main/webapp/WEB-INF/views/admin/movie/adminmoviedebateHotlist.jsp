@@ -9,7 +9,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-
 <script type="text/javascript">
 function deleteMDebate(dNo) {
 
@@ -49,6 +48,7 @@ if( confirm("게시글을 삭제하시겠습니까?") ) {
 
 </script>
 
+
 <style type="text/css">
 
 #btnWrite {
@@ -68,6 +68,12 @@ if( confirm("게시글을 삭제하시겠습니까?") ) {
 	text-align: center;
 }
 
+.dTitle {
+
+	width: 40%;
+	text-align: center;
+}
+
 .admin {
 
 	width: 10%;
@@ -80,14 +86,21 @@ if( confirm("게시글을 삭제하시겠습니까?") ) {
 	text-align: center;
 }
 
+.dDate {
+
+	width: 15%;
+	text-align: center;
+}
+
 </style>
+       
 
        <!-- Table -->
       <div class="row">
         <div class="col">
           <div class="card shadow">
             <div class="card-header border-0">
-              <h3 class="mb-0">책토론 게시판</h3>
+              <h3 class="mb-0">영화토론 HOT 게시판</h3>
             </div>
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
@@ -103,10 +116,18 @@ if( confirm("게시글을 삭제하시겠습니까?") ) {
                 <tbody>
                 <c:forEach items="${list }" var="Debate">
                 <tr data-dNo="${Debate.dNo }">
-                	<td class="nNo">${Debate.dNo }</td>
-                	<td class="nTitle">${Debate.dTitle }</td>
-                	<td class="admin">관리자</td>
-                	<td class="nDate"><fmt:formatDate value="${Debate.dDate }" pattern="yy-MM-dd" /></td>
+                
+<%--                     <td class="notice">${Debate.DNO }</td> --%>
+<%--                 	<td class="notice">${Debate.CNT }</td> --%>
+<%--                 	<td style="font-size: 6px;"><a href="/mobo/movie/debatedetail?dNo=${Debate.DNO }" class="notice">${Debate.DTITLE }</a></td> --%>
+<%--                 	<td class="notice">${Debate.NICK }</td> --%>
+<%--                 	<td class="notice"><fmt:formatDate value="${Debate.DDATE }" pattern="yy-MM-dd" /></td> --%>
+<%--                 	<td class="notice">${Debate.HIT }</td> --%>
+                	
+                	<td class="nNo">${Debate.DNO }</td>
+                	<td class="nTitle">${Debate.DTITLE }</td>
+                	<td class="admin">${Debate.NICK }</td>
+                	<td class="nDate"><fmt:formatDate value="${Debate.DDATE }" pattern="yy-MM-dd" /></td>
                 	<td><button class="btn btn-warning btn-sm" onclick="deleteMDebate(${Debate.dNo})" >삭제</button></td>
                 	
                 </tr>
@@ -115,7 +136,7 @@ if( confirm("게시글을 삭제하시겠습니까?") ) {
               </table>
             </div>
             <div class="card-footer py-4">
-              <span class="float-left">total : ${paging.totalCount }</span>
+<%--               <span class="float-left">total : ${paging.totalCount }</span> --%>
 
               <nav aria-label="...">
                 <ul class="pagination justify-content-center mb-0">
@@ -130,7 +151,7 @@ if( confirm("게시글을 삭제하시겠습니까?") ) {
                   </c:if>
                   <c:if test="${paging.curPage ne 1 }">
                   <li class="page-item">
-                    <a class="page-link" href="/admin/bdebate/list?curPage=${paging.curPage - 1 }" tabindex="-1">
+                    <a class="page-link" href="/admin/mdebate/list?curPage=${paging.curPage - 1 }" tabindex="-1">
                       <i class="fas fa-angle-left"></i>
                     </a>
                   </li>
@@ -139,12 +160,12 @@ if( confirm("게시글을 삭제하시겠습니까?") ) {
                   <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
                   <c:if test="${i eq paging.curPage }">
                   <li class="page-item active">
-                    <a class="page-link" href="/admin/bdebate/list?curPage=${i }">${i }</a>
+                    <a class="page-link" href="/admin/mdebate/list?curPage=${i }">${i }</a>
                   </li>
                   </c:if>
                   <c:if test="${i ne paging.curPage }">
                   <li class="page-item">
-                    <a class="page-link" href="/admin/bdebate/list?curPage=${i }">${i }</a>
+                    <a class="page-link" href="/admin/mdebate/list?curPage=${i }">${i }</a>
                   </li>
                   </c:if>
                   </c:forEach>
@@ -152,7 +173,7 @@ if( confirm("게시글을 삭제하시겠습니까?") ) {
                   
                   <c:if test="${paging.curPage lt paging.totalPage }">
                   <li class="page-item">
-                    <a class="page-link" href="/admin/bdebate/list?curPage=${paging.curPage + 1 }">
+                    <a class="page-link" href="/admin/mdebate/list?curPage=${paging.curPage + 1 }">
                     <i class="fas fa-angle-right"></i>
                     </a>
                   </li>
@@ -160,11 +181,12 @@ if( confirm("게시글을 삭제하시겠습니까?") ) {
 
                   <c:if test="${paging.curPage ge paging.totalPage }">
                   <li class="page-item disabled">
-                    <a class="page-link" href="/admin/bdebate/list?curPage=${paging.curPage + 1 }">
+                    <a class="page-link" href="/admin/mdebate/list?curPage=${paging.curPage + 1 }">
                     <i class="fas fa-angle-right"></i>
                     </a>
                   </li>
                   </c:if>
+                  
                   
                 </ul>
               </nav>
@@ -173,4 +195,6 @@ if( confirm("게시글을 삭제하시겠습니까?") ) {
         </div>
       </div>
 
+
+      
     <%@include file="/WEB-INF/views/admin/include/footer.jsp" %>
