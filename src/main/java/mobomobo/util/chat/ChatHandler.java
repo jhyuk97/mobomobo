@@ -143,7 +143,7 @@ public class ChatHandler extends TextWebSocketHandler {
 			//내화면에 내가 보낸 메세지 보내기 '닉네임:보낸내용'
 			session.sendMessage(new TextMessage(
 					session.getAttributes().get("nick") + "/" + json.get("payload").toString()
-					+ "/" + roomid));
+					+ "/" + roomid + "/me"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
