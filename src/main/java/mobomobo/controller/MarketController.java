@@ -200,12 +200,8 @@ public class MarketController {
 		
 		List<ChatLog> log = marketService.selectLog(data.getRoomid());
 		List<UserImg> uImg = new ArrayList<>();
-		if(log.size() > 0) {
-			uImg = marketService.selectImg(data);
-		}else {
-			uImg.add(new UserImg());
-			uImg.add(new UserImg());
-		}
+		uImg = marketService.selectImg(data);
+		
 		mav.addObject("uImg", uImg);
 		mav.addObject("log", log);
 		mav.addObject("roomid", data.getRoomid());
