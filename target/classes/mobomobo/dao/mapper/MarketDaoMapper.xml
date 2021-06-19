@@ -122,8 +122,8 @@
 	<select id="ChatRoomList" parameterType="String" resultType="mobomobo.dto.ChatLog">
 		SELECT distinct roomid, mTitle, 
 		(SELECT nick FROM userinfo 
-		WHERE (id = buid or id = suid) and id != sendid) sunick from chatlog 
-		where sendid=#{userid}
+		WHERE (id = buid or id = suid) and id != #{userid}) sunick from chatlog 
+		where suid=#{userid} or buid=#{userid} 
 	</select>
 
 	<select id="selectLog" parameterType="String" resultType="mobomobo.dto.ChatLog">
