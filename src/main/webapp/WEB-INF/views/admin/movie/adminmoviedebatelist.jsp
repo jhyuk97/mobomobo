@@ -9,6 +9,46 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
+<script type="text/javascript">
+function deleteMDebate(dNo) {
+
+if( confirm("게시글을 삭제하시겠습니까?") ) {
+	$.ajax({
+		type:"post"
+		, url:"/admin/MDebateDelete"
+		, dataType: "json"
+		, data: {
+			dNo: dNo
+		}
+		, success: function(data){ 
+			
+			
+			if(data.success) {
+				
+				
+				$("[data-dNo='"+dNo+"']").remove();
+				
+				alert("게시글을 삭제 하였습니다 ");
+				
+			} else {
+				alert("게시글 삭제가 실패하였습니다");
+			}
+		}
+		, error: function() {
+			console.log("error");
+		}
+	});
+	
+	} 
+	
+	else{
+		return false;
+	}
+}
+
+</script>
+
+
 <style type="text/css">
 
 #btnWrite {
@@ -63,12 +103,12 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${list }" var="Debate">
-                <tr>
+                <tr data-dNo="${Debate.dNo }">
                 	<td class="nNo">${Debate.dNo }</td>
                 	<td class="nTitle">${Debate.dTitle }</td>
                 	<td class="admin">관리자</td>
                 	<td class="nDate"><fmt:formatDate value="${Debate.dDate }" pattern="yy-MM-dd" /></td>
-                	<td><button class="btn btn-warning btn-sm" onclick="deleteBookDebate(${list.debate })" >삭제</button></td>
+                	<td><button class="btn btn-warning btn-sm" onclick="deleteMDebate(${Debate.dNo})" >삭제</button></td>
                 	
                 </tr>
                  </c:forEach>
