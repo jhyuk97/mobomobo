@@ -79,24 +79,14 @@
 <!-- 		<interceptor> -->
 <!-- 			<mapping path="/mobo/movie/**"/> -->
 			
-<<<<<<< HEAD
 <!-- 			<exclude-mapping path="/mobo/movie/movierecom"/> -->
 <!-- 			<exclude-mapping path="/mobo/movie/moviebestboard"/> -->
-=======
-			<exclude-mapping path="/mobo/movie/movierecom"/>
-			<exclude-mapping path="/mobo/movie/moviebestboard"/>
-<<<<<<< HEAD
-			<exclude-mapping path="/mobo/main"/>
-	
-			<beans:bean class="mobomobo.interceptor.MovieRecomInterceptor"/>
-		</interceptor>
-=======
-			<exclude-mapping path="/mobo/movie/debate"/>
->>>>>>> bc14ae03ef3df9637a403bb83d730ab62b723060
+
+
+<!-- 		<exclude-mapping path="/mobo/movie/debate"/> -->
 			
 <!-- 			<beans:bean class="mobomobo.interceptor.MovieRecomInterceptor"/> -->
 <!-- 		</interceptor> -->
->>>>>>> 3fcf0bd7191148db362d7cdb936892e56f644618
 		
 		<interceptor>
 			<mapping path="/admin/**" />

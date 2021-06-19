@@ -74,6 +74,8 @@ function btnSend(){
 		message = arr[1];
 		//채팅방 번호
 		roomid = arr[2];
+		//본인 메세지 체크
+		isMe = arr[3];
 		
 		//같은 채팅방인지 확인
 		console.log('방확인시작')

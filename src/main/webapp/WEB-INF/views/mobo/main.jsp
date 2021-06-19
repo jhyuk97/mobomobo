@@ -150,13 +150,14 @@
             </div>
         </div>
         <div class="row">
+        <c:if test="${marketList.size() > 0 }">
         	<c:forEach items="${marketList }" var="market">
         		<div class="col-12 col-md-4 p-5 mt-3">
                 	<a href="/mobo/market/${market.mNo }"><img style="width:344px; height:475px;" src="/emp/${market.storedImg.get(0) }" class="rounded-circle img-fluid border"></a>
                 	<h5 id="market" class="text-center mt-3 mb-3">${market.mTitle }</h5>
             	</div>
         	</c:forEach>
-
+		</c:if>
         </div>
     </section>
     <!-- End Categories of The Month -->
