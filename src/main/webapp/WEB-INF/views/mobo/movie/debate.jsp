@@ -31,10 +31,9 @@
 
     
    <link rel="stylesheet" href="/resources/board/css/style.css">
+   
     
-    
-    
-    
+    <!-- 본래 코드 -->
 
    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 
@@ -104,15 +103,30 @@
        <div class="row no-gutters justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
             <h2 class="mb-4">MOVIE TALK</h2>
-            <p id="p">당신의 인생 영화를 얘기하세요!</p>
+            <p id="p">당신의 인생 영화를 얘기하세요!</p>         
           </div>
+      
+          
+          
+          
         </div>
 
       <div class="container">
         
          <div class="row">
             <div class="col-md-12">
-               <div class="table-wrap">
+               <div>
+                  <form action="/mobo/movie/debate" method="get">
+					 <select name="type" class="btn btn-filled">
+					 	<option value="title">제목</option>
+					 	<option value="content">내용</option>
+					 </select>
+                     <input type="text" name="search" id="search"/>
+                     <button>검색</button>
+                  </form>
+               </div>
+            
+               <div>
                   <table style="text-align: center;" class="table table-responsive-xl">
                     <thead>
                       <tr>
@@ -129,7 +143,7 @@
                 
                 <tr>
                 	<td class="notice">${Debate.dNo }</td>
-                	<td style="font-size: 6px;"><a href="/mobo/notice/detail?nNo=${Debate.dNo }" class="notice">${Debate.dTitle }</a></td>
+                	<td style="font-size: 6px;"><a href="/mobo/movie/debatedetail?dNo=${Debate.dNo }" class="notice">${Debate.dTitle }</a></td>
                 	<td class="notice">${Debate.userno }</td>
                 	<td class="notice"><fmt:formatDate value="${Debate.dDate }" pattern="yy-MM-dd" /></td>
                 	<td class="notice">${Debate.hit }</td>

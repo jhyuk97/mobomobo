@@ -5,8 +5,6 @@
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
 	
-	
-	
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     
@@ -47,9 +45,6 @@
    
 	<%@include file="/WEB-INF/views/mobo/layout/header.jsp" %>
    
-
-   
-
   <section class="ftco-section ">
        <div class="row no-gutters justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
@@ -58,12 +53,11 @@
           </div>
         </div>
  			
- 			
  			  <div class="container">
          
          <div class="row">
             <div class="col-md-12">
-               <div class="table-wrap">
+               <div>
                   <table style="text-align: center;" class="table table-responsive-xl">
                     <thead>
                       <tr>
@@ -104,9 +98,6 @@
              
             </div>
          </div>
-         
-         
-         
          
          
       </div>

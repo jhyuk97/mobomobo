@@ -105,7 +105,7 @@ a { text-decoration:none; }
        <div class="row no-gutters justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
             <h2 class="mb-4">MARKET</h2>
-            <p id="p">당신이 찾던 영화와 책, 무부무부에서 만나보세요</p>
+            <p id="p">원하는 영화와 책을 찾아보세요</p>
           </div>
         </div>
         
@@ -150,7 +150,6 @@ a { text-decoration:none; }
                                 </c:if>
                                 <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                                     <ul class="list-unstyled">
-                                        <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li><!-- 북마크 -->
                                         <li><a class="btn btn-success text-white mt-2" href="/mobo/market/${mList.mNo }"><i class="far fa-eye"></i></a></li><!-- 상세보기 -->
                                     </ul>
                                 </div>
