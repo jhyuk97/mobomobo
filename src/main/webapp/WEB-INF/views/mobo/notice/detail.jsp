@@ -51,8 +51,14 @@ table {
 	padding: 15px;
 	font-weight: lighter;
 	}
+	
+.text-success {
+	color : #a172e3 !important;
+}
 
-
+.text-light {
+	color : #e8dcf8 !important;
+}
 
 
 </style>

@@ -76,14 +76,14 @@
     
 	
 	 <interceptors>
-		<interceptor>
-			<mapping path="/mobo/movie/**"/>
+<!-- 		<interceptor> -->
+<!-- 			<mapping path="/mobo/movie/**"/> -->
 			
-			<exclude-mapping path="/mobo/movie/movierecom"/>
-			<exclude-mapping path="/mobo/movie/moviebestboard"/>
+<!-- 			<exclude-mapping path="/mobo/movie/movierecom"/> -->
+<!-- 			<exclude-mapping path="/mobo/movie/moviebestboard"/> -->
 			
-			<beans:bean class="mobomobo.interceptor.MovieRecomInterceptor"/>
-		</interceptor>
+<!-- 			<beans:bean class="mobomobo.interceptor.MovieRecomInterceptor"/> -->
+<!-- 		</interceptor> -->
 		
 		<interceptor>
 			<mapping path="/admin/**" />

@@ -22,17 +22,10 @@
     <link rel="stylesheet" href="/resources/board/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="/resources/board/css/jquery.timepicker.css">
 
-
-    
     <link rel="stylesheet" href="/resources/board/css/flaticon.css">
     <link rel="stylesheet" href="/resources/board/css/icomoon.css">
 
-    
    <link rel="stylesheet" href="/resources/board/css/style.css">
-    
-
-
-
 
 <!-- 본래 코드 -->
 
@@ -97,6 +90,16 @@
 	 float: left;
 }
 
+.searchBtn {
+	padding: 0;
+	border: none;
+	background: none;
+}
+
+.searchBtn:focus {
+	outline: none;
+}
+
 </style>
 
    <section class="ftco-section ">
@@ -107,19 +110,17 @@
           </div>
         </div>
          
-         
-         
           <div class="container">
          <div class="row">
             <div class="col-md-12">
                <div>
-                  <form action="/mobo/book/debate" method="get">
-					 <select name="type">
+                  <form action="/mobo/book/debate" method="get" style="float : right;">
+					 <select name="type"  style="width:77px; height: 42px;">
 					 	<option value="title">제목</option>
 					 	<option value="content">내용</option>
 					 </select>
-                     <input type="text" name="search"/>
-                     <button>검색</button>
+                     <input type="text" name="search" id="search" class="form-control" style="width:300px; display : inline-block; margin-right : 10px;"/>
+                     <button class="searchBtn">검색</button>
                   </form>
                </div>
             
@@ -141,7 +142,7 @@
                 <tr>
                 	<td class="notice">${Debate.dNo }</td>
                 	<td style="font-size: 6px;"><a href="/mobo/book/debatedetail?dNo=${Debate.dNo }" class="notice">${Debate.dTitle }</a></td>
-                	<td class="notice">${Debate.userno }</td>
+                	<td class="notice">${Debate.nick }</td>
                 	<td class="notice"><fmt:formatDate value="${Debate.dDate }" pattern="yy-MM-dd" /></td>
                 	<td class="notice">${Debate.hit }</td>
                 </tr>
@@ -176,9 +177,6 @@
    
    
 <%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>
-
-
-
 
 
 <script src="/resources/board/js/jquery.min.js"></script>

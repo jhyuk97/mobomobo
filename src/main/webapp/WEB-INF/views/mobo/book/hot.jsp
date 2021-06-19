@@ -133,7 +133,7 @@
                 	<td class="notice">${Debate.DNO }</td>
                 	<td class="notice">${Debate.CNT }</td>
                 	<td style="font-size: 6px;"><a href="/mobo/movie/debatedetail?dNo=${Debate.DNO }" class="notice">${Debate.DTITLE }</a></td>
-                	<td class="notice">${Debate.USERNO }</td>
+                	<td class="notice">${Debate.NICK }</td>
                 	<td class="notice"><fmt:formatDate value="${Debate.DDATE }" pattern="yy-MM-dd" /></td>
                 	<td class="notice">${Debate.HIT }</td>
                 </tr>
