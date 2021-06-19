@@ -4,12 +4,11 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	
-	
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <!-- 게시판1코드 -->
     
-     <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,700,800" rel="stylesheet">
 
     <link rel="stylesheet" href="/resources/board/css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="/resources/board/css/animate.css">
@@ -24,29 +23,11 @@
 
     <link rel="stylesheet" href="/resources/board/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="/resources/board/css/jquery.timepicker.css">
-
-
     
     <link rel="stylesheet" href="/resources/board/css/flaticon.css">
     <link rel="stylesheet" href="/resources/board/css/icomoon.css">
-
     
    <link rel="stylesheet" href="/resources/board/css/style.css">
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     <!-- 본래 코드 -->
 
@@ -231,6 +212,7 @@
 
 .purple:hover {
   background-color: #dddff8;
+  
 }
 
 </style>
@@ -264,32 +246,30 @@ $(document).ready(function (){
 		
 	})//$("button").on("click",function(){end
 	
-	
 })
 	
-	function ajaxConn(urlData,dataSet){
-	
-			console.log(urlData)
-			console.log(dataSet)
-		$.ajax({
-			type : 'get'
-			, url : urlData
-			, dataType : 'json'
-			, data : dataSet
-			, success : function(result){
-				
-				console.log(result)
-				
-				$("#bestLike").text(result);
-				
-				
-			}
-			, error : function(){
-				alert("실패")
-			}
-				
+function ajaxConn(urlData,dataSet){
+
+		console.log(urlData)
+		console.log(dataSet)
+		
+	$.ajax({
+		type : 'get'
+		, url : urlData
+		, dataType : 'json'
+		, data : dataSet
+		, success : function(result){
 			
-		})
+			console.log(result)
+			
+			$("#bestLike").text(result);
+			
+		}
+		, error : function(){
+			alert("실패")
+		}
+		
+	})
 		
 }
 
@@ -304,27 +284,30 @@ $(document).ready(function (){
           </div>
         </div>
         
-        
-       
-	  <div class="row">
-	
-	<c:if test="${Debate.userno eq userno }">
-	<div style="position: relative; top:-53px;"><button style="margin:0 10px; float: right;" id="write" class="btn btn-filled" onclick='location.href="/mobo/movie/debateupdate?dNo=${Debate.dNo}";'>수정</button>
-	<button style="float: right;" id="hot" class="btn btn-filled" onclick='location.href="/mobo/movie/debatedelete?dNo=${Debate.dNo}";'>삭제</button></div>
-	</c:if>
-	<hr>
-	<span>${Debate.nick }</span>
-	<span style="float:right; position: relative; left: 200px;"><fmt:formatDate value="${Debate.dDate }" pattern="yy-MM-dd" /></span>
-	<hr>
-	<div style="height: 500px;">${Debate.dContent }</div>
-	<div style="text-align: center;" class="button2"> 
-	<c:if test="${not empty login }">
-  	<button style="width:110px; height:62px; font-size:15px;" id="btnDebateBestLike" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;<span id="bestLike">${likeCnt }</span>
- 	</button> 
-	</c:if>
- 	<button id="list" style="float: right; margin-top:50px; margin-bottom:50px; width:110px; height:62px; border:0px; font-size:15px;" class="btn btn-filled" onclick='location.href="/mobo/movie/debate";'>목록</button>
+	<div class="row">
+		<c:if test="${Debate.userno eq userno }">
+			<div style="position: relative; top:-53px;"><button style="margin:0 10px; float: right;" id="write" class="btn btn-filled" onclick='location.href="/mobo/movie/debateupdate?dNo=${Debate.dNo}";'>수정</button>
+			<button style="float: right;" id="hot" class="btn btn-filled" onclick='location.href="/mobo/movie/debatedelete?dNo=${Debate.dNo}";'>삭제</button></div>
+		</c:if>
+		
+		<hr>
+		
+		<div>
+			<div style="display:inline-block"><fmt:formatDate value="${Debate.dDate }" pattern="yy-MM-dd" /></div>
+			<div style="display:inline-block; margin-right : 50px; margin-bottom:16px;">${Debate.nick }</div>
+		</div>
+		
+		<hr>
+		<div style="height: 500px;">${Debate.dContent }</div>
+		
+		<div style="text-align: center;" class="button2"> 
+			<c:if test="${not empty login }">
+	  			<button style="width:110px; height:62px; font-size:15px;" id="btnDebateBestLike" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;<span id="bestLike">${likeCnt }</span>
+	 			</button> 
+			</c:if>
+	 	<button id="list" style="float: right; margin-top:50px; margin-bottom:50px; width:110px; height:62px; border:0px; font-size:15px;" class="btn btn-filled" onclick='location.href="/mobo/movie/debate";'>목록</button>
+	  	</div>
   	</div>
-	
 	
 	<!-- 로그인 상태 -->
 
@@ -349,13 +332,13 @@ $(document).ready(function (){
       </ul>
    </div>
    </div>
-</div>   
+   
    </div>
    
 </section>
 <%@include file="/WEB-INF/views/mobo/layout/footer.jsp" %>
 
-  <script src="/resources/board2/js/popper.js"></script>
+<script src="/resources/board2/js/popper.js"></script>
 
 <!--   <script src="/resources/board2/js/main.js"></script> -->
   
@@ -363,7 +346,7 @@ $(document).ready(function (){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ko.min.js"></script>
   
-  <script type="text/javascript">
+<script type="text/javascript">
 	function writeComment() {
 		
 		$.ajax( {
@@ -372,7 +355,7 @@ $(document).ready(function (){
 			, data : {'dNo' : '${Debate.dNo}'
 					, 'dcContent' : $("#exampleFormControlTextarea1").val()
 			}
-			, dataType : 'json'
+			, async : false
 			, success : function() {
 				console.log("성공")
 				
@@ -385,153 +368,131 @@ $(document).ready(function (){
 			})
 	}
 	
-	function listComment() {
-		
-		console.log("확인")
-		
-		$.ajax( {
-			type : 'get'
-				, url : '/mobo/movie/commentlist'
-				, data : {'dNo' : '${Debate.dNo}'
-						
-				}
-				, dataType : 'json'
-				, success : function(comment) {
-					console.log("성공")
+function listComment() {
+	
+	$.ajax({
+		type : 'get'
+			, url : '/mobo/movie/commentlist'
+			, data : {'dNo' : '${Debate.dNo}'}
+			, dataType : 'json'
+			, success : function(comment) {
+				
+			}
+				$("#commentlist").html();
+				
+				var html = "";
 					
-					$("#commentlist").html();
+				for( var i=0; i<comment.length; i++) {
+					html += "<ul class='list-group list-group-flush' data-dcNo='"+comment[i].dcNo+"'>"
+					html +=	"	<li class='list-group-item'>"
+					html +=	"		<div class='form-inline mb-2'>"
+					html += "			<i class='fa fa-user-circle fa-2x' style='margin-right:10px;'></i>";
+					html += 			comment[i].nick + " " + moment(comment[i].dcDate).format('YYYY-MM-DD')  +"</div> <br>"
+					html += 			comment[i].dcContent + "<br>"
 					
-					var html = "";
+					if( ${sessionScope.userno} != comment[i].userno ) {
 					
-						
-					for( var i=0; i<comment.length; i++) {
-						html += "<ul class='list-group list-group-flush' data-dcNo='"+comment[i].dcNo+"'>"
-						html +=	"<li class='list-group-item'>"
-						html +=	"<div class='form-inline mb-2'>"
-						
-						html += "<i class='fa fa-user-circle fa-2x' style='margin-right:10px;'></i>";
-						html += comment[i].nick + " " + moment(comment[i].dcDate).format('YYYY-MM-DD')  +"</div> <br>"
-						html += comment[i].dcContent + "<br>"
-						
-						console.log(comment[i].userno)
-						
-						if( ${sessionScope.userno} != comment[i].userno ) {
-						
-						html += '<button class="btnMovieBestCommentLike rembutton purple" onclick="likeComment('+comment[i].dcNo+');"  >'
-						
-						if(comment[i].hotState == 0) {
-						html += '<i class="far fa-thumbs-up" aria-hidden="true"></i>'
+					html += 			'<button class="btnMovieBestCommentLike rembutton purple" onclick="likeComment('+comment[i].dcNo+');"  >'
+
+					if(comment[i].hotState == 0) {
+						html += '				<i class="far fa-thumbs-up" aria-hidden="true"></i>'
 						} else {
-						html += '<i class="fa fa-thumbs-up" aria-hidden="true"></i>'
+						html += '				<i class="fa fa-thumbs-up" aria-hidden="true"></i>'
 						}
-						html += "<span>" + comment[i].hotCnt + "</span>"
-						html += '</button>'
-
-						}
-// 						html += "<span> 추천여부 : " + comment[i].hotState + "</span> <br>"
-						
-						if( ${sessionScope.userno} == comment[i].userno ) {
-						
-						html += "<input type='button' class='btn bg-replay mt-3 deleteComment' onclick='deleteComment(" + comment[i].dcNo + ")' value='삭제' />"
-						
-						}
+						html += "				<span>" + comment[i].hotCnt + "</span>"
+						html += '			</button>'
 					}
-						html += "</div></li></ul>"
+					html += "			<span> 추천여부 : " + comment[i].hotState + "</span> <br>"
 					
-					$("#commentlist").html(html);
+					if( ${sessionScope.userno} == comment[i].userno ) {
+						html += "			<input type='button' class='btn bg-replay mt-3 deleteComment' onclick='deleteComment(" + comment[i].dcNo + ")' value='삭제' />"
+					}
+					html += "			</div></li></ul>"
 				}
-				, error : function() {
-					console.log("실패")
-				}
 				
-				})
+				$("#commentlist").html(html);
+			}
+	})
+}
 	
-	}
+function deleteComment(dcNo) {
 	
-	function deleteComment(dcNo) {
-		
-		$.ajax( {
-			type : 'get'
-			, url : '/mobo/movie/commentdelete'
-			, data : {'dNo' : '${Debate.dNo}'
-					,'dcNo' : dcNo
-			}
-			, dataType : 'json'
-			, success : function() {
-				console.log("성공")
-				
-				listComment();
-			}
-			, error : function() {
-				console.log("실패")
-			}
+	$.ajax({
+		type : 'get'
+		, url : '/mobo/movie/commentdelete'
+		, data : {'dNo' : '${Debate.dNo}'
+				,'dcNo' : dcNo}
+		, success : function() {
+			console.log("성공")
 			
-			})
-	}			
-	
-	function likeComment(dcNo) {
-		console.log("likeComment " + dcNo)
-		
-		$.ajax( {
-			type : 'get'
-			, url : '/mobo/movie/commentlike'
-			, data : {'dNo' : '${Debate.dNo}'
-					,'dcNo' : dcNo
-			}
-			, dataType : 'json'
-			, success : function() {
-				console.log("성공")
-				
-				listComment();
-			}
-			, error : function() {
-				console.log("실패")
-			}
-			
-			})
-			
-	}
-	
-	
-	
-	
-	var animateButton = function(e) {
-
-		  e.preventDefault;
-		  //reset animation
-		  e.target.classList.remove('animate');
-		  
-		  e.target.classList.add('animate');
-		  setTimeout(function(){
-		    e.target.classList.remove('animate');
-		  },700);
-		};
-
-		var bubblyButtons = document.getElementsByClassName("bubbly-button");
-
-		for (var i = 0; i < bubblyButtons.length; i++) {
-		  bubblyButtons[i].addEventListener('click', animateButton, false);
+			listComment();
 		}
+		, error : function() {
+			console.log("실패")
+		}
+		
+	})
+}			
+	
+function likeComment(dcNo) {
+	console.log("likeComment " + dcNo)
+	
+	$.ajax( {
+		type : 'get'
+		, url : '/mobo/movie/commentlike'
+		, data : {'dNo' : '${Debate.dNo}'
+				,'dcNo' : dcNo}
+		, success : function() {
+			console.log("성공")
+			
+			listComment();
+		}
+		, error : function() {
+			console.log("실패")
+		}
+		
+		})
+		
+}
+	
+var animateButton = function(e) {
+
+	  e.preventDefault;
+	  //reset animation
+	  e.target.classList.remove('animate');
+	  
+	  e.target.classList.add('animate');
+	  
+	  setTimeout(function(){
+	    e.target.classList.remove('animate');
+	  },700);
+};
+
+var bubblyButtons = document.getElementsByClassName("bubbly-button");
+
+for (var i = 0; i < bubblyButtons.length; i++) {
+	bubblyButtons[i].addEventListener('click', animateButton, false);
+}
 
   
 </script>
   
-  
-    <script src="/resources/board/js/jquery.min.js"></script>
-  <script src="/resources/board/js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="/resources/board/js/popper.min.js"></script>
-  <script src="/resources/board/js/bootstrap.min.js"></script>
-  <script src="/resources/board/js/jquery.easing.1.3.js"></script>
-  <script src="/resources/board/js/jquery.waypoints.min.js"></script>
-  <script src="/resources/board/js/jquery.stellar.min.js"></script>
-  <script src="/resources/board/js/owl.carousel.min.js"></script>
-  <script src="/resources/board/js/jquery.magnific-popup.min.js"></script>
-  <script src="/resources/board/js/aos.js"></script>
-  <script src="/resources/board/js/jquery.animateNumber.min.js"></script>
-  <script src="/resources/board/js/bootstrap-datepicker.js"></script>
-  
-  <script src="/resources/board/js/particles.min.js"></script>
-  <script src="/resources/board/js/particle.js"></script>
-  <script src="/resources/board/js/scrollax.min.js"></script>
-  <script src="/resources/board/js/main.js"></script>
+ 
+ <script src="/resources/board/js/jquery.min.js"></script>
+ <script src="/resources/board/js/jquery-migrate-3.0.1.min.js"></script>
+ <script src="/resources/board/js/popper.min.js"></script>
+ <script src="/resources/board/js/bootstrap.min.js"></script>
+ <script src="/resources/board/js/jquery.easing.1.3.js"></script>
+ <script src="/resources/board/js/jquery.waypoints.min.js"></script>
+ <script src="/resources/board/js/jquery.stellar.min.js"></script>
+ <script src="/resources/board/js/owl.carousel.min.js"></script>
+ <script src="/resources/board/js/jquery.magnific-popup.min.js"></script>
+ <script src="/resources/board/js/aos.js"></script>
+ <script src="/resources/board/js/jquery.animateNumber.min.js"></script>
+ <script src="/resources/board/js/bootstrap-datepicker.js"></script>
+ 
+<!--   <script src="/resources/board/js/particles.min.js"></script> -->
+ <script src="/resources/board/js/particle.js"></script>
+ <script src="/resources/board/js/scrollax.min.js"></script>
+ <script src="/resources/board/js/main.js"></script>
   

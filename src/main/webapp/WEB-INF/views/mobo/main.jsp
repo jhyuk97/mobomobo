@@ -150,21 +150,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="/resources/img/BLUE1.jpg" class="rounded-circle img-fluid border"></a>
-                <h5 id="market" class="text-center mt-3 mb-3">기생충 블루레이</h5>
-                <p class="text-center"><a class="btn btn-success">구매하기</a></p>
-            </div>
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="/resources/img/BLUE2.jpg" class="rounded-circle img-fluid border"></a>
-                <h2 id="market" class="h5 text-center mt-3 mb-3">괴물 대본집</h2>
-                <p class="text-center"><a class="btn btn-success">구매하기</a></p>
-            </div>
-            <div class="col-12 col-md-4 p-5 mt-3">
-                <a href="#"><img src="/resources/img/dvd1.jpg" class="rounded-circle img-fluid border"></a>
-                <h2 id="market" class="h5 text-center mt-3 mb-3">윤희에게:풀슬립 한정판</h2>
-                <p class="text-center"><a class="btn btn-success">구매하기</a></p>
-            </div>
+        	<c:forEach items="${marketList }" var="market">
+        		<div class="col-12 col-md-4 p-5 mt-3">
+                	<a href="/mobo/market/${market.mNo }"><img style="width:344px; height:475px;" src="/emp/${market.storedImg.get(0) }" class="rounded-circle img-fluid border"></a>
+                	<h5 id="market" class="text-center mt-3 mb-3">${market.mTitle }</h5>
+            	</div>
+        	</c:forEach>
+
         </div>
     </section>
     <!-- End Categories of The Month -->

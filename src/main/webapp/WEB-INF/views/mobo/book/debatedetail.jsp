@@ -292,20 +292,27 @@ $(document).ready(function (){
         
 	
 	  <div class="row">
-
-	<div style="position: relative; top:-53px;"><button style="margin:0 10px; float: right;" id="write" class="btn btn-filled" onclick='location.href="/mobo/book/debateupdate?dNo=${Debate.dNo}";'>수정</button>
-	<button style="float: right;" id="hot" class="btn btn-filled" onclick='location.href="/mobo/book/debatedelete?dNo=${Debate.dNo}";'>삭제</button></div>
+		<c:if test="${Debate.userno eq userno }">
+			<div style="position: relative; top:-53px;"><button style="margin:0 10px; float: right;" id="write" class="btn btn-filled" onclick='location.href="/mobo/book/debateupdate?dNo=${Debate.dNo}";'>수정</button>
+			<button style="float: right;" id="hot" class="btn btn-filled" onclick='location.href="/mobo/book/debatedelete?dNo=${Debate.dNo}";'>삭제</button></div>
+		</c:if>
+	
 	<hr>
-	<span>${Debate.nick }</span>
-	<span style="float:right; position: relative; left: 200px;"><fmt:formatDate value="${Debate.dDate }" pattern="yy-MM-dd" /></span>
+	
+	<div>
+		<div style="display:inline-block; margin-right : 50px; margin-bottom:16px;">${Debate.nick }</div>
+		<div style="display:inline-block"><fmt:formatDate value="${Debate.dDate }" pattern="yy-MM-dd" /></div>
+	</div>
+	
 	<hr>
+	
 	<div style="height: 500px;">${Debate.dContent }</div>
 	<div style="text-align: center;" class="button2"> 
 	<c:if test="${not empty login }">
-  	<button style="width:110px; height:62px; font-size:15px;" id="btnDebateBestLike" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;<span id="bestLike">${likeCnt }</span>
- 	</button> 
+  		<button style="width:110px; height:62px; font-size:15px;" id="btnDebateBestLike" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;<span id="bestLike">${likeCnt }</span>
+ 		</button> 
 	</c:if>
- 	<button id="list" style="float: right; margin-top:50px; margin-bottom:50px; width:110px; height:62px; border:0px; font-size:15px;" class="btn btn-filled" onclick='location.href="/mobo/book/debate";'>목록</button>
+ 		<button id="list" style="float: right; margin-top:50px; margin-bottom:50px; width:110px; height:62px; border:0px; font-size:15px;" class="btn btn-filled" onclick='location.href="/mobo/book/debate";'>목록</button>
   	</div>
 	
 	</div>
@@ -356,7 +363,6 @@ $(document).ready(function (){
 			, data : {'dNo' : '${Debate.dNo}'
 					, 'dcContent' : $("#exampleFormControlTextarea1").val()
 			}
-			, dataType : 'json'
 			, success : function() {
 				console.log("성공")
 				
@@ -381,7 +387,8 @@ $(document).ready(function (){
 				}
 				, dataType : 'json'
 				, success : function(comment) {
-					console.log("성공")
+					console.log("여기 맞나?!?!?!?")
+					console.log(comment)
 					
 					$("#commentlist").html();
 					
@@ -419,8 +426,8 @@ $(document).ready(function (){
 						html += "<input type='button' class='btn bg-replay mt-3 deleteComment' onclick='deleteComment(" + comment[i].dcNo + ")' value='삭제' />"
 						
 						}
-					}
 						html += "</div></li></ul>"
+					}
 					
 					$("#commentlist").html(html);
 				}
@@ -440,7 +447,6 @@ $(document).ready(function (){
 			, data : {'dNo' : '${Debate.dNo}'
 					,'dcNo' : dcNo
 			}
-			, dataType : 'json'
 			, success : function() {
 				console.log("성공")
 				
@@ -462,7 +468,6 @@ $(document).ready(function (){
 			, data : {'dNo' : '${Debate.dNo}'
 					,'dcNo' : dcNo
 			}
-			, dataType : 'json'
 			, success : function() {
 				console.log("성공")
 				
@@ -474,6 +479,7 @@ $(document).ready(function (){
 			
 			})
 	}
+	
 	var animateButton = function(e) {
 
 		  e.preventDefault;
