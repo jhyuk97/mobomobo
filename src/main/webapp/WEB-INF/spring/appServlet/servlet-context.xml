@@ -79,7 +79,6 @@
 		<interceptor>
 			<mapping path="/mobo/movie/**"/>
 			
-<<<<<<< HEAD
 
 <!-- 			<exclude-mapping path="/mobo/movie/movierecom"/> -->
 <!-- 			<exclude-mapping path="/mobo/movie/moviebestboard"/> -->
@@ -98,16 +97,6 @@
 <!-- 			<beans:bean class="mobomobo.interceptor.MovieRecomInterceptor"/> -->
 <!-- 		</interceptor> -->
 
-=======
-<!-- 			<exclude-mapping path="/mobo/movie/movierecom"/> -->
-<!-- 			<exclude-mapping path="/mobo/movie/moviebestboard"/> -->
-
-
-<!-- 		<exclude-mapping path="/mobo/movie/debate"/> -->
-			
-<!-- 			<beans:bean class="mobomobo.interceptor.MovieRecomInterceptor"/> -->
-<!-- 		</interceptor> -->
->>>>>>> d1e014b3db452e1b8bf74e823d2039fb77401ba6
 		
 		<interceptor>
 			<mapping path="/admin/**" />
