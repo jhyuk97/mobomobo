@@ -28,7 +28,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="/admin/tables">
+            <a class="nav-link " href="/admin/movie/adminmoviedebatelist">
               <i class="ni ni-tv-2 text-orange"></i>영화토론
             </a>
           </li>
@@ -48,7 +48,7 @@
             </a>
           </li>
            <li class="nav-item">
-            <a class="nav-link " href="/admin/tables">
+            <a class="nav-link " href="/admin/movie/adminbookdebatelist">
               <i class="ni ni-tv-2 text-yellow"></i>책토론
             </a>
           </li>

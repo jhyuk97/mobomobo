@@ -166,8 +166,7 @@ public class MovieDebateController {
 	}
 	
 	@RequestMapping(value = "/movie/commentwrite")
-	@ResponseBody
-	public void writeComment(DebateComment debatecomment , HttpSession session) {
+	public @ResponseBody void writeComment(DebateComment debatecomment , HttpSession session) {
 		
 		debatecomment.setUserno((int)session.getAttribute("userno"));
 		debatecomment.setNick((String)session.getAttribute("nick"));

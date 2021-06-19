@@ -16,8 +16,22 @@ public class AdminPageInterceptor implements HandlerInterceptor {
 
 		HttpSession session = request.getSession();
 		
+		System.out.println("@@@@@@@@@@@@@@@@@@@2");
+		
 		if("user".equals(session.getAttribute("grade"))) {
 			
+			response.setContentType("text/html; charset=utf-8");
+			
+			PrintWriter out = response.getWriter();
+			
+			out.print("<script>location.replace('/mobo/errorpage2'); </script>");
+			
+			out.flush();
+			out.close();
+			
+			return false;
+			
+		}if(session.getAttribute("login") == null) {
 			response.setContentType("text/html; charset=utf-8");
 			
 			PrintWriter out = response.getWriter();

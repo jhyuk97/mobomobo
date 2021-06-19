@@ -528,9 +528,9 @@ function writingView(curPage) {
 				if(data.writing[i].boardDiv == 3) {
 					html += "	<td class='longTitle'><a href='/mobo/market/" + data.writing[i].boardNo + "' class='titleColor'>" + data.writing[i].title + "</a></td>"
 				} else if (data.writing[i].boardDiv == 4) {
-					html += "	<td class='longTitle'><a href='' class='titleColor'>" + data.writing[i].title + "</a></td>"					
+					html += "	<td class='longTitle'><a href='/mobo/movie/debate?dNo=" + data.writing[i].boardNo + "' class='titleColor'>" + data.writing[i].title + "</a></td>"					
 				} else if (data.writing[i].boardDiv == 5) {
-					html += "	<td class='longTitle'><a href='' class='titleColor'>" + data.writing[i].title + "</a></td>"					
+					html += "	<td class='longTitle'><a href='/mobo/book/debate?dNo=" + data.writing[i].boardNo + "' class='titleColor'>" + data.writing[i].title + "</a></td>"					
 				}
 				
 				html += "	<td>" + moment(data.writing[i].wdate).format('YYYY-MM-DD') + "</td>"
@@ -608,10 +608,10 @@ function commentView(curPage) {
 					html += "	<td class='longTitle'><a href='/mobo/book/famousDetail?bookBestno=" + data.comment[i].boardNo + "' class='titleColor'>" + data.comment[i].commentText + "</a></td>"
 					html += "	<td>책 명대사</td>"
 				} else if (data.comment[i].commentDiv == 4) {
-					html += "	<td class='longTitle'><a class='titleColor'>" + data.comment[i].commentText + "</a></td>"
+					html += "	<td class='longTitle'><a href='/mobo/movie/debate?dNo=" + data.comment[i].boardNo + "' class='titleColor'>" + data.comment[i].commentText + "</a></td>"
 					html += "	<td>영화 토론</td>"
 				} else if (data.comment[i].commentDiv == 5) {
-					html += "	<td class='longTitle'><a class='titleColor'>" + data.comment[i].commentText + "</a></td>"
+					html += "	<td class='longTitle'><a href='/mobo/movie/debate?dNo=" + data.comment[i].boardNo + "' class='titleColor'>" + data.comment[i].commentText + "</a></td>"
 					html += "	<td>책 토론</td>"
 				}
 				html += "	<td>" + moment(data.comment[i].wdate).format('YYYY-MM-DD') + "</td>"

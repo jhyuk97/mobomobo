@@ -43,10 +43,8 @@ public interface MovieDebateDao {
 	 */
 	public void insertDebate(Debate debate);
 
-	
-
 	/**
-	 * 추천 테이블 번호 조
+	 * 추천 테이블 번호 조회
 	 * @return
 	 */
 	public int selectDebateHotNo();
