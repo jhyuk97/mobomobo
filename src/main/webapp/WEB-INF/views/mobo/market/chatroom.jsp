@@ -64,6 +64,7 @@ function btnSend(){
 		var message = null;
 		
 		var roomid = null;
+		var isMe = null;
 				
 		// 현재 로그인 중인 유저닉네임 
 		var cur_session = '${nick}';
@@ -75,16 +76,26 @@ function btnSend(){
 		//채팅방 번호
 		roomid = arr[2];
 		//본인 메세지 체크
-		isMe = arr[3];
+		if(arr.length > 3){
+			isMe = arr[3];
+		}
+		console.log("메세지 보낸거: "+data);
+		console.log(arr);
+		
+		
+		
+		
+		
+		
 		
 		//같은 채팅방인지 확인
 		console.log('방확인시작')
 		if(roomid == '${roomid}'){
 			console.log('방진입');
 			var date = new Date();
-			var hours = date.getHours();
+			var hours = date.getHours() >= 10 ? date.getHours() : '0'+date.getHours()
 			var min = date.getMinutes() >= 10 ? date.getMinutes() : '0'+date.getMinutes()
-			var ampm = hours >= 12 ? '오후' : '오전';
+			var ampm = date.getHours() >= 12 ? '오후' : '오전';
 			var time = ampm + " " + hours + ":" + min;
 			
 			console.log(imgarr);
@@ -92,7 +103,7 @@ function btnSend(){
 			console.log("사용자번호 확인" + ${userno});
 			
 			for(var i=0; i<2; i++){
-			if(sessionId == cur_session && imgarr[i] == ${userno}){
+			if(isMe != null && imgarr[i] == ${userno}){
 				console.log('메세지 본인 확인');
 				
 				var str ="<li class='my'><div class='message-data align-right'>";
@@ -109,7 +120,7 @@ function btnSend(){
 				$("#msgCon").append(str);
 				$("#chatHis").scrollTop($("#chatHis")[0].scrollHeight);
 				
-			}else if(sessionId != cur_session && imgarr[i] != ${userno}){
+			}else if(isMe == null && imgarr[i] != ${userno}){
 				var str ="<li class='other'><div class='message-data'>";
 				if(${not empty uImg.get(i).storedName}){
 					str += "<img style='width:30px; border-radius:15px;' src='/emp/"+img[i]+"'/>";
