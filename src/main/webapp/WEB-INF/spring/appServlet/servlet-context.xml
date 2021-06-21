@@ -81,14 +81,19 @@
 			
 
 
-			<exclude-mapping path="/mobo/movie/movierecom"/>
-			<exclude-mapping path="/mobo/movie/moviebestboard"/>
 
+<<<<<<< HEAD
 			<exclude-mapping path="/mobo/movie/debate"/>
 			<exclude-mapping path="/mobo/main"/>
 	
 			<beans:bean class="mobomobo.interceptor.MovieRecomInterceptor"/>
 		</interceptor>
+=======
+<!-- 		<exclude-mapping path="/mobo/movie/debate"/> -->
+
+<!-- 			<beans:bean class="mobomobo.interceptor.MovieRecomInterceptor"/> -->
+<!-- 		</interceptor> -->
+>>>>>>> ab319c9e524e38e5048c1114819d16200018ef7e
 
 		
 		<interceptor>
