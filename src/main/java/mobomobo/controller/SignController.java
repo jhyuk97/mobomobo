@@ -139,7 +139,7 @@ public class SignController {
 
 		if(joinResult) {
 //			logger.info("회원가입 성공");
-			return "mobo/main";
+			return "redirect:/mobo/sign/login";
 
 		} else {
 //			logger.info("회원가입 실패");

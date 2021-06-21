@@ -294,7 +294,7 @@
       <div class="container">
         <div class="row no-gutters justify-content-center mb-5 pb-5">
           <div class="col-md-7 text-center heading-section ftco-animate">
-            <span class="subheading">맨부커 상</span>
+            <span class="subheading"></span>
             <p id="p">당신의 인생 영화, 무부무부에서 만나보세요</p>
             <div id="bookMarkView">
             <c:if test="${not empty login }">

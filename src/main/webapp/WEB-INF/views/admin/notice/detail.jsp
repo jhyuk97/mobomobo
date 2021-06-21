@@ -46,10 +46,10 @@
              <!-- 버튼 영역 -->
 <div class="text-center">
 	<a href="/admin/notice/list"><button class="btn btn-default">목록</button></a>
-	<c:if test="${id eq Notice.writerId }">
+<%-- 	<c:if test="${id eq Notice.writerId }"> --%>
 		<a href="/admin/notice/update?nNo=${notice.nNo }"><button class="btn btn-primary">수정</button></a>
 		<a href="/admin/notice/delete?nNo=${notice.nNo }"><button class="btn btn-danger">삭제</button></a>
-	</c:if>
+<%-- 	</c:if> --%>
 </div><!-- 버튼 영역 end -->   
             </div>
           </div>

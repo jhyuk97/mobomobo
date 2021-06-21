@@ -69,7 +69,7 @@
 	   			SELECT DC.dcno as commentno, DC.dno as boardno, DC.dccontent as commenttext, DC.dcdate as wdate, DC.commentdiv, DCL.likecnt
 	    		FROM debatecomment DC, (SELECT dcno ,COUNT(*) likecnt FROM debatecommenthot GROUP BY dcno )DCL
 	    		WHERE DC.dcno = DCL.dcno(+)
-	    		AND userid = #{userid}
+	    		AND userno = #{userno}
 	    		) C
 	    	ORDER BY wdate DESC
 		)
@@ -160,24 +160,24 @@
 	
 	<select id="selectCntAllComment" resultType="int" parameterType="string">
 		SELECT count(*) FROM(
-			SELECT rownum rnum, C.* FROM (
-	  			SELECT MC.commentno, MC.moviebestno as boardno, MC.commenttext, MC.commentdate as wdate, MC.commentdiv, MCL.likecnt
-	  			FROM moviebestcomment MC, (SELECT commentno,COUNT(*) likecnt FROM moviebestcommentlike GROUP BY commentno )MCL
-	 			WHERE MC.commentno = MCL.commentno(+)
-	  			AND id = #{userid}
-	  			UNION
-	  			SELECT BC.commentno, BC.bookbestno as boardno, BC.commenttext, BC.commentdate as wdate, BC.commentdiv, BCL.likecnt
-	  			FROM bookbestcomment BC, (SELECT commentno,COUNT(*) likecnt FROM bookbestcommentlike GROUP BY commentno )BCL
-				WHERE BC.commentno = BCL.commentno(+)
-	  			AND id = #{userid}
-	 			UNION
-	   			SELECT DC.dcno as commentno, DC.dno as boardno, DC.dccontent as commenttext, DC.dcdate as wdate, DC.commentdiv, DCL.likecnt
-	    		FROM debatecomment DC, (SELECT dcno ,COUNT(*) likecnt FROM debatecommenthot GROUP BY dcno )DCL
-	    		WHERE DC.dcno = DCL.dcno(+)
-	    		AND userid = #{userid}
-	    		) C
-	    	ORDER BY wdate DESC
-	)
+         SELECT rownum rnum, C.* FROM (
+              SELECT MC.commentno, MC.moviebestno as boardno, MC.commenttext, MC.commentdate as wdate, MC.commentdiv, MCL.likecnt
+              FROM moviebestcomment MC, (SELECT commentno,COUNT(*) likecnt FROM moviebestcommentlike GROUP BY commentno )MCL
+              WHERE MC.commentno = MCL.commentno(+)
+              AND id = #{userid}
+              UNION
+              SELECT BC.commentno, BC.bookbestno as boardno, BC.commenttext, BC.commentdate as wdate, BC.commentdiv, BCL.likecnt
+              FROM bookbestcomment BC, (SELECT commentno,COUNT(*) likecnt FROM bookbestcommentlike GROUP BY commentno )BCL
+              WHERE BC.commentno = BCL.commentno(+)
+              AND id = #{userid}
+              UNION
+              SELECT DC.dcno as commentno, DC.dno as boardno, DC.dccontent as commenttext, DC.dcdate as wdate, DC.commentdiv, DCL.likecnt
+              FROM debatecomment DC, (SELECT dcno ,COUNT(*) likecnt FROM debatecommenthot GROUP BY dcno )DCL
+              WHERE DC.dcno = DCL.dcno(+)
+              AND userno = #{userno}
+             ) C
+          ORDER BY wdate DESC
+   )
 	</select>
 	
 	

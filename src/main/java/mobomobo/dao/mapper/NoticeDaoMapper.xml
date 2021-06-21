@@ -52,7 +52,7 @@
 			SELECT notice_seq.nextval FROM dual
 		</selectKey>
 		
-		INSERT INTO notice( nno, ntitle, ncontent )
+		INSERT INTO notice( nno, ntitle, ncontent)
 		VALUES( #{nNo}, #{nTitle}, #{nContent} )
 	</insert>
 	

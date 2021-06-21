@@ -16,28 +16,28 @@
 	</logger>
 	
 		<!-- 마이바티스 쿼리 Loggers -->
-	<logger name="jdbc.connection">
-		<level value="warn" />
-	</logger>
-	<logger name="jdbc.audit">
-		<level value="warn" />
-	</logger>
-	<logger name="jdbc.sqlonly">
-		<level value="warn" />
-	</logger>
-	<logger name="jdbc.sqltiming">
-		<level value="info" />
-	</logger>
-	<logger name="jdbc.resultset">
-		<level value="warn" />
-	</logger>
-	<logger name="jdbc.resultsettable">
-		<level value="info" />
-	</logger>
+<!-- 	<logger name="jdbc.connection"> -->
+<!-- 		<level value="warn" /> -->
+<!-- 	</logger> -->
+<!-- 	<logger name="jdbc.audit"> -->
+<!-- 		<level value="warn" /> -->
+<!-- 	</logger> -->
+<!-- 	<logger name="jdbc.sqlonly"> -->
+<!-- 		<level value="warn" /> -->
+<!-- 	</logger> -->
+<!-- 	<logger name="jdbc.sqltiming"> -->
+<!-- 		<level value="info" /> -->
+<!-- 	</logger> -->
+<!-- 	<logger name="jdbc.resultset"> -->
+<!-- 		<level value="warn" /> -->
+<!-- 	</logger> -->
+<!-- 	<logger name="jdbc.resultsettable"> -->
+<!-- 		<level value="info" /> -->
+<!-- 	</logger> -->
 	
-	<logger name="org.mybatis">
-		<level value="warn" />
-	</logger>
+<!-- 	<logger name="org.mybatis"> -->
+<!-- 		<level value="warn" /> -->
+<!-- 	</logger> -->
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
@@ -65,27 +65,27 @@
 	</root>
 	
 	<!--  마이바티스 쿼리 Loggers -->
-	<logger name="jdbc.connection">
-		<level value="warn" />
-	</logger>
-	<logger name="jdbc.audit">
-		<level value="warn" />
-	</logger>
-	<logger name="jdbc.sqlonly">
-		<level value="warn" />
-	</logger>
-	<logger name="jdbc.sqltiming">
-		<level value="info" />
-	</logger>
-	<logger name="jdbc.resultset">
-		<level value="warn" />
-	</logger>
-	<logger name="jdbc.resultsettable">
-		<level value="info" />
-	</logger>
+<!-- 	<logger name="jdbc.connection"> -->
+<!-- 		<level value="warn" /> -->
+<!-- 	</logger> -->
+<!-- 	<logger name="jdbc.audit"> -->
+<!-- 		<level value="warn" /> -->
+<!-- 	</logger> -->
+<!-- 	<logger name="jdbc.sqlonly"> -->
+<!-- 		<level value="warn" /> -->
+<!-- 	</logger> -->
+<!-- 	<logger name="jdbc.sqltiming"> -->
+<!-- 		<level value="info" /> -->
+<!-- 	</logger> -->
+<!-- 	<logger name="jdbc.resultset"> -->
+<!-- 		<level value="warn" /> -->
+<!-- 	</logger> -->
+<!-- 	<logger name="jdbc.resultsettable"> -->
+<!-- 		<level value="info" /> -->
+<!-- 	</logger> -->
 	
-	<logger name="org.mybatis">
-		<level value="warn" />
-	</logger>
+<!-- 	<logger name="org.mybatis"> -->
+<!-- 		<level value="warn" /> -->
+<!-- 	</logger> -->
 	
 </log4j:configuration>

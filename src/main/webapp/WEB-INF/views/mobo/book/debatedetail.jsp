@@ -238,7 +238,7 @@ $(document).ready(function (){
 		// 게시글 추천
 		urlData = '/mobo/book/debatelike';
 		dataSet = {
-				'dNo' : ${Debate.dNo}
+				'dNo' : '${Debate.dNo}'
 		}
 		ajaxConn(urlData,dataSet);
 			
@@ -335,7 +335,7 @@ $(document).ready(function (){
             <input type="text" class="form-control ml-2" name="nick" placeholder="닉네임" id="moviebestcommentnick" value="${nick }" readonly="readonly">
          </div>
          <textarea class="form-control" id="exampleFormControlTextarea1" name="commentText" rows="3"></textarea>
-         <button type="button" id="btnmoviebestcomment" class="btn bg-replay mt-3" onclick="writeComment()" style="float: right;">댓글 등록</button>
+         <button type="button" id="btnmoviebestcomment" class="btn bg-replay mt-3" onclick="writeComment();" style="float: right;">댓글 등록</button>
           </li>
       </ul>
    </div>
@@ -354,7 +354,7 @@ $(document).ready(function (){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ko.min.js"></script>
   
-  <script type="text/javascript">
+<script type="text/javascript">
 	function writeComment() {
 		
 		$.ajax( {
@@ -363,6 +363,7 @@ $(document).ready(function (){
 			, data : {'dNo' : '${Debate.dNo}'
 					, 'dcContent' : $("#exampleFormControlTextarea1").val()
 			}
+			, async : false
 			, success : function() {
 				console.log("성공")
 				
@@ -372,8 +373,8 @@ $(document).ready(function (){
 				console.log("실패")
 			}
 			
-			})
-	}
+			});
+	};
 	
 	function listComment() {
 		
@@ -382,9 +383,7 @@ $(document).ready(function (){
 		$.ajax( {
 			type : 'get'
 				, url : '/mobo/book/commentlist'
-				, data : {'dNo' : '${Debate.dNo}'
-						
-				}
+				, data : {'dNo' : '${Debate.dNo}'}
 				, dataType : 'json'
 				, success : function(comment) {
 					console.log("여기 맞나?!?!?!?")
@@ -397,48 +396,37 @@ $(document).ready(function (){
 						
 					for( var i=0; i<comment.length; i++) {
 						html += "<ul class='list-group list-group-flush' data-dcNo='"+comment[i].dcNo+"'>"
-						html +=	"<li class='list-group-item'>"
-						html +=	"<div class='form-inline mb-2'>"
-						
-						html += "<i class='fa fa-user-circle fa-2x' style='margin-right:10px;'></i>";
-						html += comment[i].nick + " " + moment(comment[i].dcDate).format('YYYY-MM-DD')  +"</div> <br>"
-						html += comment[i].dcContent + "<br>"
-						
-						console.log(comment[i].userno)
+						html +=	"	<li class='list-group-item'>"
+						html +=	"		<div class='form-inline mb-2'>"
+						html += "			<i class='fa fa-user-circle fa-2x' style='margin-right:10px;'></i>";
+						html += 			comment[i].nick + " " + moment(comment[i].dcDate).format('YYYY-MM-DD')  +"</div> <br>"
+						html += 			comment[i].dcContent + "<br>"
 						
 						if( ${sessionScope.userno} != comment[i].userno ) {
 						
-						html += '<button class="btnMovieBestCommentLike rembutton purple" onclick="likeComment('+comment[i].dcNo+');"  >'
-						
-						if(comment[i].hotState == 0) {
-						html += '<i class="far fa-thumbs-up" aria-hidden="true"></i>'
-						} else {
-						html += '<i class="fa fa-thumbs-up" aria-hidden="true"></i>'
-						}
-						html += "<span>" + comment[i].hotCnt + "</span>"
-						html += '</button>'
+						html += 			'<button class="btnMovieBestCommentLike rembutton purple" onclick="likeComment('+comment[i].dcNo+');"  >'
 
+						if(comment[i].hotState == 0) {
+							html += '				<i class="far fa-thumbs-up" aria-hidden="true"></i>'
+							} else {
+							html += '				<i class="fa fa-thumbs-up" aria-hidden="true"></i>'
+							}
+							html += "				<span>" + comment[i].hotCnt + "</span>"
+							html += '			</button>'
 						}
-// 						html += "<span> 추천여부 : " + comment[i].hotState + "</span> <br>"
+//	 					html += "			<span> 추천여부 : " + comment[i].hotState + "</span> <br>"
 						
 						if( ${sessionScope.userno} == comment[i].userno ) {
-						
-						html += "<input type='button' class='btn bg-replay mt-3 deleteComment' onclick='deleteComment(" + comment[i].dcNo + ")' value='삭제' />"
-						
+							html += "			<input type='button' class='btn bg-replay mt-3 deleteComment' onclick='deleteComment(" + comment[i].dcNo + ")' value='삭제' />"
 						}
-						html += "</div></li></ul>"
+						html += "			</div></li></ul>"
 					}
 					
 					$("#commentlist").html(html);
 				}
-				, error : function() {
-					console.log("실패")
-				}
-				
-				})
-	
+		})
 	}
-	
+
 	function deleteComment(dcNo) {
 		
 		$.ajax( {
@@ -492,12 +480,13 @@ $(document).ready(function (){
 		  },700);
 		};
 
-		var bubblyButtons = document.getElementsByClassName("bubbly-button");
+// 		var bubblyButtons = document.getElementsByClassName("bubbly-button");
 
 		for (var i = 0; i < bubblyButtons.length; i++) {
 		  bubblyButtons[i].addEventListener('click', animateButton, false);
 		}
-  
+
+
 </script>
   
   

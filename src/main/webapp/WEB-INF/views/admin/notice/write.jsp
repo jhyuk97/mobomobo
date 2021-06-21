@@ -25,6 +25,8 @@ $(document).ready(function() {
 
 <form action="/admin/notice/write" method="post" >
 
+<%-- 	<input type="hidden" id="userno" value="${sessionScope.userno }"/> --%>
+
 	<div class="form-group">
 		<label for="writer">작성자</label>
 		<input type="text" id="writer" value="관리자" readonly="readonly"

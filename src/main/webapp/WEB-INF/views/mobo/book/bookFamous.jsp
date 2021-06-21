@@ -67,9 +67,16 @@ a { text-decoration:none; }
           <div class="col-md-3 ftco-animate">
             <div class="blog-entry">
             
-            
+            <c:choose>
+            	<c:when test="${item.STOREDIMG eq null}">
+              <a href="/mobo/book/famousDetail?bookBestno=${item.BOOKBESTNO }" class="block-20" style="background-image: url('/upload/KakaoTalk_20210619_222553362.jpg');">
+              </a>
+            	</c:when>
+            	<c:otherwise>
               <a href="/mobo/book/famousDetail?bookBestno=${item.BOOKBESTNO }" class="block-20" style="background-image: url('/upload/${item.STOREDIMG }');">
               </a>
+            	</c:otherwise>
+            </c:choose>
 <%--               <a href="/mobo/book/famousDetail?bookBestno=${item.BOOKBESTNO }" class="block-20" style="background-image: url('/resources/img/bookFamous_01.jpg');"> --%>
 <!--               </a> -->
             	

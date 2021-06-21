@@ -223,21 +223,21 @@ $(document).ready(function (){
 	listComment();
 	
 	$("#btnDebateBestLike").on("click",function(){
-		console.log("클릭")
-		console.log($(this).attr("id"))
+		console.log("클릭");
+		console.log($(this).attr("id"));
 		
 		var urlData = "";
 		var dataSet = "";
 				
 		
 		if($(this).attr("id") === $("#btnDebateBestLike").attr("id")){
-		console.log("클릭")
-		// 게시글 추천
-		urlData = '/mobo/movie/debatelike';
-		dataSet = {
-				'dNo' : ${Debate.dNo}
-		}
-		ajaxConn(urlData,dataSet);
+			console.log("클릭")
+			// 게시글 추천
+			urlData = '/mobo/movie/debatelike';
+			dataSet = {
+					'dNo' : '${Debate.dNo}'
+			}
+			ajaxConn(urlData,dataSet);
 			
 		} else if($(this) === $("#btnDebateBestLike")){
 		console.log("클릭")
@@ -245,6 +245,7 @@ $(document).ready(function (){
 		} 
 		
 	})//$("button").on("click",function(){end
+		
 	
 })
 	
@@ -272,6 +273,9 @@ function ajaxConn(urlData,dataSet){
 	})
 		
 }
+
+
+
 
 </script>
 
@@ -303,6 +307,7 @@ function ajaxConn(urlData,dataSet){
 		<div style="text-align: center;" class="button2"> 
 			<c:if test="${not empty login }">
 	  			<button style="width:110px; height:62px; font-size:15px;" id="btnDebateBestLike" class="bubbly-button" ><i class="fa fa-heart" aria-hidden="true"></i>&nbsp;&nbsp;<span id="bestLike">${likeCnt }</span>
+
 	 			</button> 
 			</c:if>
 	 	<button id="list" style="float: right; margin-top:50px; margin-bottom:50px; width:110px; height:62px; border:0px; font-size:15px;" class="btn btn-filled" onclick='location.href="/mobo/movie/debate";'>목록</button>
@@ -315,6 +320,7 @@ function ajaxConn(urlData,dataSet){
            <i class="fa fa-comment fa"></i> 댓글
    </div>
    
+
    <div id="commentlist"></div>
    
    <div class="form">
@@ -327,7 +333,7 @@ function ajaxConn(urlData,dataSet){
             <input type="text" class="form-control ml-2" name="nick" placeholder="닉네임" id="moviebestcommentnick" value="${nick }" readonly="readonly">
          </div>
          <textarea class="form-control" id="exampleFormControlTextarea1" name="commentText" rows="3"></textarea>
-         <button type="button" id="btnmoviebestcomment" class="btn bg-replay mt-3" onclick="writeComment()" style="float: right;">댓글 등록</button>
+         <button type="button" id="btnmoviebestcomment" class="btn bg-replay mt-3" onclick="writeComment();" style="float: right;" >댓글 등록</button>
           </li>
       </ul>
    </div>
@@ -347,9 +353,12 @@ function ajaxConn(urlData,dataSet){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/ko.min.js"></script>
   
 <script type="text/javascript">
-	function writeComment() {
+
+function writeComment(){
 		
-		$.ajax( {
+		console.log("@@@@@@@@@@")
+		
+		$.ajax({
 			type : 'get'
 			, url : '/mobo/movie/commentwrite'
 			, data : {'dNo' : '${Debate.dNo}'
@@ -365,8 +374,8 @@ function ajaxConn(urlData,dataSet){
 				console.log("실패")
 			}
 			
-			})
-	}
+			});
+	};
 	
 function listComment() {
 	
@@ -377,7 +386,7 @@ function listComment() {
 			, dataType : 'json'
 			, success : function(comment) {
 				
-			}
+
 				$("#commentlist").html();
 				
 				var html = "";
@@ -402,7 +411,7 @@ function listComment() {
 						html += "				<span>" + comment[i].hotCnt + "</span>"
 						html += '			</button>'
 					}
-					html += "			<span> 추천여부 : " + comment[i].hotState + "</span> <br>"
+// 					html += "			<span> 추천여부 : " + comment[i].hotState + "</span> <br>"
 					
 					if( ${sessionScope.userno} == comment[i].userno ) {
 						html += "			<input type='button' class='btn bg-replay mt-3 deleteComment' onclick='deleteComment(" + comment[i].dcNo + ")' value='삭제' />"
@@ -468,13 +477,13 @@ var animateButton = function(e) {
 	  },700);
 };
 
-var bubblyButtons = document.getElementsByClassName("bubbly-button");
+// var bubblyButtons = document.getElementsByClassName("bubbly-button");
 
 for (var i = 0; i < bubblyButtons.length; i++) {
 	bubblyButtons[i].addEventListener('click', animateButton, false);
 }
 
-  
+
 </script>
   
  
@@ -491,7 +500,7 @@ for (var i = 0; i < bubblyButtons.length; i++) {
  <script src="/resources/board/js/jquery.animateNumber.min.js"></script>
  <script src="/resources/board/js/bootstrap-datepicker.js"></script>
  
-<!--   <script src="/resources/board/js/particles.min.js"></script> -->
+  <script src="/resources/board/js/particles.min.js"></script>
  <script src="/resources/board/js/particle.js"></script>
  <script src="/resources/board/js/scrollax.min.js"></script>
  <script src="/resources/board/js/main.js"></script>
